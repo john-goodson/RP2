@@ -11,7 +11,7 @@ import { IResPlan } from '../res-plan.model';
 
 @Injectable()
 export class ResPlanService {
-    private _resPlanUrl = 'api/resPlans.json';
+    private _resPlanUrl = './app/api/resPlans.json';
 
     constructor(private _http: Http) { }
 

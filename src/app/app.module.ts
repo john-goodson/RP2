@@ -7,6 +7,7 @@ import { ResPlanService } from './resourcePlans/shared/resPlan.service'
 
 import { RouterModule } from '@angular/router'
 import { appRoutes } from './routes'
+import { HttpModule } from '@angular/http'
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { appRoutes } from './routes'
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes) 
+    RouterModule.forRoot(appRoutes) ,
+          HttpModule
   ],
   providers: [ ResPlanService],
   bootstrap: [AppComponent]
