@@ -1,0 +1,117 @@
+[
+    {
+        "id": 1,
+        "name": "John Goodson",
+        "org": {
+            "location": "Nashville",
+            "title": "Cons Engr",
+            "manager": "Ronnie"
+        },
+        "projects": [
+            {
+                "id": 1,
+                "name": "Data Center",
+                "intervals": [
+                    {
+                    "intervalName": "jan",
+                    "intervalValue": "40"
+                },
+                {
+                    "intervalName": "feb",
+                    "intervalValue": "80"
+                },
+                {
+                    "intervalName": "mar",
+                    "intervalValue": "80"
+                }
+                ]
+            },
+             {
+                "id": 2,
+                "name": "Windows Upgrade",
+                "intervals": [
+                    {
+                    "intervalName": "jan",
+                    "intervalValue": "40"
+                },
+                {
+                    "intervalName": "feb",
+                    "intervalValue": "80"
+                },
+                {
+                    "intervalName": "mar",
+                    "intervalValue": "80"
+                }
+                ]
+            },
+             {
+                "id": 3,
+                "name": "Server Upgrades",
+                "intervals": [
+                    {
+                    "intervalName": "jan",
+                    "intervalValue": "40"
+                },
+                {
+                    "intervalName": "feb",
+                    "intervalValue": "80"
+                },
+                {
+                    "intervalName": "mar",
+                    "intervalValue": "80"
+                }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Joe Colstad",
+        "org": {
+            "location": "Nashville",
+            "title": "PS Admin",
+            "manager": "Ronnie"
+        },
+        "projects": [
+            {
+                "id": 1,
+                "name": "Project XYZ for Joe Colstad",
+                "intervals": [
+                    {
+                    "intervalName": "jan",
+                    "intervalValue": "40"
+                },
+                {
+                    "intervalName": "feb",
+                    "intervalValue": "80"
+                },
+                {
+                    "intervalName": "mar",
+                    "intervalValue": "80"
+                }
+                ]
+            },
+            {
+                "id": 2,
+                "name": "Project 123 - Joe Colstad",
+                "intervals": [
+                    {
+                    "intervalName": "jan",
+                    "intervalValue": "40"
+                },
+                {
+                    "intervalName": "feb",
+                    "intervalValue": "80"
+                },
+                {
+                    "intervalName": "mar",
+                    "intervalValue": "80"
+                }
+                ]
+            }
+
+
+
+        ]
+    }
+]
