@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router'
 import { appRoutes } from './routes'
 import { HttpModule } from '@angular/http';
 import { ResPlanListComponent }  from './resourcePlans/res-plans.component';
+import { CollapsibleWellComponent } from './common/collapsible-well.component'
 
 
 
@@ -18,6 +19,7 @@ import { ResPlanListComponent }  from './resourcePlans/res-plans.component';
   declarations: [
     AppComponent,
     ResPlanSummaryComponent,
+    CollapsibleWellComponent,
     ResPlanListComponent
   ],
   imports: [

@@ -5,6 +5,7 @@ import { ResPlanService } from './shared/resPlan.service'
 import { ResPlanServiceHack}  from './shared/resPlanHack.service'
 
 
+
 @Component({
 
   templateUrl: './res-plan-summary.component.html',

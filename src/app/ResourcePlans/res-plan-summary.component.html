@@ -1,7 +1,21 @@
- <div class="row" *ngFor="let resplan of resPlans">
-    <div class="col-md-10">
-     {{resplan.name}}  
-      
-     <project-list [projects] = resplan.projects></project-list>
+<div class="row" *ngFor="let resplan of resPlans">
+  <div class="col-md-12">
+    <collapsible-well>
+      <!--<div class='panel panel-primary'>-->
+      <div well-title>
+        <!--<div class='panel-heading'>-->
+          {{resplan.name}}
+        </div>
+        <!--</div>-->
+        <div well-body>
+          <!--<div class='panel-body'>-->
+          <project-list [projects]= resplan.projects></project-list>
+          <!--</div>-->
+          <!--<div class='panel-footer'>-->
+          <a class="glyphicon glyphicon-plus" href="addNewProj"></a>
+          <!--</div>-->
+        </div>
+      <!--</div>-->
+    </collapsible-well>
   </div>
-</div> 
+</div>
