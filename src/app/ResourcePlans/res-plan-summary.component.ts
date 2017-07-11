@@ -2,19 +2,19 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
 import { IResPlan } from  './res-plan.model'
 import { ResPlanService } from './shared/resPlan.service'
+import { ResPlanServiceHack}  from './shared/resPlanHack.service'
+
 
 @Component({
-  template: `
-  <div class="row" *ngFor="let resplan of resPlans">
-    <div class="col-md-10">
-    {{resplan.name}}
-  </div>
-</div>  `,
+
+  templateUrl: './res-plan-summary.component.html',
+
 
   styles: [`
     .container { padding-left:20px; padding-right:20px; }
     .event-image { height:100px; }
-    a {cursor:pointer}
+    a {cursor:pointer},
+    
   `]
 })
 export class ResPlanSummaryComponent implements OnInit {
@@ -24,7 +24,7 @@ export class ResPlanSummaryComponent implements OnInit {
   sortBy: string = 'votes';
   errorMessage: string;
 
-  constructor(private _resPlanSvc: ResPlanService, private route: ActivatedRoute) {
+  constructor(private _resPlanSvc: ResPlanServiceHack, private route: ActivatedRoute) {
 
   }
 

@@ -11,11 +11,12 @@ import { IResPlan } from '../res-plan.model';
 
 @Injectable()
 export class ResPlanService {
-    private _resPlanUrl = './app/api/resPlans.json';
+    private _resPlanUrl = 'src/app/api/resPlans.json';
 
     constructor(private _http: Http) { }
 
     getResPlans(): Observable<IResPlan[]> {
+        console.log('url of resplans.json = ', this._resPlanUrl );
         return this._http.get(this._resPlanUrl)
             .map((response: Response) => <IResPlan[]> response.json())
             .do(data => console.log('All: ' +  JSON.stringify(data)))
@@ -34,3 +35,7 @@ export class ResPlanService {
         return Observable.throw(error.json().error || 'Server error');
     }
 }
+
+
+
+
