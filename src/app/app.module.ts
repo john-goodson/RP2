@@ -10,7 +10,7 @@ import { appRoutes } from './routes'
 import { HttpModule } from '@angular/http';
 import { ResPlanListComponent }  from './resourcePlans/res-plans.component';
 
-import 'bootstrap/dist/css/bootstrap.css';
+
 
 
 
