@@ -5,7 +5,11 @@ import { IProject } from './res-plan.model';
 @Component({
   selector: 'project-list',
   templateUrl: './res-plans.component.html',
-  styles: ['collapsible-well h6 {margin-top:-5px; margin-bottom:10px }'],
+  styles: ['collapsible-well h6 {margin-top:-5px; margin-bottom:10px }'
+  , '.table-responsive { overflow: auto} '
+
+
+  ],
 })
 
 export class ResPlanListComponent  {

@@ -10,9 +10,7 @@ import { appRoutes } from './routes'
 import { HttpModule } from '@angular/http';
 import { ResPlanListComponent }  from './resourcePlans/res-plans.component';
 import { CollapsibleWellComponent } from './common/collapsible-well.component'
-
-
-
+import { CollapsiblePanelComponent } from './common/collapsible-panel.component'
 
 
 @NgModule({
@@ -20,6 +18,7 @@ import { CollapsibleWellComponent } from './common/collapsible-well.component'
     AppComponent,
     ResPlanSummaryComponent,
     CollapsibleWellComponent,
+    CollapsiblePanelComponent,
     ResPlanListComponent
   ],
   imports: [

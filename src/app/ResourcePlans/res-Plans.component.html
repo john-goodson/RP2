@@ -1,21 +1,17 @@
-<div class="row" *ngFor="let project of projects">
 
-  <div class="col-md-10">
-       {{project.name}}
-      
+       <div class='table-responsive'>
+            <table class='table'
+                   *ngIf='projects && projects.length'>
+                <tbody>
+                    <tr *ngFor="let project of projects"  >
+               
+                        <td style="width:10%">{{ project.name | uppercase }}</td>
+                        <td style="width:5%"  *ngFor="let interval of project.intervals">
+                          {{interval.intervalValue}}
+                        </td>
 
-    <!--<collapsible-well>-->
-      <!--<div well-title>
-        {{project.name}}
-        <i *ngIf="session.voters.length > 3" class="glyphicon glyphicon-fire" style="color:red"></i>
-      </div>
-      <div well-body>
-        <h6>{{session.presenter}}</h6>
-        <span>Duration: {{session.duration | duration}}</span><br />
-        <span>Level: {{session.level}}</span>
+                    </tr>
+                </tbody>
+            </table>
 
-        <p>{{session.abstract}}</p>
-      </div>-->
-    <!--</collapsible-well>-->
-  </div>
-</div>
+

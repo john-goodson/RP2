@@ -9,6 +9,11 @@ import { Component, Input } from '@angular/core';
   </h4>
   <ng-content *ngIf="visible" select="[well-body]"></ng-content>
 </div>
+
+ <h2 [ngClass]="getTitleClass(event.format)">{{event.name}}</h2>  
+
+
+
   `
 })
 export class CollapsibleWellComponent {
