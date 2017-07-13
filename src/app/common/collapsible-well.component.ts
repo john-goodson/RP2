@@ -12,8 +12,6 @@ import { Component, Input } from '@angular/core';
 
  <h2 [ngClass]="getTitleClass(event.format)">{{event.name}}</h2>  
 
-
-
   `
 })
 export class CollapsibleWellComponent {
