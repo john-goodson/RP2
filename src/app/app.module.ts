@@ -11,7 +11,8 @@ import { HttpModule } from '@angular/http';
 import { ResPlanListComponent }  from './resourcePlans/res-plans.component';
 import { CollapsibleWellComponent } from './common/collapsible-well.component'
 import { CollapsiblePanelComponent } from './common/collapsible-panel.component'
-
+import {ResPlansHomeComponent} from './resourcePlans/res-plans-home.component'
+import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component'
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { CollapsiblePanelComponent } from './common/collapsible-panel.component'
     ResPlanSummaryComponent,
     CollapsibleWellComponent,
     CollapsiblePanelComponent,
-    ResPlanListComponent
+    ResPlanListComponent,
+    ResPlansHomeComponent,
+    ResPlanDetailsComponent
   ],
   imports: [
     BrowserModule,
