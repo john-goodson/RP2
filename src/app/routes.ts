@@ -4,6 +4,7 @@ import { ResPlanSummaryComponent }  from './resourcePlans/res-plan-summary.compo
 
 
 
+
 export const appRoutes : Routes = [
  
   { path: 'resPlans', component: ResPlanSummaryComponent},
