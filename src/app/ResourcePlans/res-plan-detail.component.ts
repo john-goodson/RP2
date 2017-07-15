@@ -4,9 +4,8 @@ import { IResPlan } from './res-plan.model';
 
 @Component({
   selector: 'resplan-detail',
-  templateUrl: './res-plan-detail.component.html',
-  styles: ['collapsible-well h6 {margin-top:-5px; margin-bottom:10px }'
-  ],
+  templateUrl: './res-plan-detail.component.html'
+  
 })
 
 export class ResPlanDetailsComponent  {
