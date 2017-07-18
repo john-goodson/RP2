@@ -1,22 +1,9 @@
-<table>
-    <tbody>
-  <resplan-detail  *ngFor="let resplan of resPlans" [resPlan]=resplan></resplan-detail>
-    </tbody>
-</table>
-<!--<div class="row" *ngFor="let resplan of resPlans">
-  <div class="col-md-12">
-
-    <collapsible-panel>
-      <div panel-title>
+<data-table>
+  <div *ngFor= "let resPlan of resPlans">
+    <summary-row>
+      <div row-summary>
         {{resplan.name}}
       </div>
-      <div panel-body>
-        <project-list [projects]= resplan.projects></project-list>
-      </div>
-      <div panel-footer>
-        <a href=""  class="glyphicon glyphicon-plus"></a>
-      </div>
-    </collapsible-panel>
-  </div>
-
-</div>-->
+    </summary-row>
+    </div>
+</data-table>
