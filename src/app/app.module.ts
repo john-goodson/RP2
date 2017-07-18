@@ -15,6 +15,8 @@ import {ResPlansHomeComponent} from './resourcePlans/res-plans-home.component'
 import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component'
 import {CollapsibleWidgetComponent} from './common/collapsible-widget.component'
 import { CollapsibleFooComponent} from './common/collapsible-foo.component'
+import { HeaderRowComponent} from './common/header-row.component'
+
 
 
 
@@ -28,7 +30,8 @@ import { CollapsibleFooComponent} from './common/collapsible-foo.component'
     ResPlanListComponent,
     ResPlansHomeComponent,
     ResPlanDetailsComponent,
-    CollapsibleFooComponent
+    CollapsibleFooComponent,
+    HeaderRowComponent
 
   ],
   imports: [
