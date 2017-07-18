@@ -57,7 +57,7 @@ const RESPLANS:IResPlan[] = [{
                 },
                 {
                     "intervalName": "feb",
-                    "intervalValue": "280"
+                    "intervalValue": "26"
                 },
                 {
                     "intervalName": "mar",
@@ -69,7 +69,7 @@ const RESPLANS:IResPlan[] = [{
                 },
                 {
                     "intervalName": "may",
-                    "intervalValue": "2280"
+                    "intervalValue": "26"
                 },
                 {
                     "intervalName": "jun",
@@ -111,7 +111,7 @@ const RESPLANS:IResPlan[] = [{
                 },
                 {
                     "intervalName": "feb",
-                    "intervalValue": "2380.66"
+                    "intervalValue": "33"
                 },
                 {
                     "intervalName": "mar",
@@ -352,7 +352,7 @@ const RESPLANS:IResPlan[] = [{
                 },
                 {
                     "intervalName": "feb",
-                    "intervalValue": "180"
+                    "intervalValue": "74"
                 },
                 {
                     "intervalName": "mar",
@@ -380,7 +380,7 @@ const RESPLANS:IResPlan[] = [{
                 },
                 {
                     "intervalName": "sep",
-                    "intervalValue": "180"
+                    "intervalValue": "80"
                 },
                  {
                     "intervalName": "oct",
@@ -402,7 +402,7 @@ const RESPLANS:IResPlan[] = [{
                 "intervals":  [
                     {
                     "intervalName": "jan",
-                    "intervalValue": "1140"
+                    "intervalValue": "18"
                 },
                 {
                     "intervalName": "feb",

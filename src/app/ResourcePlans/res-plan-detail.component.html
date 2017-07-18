@@ -1,3 +1,5 @@
+
+
 <table class="table table-bordered">
 
     <tbody *ngFor="let resPlan of resPlans">
@@ -5,10 +7,10 @@
             <div foo-title>
                 <tr>
 
-                    <td>
-                        {{resPlan.name}}
+                    <td style="width:500px">
+                        <h4>{{resPlan.name}}</h4>
                     </td>
-                    <td *ngFor="let interval of resPlan.projects[0].intervals">
+                    <td style="width:50px"  *ngFor="let interval of resPlan.projects[0].intervals">
 
                     </td>
 
@@ -17,11 +19,11 @@
             <div foo-body>
                 <tr *ngFor="let project of resPlan.projects">
 
-                    <td>
+                    <td style="width:500px; padding-left: 10px">
                         {{project.name}}
 
-                    </td>
-                    <td *ngFor="let interval of project.intervals">
+                    </td >
+                    <td style="width:50px" *ngFor="let interval of project.intervals">
                         {{interval.intervalValue}}
                     </td>
                 </tr>
