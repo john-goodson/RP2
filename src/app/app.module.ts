@@ -14,6 +14,11 @@ import { CollapsiblePanelComponent } from './common/collapsible-panel.component'
 import {ResPlansHomeComponent} from './resourcePlans/res-plans-home.component'
 import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component'
 import {CollapsibleWidgetComponent} from './common/collapsible-widget.component'
+import { CollapsibleFooComponent} from './common/collapsible-foo.component'
+import { HeaderRowComponent} from './common/header-row.component'
+
+
+
 
 @NgModule({
   declarations: [
@@ -24,7 +29,10 @@ import {CollapsibleWidgetComponent} from './common/collapsible-widget.component'
     CollapsibleWidgetComponent,
     ResPlanListComponent,
     ResPlansHomeComponent,
-    ResPlanDetailsComponent
+    ResPlanDetailsComponent,
+    CollapsibleFooComponent,
+    HeaderRowComponent
+
   ],
   imports: [
     BrowserModule,
