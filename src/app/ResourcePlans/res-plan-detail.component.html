@@ -1,17 +1,36 @@
-                   <tr >
-                        <td>
-                        {{resPlan.name}}
-                        </td>
-                        <td *ngFor="let interval of resPlan.projects[0].intervals"><td>
-                    </tr>
-                    <tr *ngFor="let project of resPlan.projects"  >
-               
-                        <td>{{ project.name | uppercase }}</td>
-                        <td *ngFor="let interval of project.intervals">
-                          {{interval.intervalValue}}
-                        </td>
 
-                    </tr>
+<div>
+<table  class="table table-bordered" >
+      
+    <tbody *ngFor="let resPlan of resPlans">
+       
+          
+          
+            
+                <tr >
                     
-                
+                <td>
+                   {{resPlan.name}}
+            </td>
+                <td *ngFor="let interval of resPlan.projects[0].intervals">
+                    
+               </td>
+             
+        </tr>
+            
+                <tr *ngFor="let project of resPlan.projects">
+                    
+                    <td>
+            {{project.name}}
 
+        </td>
+        <td  *ngFor="let interval of project.intervals">
+                          {{interval.intervalValue}}
+          </td>
+                   
+                </tr>
+        
+           
+    </tbody>
+        
+            </table>
