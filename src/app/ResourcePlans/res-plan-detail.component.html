@@ -1,28 +1,19 @@
+
 <div class="container">
-    <table class="table table-condensed">
-
-        <tbody>
-            <tr>
-                <td style="width:500px"></td>
-                <td style="width:60px" *ngFor="let interval of resPlans[0].projects[0].intervals">
-                    {{interval.intervalName}}
-            </tr>
-
-        </tbody>
-    </table>
-
-    <table class="table table-condensed">
-
-        <tbody *ngFor="let resPlan of resPlans">
+   <header-row [_resPlans]= resPlans></header-row>
+    <div style="margin-top:100px">
+    <table class="table table-condensed" >
+ 
+        <tbody *ngFor="let resPlan of resPlans" >
             <collapsible-foo>
                 <div foo-title>
                     <tr>
 
-                        <td style="width:500px">
-                            <h4>{{resPlan.name}}</h4>
+                        <td >
+                            <h4><div style="width:500px">{{resPlan.name}}</div></h4>
                         </td>
-                        <td style="width:60px" *ngFor="let interval of resPlan.projects[0].intervals">
-
+                        <td  *ngFor="let interval of resPlan.projects[0].intervals">
+                          <div style="width:100px"></div>
                         </td>
 
                     </tr>
@@ -30,12 +21,12 @@
                 <div foo-body>
                     <tr *ngFor="let project of resPlan.projects">
 
-                        <td style="width:500px; padding-left: 10px">
-                            {{project.name}}
+                        <td >
+                           <div style="width:500px;"> {{project.name}}</div>
 
                         </td>
-                        <td style="width:60px" *ngFor="let interval of project.intervals">
-                            {{interval.intervalValue}}
+                        <td  *ngFor="let interval of project.intervals">
+                           <div style="width:100px"> {{interval.intervalValue}}</div>
                         </td>
                     </tr>
                 </div>
@@ -44,5 +35,5 @@
         </tbody>
 
     </table>
-
+</div>
 </div>

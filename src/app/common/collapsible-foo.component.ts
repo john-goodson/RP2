@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'collapsible-foo',
   template: `
-<div (click)="toggleContent()" class="well pointable">
+<div (click)="toggleContent()" class="well pointable" style="width:100%">
 
     <ng-content select="[foo-title]"></ng-content> 
 

@@ -8,7 +8,22 @@ import { ResPlanServiceHack}  from './shared/resPlanHack.service'
 
 @Component({
 
-  templateUrl: './res-plans-home.component.html'
+  templateUrl: './res-plans-home.component.html',
+  styles:[`.outer {position:relative}
+.inner {
+  overflow-x:auto;
+  overflow-y:auto;
+  margin-left:100px;
+}
+table {
+  table-layout: fixed; 
+  width: 100%;
+  *margin-left: -100px;/*ie7*/
+}
+table.fixed {table-layout:fixed; }/*Setting the table width is important!*/
+table.fixed td {overflow:hidden;}/*Hide text outside the cell.*/
+
+`]
 })
 export class ResPlansHomeComponent implements OnInit {
   resPlans: IResPlan[]
