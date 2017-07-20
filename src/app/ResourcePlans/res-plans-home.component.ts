@@ -9,19 +9,22 @@ import { ResPlanServiceHack}  from './shared/resPlanHack.service'
 @Component({
 
   templateUrl: './res-plans-home.component.html',
-  styles:[`.outer {position:relative}
-.inner {
-  overflow-x:auto;
-  overflow-y:auto;
-  margin-left:100px;
+  styles:[`.outer-container
+{
+    background-color: #ccc;
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0px;
+    bottom: 40px;
 }
-table {
-  table-layout: fixed; 
-  width: 100%;
-  *margin-left: -100px;/*ie7*/
+
+.inner-container
+{
+    height: 100%;
+    overflow: hidden;
+    width:300px;
 }
-table.fixed {table-layout:fixed; }/*Setting the table width is important!*/
-table.fixed td {overflow:hidden;}/*Hide text outside the cell.*/
 
 `]
 })

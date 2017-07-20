@@ -3,10 +3,10 @@ import { IResPlan } from './res-plan.model';
 
 
 @Component({
-  selector: 'resplan-detail',
-  templateUrl: './res-plan-detail.component.html',
-  styles : [`
-  {
+  selector: 'resplan-detail2',
+  templateUrl: './res-plan-detail2.component.html',
+  styles : [`*
+{
     padding: 0;
     margin: 0;
 }
@@ -20,12 +20,32 @@ table
 {
     border-collapse: collapse;
 }
-  .table-body
+.outer-container
+{
+    background-color: #ccc;
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 300px;
+    bottom: 40px;
+}
+
+.inner-container
+{
+    height: 100%;
+    overflow: hidden;
+}
+
+.table-header
+{
+    position: relative;
+}
+.table-body
 {
     overflow: auto;
-    width:100%;
 }
-  .header-cell
+
+.header-cell
 {
     text-align: left;
     height: 40px;
@@ -34,19 +54,18 @@ table
 {
     text-align: left;
 }
-.col1
+.col1, .col3, .col4, .col5
 {
     width:220px;
     min-width: 220px;
 }
-.col
+.col2
 {
-    width:100px;
-    min-width: 100px;
+    min-width: 300px;
 }`]
 })
 
-export class ResPlanDetailsComponent  {
+export class ResPlanDetails2Component  {
   @Input() resPlans: IResPlan[];
   @Input() filterBy: string;
   @Input() sortBy: string;

@@ -1,14 +1,15 @@
-<div style="position:relative;overflow:none;display:block;background-color:white;top:60px;">
+ <div class="table-header">
 <table>
 <thead >
             <tr>
-                <th>
-                    <div style="width:350px"></div>
-                </th>
-                <th  *ngFor="let interval of _resPlans[0].projects[0].intervals">
-                   <div style="width:100px;padding:19px;"> {{interval.intervalName}}</div></th>
+                <td>
+                    <div class="header-cell col1"></div>
+                </td>
+                <td  *ngFor="let interval of _resPlans[0].projects[0].intervals">
+                   <div class="header-cell col" style="padding:19px;"> {{interval.intervalName}}</div></td>
             </tr>
 
         </thead>
-        </table>
-    </div>
+</table>
+ </div>
+

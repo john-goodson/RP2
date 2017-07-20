@@ -10,7 +10,9 @@ import { appRoutes } from './routes'
 import { HttpModule } from '@angular/http';
 
 import {ResPlansHomeComponent} from './resourcePlans/res-plans-home.component'
-import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component'
+import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component';
+
+import {ResPlanDetails2Component} from './resourcePlans/res-plan-detail2.component';
 
 import { CollapsibleWellComponent} from './common/collapsible-well.component'
 import { HeaderRowComponent} from './common/header-row.component'
@@ -24,6 +26,7 @@ import { HeaderRowComponent} from './common/header-row.component'
 
     ResPlansHomeComponent,
     ResPlanDetailsComponent,
+    ResPlanDetails2Component,
     CollapsibleWellComponent,
     HeaderRowComponent
 

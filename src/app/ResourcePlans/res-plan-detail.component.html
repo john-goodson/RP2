@@ -1,8 +1,10 @@
-<div class="container" style="margin-left:5px">
-    <header-row [_resPlans]= resPlans></header-row>
+<div class="" style="margin-left:5px;max-width:100%">
+    
     <div style="margin-top:100px">
-        <table class="table table-condensed">
-
+        <header-row [_resPlans]= resPlans></header-row>
+        <div class="table-body">
+        <table class="table">
+          
             <tbody *ngFor="let resPlan of resPlans">
                 <collapsible-well>
                     <div well-title>
@@ -10,11 +12,11 @@
 
                             <td>
                                 <h4>
-                                    <div style="width: 350px">{{resPlan.name}}</div>
+                                   <div class="body-cell col1" >{{resPlan.name}}</div>
                                 </h4>
                             </td>
                              <td  *ngFor="let interval of resPlan.projects[0].intervals; let i = index" >
-                                <div style="width:100px"  >
+                                <div class="body-cell col" >
                                    {{sumRows(resPlan, i )}}  
                                 </div>
                             </td> 
@@ -28,12 +30,12 @@
                         <tr *ngFor="let project of resPlan.projects">
 
                             <td>
-                                <div style="width: 350px;"> {{project.name}} </div>
+                                <div class="body-cell col1"> {{project.name}} </div>
 
                             </td>
                             <td *ngFor="let interval of project.intervals">
                            
-                                    <div style="width:100px">
+                                      <div class="body-cell col" >
                                         <input type="text" value="{{interval.intervalValue}}" style="max-width:100%"/>
                                     </div>
                                
@@ -45,5 +47,6 @@
             </tbody>
 
         </table>
+        </div>
     </div>
 </div>
