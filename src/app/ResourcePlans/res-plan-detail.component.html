@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="margin-left:5px">
     <header-row [_resPlans]= resPlans></header-row>
     <div style="margin-top:100px">
         <table class="table table-condensed">
@@ -34,7 +34,7 @@
                             <td *ngFor="let interval of project.intervals">
                            
                                     <div style="width:100px">
-                                        <input type="text" value="{{interval.intervalValue}}">
+                                        <input type="text" value="{{interval.intervalValue}}" style="max-width:100%"/>
                                     </div>
                                
                             </td>
