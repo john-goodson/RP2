@@ -1,39 +1,44 @@
-
 <div class="container">
-   <header-row [_resPlans]= resPlans></header-row>
+    <header-row [_resPlans]= resPlans></header-row>
     <div style="margin-top:100px">
-    <table class="table table-condensed" >
- 
-        <tbody *ngFor="let resPlan of resPlans" >
-            <collapsible-foo>
-                <div foo-title>
-                    <tr>
+        <table class="table table-condensed">
 
-                        <td >
-                            <h4><div style="width:500px">{{resPlan.name}}</div></h4>
-                        </td>
-                        <td  *ngFor="let interval of resPlan.projects[0].intervals">
-                          <div style="width:100px"></div>
-                        </td>
+            <tbody *ngFor="let resPlan of resPlans">
+                <collapsible-well>
+                    <div well-title>
+                        <tr>
 
-                    </tr>
-                </div>
-                <div foo-body>
-                    <tr *ngFor="let project of resPlan.projects">
+                            <td>
+                                <h4>
+                                    <div style="width: 350px">{{resPlan.name}}</div>
+                                </h4>
+                            </td>
+                            <td *ngFor="let interval of resPlan.projects[0].intervals">
+                                <div style="width:100px"></div>
+                            </td>
 
-                        <td >
-                           <div style="width:500px;"> {{project.name}}</div>
+                        </tr>
+                    </div>
+                    <div well-body>
+                        <tr *ngFor="let project of resPlan.projects">
 
-                        </td>
-                        <td  *ngFor="let interval of project.intervals">
-                           <div style="width:100px"> {{interval.intervalValue}}</div>
-                        </td>
-                    </tr>
-                </div>
-            </collapsible-foo>
+                            <td>
+                                <div style="width: 350px;"> {{project.name}} </div>
 
-        </tbody>
+                            </td>
+                            <td *ngFor="let interval of project.intervals">
+                           
+                                    <div style="width:100px">
+                                        <input type="text" value="{{interval.intervalValue}}">
+                                    </div>
+                               
+                            </td>
+                        </tr>
+                    </div>
+                </collapsible-well>
 
-    </table>
-</div>
+            </tbody>
+
+        </table>
+    </div>
 </div>

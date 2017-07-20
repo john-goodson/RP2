@@ -1,18 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'collapsible-well',
-  template: `
-<div (click)="toggleContent()" class="well pointable">
-  <h4>
-    <ng-content select="[well-title]"></ng-content>
-  </h4>
-  <ng-content *ngIf="visible" select="[well-body]"></ng-content>
-</div>
-
- <h2 [ngClass]="getTitleClass(event.format)">{{event.name}}</h2>  
-
-  `
+  templateUrl: './collapsible-well.component.html'
 })
 export class CollapsibleWellComponent {
   visible: boolean = true;

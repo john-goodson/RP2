@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router'
 import { ResPlansHomeComponent }  from './resourcePlans/res-plans-home.component'
-import { ResPlanSummaryComponent }  from './resourcePlans/res-plan-summary.component'
+
 
 
 

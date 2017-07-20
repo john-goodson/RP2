@@ -8,7 +8,7 @@ import { IResPlan }  from '../resourcePlans/res-plan.model';
 export class HeaderRowComponent {
   visible: boolean = true;
   @Input() _resPlans: IResPlan[];
-@Input() foo: number ;
+
   
 
 

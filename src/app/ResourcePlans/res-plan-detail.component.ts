@@ -18,7 +18,9 @@ export class ResPlanDetailsComponent  {
   @Input() filterBy: string;
   @Input() sortBy: string;
 
-  //todo... add methods for sorting and filtering.
+  //editMode: boolean = false;
+  
+
 
 }
 
