@@ -13,9 +13,14 @@
                                     <div style="width: 350px">{{resPlan.name}}</div>
                                 </h4>
                             </td>
-                            <td *ngFor="let interval of resPlan.projects[0].intervals">
-                                <div style="width:100px"></div>
-                            </td>
+                             <td  *ngFor="let interval of resPlan.projects[0].intervals; let i = index" >
+                                <div style="width:100px"  >
+                                   {{sumRows(resPlan, i )}}  
+                                </div>
+                            </td> 
+
+
+
 
                         </tr>
                     </div>

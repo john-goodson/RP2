@@ -17,8 +17,19 @@ export class ResPlanDetailsComponent  {
   @Input() resPlans: IResPlan[];
   @Input() filterBy: string;
   @Input() sortBy: string;
+  foo: number = 0;
 
   //editMode: boolean = false;
+
+  sumRows(resPlan, index) {
+   var sum = 0;
+   for(var j=0;j<resPlan.projects.length;j++)
+   {
+     sum+= +(resPlan.projects[j].intervals[index].intervalValue);
+   }
+    return sum;
+ }
+  
   
 
 

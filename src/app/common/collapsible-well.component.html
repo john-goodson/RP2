@@ -1,6 +1,6 @@
-<div (click)="toggleContent()" class="well pointable" style="width:100%" >
+<div  class="well pointable" style="width:100%" >
 
-    <a [ngClass] = "visible? 'glyphicon glyphicon-minus' : 'glyphicon glyphicon-plus'"> </a>
+    <a (click)="toggleContent()" [ngClass] = "visible? 'glyphicon glyphicon-minus' : 'glyphicon glyphicon-plus'" > </a>
      <ng-content select="[well-title]"  >
     </ng-content>
 
