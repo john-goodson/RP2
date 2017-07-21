@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Inject } from '@angular/core'
 import { ActivatedRoute, Params } from '@angular/router'
 import { IResPlan } from  './res-plan.model'
 import { ResPlanService } from './shared/resPlan.service'
 import { ResPlanServiceHack}  from './shared/resPlanHack.service'
-import $ from 'jquery';
-import {AfterViewInit} from '@angular/core';  
+// import $ from 'jquery';
+import {AfterViewInit, AfterViewChecked} from '@angular/core'
+import { JQ_TOKEN } from '../common/jquery.service'
+
 
 
 @Component({
@@ -29,33 +31,32 @@ import {AfterViewInit} from '@angular/core';
 
 `]
 })
-export class ResPlansHomeComponent implements OnInit,AfterViewInit {
+export class ResPlansHomeComponent implements OnInit, AfterViewChecked {
   resPlans: IResPlan[]
   editMode: boolean
   filterBy: string = 'all';
   sortBy: string = 'votes';
   errorMessage: string;
 
-  constructor(private _resPlanSvc: ResPlanServiceHack, private route: ActivatedRoute) {
-
+  constructor(private _resPlanSvc: ResPlanServiceHack, private route: ActivatedRoute, @Inject(JQ_TOKEN) private $: any) {
+ 
   }
 
   ngOnInit() {
     this._resPlanSvc.getResPlans().subscribe(resPlans => this.resPlans = resPlans, 
       error => this.errorMessage = <any>error);
-      
     
 
   }
-ngAfterViewInit() {
-  $(document).ready(function () {
+ngAfterViewChecked() {
+ 
   this.setTableBody();
-    $(window).resize(this.setTableBody);
-    $(".table-body").scroll(function ()
+    this.$(window).resize(this.setTableBody);
+    this.$(".table-body").scroll(function ()
     {
-        $(".table-header").offset({ left: -1*this.scrollLeft });
+        this.$(".table-header").offset({ left: -1*this.scrollLeft });
     });
-  });    
+ 
 }
   getIntervalCount()
   {
@@ -69,9 +70,9 @@ ngAfterViewInit() {
     
   setTableBody()
 {
-   console.log("setTableBody fired" + $(".outer-container").width() + "=" + $(".table").width()); 
-   $(".table-body").height($(".inner-container").height() - $(".table-header").height());
-    $(".outer-container").width($(".table").width());
+   console.log("setTableBody fired" + this.$(".outer-container").width() + "=" + this.$(".table").width()); 
+   this.$(".table-body").height(this.$(".inner-container").height() - this.$(".table-header").height());
+    this.$(".outer-container").width(this.$(".table").width());
     
 }
 

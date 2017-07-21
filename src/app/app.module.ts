@@ -16,6 +16,10 @@ import {ResPlanDetails2Component} from './resourcePlans/res-plan-detail2.compone
 
 import { CollapsibleWellComponent} from './common/collapsible-well.component'
 import { HeaderRowComponent} from './common/header-row.component'
+import { JQ_TOKEN }    from './common/jquery.service'
+
+declare let jQuery : Object;
+
 
 
 
@@ -36,7 +40,7 @@ import { HeaderRowComponent} from './common/header-row.component'
     RouterModule.forRoot(appRoutes) ,
           HttpModule
   ],
-  providers: [ ResPlanServiceHack],
+  providers: [ ResPlanServiceHack,  { provide: JQ_TOKEN, useValue: jQuery }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
