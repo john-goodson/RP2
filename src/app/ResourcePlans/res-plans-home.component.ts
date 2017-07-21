@@ -16,7 +16,7 @@ import { JQ_TOKEN } from '../common/jquery.service'
 {
     background-color: #ccc;
     position: absolute;
-    top:0;
+    top:50px;
     left: 0;
     right: 0px;
     bottom: 40px;
@@ -58,20 +58,11 @@ ngAfterViewChecked() {
     });
  
 }
-  getIntervalCount()
-  {
-      if(this.resPlans && this.resPlans.length> 0 && this.resPlans[0].projects && this.resPlans[0].projects.length > 0 
-      && this.resPlans[0].projects[0].intervals)
-      {
-          return this.resPlans[0].projects[0].intervals.length;
-      }
-      return 0;
-  } 
+  
     
   setTableBody()
 {
-   console.log("setTableBody fired" + this.$(".outer-container").width() + "=" + this.$(".table").width()); 
-   this.$(".table-body").height(this.$(".inner-container").height() - this.$(".table-header").height());
+    this.$(".table-body").height(this.$(".inner-container").height() - this.$(".table-header").height());
     this.$(".outer-container").width(this.$(".table").width());
     
 }
