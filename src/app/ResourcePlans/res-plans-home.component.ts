@@ -26,7 +26,6 @@ import { JQ_TOKEN } from '../common/jquery.service'
 {
     height: 100%;
     overflow: hidden;
-    width:100%;
 }
 
 `]
@@ -50,8 +49,8 @@ export class ResPlansHomeComponent implements OnInit, AfterViewChecked {
   }
 ngAfterViewChecked() {
  
-  this.setTableBody();
-    this.$(window).resize(this.setTableBody);
+  this.setTableBody(false);
+    this.$(window).resize(this.setTableBody(true));
     this.$(".table-body").scroll(function ()
     {
         this.$(".table-header").offset({ left: -1*this.scrollLeft });
@@ -60,9 +59,10 @@ ngAfterViewChecked() {
 }
   
     
-  setTableBody()
+  setTableBody(heightOnly)
 {
     this.$(".table-body").height(this.$(".inner-container").height() - this.$(".table-header").height());
+    if(heightOnly != true)
     this.$(".outer-container").width(this.$(".table").width());
     
 }
