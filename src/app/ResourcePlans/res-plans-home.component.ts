@@ -16,7 +16,7 @@ import { JQ_TOKEN } from '../common/jquery.service'
 {
     background-color: #ccc;
     position: absolute;
-    top:50px;
+    top:60px;
     left: 0;
     right: 0px;
     bottom: 40px;
@@ -53,17 +53,21 @@ ngAfterViewChecked() {
     this.$(window).resize(this.setTableBody(true));
     this.$(".table-body").scroll(function ()
     {
-        this.$(".table-header").offset({ left: -1*this.scrollLeft });
+       this.scrollHeader(this);
     });
  
 }
-  
+scrollHeader(t)
+{
+    t.$(".table-header").offset({ left: -1*t.scrollLeft });
+}
     
   setTableBody(heightOnly)
 {
-    this.$(".table-body").height(this.$(".inner-container").height() - this.$(".table-header").height());
-    if(heightOnly != true)
-    this.$(".outer-container").width(this.$(".table").width());
+    console.log("setTableBody fired");
+    this.$(".table-body").height(this.$(".resTable").height() - this.$(".table-header").height());
+     if(heightOnly != true)
+     this.$(".outer-container").width(this.$(".resTable").width());
     
 }
 

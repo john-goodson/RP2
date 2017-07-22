@@ -23,7 +23,7 @@ table
   .table-body
 {
     overflow: auto;
-    width:100%;
+    display-inline-block;
 }
   .header-cell
 {

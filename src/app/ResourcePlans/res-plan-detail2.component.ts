@@ -5,21 +5,12 @@ import { IResPlan } from './res-plan.model';
 @Component({
   selector: 'resplan-detail2',
   templateUrl: './res-plan-detail2.component.html',
-  styles : [`*
-{
-    padding: 0;
-    margin: 0;
-}
-
-body
-{
-    height: 100%;
-    width: 100%;
-}
+  styles : [`
 table
 {
     border-collapse: collapse;
 }
+
 .outer-container
 {
     background-color: #ccc;
