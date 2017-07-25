@@ -1,0 +1,18 @@
+
+
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div formArrayName="resNames">
+        <div *ngFor="let name of resNames.controls; index as i">
+          <input [formControlName]="i" placeholder="Name"> 
+          
+        </div>
+      </div>
+   
+      
+        <button>Submit</button>
+    </form>
+    
+    <button (click)="addCity()">Add Project</button>
+    <button (click)="setPreset()">Set preset</button>
+  
