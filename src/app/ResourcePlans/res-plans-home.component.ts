@@ -64,7 +64,7 @@ scrollHeader(t)
     
   setTableBody(heightOnly)
 {
-    console.log("setTableBody fired");
+    //console.log("setTableBody fired");
     this.$(".table-body").height(this.$(".resTable").height() - this.$(".table-header").height());
      if(heightOnly != true)
      this.$(".outer-container").width(this.$(".resTable").width());

@@ -17,11 +17,10 @@ import {ResPlanDetails2Component} from './resourcePlans/res-plan-detail2.compone
 import { CollapsibleWellComponent} from './common/collapsible-well.component'
 import { HeaderRowComponent} from './common/header-row.component'
 import { JQ_TOKEN }    from './common/jquery.service'
+import {  NestedFormArray } from './poc/formArray.component'
+import { ReactiveFormsModule } from '@angular/forms'
 
 declare let jQuery : Object;
-
-
-
 
 
 @NgModule({
@@ -32,13 +31,15 @@ declare let jQuery : Object;
     ResPlanDetailsComponent,
     ResPlanDetails2Component,
     CollapsibleWellComponent,
-    HeaderRowComponent
+    HeaderRowComponent,
+    NestedFormArray
 
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes) ,
-          HttpModule
+          HttpModule, 
+          ReactiveFormsModule 
   ],
   providers: [ ResPlanServiceHack,  { provide: JQ_TOKEN, useValue: jQuery }],
   bootstrap: [AppComponent]
