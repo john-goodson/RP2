@@ -1,18 +1,22 @@
-
-
-
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div formArrayName="resNames">
-        <div *ngFor="let name of resNames.controls; index as i">
-          <input [formControlName]="i" placeholder="Name"> 
-          
-        </div>
-      </div>
-   
-      
-        <button>Submit</button>
-    </form>
-    
-    <button (click)="addCity()">Add Project</button>
-    <button (click)="setPreset()">Set preset</button>
-  
+    <!-- <div formArrayName="resNames">
+        <tr *ngFor="let name of resNames.controls; index as i">
+            <td>
+                <input [formControlName]="i" placeholder="Name">
+            </td> -->
+    <div formArrayName="projects">
+        <tr *ngFor="let project of projects.controls; index as j">
+
+            <td>
+                <input [formControlName]="j" placeholder="project">
+            </td>
+        </tr>
+    </div>
+
+
+
+    <button>Submit</button>
+</form>
+
+<button (click)="addCity()">Add Project</button>
+<button (click)="setPreset()">Set preset</button>
