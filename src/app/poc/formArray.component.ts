@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { IResPlan } from '../resourceplans/res-plan.model'
+import { Component,ChangeDetectorRef  } from '@angular/core';
+import { FormArray, FormControl, FormGroup,FormBuilder } from '@angular/forms';
+import { IResPlan,IIntervals } from '../resourceplans/res-plan.model'
 
 @Component({
   selector: 'form-array',
@@ -8,33 +8,81 @@ import { IResPlan } from '../resourceplans/res-plan.model'
 })
 
 export class NestedFormArray {
+intervalLength : number
+constructor(private fb: FormBuilder,changeDetectorRef: ChangeDetectorRef ) {}
+  form = this.fb.group({
+  resPlans: this.fb.array([
+    
+  ])
+});
+createGroup(name : string){
+return this.fb.group(
+  {'name': [name],
+   'projects' : this.fb.array ([]) ,
+   'totals' : this.fb.array([]),
+   
+});
+}
+calculateTotals(value:Object)
+{
+  debugger;
+  console.log("calculateTotals fired")
+  for (var i = 0; i < this.intervalLength; i++){
+    var sum=0.0;
+     for(var j=0;j<value['projects'].length;j++)
+      {
+         sum += +(value['projects'][j]["intervals"][i]);
+      }
+      value['totals'][i] =sum;
+  }
+    
+   return value; 
+   
+  //group.controls['intervals'] as FormArray).reduce((sum, val) => sum + val, 0);
+}
+createProject(name:string)
+{
+  return this.fb.group(
+  {'projectName': [name],
+  'intervals' :  this.fb.array([]),
+  
+});
+}
 
+// createIntervals(value:string){
+// return this.fb.group({
+//       'intervalValue' : [value]
+//     })
+// }
 
-  form = new FormGroup({
-
-    resNames: new FormArray([
-    ]),
-    projects: new FormArray([
-    ]),
-    intervals: new FormArray([]),
-
-  });
 
   ngOnInit(): void {
 
     console.log(this.RESPLANS.length);
     console.log(this.RESPLANS[0].projects.length)
+    this.intervalLength = this.RESPLANS[0].projects[0].intervals.length;
     for (var i = 0; i < this.RESPLANS.length; i++) {
-      this.resNames.push(new FormControl(this.RESPLANS[i].name));
-      for (var j = 0; j < this.RESPLANS[i].projects.length; j++) {
-        this.projects.push(new FormControl(this.RESPLANS[i].projects[j].name))
-        for (var k = 0; k < this.RESPLANS[i].projects[j].intervals.length; k++) {
-          this.intervals.push(new FormControl(this.RESPLANS[i].projects[j].intervals[k]))
-
-        }
-
-      }
       
+      var resGroup = this.createGroup(this.RESPLANS[i].name);
+      this.resPlans.push(resGroup);
+      
+      // size totals array to empty slots of interval length
+      for(var m=0;m<this.intervalLength;m++)
+        {
+      (resGroup.get('totals') as FormArray).push(this.fb.control('0.0'));
+        }
+       for (var j = 0; j < this.RESPLANS[i].projects.length; j++) {
+         var projectgroup = this.createProject(this.RESPLANS[i].projects[j].name);
+         (resGroup.controls['projects'] as FormArray).push(projectgroup)
+         for (var k = 0; k < this.RESPLANS[i].projects[j].intervals.length; k++) {
+          
+           (projectgroup.get('intervals') as FormArray).push(this.fb.control(this.RESPLANS[i].projects[j].intervals[k].intervalValue))
+         }
+         
+       }
+        debugger;
+      resGroup.patchValue(this.calculateTotals(resGroup.value), { emitEvent: false })
+         resGroup.valueChanges.subscribe(value=>resGroup.patchValue(this.calculateTotals(value), { emitEvent: false }));
 
     }
 
@@ -45,9 +93,14 @@ export class NestedFormArray {
 
 
   }
+  
+  toFormControl(value : string)
+  {
+    return  this.fb.control(value);
+   
+  }
 
-
-  get resNames(): FormArray { return this.form.get('resNames') as FormArray; }
+  get resPlans(): FormArray { return  (this.form.get('resPlans') as FormArray); }
 
   get projects(): FormArray { return this.form.get('projects') as FormArray; }
 

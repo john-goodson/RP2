@@ -1,21 +1,49 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    
     <!-- <div formArrayName="resNames">
         <tr *ngFor="let name of resNames.controls; index as i">
             <td>
                 <input [formControlName]="i" placeholder="Name">
             </td> -->
-    <div formArrayName="projects">
-        <tr *ngFor="let project of projects.controls; index as j">
-
-            <td>
-                <input [formControlName]="j" placeholder="project">
+    
+        <div formArrayName="resPlans">
+        <tbody *ngFor="let res of form.controls['resPlans'].controls; index as j" >
+            <form [formGroupName]="j" >
+          <tr>  
+            <td width="300px;">
+                <input formControlName="name" placeholder="resource">
             </td>
-        </tr>
-    </div>
+            <div formArrayName="totals">
+            <td *ngFor="let total of res.controls['totals'].controls;index as t">
+                 
+                <input type="text" [formControlName]="t"/>
+                 
+            </td>
+             </div>
+           </tr>
+        <div formArrayName="projects">
+        <tr *ngFor="let project of res.controls['projects'].controls;index as k">  
+          <form [formGroupName]="k">
+            <td width="300px;">
+                <input formControlName="projectName" placeholder="project">
+            </td>
+             <div formArrayName="intervals">  
+            <td *ngFor="let interval of project.controls['intervals'].controls;index as s">
+                <input [formControlName]="s" placeholder="0.00*"/>
+            </td>
+             </div>
+         </form>
+           </tr>
+        </div>
+        </form>
+        </tbody>
+        
+     </div>
 
-
+   
 
     <button>Submit</button>
+     
 </form>
 
 <button (click)="addCity()">Add Project</button>
