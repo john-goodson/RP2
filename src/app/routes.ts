@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router'
-import { ResPlansHomeComponent }  from './resourcePlans/res-plans-home.component'
+import {ResPlanListComponent}  from './resourcePlans/res-plan-list.component'
 
 
 
@@ -7,7 +7,7 @@ import { ResPlansHomeComponent }  from './resourcePlans/res-plans-home.component
 
 export const appRoutes : Routes = [
  
-  { path: 'resPlans', component: ResPlansHomeComponent},
+  { path: 'resPlans', component: ResPlanListComponent},
 
   { path: '', redirectTo: '/resPlans', pathMatch: 'full' }
 

@@ -3,22 +3,25 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-import { ResPlanService } from './resourcePlans/shared/resPlan.service'
-import { ResPlanServiceHack } from './resourcePlans/shared/resPlanHack.service'
+
 import { RouterModule } from '@angular/router'
 import { appRoutes } from './routes'
 import { HttpModule } from '@angular/http';
+import {  ResPlanData } from './services/res-plan-data';
+import {  ResPlanService} from './services/res-plan-service.service'
 
-import {ResPlansHomeComponent} from './resourcePlans/res-plans-home.component'
 import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component';
 
 import {ResPlanDetails2Component} from './resourcePlans/res-plan-detail2.component';
+
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { CollapsibleWellComponent} from './common/collapsible-well.component'
 import { HeaderRowComponent} from './common/header-row.component'
 import { JQ_TOKEN }    from './common/jquery.service'
 import {  NestedFormArray } from './poc/formArray.component'
 import { ReactiveFormsModule } from '@angular/forms'
+import { ResPlanListComponent} from './resourcePlans/res-plan-list.component'
 
 declare let jQuery : Object;
 
@@ -27,21 +30,23 @@ declare let jQuery : Object;
   declarations: [
     AppComponent,
 
-    ResPlansHomeComponent,
+
     ResPlanDetailsComponent,
     ResPlanDetails2Component,
     CollapsibleWellComponent,
     HeaderRowComponent,
-    NestedFormArray
-
+    NestedFormArray,
+    ResPlanListComponent, 
+    
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes) ,
           HttpModule, 
-          ReactiveFormsModule 
+          ReactiveFormsModule ,
+          InMemoryWebApiModule.forRoot(ResPlanData),
   ],
-  providers: [ ResPlanServiceHack,  { provide: JQ_TOKEN, useValue: jQuery }],
+  providers: [ ResPlanService,  { provide: JQ_TOKEN, useValue: jQuery }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

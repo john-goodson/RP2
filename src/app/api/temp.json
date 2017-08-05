@@ -1,0 +1,62 @@
+{
+    "firstName": "Carey Gower",
+    "totals": [
+        {
+            "intervalName": "jan",
+            "intervalValue": 120
+        }
+    ],
+    "projects": [
+        {
+            "projName": "Data Center Consolidation",
+            "intervals": [
+                {
+                    "intervalName": "jan",
+                    "intervalValue": "40"
+                },
+                {
+                    "intervalName": "feb",
+                    "intervalValue": "80"
+                },
+                {
+                    "intervalName": "mar",
+                    "intervalValue": "80"
+                }
+            ]
+        },
+        {
+            "projName": "Windows Upgrade",
+            "intervals": [
+                {
+                    "intervalName": "jan",
+                    "intervalValue": "40"
+                },
+                {
+                    "intervalName": "feb",
+                    "intervalValue": "80"
+                },
+                {
+                    "intervalName": "mar",
+                    "intervalValue": "80.5"
+                }
+            ]
+        },
+        {
+            "projName": "Server Upgrades",
+            "intervals": [
+                {
+                    "intervalName": "jan",
+                    "intervalValue": "40"
+                },
+                {
+                    "intervalName": "feb",
+                    "intervalValue": "80"
+                },
+                {
+                    "intervalName": "mar",
+                    "intervalValue": "45.5"
+                }
+            ]
+        }
+    ]
+}
