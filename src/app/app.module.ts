@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-
 import { RouterModule } from '@angular/router'
 import { appRoutes } from './routes'
 import { HttpModule } from '@angular/http';
@@ -24,7 +23,6 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { ResPlanListComponent} from './resourcePlans/res-plan-list.component'
 
 declare let jQuery : Object;
-
 
 @NgModule({
   declarations: [

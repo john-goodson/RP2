@@ -1,4 +1,4 @@
-<form class="form-horizontal" novalidate (ngSubmit)="save()" [formGroup]="mainForm">
+<form class="form-horizontal" novalidate (ngSubmit)="savePlans()" [formGroup]="mainForm">
     <div formArrayName="resPlans">
         <div *ngFor="let plan of resPlans.controls;index as i">
             <div [formGroupName]="i">
@@ -26,14 +26,15 @@
                     </div>
                 </div>
             </div>
-            <button type ="button" class="btn btn-primary" (click) = "addProject(i)"> Add Project   </button>
+          
+            
         <button type ="button" (click) = "calculateTotals(plan)">calculate Totals</button>
         </div>
         
     </div>
             <button class="btn btn-primary" type="submit"> Save   </button>
-<button class="btn btn-primary" type="button" (click) = "addResPlan()"> Add Resource Plan   </button>
 
+  <button type ="submit" class="btn btn-primary" (click) = "savePlans()"> Submit  </button>
 </form>
 <hr><br>
 

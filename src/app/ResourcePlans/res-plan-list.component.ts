@@ -1,10 +1,12 @@
-import { Component, OnInit , Inject} from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
 
 import 'rxjs/add/operator/debounceTime';
-import { IResPlan} from './res-plan.model'
+import { IResPlan } from './res-plan.model'
 import { IProject } from './res-plan.model'
-import { IIntervals} from './res-plan.model'
+import { IIntervals } from './res-plan.model'
+import { ActivatedRoute, Router  } from '@angular/router';
+
 
 import { ResPlanService } from '../services/res-plan-service.service';
 import { ResPlan } from './res-plan.model';
@@ -20,50 +22,50 @@ export class ResPlanListComponent implements OnInit {
 
     mainForm: FormGroup;
     resPlanData: IResPlan[];
+    errorMessage: any; 
+ 
 
-    constructor(private fb: FormBuilder, private _resPlanSvc: ResPlanService) { }
+    constructor(private fb: FormBuilder, private _resPlanSvc: ResPlanService,  private router: Router) { }
 
     ngOnInit(): void {
 
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
         });
-        this._resPlanSvc.getResPlans().subscribe(resPlanData => this.buildResPlans(resPlanData), 
-      error => console.log('error'));
+        this._resPlanSvc.getResPlans().subscribe(resPlanData => this.buildResPlans(resPlanData),
+            error => console.log('error'));
 
-      console.log('from service: ' + JSON.stringify(this.resPlanData));
-      //debugger;
+        console.log('from service: ' + JSON.stringify(this.resPlanData));
+        //debugger;
     }
 
-   
+
     calculateTotals(fg: FormGroup): void {
-        
+
         var value = fg.value;
         debugger;
         for (var i = 0; i < value["totals"].length; i++) {
             var sum = 0;
             for (var j = 0; j < value["projects"].length; j++) {
                 sum += +(value["projects"][j]["intervals"][i]["intervalValue"]);
-            } 
+            }
             value["totals"][i]['intervalValue'] = sum;
         }
-        fg.setValue(value, { emitEvent: false});
-        console.log('Totals... ' + JSON.stringify(value) + "      stop...." )
-        
+        fg.setValue(value, { emitEvent: false });
+        console.log('Totals... ' + JSON.stringify(value) + "      stop....")
+
     }
 
-    buildResPlans(_resPlans:IResPlan[])
-    {
-        
-      for(var i=0;i<_resPlans.length;i++)
-        {
+    buildResPlans(_resPlans: IResPlan[]) {
+
+        for (var i = 0; i < _resPlans.length; i++) {
             var resPlan = this.buildResPlan(_resPlans[i]);
             this.resPlans.push(resPlan);
         }
     }
 
     getIntervalLength(_projects: IProject[]): number {
-        
+
 
         for (var i = 0; i < _projects.length; i++) {
             if (_projects[i].intervals.length > 0) {
@@ -73,32 +75,32 @@ export class ResPlanListComponent implements OnInit {
         return 0;
     }
 
-    
-     buildResPlan(_resplan:IResPlan): FormGroup {
-         var _totals = this.fb.array([]);
-        var resPlanGroup =  this.fb.group({
-            firstName: _resplan.name, 
-            totals: this.initTotals(_totals,_resplan.projects),
+
+    buildResPlan(_resplan: IResPlan): FormGroup {
+        var _totals = this.fb.array([]);
+        var resPlanGroup = this.fb.group({
+            id: '',
+            firstName: _resplan.name,
+            totals: this.initTotals(_totals, _resplan.projects),
             projects: this.fb.array([]),
         });
-        for(var i=0;i < _resplan.projects.length;i++)
-            {
-               var project = this.buildProject (_resplan.projects[i]);
-               (resPlanGroup.get('projects') as FormArray).push(project)
-            }
+        for (var i = 0; i < _resplan.projects.length; i++) {
+            var project = this.buildProject(_resplan.projects[i]);
+            (resPlanGroup.get('projects') as FormArray).push(project)
+        }
 
         this.calculateTotals(resPlanGroup);
-        resPlanGroup.valueChanges.subscribe(value => this.calculateTotals(resPlanGroup)); 
+        resPlanGroup.valueChanges.subscribe(value => this.calculateTotals(resPlanGroup));
         return resPlanGroup;
     }
 
-     buildProject(_project:IProject)
-    {
-        var project =  this.fb.group({
+    buildProject(_project: IProject) {
+        var project = this.fb.group({
+            id: _project.id,
             projName: _project.name,
             intervals: this.fb.array([])
-        }); 
-        for (var i =0; i < _project.intervals.length; i++) {
+        });
+        for (var i = 0; i < _project.intervals.length; i++) {
             var interval = this.buildInterval(_project.intervals[i]);
             (project.get('intervals') as FormArray).push(interval);
         }
@@ -122,14 +124,14 @@ export class ResPlanListComponent implements OnInit {
             });
             totals.push(total);
         }
-       return totals;
+        return totals;
     }
 
     addResPlan(): void {
         //this.resPlans.push(this.buildResPlans());
     }
 
-    get foo(): FormGroup { 
+    get foo(): FormGroup {
         return <FormGroup>this.resPlans.get('projects');
     }
 
@@ -148,15 +150,40 @@ export class ResPlanListComponent implements OnInit {
         console.log("passed in value: " + i);
     }
 
-   
+
     populateTestData(): void {
 
-        debugger; 
+        debugger;
     }
 
-    save(): void {
-        debugger
-        console.log('Saved: ' + JSON.stringify(this.mainForm.value));
+    savePlans(): void {
+        debugger;
+        if (this.mainForm.dirty && this.mainForm.valid) {
+            var dirtyResPlans = [ResPlan];
+            //find all dirty resplans
+            for (var i = 0; i < this.resPlans.length; i++) {
+                var _resPlan = new ResPlan();
+                if ((this.resPlans.at(i) as FormGroup).dirty) {
+                    // Copy the form values over the product object values
+                    let r = Object.assign({}, _resPlan, this.resPlans.at(i).value);
+                    (dirtyResPlans).push(r);
+                }
+            }
+             this._resPlanSvc.saveResPlans(dirtyResPlans )
+                .subscribe(
+                () => this.onSaveComplete(),
+                (error: any) => this.errorMessage = <any>error
+                );
+        } 
+            else if (!this.mainForm.dirty) {
+            this.onSaveComplete();
+        }  
+    }
+      onSaveComplete(): void {
+        // Reset the form to clear the flags
+         this.mainForm.reset();
+         this.router.navigate(['/resPlans']);
+
     }
 
 }

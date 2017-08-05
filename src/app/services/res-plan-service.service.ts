@@ -9,6 +9,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
 import { IResPlan } from '../resourcePlans/res-plan.model';
+import { IProject } from '../resourcePlans/res-plan.model';
+import { IIntervals } from '../resourcePlans/res-plan.model';
 
 @Injectable()
 export class ResPlanService {
@@ -48,14 +50,14 @@ export class ResPlanService {
             .catch(this.handleError);
     }
 
-    saveResPlan(resPlan: IResPlan): Observable<IResPlan> {
+    saveResPlans(_resPlans: [IResPlan]): Observable<IResPlan> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-
-        if (resPlan.id === 0) {
-            return this.createResPlan(resPlan, options);
+        for(var i=0;i<_resPlans.length;i++)
+        if (_resPlans[i].id === 0) {;
+            return this.createResPlan(_resPlans[i], options);
         }
-        return this.updateResPlan(resPlan, options);
+        return this.updateResPlan(_resPlans[i], options);
     }
 
     private createResPlan(resPlan: IResPlan, options: RequestOptions): Observable<IResPlan> {
@@ -65,6 +67,15 @@ export class ResPlanService {
             .do(data => console.log('createresPlan: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }
+
+    // private createProject(_resPlan: IResPlan, _project: IProject, options: RequestOptions): Observable<IResPlan> {
+    //     _resPlan.id = undefined;
+    //     return this.http.post(this.baseUrl, _project, options)
+    //         .map(this.extractData)
+    //         .do(data => console.log('createresPlan: ' + JSON.stringify(data)))
+    //         .catch(this.handleError);
+    // }
+
 
     private updateResPlan(resPlan: IResPlan, options: RequestOptions): Observable<IResPlan> {
         const url = `${this.baseUrl}/${resPlan.id}`;
@@ -85,6 +96,11 @@ export class ResPlanService {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
     }
+
+    
+
+
+
 
     initializeResPlan(): IResPlan {
         // Return an initialized object

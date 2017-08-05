@@ -24,11 +24,13 @@ export interface IIntervals {
 }
 
 
-export class ResPlan {
+export class ResPlan implements IResPlan {
 
-    constructor(public firstName = '',
-        public lastName = '',
- ) { }
+    constructor(public id = 0,
+        public name = '',
+      
+        public projects = [] )
+  { }
 }
 
 export class Project {
