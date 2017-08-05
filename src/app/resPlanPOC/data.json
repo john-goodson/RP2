@@ -1,0 +1,88 @@
+{
+    "resPlans": [
+        {
+            "firstName": "John",
+            "projects": [
+                {
+                    "projName": "project xyz",
+                    "intervals": [
+                        {
+                            "intervalName": "jan",
+                            "intervalValue": "33"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "firstName": "John",
+            "projects": [
+                {
+                    "projName": "project xyz",
+                    "intervals": [
+                        {
+                            "intervalName": "jan",
+                            "intervalValue": "33"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "firstName": "John",
+            "projects": [
+                {
+                    "projName": "project xyz",
+                    "intervals": [
+                        {
+                            "intervalName": "jan",
+                            "intervalValue": "33"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "firstName": "John",
+            "projects": [
+                {
+                    "projName": "project xyz",
+                    "intervals": [
+                        {
+                            "intervalName": "jan",
+                            "intervalValue": "33"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "firstName": "John",
+            "projects": [
+                {
+                    "projName": "project xyz",
+                    "intervals": [
+                        {
+                            "intervalName": "jan",
+                            "intervalValue": "33"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "firstName": "John",
+            "projects": [
+                {
+                    "projName": "project xyz",
+                    "intervals": [
+                        {
+                            "intervalName": "jan",
+                            "intervalValue": "33"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
