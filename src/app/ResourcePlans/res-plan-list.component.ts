@@ -57,7 +57,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     buildResPlans(_resPlans: IResPlan[]) {
-
+debugger;
         for (var i = 0; i < _resPlans.length; i++) {
             var resPlan = this.buildResPlan(_resPlans[i]);
             this.resPlans.push(resPlan);
@@ -79,8 +79,8 @@ export class ResPlanListComponent implements OnInit {
     buildResPlan(_resplan: IResPlan): FormGroup {
         var _totals = this.fb.array([]);
         var resPlanGroup = this.fb.group({
-            id: '',
-            firstName: _resplan.name,
+            id: _resplan.id,
+            name: _resplan.name,
             totals: this.initTotals(_totals, _resplan.projects),
             projects: this.fb.array([]),
         });
@@ -159,17 +159,20 @@ export class ResPlanListComponent implements OnInit {
     savePlans(): void {
         debugger;
         if (this.mainForm.dirty && this.mainForm.valid) {
-            var dirtyResPlans = [ResPlan];
-            //find all dirty resplans
-            for (var i = 0; i < this.resPlans.length; i++) {
-                var _resPlan = new ResPlan();
-                if ((this.resPlans.at(i) as FormGroup).dirty) {
-                    // Copy the form values over the product object values
-                    let r = Object.assign({}, _resPlan, this.resPlans.at(i).value);
-                    (dirtyResPlans).push(r);
-                }
-            }
-             this._resPlanSvc.saveResPlans(dirtyResPlans )
+             var _resPlans : [IResPlan];
+            // var dirtyResPlans : IResPlan;
+            // dirtyResPlans=new ResPlan();
+            // //find all dirty resplans
+            // for (var i = 0; i < this.resPlans.length; i++) {
+            //     var _resPlan = new ResPlan();
+            //     if ((this.resPlans.at(i) as FormGroup).dirty) {
+            //         // Copy the form values over the product object values
+            //         let r = Object.assign({}, _resPlan, this.resPlans.at(i).value);
+            //         (dirtyResPlans).push(r);
+            //     }
+            // }
+             let r = Object.assign({}, _resPlans, this.fb.array(this.resPlans.controls.filter(item => item.dirty === true)).value);
+             this._resPlanSvc.saveResPlans(r)
                 .subscribe(
                 () => this.onSaveComplete(),
                 (error: any) => this.errorMessage = <any>error
@@ -181,7 +184,7 @@ export class ResPlanListComponent implements OnInit {
     }
       onSaveComplete(): void {
         // Reset the form to clear the flags
-         this.mainForm.reset();
+         //this.mainForm.reset();
          this.router.navigate(['/resPlans']);
 
     }
