@@ -160,18 +160,9 @@ debugger;
         debugger;
         if (this.mainForm.dirty && this.mainForm.valid) {
              var _resPlans : [IResPlan];
-            // var dirtyResPlans : IResPlan;
-            // dirtyResPlans=new ResPlan();
-            // //find all dirty resplans
-            // for (var i = 0; i < this.resPlans.length; i++) {
-            //     var _resPlan = new ResPlan();
-            //     if ((this.resPlans.at(i) as FormGroup).dirty) {
-            //         // Copy the form values over the product object values
-            //         let r = Object.assign({}, _resPlan, this.resPlans.at(i).value);
-            //         (dirtyResPlans).push(r);
-            //     }
-            // }
-             let r = Object.assign({}, _resPlans, this.fb.array(this.resPlans.controls.filter(item => item.dirty === true)).value);
+          
+             let r = Object.assign({}, _resPlans, this.fb.array(this.resPlans.controls
+                .filter(item => item.dirty === true)).value);
              this._resPlanSvc.saveResPlans(r)
                 .subscribe(
                 () => this.onSaveComplete(),

@@ -28,8 +28,6 @@ declare let jQuery : Object;
 @NgModule({
   declarations: [
     AppComponent,
-
-
     ResPlanDetailsComponent,
     ResPlanDetails2Component,
     CollapsibleWellComponent,
