@@ -8,6 +8,7 @@ import { appRoutes } from './routes'
 import { HttpModule } from '@angular/http';
 import {  ResPlanData } from './services/res-plan-data';
 import {  ResPlanService} from './services/res-plan-service.service'
+import { FooComponent} from './resourcePlans/foo.component'
 
 
 import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component';
@@ -34,6 +35,7 @@ declare let jQuery : Object;
     HeaderRowComponent,
     NestedFormArray,
     ResPlanListComponent, 
+    FooComponent,
     
   ],
   imports: [

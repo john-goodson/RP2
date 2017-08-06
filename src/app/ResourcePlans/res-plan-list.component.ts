@@ -57,7 +57,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     buildResPlans(_resPlans: IResPlan[]) {
-debugger;
+        debugger;
         for (var i = 0; i < _resPlans.length; i++) {
             var resPlan = this.buildResPlan(_resPlans[i]);
             this.resPlans.push(resPlan);
@@ -176,7 +176,7 @@ debugger;
       onSaveComplete(): void {
         // Reset the form to clear the flags
          //this.mainForm.reset();
-         this.router.navigate(['/resPlans']);
+         this.router.navigate(['/foo']);
 
     }
 
