@@ -9,7 +9,7 @@ import { ActivatedRoute, Router  } from '@angular/router';
 
 
 import { ResPlanService } from '../services/res-plan-service.service';
-import { ResPlan } from './res-plan.model';
+import { ResPlan , Project, Interval} from './res-plan.model';
 ///hey can you hear me??
 //hmm
 
@@ -143,13 +143,27 @@ export class ResPlanListComponent implements OnInit {
         return <FormArray>this.mainForm.get['projects'];
     }
 
+    addProject(_resPlan: FormGroup): void {
+        //get IProjects[] array from current formgroup
+        var _projects : [IProject];
+          var project = new Project();
+          debugger;
+       let p = Object.assign([], _projects, _resPlan.controls.projects.value);
+       
+       //let p =  _resPlan.controls.projects
+        //get intervals from other projects if any and build intervals
+        var intervalLength = this.getIntervalLength(p);
+        
+        for (var i = 0; i < intervalLength; i++) {
 
-    addProject(i: number): void {
-        //this.mainForm.find('projects').push(this.buildProjects());
-        //(<FormArray>this.resPlans.at(i).get('projects')).push(this.buildProject());
-        console.log("passed in value: " + i);
+            project.intervals.push(new Interval('','0.0'));
+        }
+        ((_resPlan as FormGroup).controls['projects'] as FormArray).push(this.buildProject(project));
+        
     }
 
+
+ 
 
     populateTestData(): void {
 
@@ -161,7 +175,7 @@ export class ResPlanListComponent implements OnInit {
         if (this.mainForm.dirty && this.mainForm.valid) {
              var _resPlans : [IResPlan];
           
-             let r = Object.assign({}, _resPlans, this.fb.array(this.resPlans.controls
+             let r = Object.assign([], _resPlans, this.fb.array(this.resPlans.controls
                 .filter(item => item.dirty === true)).value);
              this._resPlanSvc.saveResPlans(r)
                 .subscribe(

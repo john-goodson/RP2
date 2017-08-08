@@ -19,6 +19,7 @@ export class ResPlanService {
     constructor(private http: Http) { }
 
     getResPlans(): Observable<IResPlan[]> {
+        console.log("entering getResPlans method:")
         return this.http.get(this.baseUrl)
             .map(this.extractData)
             .do(data => console.log('getResPlans from REST: ' + JSON.stringify(data)))
@@ -53,10 +54,11 @@ export class ResPlanService {
     saveResPlans(_resPlans: [IResPlan]): Observable<IResPlan> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        for(var i=0;i<_resPlans.length;i++)
-        if (_resPlans[i].id === 0) {;
-            return this.createResPlan(_resPlans[i], options);
-        }
+        for (var i = 0; i < _resPlans.length; i++)
+            if (_resPlans[i].id === 0) {
+                ;
+                return this.createResPlan(_resPlans[i], options);
+            }
         return this.updateResPlan(_resPlans[i], options);
     }
 
@@ -78,6 +80,7 @@ export class ResPlanService {
 
 
     private updateResPlan(resPlan: IResPlan, options: RequestOptions): Observable<IResPlan> {
+        console.log('entering updateResPlan ')
         const url = `${this.baseUrl}/${resPlan.id}`;
         return this.http.put(url, resPlan, options)
             .map(() => resPlan)
