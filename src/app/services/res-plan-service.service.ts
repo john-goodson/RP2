@@ -25,7 +25,10 @@ export class ResPlanService {
             .map(this.extractData)
             .do(data => console.log('getResPlans from REST: ' + JSON.stringify(data)))
             .catch(this.handleError);
+            
     }
+
+    
 
     getResPlan(id: number): Observable<IResPlan> {
         if (id === 0) {

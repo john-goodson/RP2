@@ -1,15 +1,15 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, DoCheck } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
 
 import 'rxjs/add/operator/debounceTime';
 import { IResPlan } from './res-plan.model'
 import { IProject } from './res-plan.model'
 import { IIntervals } from './res-plan.model'
-import { ActivatedRoute, Router  } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 import { ResPlanService } from '../services/res-plan-service.service';
-import { ResPlan , Project, Interval} from './res-plan.model';
+import { ResPlan, Project, Interval } from './res-plan.model';
 ///hey can you hear me??
 //hmm
 
@@ -22,10 +22,17 @@ export class ResPlanListComponent implements OnInit {
 
     mainForm: FormGroup;
     resPlanData: IResPlan[];
-    errorMessage: any; 
- 
+    errorMessage: any;
+    _intervalCount: number = 3; //todo refactor this.
 
-    constructor(private fb: FormBuilder, private _resPlanSvc: ResPlanService,  private router: Router) { }
+    get resPlans(): FormArray {  //this getter should return all instances.
+        return <FormArray>this.mainForm.get('resPlans');
+    }
+    // get projects(): FormArray {  //this getter should return all instances.
+    //     return <FormArray>this.mainForm.get['projects'];
+    // }
+
+    constructor(private fb: FormBuilder, private _resPlanSvc: ResPlanService, private router: Router) { }
 
     ngOnInit(): void {
 
@@ -35,10 +42,13 @@ export class ResPlanListComponent implements OnInit {
         this._resPlanSvc.getResPlans().subscribe(resPlanData => this.buildResPlans(resPlanData),
             error => console.log('error'));
 
-        console.log('from service: ' + JSON.stringify(this.resPlanData));
+        console.log('from ngOnInit: ' + JSON.stringify(this.resPlanData));
         //debugger;
     }
 
+    ngAfterViewChecked(): void {
+        console.log('ng after view checke fired.')
+    }
 
     calculateTotals(fg: FormGroup): void {
 
@@ -63,18 +73,6 @@ export class ResPlanListComponent implements OnInit {
             this.resPlans.push(resPlan);
         }
     }
-
-    getIntervalLength(_projects: IProject[]): number {
-
-
-        for (var i = 0; i < _projects.length; i++) {
-            if (_projects[i].intervals.length > 0) {
-                return _projects[i].intervals.length;
-            }
-        }
-        return 0;
-    }
-
 
     buildResPlan(_resplan: IResPlan): FormGroup {
         var _totals = this.fb.array([]);
@@ -115,7 +113,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     initTotals(totals: FormArray, _projects: IProject[]): FormArray {
-        var intervalLen = this.getIntervalLength(_projects);
+        var intervalLen = this.getIntervalLength();
         for (var i = 0; i < intervalLen; i++) {
 
             var total = this.fb.group({
@@ -128,33 +126,41 @@ export class ResPlanListComponent implements OnInit {
     }
 
     addResPlan(): void {
-        //this.resPlans.push(this.buildResPlans());
+        this.resPlans.push(this.buildResPlan(new ResPlan()));
     }
 
     get foo(): FormGroup {
         return <FormGroup>this.resPlans.get('projects');
     }
 
-    get resPlans(): FormArray {  //this getter should return all instances.
-        return <FormArray>this.mainForm.get('resPlans');
+    getIntervalLength() {
+// debugger;
+//         for (var k = 0; k < this.resPlans.length; k++) {
+//             for (var i = 0; i < this.resPlans[k].projects.length; i++) {
+//                 if (this.resPlans[k].projects[i].intervals.length > 0) {
+//                     return this.resPlans[k].projects[i].intervals.length;
+//                 }
+//             }
+//         }
+        //return 0;
+        return this._intervalCount; 
     }
 
-    get projects(): FormArray {  //this getter should return all instances.
-        return <FormArray>this.mainForm.get['projects'];
-    }
+
+
 
     addProject(_resPlan: FormGroup): void {
         //get IProjects[] array from current formgroup
-        var _projects : [IProject];
-          var project = new Project();
-          debugger;
-       let p = Object.assign([], _projects, _resPlan.controls.projects.value);
-        var intervalLength = this.getIntervalLength(p);
-        
+        var _projects: [IProject];
+        var project = new Project();
+        debugger;
+
+        var intervalLength = this.getIntervalLength();
+
         for (var i = 0; i < intervalLength; i++) {
-            project.intervals.push(new Interval('','0.0'));
+            project.intervals.push(new Interval('', '0.0'));
         }
-        ((_resPlan as FormGroup).controls['projects'] as FormArray).push(this.buildProject(project));    
+        ((_resPlan as FormGroup).controls['projects'] as FormArray).push(this.buildProject(project));
     }
 
     populateTestData(): void {
@@ -162,27 +168,29 @@ export class ResPlanListComponent implements OnInit {
         debugger;
     }
 
+    
+
     savePlans(): void {
         debugger;
         if (this.mainForm.dirty && this.mainForm.valid) {
-             var _resPlans : [IResPlan];
-          
-             let r = Object.assign([], _resPlans, this.fb.array(this.resPlans.controls
+            var _resPlans: [IResPlan];
+
+            let r = Object.assign([], _resPlans, this.fb.array(this.resPlans.controls
                 .filter(item => item.dirty === true)).value);
-             this._resPlanSvc.saveResPlans(r)
+            this._resPlanSvc.saveResPlans(r)
                 .subscribe(
                 () => this.onSaveComplete(),
                 (error: any) => this.errorMessage = <any>error
                 );
-        } 
-            else if (!this.mainForm.dirty) {
+        }
+        else if (!this.mainForm.dirty) {
             this.onSaveComplete();
-        }  
+        }
     }
-      onSaveComplete(): void {
+    onSaveComplete(): void {
         // Reset the form to clear the flags
-         //this.mainForm.reset();
-         this.router.navigate(['/foo']);
+        //this.mainForm.reset();
+        this.router.navigate(['/foo']);
 
     }
 
