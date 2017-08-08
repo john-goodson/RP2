@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/forkJoin';
 
 import { IResPlan } from '../resourcePlans/res-plan.model';
 import { IProject } from '../resourcePlans/res-plan.model';
@@ -51,12 +52,16 @@ export class ResPlanService {
             .catch(this.handleError);
     }
 
-    saveResPlans(_resPlans: [IResPlan]): Observable<IResPlan> {
+    saveResPlans(_resPlans: [IResPlan]): Observable<IResPlan[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        for (var i = 0; i < _resPlans.length; i++) {
-            return this.updateResPlan(_resPlans[i], options);
-        }
+        debugger;
+        var results: Array<Observable<IResPlan>> = [];
+        for(var i=0;i<_resPlans.length;i++)
+            {
+             results.push(this.updateResPlan(_resPlans[i],options));
+            }
+        return Observable.forkJoin(results);
     }
 
     private createResPlan(resPlan: IResPlan, options: RequestOptions): Observable<IResPlan> {
@@ -96,11 +101,6 @@ export class ResPlanService {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
     }
-
-    
-
-
-
 
     initializeResPlan(): IResPlan {
         // Return an initialized object
