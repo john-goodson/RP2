@@ -97,7 +97,7 @@ export class ResPlanListComponent implements OnInit {
     buildProject(_project: IProject) {
         var project = this.fb.group({
             id: _project.id,
-            projName: _project.name,
+            name: _project.name,
             intervals: this.fb.array([])
         });
         for (var i = 0; i < _project.intervals.length; i++) {

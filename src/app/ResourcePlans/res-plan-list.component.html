@@ -7,7 +7,7 @@
                 <div formArrayName="projects">
                     <div *ngFor="let proj of plan.get('projects').controls;index as j">
                         <div [formGroupName]="j">
-                            <input formControlName="projName" placeholder="project" />
+                            <input formControlName="name" placeholder="project" />
                             <div formArrayName="intervals">
                                 <div *ngFor="let intrvl of proj.get('intervals').controls; index as k">
                                     <div [formGroupName]="k">
