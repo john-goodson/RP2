@@ -70,6 +70,24 @@ export class ResPlanData implements InMemoryDbService {
                     "intervalValue": "45.5"
                 }
                 ]
+            },
+            {
+                "id": 4,
+                "name": "Payment Processing Upgrade",
+                "intervals": [
+                    {
+                    "intervalName": "jan",
+                    "intervalValue": "40"
+                },
+                {
+                    "intervalName": "feb",
+                    "intervalValue": "80"
+                },
+                {
+                    "intervalName": "mar",
+                    "intervalValue": "80"
+                }
+                ]
             }
         ]
     },

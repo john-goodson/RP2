@@ -17,6 +17,8 @@
                             </div>
                         </div>
                     </div>
+                    <!-- i = index of resplan formgroup -->
+                   
                 </div>
                 <div formArrayName="totals">
                     <div *ngFor="let total of plan.get('totals').controls;index as l">
@@ -25,15 +27,17 @@
                             
                         </div>
                     </div>
+                     
                 </div>
+                            <button class="btn btn-primary" type="button" (click) = "addProject(plan)" > Add Project  </button>
+                   <hr>
             </div>
           
-            
-        <button type ="button" (click) = "calculateTotals(plan)">calculate Totals</button>
+        
         </div>
         
     </div>
-            <button class="btn btn-primary" type="submit"> Save   </button>
+            
 
   <button type ="submit" class="btn btn-primary" (click) = "savePlans()"> Submit  </button>
 </form>

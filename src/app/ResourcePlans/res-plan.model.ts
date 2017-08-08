@@ -28,19 +28,19 @@ export class ResPlan implements IResPlan {
 
     constructor(public id = 0,
         public name = '',
-      
+    
         public projects = [] )
   { }
 }
 
-export class Project {
+export class Project implements IProject{
 
-    constructor(public projName = '',
+    constructor(public id = 0,public name='',public intervals=[]
       
  ) { }
 }
 
-export class Interval {
+export class Interval implements IIntervals{
 
     constructor(public intervalName = '',
         public intervalValue = '',
