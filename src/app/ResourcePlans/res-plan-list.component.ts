@@ -149,21 +149,13 @@ export class ResPlanListComponent implements OnInit {
           var project = new Project();
           debugger;
        let p = Object.assign([], _projects, _resPlan.controls.projects.value);
-       
-       //let p =  _resPlan.controls.projects
-        //get intervals from other projects if any and build intervals
         var intervalLength = this.getIntervalLength(p);
         
         for (var i = 0; i < intervalLength; i++) {
-
             project.intervals.push(new Interval('','0.0'));
         }
-        ((_resPlan as FormGroup).controls['projects'] as FormArray).push(this.buildProject(project));
-        
+        ((_resPlan as FormGroup).controls['projects'] as FormArray).push(this.buildProject(project));    
     }
-
-
- 
 
     populateTestData(): void {
 

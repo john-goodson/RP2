@@ -35,7 +35,7 @@ export class ResPlan implements IResPlan {
 
 export class Project implements IProject{
 
-    constructor(public id = 0,public name='',public intervals=[]
+    constructor(public id = 0,public name='boo',public intervals=[]
       
  ) { }
 }
