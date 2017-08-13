@@ -1,0 +1,54 @@
+[
+    {
+        "id": 10,
+        "name": "Centennial Hosp Storage Array",
+        "projProperties": {
+            "owner": "John Goodson",
+            "startDate": "8/1/2017",
+            "finishDate": "12/1/2017",
+            "projActiveStatus": "inProgress",
+            "departments": [
+                { "deptName": "BPG"      }
+            ]
+        }
+    },
+    {
+        "id": 11,
+        "name": "Centennial Hosp ER Kiosk Upgrade",
+        "projProperties": {
+            "owner": "John Goodson",
+            "startDate": "8/1/2017",
+            "finishDate": "12/1/2017",
+            "projActiveStatus": "inProgress",
+            "departments": [
+                { "deptName": "BPG"      }
+            ]
+        }
+    },
+    {
+        "id": 12,
+        "name": "Good Sheppard Hosp Nursing Certification",
+        "projProperties": {
+            "owner": "Joe Colstad",
+            "startDate": "8/1/2017",
+            "finishDate": "12/1/2017",
+            "projActiveStatus": "inProgress",
+            "departments": [
+                { "deptName": "BPG"      }
+            ]
+        }
+    },
+    {
+        "id": 13,
+        "name": "Mercy Health Lounge",
+        "projProperties": {
+            "owner": "Stephen Donna",
+            "startDate": "8/1/2017",
+            "finishDate": "12/1/2017",
+            "projActiveStatus": "inProgress",
+            "departments": [
+                { "deptName": "BPG"      }
+            ]
+        }
+    }
+]

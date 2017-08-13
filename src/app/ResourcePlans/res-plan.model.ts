@@ -14,7 +14,14 @@ export interface IResPlan {
 export interface IProject {
   id: number;
   name: string;
-  intervals: IIntervals[];
+  projProperties?: {
+    owner: string;
+    startDate: Date;
+    finishDate: Date;
+    projActiveStatus: ProjectActiveStatus;
+    departments?: IDept[]; 
+  };
+  intervals?: IIntervals[];
 }
 
 export interface IIntervals {
@@ -47,4 +54,13 @@ export class Interval implements IIntervals{
  ) { }
 }
 
+export enum ProjectActiveStatus {
+    inProgress,
+    completed,
+    cancelled
+  }
+
+  export interface IDept {
+     deptName: string;
+   }
 

@@ -134,20 +134,9 @@ export class ResPlanListComponent implements OnInit {
     }
 
     getIntervalLength() {
-// debugger;
-//         for (var k = 0; k < this.resPlans.length; k++) {
-//             for (var i = 0; i < this.resPlans[k].projects.length; i++) {
-//                 if (this.resPlans[k].projects[i].intervals.length > 0) {
-//                     return this.resPlans[k].projects[i].intervals.length;
-//                 }
-//             }
-//         }
-        //return 0;
+//toDo... thinking about putting interval count in data service
         return this._intervalCount; 
     }
-
-
-
 
     addProject(_resPlan: FormGroup): void {
         //get IProjects[] array from current formgroup
@@ -167,8 +156,7 @@ export class ResPlanListComponent implements OnInit {
 
         debugger;
     }
-
-    
+ 
 
     savePlans(): void {
         debugger;
