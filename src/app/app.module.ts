@@ -10,7 +10,6 @@ import {  ResPlanData } from './services/res-plan-data';
 import {  ResPlanService} from './services/res-plan-service.service'
 import { FooComponent} from './resourcePlans/foo.component'
 
-
 import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component';
 
 import {ResPlanDetails2Component} from './resourcePlans/res-plan-detail2.component';
@@ -36,7 +35,6 @@ declare let jQuery : Object;
     NestedFormArray,
     ResPlanListComponent, 
     FooComponent,
-    
   ],
   imports: [
     BrowserModule,
