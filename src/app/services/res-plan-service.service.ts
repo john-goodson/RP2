@@ -17,6 +17,7 @@ import { IIntervals } from '../resourcePlans/res-plan.model';
 export class ResPlanService {
     private baseUrl = 'api/resPlans';
 
+
     constructor(private http: Http) { }
 
     getResPlans(): Observable<IResPlan[]> {
@@ -27,8 +28,6 @@ export class ResPlanService {
             .catch(this.handleError);
             
     }
-
-    
 
     getResPlan(id: number): Observable<IResPlan> {
         if (id === 0) {
@@ -58,7 +57,7 @@ export class ResPlanService {
     saveResPlans(_resPlans: [IResPlan]): Observable<IResPlan[]> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        debugger;
+       // debugger;
         var results: Array<Observable<IResPlan>> = [];
         for(var i=0;i<_resPlans.length;i++)
             {
@@ -114,4 +113,6 @@ export class ResPlanService {
             projects: []
         };
     }
+
+    
 }

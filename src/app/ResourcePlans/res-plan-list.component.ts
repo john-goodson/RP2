@@ -1,24 +1,28 @@
-import { Component, OnInit, Inject, DoCheck } from '@angular/core';
+import { Component, OnInit, Inject, DoCheck, AfterViewInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
 
 import 'rxjs/add/operator/debounceTime';
-import { IResPlan } from './res-plan.model'
-import { IProject } from './res-plan.model'
-import { IIntervals } from './res-plan.model'
+import { IResPlan , IProject, IIntervals } from './res-plan.model'
+
 import { ActivatedRoute, Router } from '@angular/router';
 
 
 import { ResPlanService } from '../services/res-plan-service.service';
 import { ResPlan, Project, Interval } from './res-plan.model';
-///hey can you hear me??
-//hmm
+import { SimpleModalComponent } from '../common/simple-modal.component'
 
 
 @Component({
     selector: 'my-resplan',
     templateUrl: './res-plan-list.component.html'
 })
-export class ResPlanListComponent implements OnInit {
+
+export class ResPlanListComponent implements OnInit, AfterViewInit {
+
+@ViewChild(SimpleModalComponent)  //we need to call methods on modal
+private modalComponent: SimpleModalComponent;
+
+   
 
     mainForm: FormGroup;
     resPlanData: IResPlan[];
@@ -53,7 +57,7 @@ export class ResPlanListComponent implements OnInit {
     calculateTotals(fg: FormGroup): void {
 
         var value = fg.value;
-        debugger;
+        //debugger;
         for (var i = 0; i < value["totals"].length; i++) {
             var sum = 0;
             for (var j = 0; j < value["projects"].length; j++) {
@@ -67,7 +71,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     buildResPlans(_resPlans: IResPlan[]) {
-        debugger;
+        //debugger;
         for (var i = 0; i < _resPlans.length; i++) {
             var resPlan = this.buildResPlan(_resPlans[i]);
             this.resPlans.push(resPlan);
@@ -140,9 +144,10 @@ export class ResPlanListComponent implements OnInit {
 
     addProject(_resPlan: FormGroup): void {
         //get IProjects[] array from current formgroup
+        this.modalComponent.showModal(); 
         var _projects: [IProject];
         var project = new Project();
-        debugger;
+        
 
         var intervalLength = this.getIntervalLength();
 
@@ -159,7 +164,7 @@ export class ResPlanListComponent implements OnInit {
  
 
     savePlans(): void {
-        debugger;
+        //debugger;
         if (this.mainForm.dirty && this.mainForm.valid) {
             var _resPlans: [IResPlan];
 
@@ -180,6 +185,9 @@ export class ResPlanListComponent implements OnInit {
         //this.mainForm.reset();
         this.router.navigate(['/foo']);
 
+    }
+    ngAfterViewInit(): void {
+        throw new Error("Method not implemented.");
     }
 
 }

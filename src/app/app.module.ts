@@ -7,7 +7,9 @@ import { RouterModule } from '@angular/router'
 import { appRoutes } from './routes'
 import { HttpModule } from '@angular/http';
 import {  ResPlanData } from './services/res-plan-data';
+
 import {  ResPlanService} from './services/res-plan-service.service'
+import { MockProjectService } from './services/mock-Project.service'
 import { FooComponent} from './resourcePlans/foo.component'
 
 import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component';
@@ -16,14 +18,17 @@ import {ResPlanDetails2Component} from './resourcePlans/res-plan-detail2.compone
 
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
+
 import { CollapsibleWellComponent} from './common/collapsible-well.component'
 import { HeaderRowComponent} from './common/header-row.component'
-import { JQ_TOKEN }    from './common/jquery.service'
+//import { JQ_TOKEN }    from './common/jquery.service'
 import {  NestedFormArray } from './poc/formArray.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { ResPlanListComponent} from './resourcePlans/res-plan-list.component'
+import { SimpleModalComponent} from './common/simple-modal.component';
+import { ProjectListComponent } from './ResourcePlans/project-list/project-list.component'
 
-declare let jQuery : Object;
+//let jQuery : Object;
 
 @NgModule({
   declarations: [
@@ -35,6 +40,9 @@ declare let jQuery : Object;
     NestedFormArray,
     ResPlanListComponent, 
     FooComponent,
+    SimpleModalComponent,
+    ProjectListComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -42,8 +50,10 @@ declare let jQuery : Object;
           HttpModule, 
           ReactiveFormsModule ,
           InMemoryWebApiModule.forRoot(ResPlanData),
+          
   ],
-  providers: [ ResPlanService,  { provide: JQ_TOKEN, useValue: jQuery }],
+  
+  providers: [ ResPlanService, MockProjectService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

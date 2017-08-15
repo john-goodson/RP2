@@ -1,0 +1,14 @@
+<form class="form-horizontal" novalidate (ngSubmit) = "submitSelected()" [formGroup]="projListForm">
+    <div formArrayName="projects">
+        <div *ngFor="let p of projects.controls;index as i">
+            <div [formGroupName]="i">
+
+                <input type="checkbox" formControlName="name" placeholder="project name" value="name"> {{ p.get('name')?.value }}
+                <input formControlName="id" placeholder="id" style='display:none'>
+            </div>
+        </div>
+    </div>
+                
+</form>
+
+<br>Dirty: {{ projListForm.dirty }}

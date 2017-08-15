@@ -1,3 +1,5 @@
+
+
 <button class="btn btn-primary" type="button" (click) = "addResPlan()" > Add Resource  </button>
 <form class="form-horizontal" novalidate (ngSubmit)="savePlans()" [formGroup]="mainForm">
     <div formArrayName="resPlans">
@@ -30,7 +32,17 @@
                     </div>
                      
                 </div>
-                            <button class="btn btn-primary" type="button" (click) = "addProject(plan)" > Add Project  </button>
+                            <!-- <button class="btn btn-primary" type="button" (click) = "addProject(plan)" > Add Project  </button> -->
+                            <button class="btn btn-primary" type="button" (click) = "addProject(plan)"> Add Project  </button>
+                            
+                            <simple-modal #modal closeOnBodyClick="true" elementId="1" title="Add Projects" primaryBtnText="Add Selected Projects">
+                                    <div class="list-group">
+                                     <project-list></project-list>
+                                    </div>
+                                  </simple-modal>
+
+                           
+                              
                    <hr>
             </div>
           
