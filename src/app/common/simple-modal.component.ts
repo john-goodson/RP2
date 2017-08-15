@@ -46,8 +46,9 @@ export class SimpleModalComponent {
     }
   }
 
-  showModal() {
-    console.log("inside init"); 
+  showModal(data) {
+    debugger; 
+    console.log("data passed to modal: " + data); 
     $(this.containerEl.nativeElement).modal('show');
     
   }

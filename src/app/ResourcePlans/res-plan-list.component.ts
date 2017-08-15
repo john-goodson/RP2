@@ -144,7 +144,8 @@ private modalComponent: SimpleModalComponent;
 
     addProject(_resPlan: FormGroup): void {
         //get IProjects[] array from current formgroup
-        this.modalComponent.showModal(); 
+        var data = [ 'how', 'now']
+        this.modalComponent.showModal(data); 
         var _projects: [IProject];
         var project = new Project();
         

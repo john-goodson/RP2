@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, Input,  Output, EventEmitter, OnDestroy } from '@angular/core';
 import { IResPlan, IProject, IIntervals } from '../res-plan.model'
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
 
@@ -20,11 +20,15 @@ export class ProjectListComponent implements OnInit {
   projData: IProject[];
   errorMessage: any;
 
+  //@Input() proj
+
 @Output() selectedProjects = new EventEmitter()
 
   get projects(): FormArray {  //this getter should return all instances.
     return <FormArray>this.projListForm.get('projects');
   }
+
+
 
   constructor(private fb: FormBuilder) { }
 
