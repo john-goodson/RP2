@@ -33,8 +33,6 @@ export class ProjectListComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
 
-
-
   ngOnInit(): void {
 
     this.projListForm = this.fb.group({

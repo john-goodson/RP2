@@ -1,6 +1,6 @@
 import { Component,ChangeDetectorRef  } from '@angular/core';
 import { FormArray, FormControl, FormGroup,FormBuilder } from '@angular/forms';
-import { IResPlan,IIntervals } from '../resourceplans/res-plan.model'
+import { IResPlan,IIntervals } from '../resourcePlans/res-plan.model'
 
 @Component({
   selector: 'form-array',

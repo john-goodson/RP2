@@ -1,7 +1,7 @@
 
 import { Component} from '@angular/core'
 import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { IResPlan} from '../resourceplans/res-plan.model'
+import { IResPlan} from '../resourcePlans/res-plan.model'
 
 
 export class ResPlanData implements InMemoryDbService {
