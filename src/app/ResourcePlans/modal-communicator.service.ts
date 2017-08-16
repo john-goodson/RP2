@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject }    from 'rxjs/Subject';
+import {IProject} from "./res-plan.model"
  
 @Injectable()
 export class ModalCommunicator {
@@ -7,7 +8,7 @@ export class ModalCommunicator {
   constructor() { }
  
   // Observable string sources
-  public projectIdArray:number[];
+  public projectIdArray:IProject[];
   private modalSubmittedSource = new Subject<string>();
   private modalCancelledSource = new Subject<string>(); 
  
