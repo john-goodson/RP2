@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, ElementRef, OnInit} from '@angular/core';
-import { ModalCommunicator} from '../resourcePlans/modal-communicator.service'
+import { ModalCommunicator} from '../resourcePlans/modal-communicator.service';
 
 
 declare var jquery:any;
@@ -17,7 +17,7 @@ declare var $ :any;
         <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
         <h4 class="modal-title">{{title}}</h4>
       </div>
-      <div class="modal-body" (click)="closeModal()">
+      <div class="modal-body">
         <ng-content></ng-content>
 
       </div>

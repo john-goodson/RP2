@@ -1,10 +1,11 @@
-import { Component, OnInit, Inject, Input,  Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { IResPlan, IProject, IIntervals } from '../res-plan.model'
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
 
 
 import { ResPlan, Project, Interval, ProjectActiveStatus } from '../res-plan.model';
-
+import { SimpleModalComponent } from '../../common/simple-modal.component';
+import { ModalCommunicator } from '../../resourcePlans/modal-communicator.service';
 
 @Component({
   selector: 'project-list',
@@ -17,12 +18,10 @@ import { ResPlan, Project, Interval, ProjectActiveStatus } from '../res-plan.mod
 export class ProjectListComponent implements OnInit {
 
   projListForm: FormGroup;
-  projData: IProject[];
+  @Input() projData: IProject[];
   errorMessage: any;
-
+  selectedProjects: number[] = [];
   //@Input() proj
-
-@Output() selectedProjects = new EventEmitter()
 
   get projects(): FormArray {  //this getter should return all instances.
     return <FormArray>this.projListForm.get('projects');
@@ -30,84 +29,16 @@ export class ProjectListComponent implements OnInit {
 
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator) { }
 
 
   ngOnInit(): void {
-
+    debugger;
     this.projListForm = this.fb.group({
       projects: this.fb.array([])
     });
-    this.projData =
-      [
-        {
-          "id": 10,
-          "name": "Centennial Hosp Storage Array",
-          "projProperties": {
-            "owner": "John Goodson",
-            "startDate": new Date("8/1/2017"),
-            "finishDate": new Date("12/1/2017"),
-            "projActiveStatus": ProjectActiveStatus.inProgress,
-            "departments": [
-              { "deptName": "BPG" }
-            ]
-          }
-        },
-        {
-          "id": 11,
-          "name": "Centennial Hosp ER Kiosk Upgrade",
-          "projProperties": {
-            "owner": "John Goodson",
-            "startDate": new Date("8/1/2017"),
-            "finishDate": new Date("12/1/2017"),
-            "projActiveStatus": ProjectActiveStatus.inProgress,
-            "departments": [
-              { "deptName": "BPG" }
-            ]
-          }
-        },
-        {
-          "id": 12,
-          "name": "Good Sheppard Hosp Nursing Certification",
-          "projProperties": {
-            "owner": "Joe Colstad",
-            "startDate": new Date("8/1/2017"),
-            "finishDate": new Date("12/1/2017"),
-            "projActiveStatus": ProjectActiveStatus.inProgress,
-            "departments": [
-              { "deptName": "BPG" }
-            ]
-          }
-        },
-        {
-          "id": 13,
-          "name": "Mercy Health Lounge",
-          "projProperties": {
-            "owner": "Stephen Donna",
-            "startDate": new Date("8/1/2017"),
-            "finishDate": new Date("12/1/2017"),
-            "projActiveStatus": ProjectActiveStatus.inProgress,
-            "departments": [
-              { "deptName": "BPG" }
-            ]
-          }
-        },
-        {
-          "id": 14,
-          "name": "Centennial Hosp Nursing Station Board Upgrade",
-          "projProperties": {
-            "owner": "John Goodson",
-            "startDate": new Date("8/1/2017"),
-            "finishDate": new Date("12/1/2017"),
-            "projActiveStatus": ProjectActiveStatus.inProgress,
-            "departments": [
-              { "deptName": "BPG" }
-            ]
-          }
-        }
-      ];
-      this.buildProjects(this.projData) 
-      debugger; 
+    this.buildProjects(this.projData);
+
   }
 
   buildProjects(_projects: IProject[]) {
@@ -129,10 +60,16 @@ export class ProjectListComponent implements OnInit {
     return projGroup;
   }
 
-  submitSelected() {
-
-    
+  selectProject(id: number) {
+    if (this.selectedProjects.indexOf(id) > -1) {
+      this.selectedProjects.splice(this.selectedProjects.indexOf(id));
+    }
+    else {
+      this.selectedProjects.push(id);
+    }
+    this._modalSvc.projectIdArray = this.selectedProjects;
   }
+  
 
   ngOnDestroy() {
     console.log("hey its gone")
