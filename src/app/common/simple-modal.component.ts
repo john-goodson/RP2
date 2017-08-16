@@ -1,4 +1,7 @@
 import { Component, Input, ViewChild, ElementRef, OnInit} from '@angular/core';
+import { ModalCommunicator} from '../resourcePlans/modal-communicator.service'
+
+
 declare var jquery:any;
 declare var $ :any;
 
@@ -19,7 +22,7 @@ declare var $ :any;
 
       </div>
       <div class = "modal-footer">
-      <button type="button" class="btn btn-primary">{{primaryBtnText}}</button>
+      <button type="button" (click) = "submit()" class="btn btn-primary">{{primaryBtnText}} </button>
       <button type="button" class="btn btn-cancel">Cancel</button>
       </div>
     </div>
@@ -40,6 +43,8 @@ export class SimpleModalComponent {
   @Input() primaryBtnText: string; 
   @ViewChild('modalcontainer') containerEl: ElementRef;
 
+  constructor(private _modalSvc: ModalCommunicator ) {}
+
   closeModal() {
     if(this.closeOnBodyClick.toLocaleLowerCase() === "true") {
       $(this.containerEl.nativeElement).modal('hide');
@@ -52,6 +57,13 @@ export class SimpleModalComponent {
     $(this.containerEl.nativeElement).modal('show');
     
   }
+
+  submit() {
+    this._modalSvc.modalSubmitClicked(); 
+    this.closeModal();
+  }
+
+
 
 
 

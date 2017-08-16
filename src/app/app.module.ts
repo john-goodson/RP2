@@ -15,7 +15,7 @@ import { FooComponent} from './resourcePlans/foo.component'
 import { MissionService} from './servicePOC/mission.service'
 import {AstronautComponent} from './servicePOC/astronaut.component'
 import { missionControlComponent } from './servicePOC/missionControl.component'
-
+import { ModalCommunicator } from  './resourcePlans/modal-communicator.service'
 import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component';
 
 import {ResPlanDetails2Component} from './resourcePlans/res-plan-detail2.component';
@@ -60,7 +60,7 @@ import { ProjectListComponent } from './resourcePlans/project-list/project-list.
           
   ],
   
-  providers: [ ResPlanService, MockProjectService, MissionService ],
+  providers: [ ResPlanService, MockProjectService, MissionService, ModalCommunicator ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

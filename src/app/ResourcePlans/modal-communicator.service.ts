@@ -7,19 +7,28 @@ export class ModalCommunicator {
   constructor() { }
  
   // Observable string sources
-  private missionAnnouncedSource = new Subject<string>();
-  private missionConfirmedSource = new Subject<string>();
+  private projectIdArraySource = new Subject<string>();
+  private modalSubmittedSource = new Subject<string>();
+  private modalCancelledSource = new Subject<string>(); 
  
   // Observable string streams
-  missionAnnounced$ = this.missionAnnouncedSource.asObservable();
-  missionConfirmed$ = this.missionConfirmedSource.asObservable();
+  projectIdArray$ = this.projectIdArraySource.asObservable();
+  modalSubmitted$ = this.modalSubmittedSource.asObservable();
+  modalCancelled$ = this.modalCancelledSource.asObservable();
  
   // Service message commands
-  announceMission(mission: string) {
-    this.missionAnnouncedSource.next(mission);
+  modifyProjectIds(id: string) {
+    this.projectIdArraySource.next(id);
   }
  
-  confirmMission(astronaut: string) {
-    this.missionConfirmedSource.next(astronaut);
+  modalSubmitClicked() {
+    debugger; 
+    this.modalSubmittedSource.next();
   }
+
+  modalCancelClicked() {
+    this.modalCancelledSource.next();
+  }
+
+  
 }
