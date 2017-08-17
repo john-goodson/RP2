@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, DoCheck, AfterViewInit, ViewChild } from '@a
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
 
 import 'rxjs/add/operator/debounceTime';
-import { IResPlan , IProject, IIntervals ,ProjectActiveStatus} from './res-plan.model'
+import { IResPlan, IProject, IIntervals, ProjectActiveStatus } from './res-plan.model'
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ResPlanService } from '../services/res-plan-service.service';
 import { ResPlan, Project, Interval } from './res-plan.model';
 import { SimpleModalComponent } from '../common/simple-modal.component'
-import { ModalCommunicator} from '../resourcePlans/modal-communicator.service';
+import { ModalCommunicator } from '../resourcePlans/modal-communicator.service';
 
 @Component({
     selector: 'my-resplan',
@@ -19,83 +19,83 @@ import { ModalCommunicator} from '../resourcePlans/modal-communicator.service';
 
 export class ResPlanListComponent implements OnInit, AfterViewInit {
 
-@ViewChild(SimpleModalComponent)  //we need to call methods on modal
-private modalComponent: SimpleModalComponent;
+    @ViewChild(SimpleModalComponent)  //we need to call methods on modal
+    private modalComponent: SimpleModalComponent;
 
-   
+
 
     mainForm: FormGroup;
     resPlanData: IResPlan[];
     errorMessage: any;
     _intervalCount: number = 3; //todo refactor this.
-     projData =
-      [
+    projData =
+    [
         {
-          "id": 10,
-          "name": "Centennial Hosp Storage Array",
-          "projProperties": {
-            "owner": "John Goodson",
-            "startDate": new Date("8/1/2017"),
-            "finishDate": new Date("12/1/2017"),
-            "projActiveStatus": ProjectActiveStatus.inProgress,
-            "departments": [
-              { "deptName": "BPG" }
-            ]
-          }
+            "id": 10,
+            "name": "Centennial Hosp Storage Array",
+            "projProperties": {
+                "owner": "John Goodson",
+                "startDate": new Date("8/1/2017"),
+                "finishDate": new Date("12/1/2017"),
+                "projActiveStatus": ProjectActiveStatus.inProgress,
+                "departments": [
+                    { "deptName": "BPG" }
+                ]
+            }
         },
         {
-          "id": 11,
-          "name": "Centennial Hosp ER Kiosk Upgrade",
-          "projProperties": {
-            "owner": "John Goodson",
-            "startDate": new Date("8/1/2017"),
-            "finishDate": new Date("12/1/2017"),
-            "projActiveStatus": ProjectActiveStatus.inProgress,
-            "departments": [
-              { "deptName": "BPG" }
-            ]
-          }
+            "id": 11,
+            "name": "Centennial Hosp ER Kiosk Upgrade",
+            "projProperties": {
+                "owner": "John Goodson",
+                "startDate": new Date("8/1/2017"),
+                "finishDate": new Date("12/1/2017"),
+                "projActiveStatus": ProjectActiveStatus.inProgress,
+                "departments": [
+                    { "deptName": "BPG" }
+                ]
+            }
         },
         {
-          "id": 12,
-          "name": "Good Sheppard Hosp Nursing Certification",
-          "projProperties": {
-            "owner": "Joe Colstad",
-            "startDate": new Date("8/1/2017"),
-            "finishDate": new Date("12/1/2017"),
-            "projActiveStatus": ProjectActiveStatus.inProgress,
-            "departments": [
-              { "deptName": "BPG" }
-            ]
-          }
+            "id": 12,
+            "name": "Good Sheppard Hosp Nursing Certification",
+            "projProperties": {
+                "owner": "Joe Colstad",
+                "startDate": new Date("8/1/2017"),
+                "finishDate": new Date("12/1/2017"),
+                "projActiveStatus": ProjectActiveStatus.inProgress,
+                "departments": [
+                    { "deptName": "BPG" }
+                ]
+            }
         },
         {
-          "id": 13,
-          "name": "Mercy Health Lounge",
-          "projProperties": {
-            "owner": "Stephen Donna",
-            "startDate": new Date("8/1/2017"),
-            "finishDate": new Date("12/1/2017"),
-            "projActiveStatus": ProjectActiveStatus.inProgress,
-            "departments": [
-              { "deptName": "BPG" }
-            ]
-          }
+            "id": 13,
+            "name": "Mercy Health Lounge",
+            "projProperties": {
+                "owner": "Stephen Donna",
+                "startDate": new Date("8/1/2017"),
+                "finishDate": new Date("12/1/2017"),
+                "projActiveStatus": ProjectActiveStatus.inProgress,
+                "departments": [
+                    { "deptName": "BPG" }
+                ]
+            }
         },
         {
-          "id": 14,
-          "name": "Centennial Hosp Nursing Station Board Upgrade",
-          "projProperties": {
-            "owner": "John Goodson",
-            "startDate": new Date("8/1/2017"),
-            "finishDate": new Date("12/1/2017"),
-            "projActiveStatus": ProjectActiveStatus.inProgress,
-            "departments": [
-              { "deptName": "BPG" }
-            ]
-          }
+            "id": 14,
+            "name": "Centennial Hosp Nursing Station Board Upgrade",
+            "projProperties": {
+                "owner": "John Goodson",
+                "startDate": new Date("8/1/2017"),
+                "finishDate": new Date("12/1/2017"),
+                "projActiveStatus": ProjectActiveStatus.inProgress,
+                "departments": [
+                    { "deptName": "BPG" }
+                ]
+            }
         }
-      ];
+    ];
 
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
@@ -104,17 +104,16 @@ private modalComponent: SimpleModalComponent;
     //     return <FormArray>this.mainForm.get['projects'];
     // }
 
-    constructor(private fb: FormBuilder, private _resPlanSvc: ResPlanService,private _modalSvc: ModalCommunicator, private router: Router) { }
+    constructor(private fb: FormBuilder, private _resPlanSvc: ResPlanService, private _modalSvc: ModalCommunicator, private router: Router) { }
 
     ngOnInit(): void {
-debugger;
+        debugger;
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
         });
         this._resPlanSvc.getResPlans().subscribe(resPlanData => this.buildResPlans(resPlanData),
             error => console.log('error'));
-         this._modalSvc.modalSubmitted$.subscribe(success => console.log(this._modalSvc.projectIdArray),
-            error => console.log('error'));
+
         console.log('from ngOnInit: ' + JSON.stringify(this.resPlanData));
         //debugger;
     }
@@ -207,32 +206,45 @@ debugger;
     }
 
     getIntervalLength() {
-//toDo... thinking about putting interval count in data service
-        return this._intervalCount; 
+        //toDo... thinking about putting interval count in data service
+        return this._intervalCount;
     }
 
     addProject(_resPlan: FormGroup): void {
         //get IProjects[] array from current formgroup
-        var data = [ 'how', 'now']
-        this.modalComponent.showModal(data); 
+        var data = ['how', 'now']
+        this.modalComponent.showModal(data);
         var _projects: [IProject];
         var project = new Project();
-        
 
-        var intervalLength = this.getIntervalLength();
 
-        for (var i = 0; i < intervalLength; i++) {
-            project.intervals.push(new Interval('', '0.0'));
-        }
-        ((_resPlan as FormGroup).controls['projects'] as FormArray).push(this.buildProject(project));
+
+        this._modalSvc.modalSubmitted$.subscribe(success => this.buildSelectedProjects((_resPlan as FormGroup), this._modalSvc.projectIdArray),
+            error => console.log('error'));
+        // for (var i = 0; i < intervalLength; i++) {
+        //     project.intervals.push(new Interval('', '0.0'));
+        // }
+        // ((_resPlan as FormGroup).controls['projects'] as FormArray).push(this.buildProject(project));
     }
 
     populateTestData(): void {
 
         debugger;
     }
- 
 
+    buildSelectedProjects(formgroup: FormGroup, projects: IProject[]): void {
+        debugger;
+        var intervalLength = this.getIntervalLength();
+        for (var k = 0; k < projects.length; k++) {
+            var project:IProject  = projects[k];
+            project.intervals =  [];
+            for (var i = 0; i < intervalLength; i++) {
+                project.intervals.push(new Interval('', '0.0'));
+            }
+
+            (formgroup.controls['projects'] as FormArray).push(this.buildProject(project));
+        }
+    }
     savePlans(): void {
         //debugger;
         if (this.mainForm.dirty && this.mainForm.valid) {
