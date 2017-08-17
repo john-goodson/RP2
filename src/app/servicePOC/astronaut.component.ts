@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { MissionService } from './mission.service';
 import { Subscription }   from 'rxjs/Subscription';
@@ -29,6 +29,7 @@ export class AstronautComponent implements OnDestroy {
        this.mission = mission;
        this.announced = true;
        this.confirmed = false;
+   
    });
  }
 
@@ -41,5 +42,9 @@ export class AstronautComponent implements OnDestroy {
  ngOnDestroy() {
    // prevent memory leak when component destroyed
    this.subscription.unsubscribe();
+ }
+
+ ngOnInit() {
+  console.log('astronaut component was created');
  }
 }

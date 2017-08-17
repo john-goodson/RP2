@@ -30,10 +30,11 @@ export class missionControlComponent {
 
 
  constructor(private missionService: MissionService) {
-   missionService.missionConfirmed$.subscribe(
+  debugger;  
+  missionService.missionConfirmed$.subscribe(
      astronaut => {
        this.history.push(`${astronaut} confirmed the mission`);
-      
+
      });
  }
 

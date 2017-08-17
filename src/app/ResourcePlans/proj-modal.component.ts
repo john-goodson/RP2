@@ -54,7 +54,7 @@ export class ProjModalComponent {
     },
 
     {
-        "id": 11,
+        "id": 11,     
         "name": "Centennial Hosp ER Kiosk Upgrade",
         "projProperties": {
             "owner": "John Goodson",
@@ -81,7 +81,7 @@ export class ProjModalComponent {
     },
     {
         "id": 13,
-        "name": "Mercy Health Lounge",
+        "name": "Mercy Health Lounge East and West",
         "projProperties": {
             "owner": "Stephen Donna",
             "startDate": new Date("8/1/2017"), 

@@ -18,13 +18,13 @@ export class ModalCommunicator {
   modalCancelled$ = this.modalCancelledSource.asObservable();
  
   
- 
   modalSubmitClicked() {
     debugger; 
     this.modalSubmittedSource.next();
   }
 
   modalCancelClicked() {
+    debugger
     this.modalCancelledSource.next();
   }
 
