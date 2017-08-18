@@ -38,9 +38,14 @@ export class ProjectListComponent implements OnInit {
       projects: this.fb.array([])
     });
     this.buildProjects(this.projData);
-
+    this._modalSvc.modalSubmitted$.subscribe(success => this.clear(),
+            error => console.log('error'));
   }
-
+clear()
+{
+  this._modalSvc.projectIdArray = [];
+  this.selectedProjects =[];
+}
   buildProjects(_projects: IProject[]) {
 
     for (var i = 0; i < _projects.length; i++) {
