@@ -29,74 +29,7 @@ export class ResPlanListComponent implements OnInit, AfterViewInit {
     currentFormGroup:FormGroup;
     errorMessage: any;
     _intervalCount: number = 3; //todo refactor this.
-    projData =
-    [
-        {
-            "id": 10,
-            "name": "Centennial Hosp Storage Array",
-            "projProperties": {
-                "owner": "John Goodson",
-                "startDate": new Date("8/1/2017"),
-                "finishDate": new Date("12/1/2017"),
-                "projActiveStatus": ProjectActiveStatus.inProgress,
-                "departments": [
-                    { "deptName": "BPG" }
-                ]
-            }
-        },
-        {
-            "id": 11,
-            "name": "Centennial Hosp ER Kiosk Upgrade",
-            "projProperties": {
-                "owner": "John Goodson",
-                "startDate": new Date("8/1/2017"),
-                "finishDate": new Date("12/1/2017"),
-                "projActiveStatus": ProjectActiveStatus.inProgress,
-                "departments": [
-                    { "deptName": "BPG" }
-                ]
-            }
-        },
-        {
-            "id": 12,
-            "name": "Good Sheppard Hosp Nursing Certification",
-            "projProperties": {
-                "owner": "Joe Colstad",
-                "startDate": new Date("8/1/2017"),
-                "finishDate": new Date("12/1/2017"),
-                "projActiveStatus": ProjectActiveStatus.inProgress,
-                "departments": [
-                    { "deptName": "BPG" }
-                ]
-            }
-        },
-        {
-            "id": 13,
-            "name": "Mercy Health Lounge",
-            "projProperties": {
-                "owner": "Stephen Donna",
-                "startDate": new Date("8/1/2017"),
-                "finishDate": new Date("12/1/2017"),
-                "projActiveStatus": ProjectActiveStatus.inProgress,
-                "departments": [
-                    { "deptName": "BPG" }
-                ]
-            }
-        },
-        {
-            "id": 14,
-            "name": "Centennial Hosp Nursing Station Board Upgrade",
-            "projProperties": {
-                "owner": "John Goodson",
-                "startDate": new Date("8/1/2017"),
-                "finishDate": new Date("12/1/2017"),
-                "projActiveStatus": ProjectActiveStatus.inProgress,
-                "departments": [
-                    { "deptName": "BPG" }
-                ]
-            }
-        }
-    ];
+    
 
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
