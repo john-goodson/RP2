@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, Input, Output, EventEmitter, OnDestroy,OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { IResPlan, IProject, IIntervals } from '../res-plan.model'
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
 
@@ -18,7 +18,74 @@ import 'rxjs/add/operator/filter';
 export class ProjectListComponent implements OnInit {
 
   projListForm: FormGroup;
-  @Input() projData: IProject[];
+  projData =
+    [
+        {
+            "id": 10,
+            "name": "Centennial Hosp Storage Array",
+            "projProperties": {
+                "owner": "John Goodson",
+                "startDate": new Date("8/1/2017"),
+                "finishDate": new Date("12/1/2017"),
+                "projActiveStatus": ProjectActiveStatus.inProgress,
+                "departments": [
+                    { "deptName": "BPG" }
+                ]
+            }
+        },
+        {
+            "id": 11,
+            "name": "Centennial Hosp ER Kiosk Upgrade",
+            "projProperties": {
+                "owner": "John Goodson",
+                "startDate": new Date("8/1/2017"),
+                "finishDate": new Date("12/1/2017"),
+                "projActiveStatus": ProjectActiveStatus.inProgress,
+                "departments": [
+                    { "deptName": "BPG" }
+                ]
+            }
+        },
+        {
+            "id": 12,
+            "name": "Good Sheppard Hosp Nursing Certification",
+            "projProperties": {
+                "owner": "Joe Colstad",
+                "startDate": new Date("8/1/2017"),
+                "finishDate": new Date("12/1/2017"),
+                "projActiveStatus": ProjectActiveStatus.inProgress,
+                "departments": [
+                    { "deptName": "BPG" }
+                ]
+            }
+        },
+        {
+            "id": 13,
+            "name": "Mercy Health Lounge",
+            "projProperties": {
+                "owner": "Stephen Donna",
+                "startDate": new Date("8/1/2017"),
+                "finishDate": new Date("12/1/2017"),
+                "projActiveStatus": ProjectActiveStatus.inProgress,
+                "departments": [
+                    { "deptName": "BPG" }
+                ]
+            }
+        },
+        {
+            "id": 14,
+            "name": "Centennial Hosp Nursing Station Board Upgrade",
+            "projProperties": {
+                "owner": "John Goodson",
+                "startDate": new Date("8/1/2017"),
+                "finishDate": new Date("12/1/2017"),
+                "projActiveStatus": ProjectActiveStatus.inProgress,
+                "departments": [
+                    { "deptName": "BPG" }
+                ]
+            }
+        }
+    ];
   errorMessage: any;
   selectedProjects: IProject[] = [];
   //@Input() proj
@@ -26,6 +93,7 @@ export class ProjectListComponent implements OnInit {
   get projects(): FormArray {  //this getter should return all instances.
     return <FormArray>this.projListForm.get('projects');
   }
+  
 
 
 
@@ -38,9 +106,20 @@ export class ProjectListComponent implements OnInit {
       projects: this.fb.array([])
     });
     this.buildProjects(this.projData);
-
+    this._modalSvc.modalSubmitted$.subscribe(success => this.clear(),
+            error => console.log('error'));
   }
 
+clear()
+{
+  this._modalSvc.projectArray = [];
+  this.selectedProjects =[];
+  for(var i=0;i< this.projects.length;i++)
+    {
+      var isSelected = (this.projects.controls[i] as FormGroup).controls['isSelected'];
+      isSelected.setValue(false);
+    }
+}
   buildProjects(_projects: IProject[]) {
 
     for (var i = 0; i < _projects.length; i++) {
@@ -54,7 +133,7 @@ export class ProjectListComponent implements OnInit {
     var projGroup = this.fb.group({
       id: _project.id,
       name: _project.name,
-
+      isSelected : false
     });
 
     return projGroup;
@@ -72,7 +151,8 @@ export class ProjectListComponent implements OnInit {
     else {
       this.selectedProjects.push(this.projData.filter(t => t.id == id)[0]);
     }
-    this._modalSvc.projectIdArray = this.selectedProjects;
+    this._modalSvc.projectArray = this.selectedProjects;
+  
   }
 
 

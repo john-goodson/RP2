@@ -8,7 +8,7 @@ export class ModalCommunicator {
   constructor() { }
  
   // Observable string sources
-  public projectIdArray:IProject[];
+  public projectArray:IProject[];
   private modalSubmittedSource = new Subject<string>();
   private modalCancelledSource = new Subject<string>(); 
  

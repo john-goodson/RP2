@@ -26,76 +26,10 @@ export class ResPlanListComponent implements OnInit, AfterViewInit {
 
     mainForm: FormGroup;
     resPlanData: IResPlan[];
+    currentFormGroup:FormGroup;
     errorMessage: any;
     _intervalCount: number = 3; //todo refactor this.
-    projData =
-    [
-        {
-            "id": 10,
-            "name": "Centennial Hosp Storage Array",
-            "projProperties": {
-                "owner": "John Goodson",
-                "startDate": new Date("8/1/2017"),
-                "finishDate": new Date("12/1/2017"),
-                "projActiveStatus": ProjectActiveStatus.inProgress,
-                "departments": [
-                    { "deptName": "BPG" }
-                ]
-            }
-        },
-        {
-            "id": 11,
-            "name": "Centennial Hosp ER Kiosk Upgrade",
-            "projProperties": {
-                "owner": "John Goodson",
-                "startDate": new Date("8/1/2017"),
-                "finishDate": new Date("12/1/2017"),
-                "projActiveStatus": ProjectActiveStatus.inProgress,
-                "departments": [
-                    { "deptName": "BPG" }
-                ]
-            }
-        },
-        {
-            "id": 12,
-            "name": "Good Sheppard Hosp Nursing Certification",
-            "projProperties": {
-                "owner": "Joe Colstad",
-                "startDate": new Date("8/1/2017"),
-                "finishDate": new Date("12/1/2017"),
-                "projActiveStatus": ProjectActiveStatus.inProgress,
-                "departments": [
-                    { "deptName": "BPG" }
-                ]
-            }
-        },
-        {
-            "id": 13,
-            "name": "Mercy Health Lounge",
-            "projProperties": {
-                "owner": "Stephen Donna",
-                "startDate": new Date("8/1/2017"),
-                "finishDate": new Date("12/1/2017"),
-                "projActiveStatus": ProjectActiveStatus.inProgress,
-                "departments": [
-                    { "deptName": "BPG" }
-                ]
-            }
-        },
-        {
-            "id": 14,
-            "name": "Centennial Hosp Nursing Station Board Upgrade",
-            "projProperties": {
-                "owner": "John Goodson",
-                "startDate": new Date("8/1/2017"),
-                "finishDate": new Date("12/1/2017"),
-                "projActiveStatus": ProjectActiveStatus.inProgress,
-                "departments": [
-                    { "deptName": "BPG" }
-                ]
-            }
-        }
-    ];
+    
 
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
@@ -112,8 +46,9 @@ export class ResPlanListComponent implements OnInit, AfterViewInit {
             resPlans: this.fb.array([])
         });
         this._resPlanSvc.getResPlans().subscribe(resPlanData => this.buildResPlans(resPlanData),
-            error => console.log('error'));
-
+            error => console.log('error'),()=> console.log('res Plan get completed'));
+this._modalSvc.modalSubmitted$.subscribe(success => this.buildSelectedProjects(this._modalSvc.projectArray),
+            error => console.log('error'),()=> console.log('modal submit completed'));
         console.log('from ngOnInit: ' + JSON.stringify(this.resPlanData));
         //debugger;
     }
@@ -216,11 +151,10 @@ export class ResPlanListComponent implements OnInit, AfterViewInit {
         this.modalComponent.showModal(data);
         var _projects: [IProject];
         var project = new Project();
+        this.currentFormGroup = _resPlan;
 
 
-
-        this._modalSvc.modalSubmitted$.subscribe(success => this.buildSelectedProjects((_resPlan as FormGroup), this._modalSvc.projectIdArray),
-            error => console.log('error'));
+        
         // for (var i = 0; i < intervalLength; i++) {
         //     project.intervals.push(new Interval('', '0.0'));
         // }
@@ -232,7 +166,7 @@ export class ResPlanListComponent implements OnInit, AfterViewInit {
         debugger;
     }
 
-    buildSelectedProjects(formgroup: FormGroup, projects: IProject[]): void {
+    buildSelectedProjects( projects: IProject[]): void {
         debugger;
         var intervalLength = this.getIntervalLength();
         for (var k = 0; k < projects.length; k++) {
@@ -242,7 +176,7 @@ export class ResPlanListComponent implements OnInit, AfterViewInit {
                 project.intervals.push(new Interval('', '0.0'));
             }
 
-            (formgroup.controls['projects'] as FormArray).push(this.buildProject(project));
+            (this.currentFormGroup.controls['projects'] as FormArray).push(this.buildProject(project));
         }
     }
     savePlans(): void {
