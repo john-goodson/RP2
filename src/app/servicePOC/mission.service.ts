@@ -16,13 +16,13 @@ export class MissionService {
  
   // Service message commands
   announceMission(mission: string) {
-    debugger
+    //debugger
     this.missionAnnouncedSource.next(mission);
     
   }
  
   confirmMission(astronaut: string) {
-    debugger
+    //debugger
     this.missionConfirmedSource.next(astronaut);
   
   }

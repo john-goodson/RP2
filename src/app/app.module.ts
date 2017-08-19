@@ -30,7 +30,8 @@ import {  NestedFormArray } from './poc/formArray.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { ResPlanListComponent} from './resourcePlans/res-plan-list.component'
 import { SimpleModalComponent} from './common/simple-modal.component';
-import { ProjectListComponent } from './resourcePlans/project-list/project-list.component'
+import { ProjectListComponent } from './resourcePlans/project-list/project-list.component';
+import { RxjsComponentComponent } from './resourcePlans/rxjs-component/rxjs-component.component'
 
 
 //let jQuery : Object;
@@ -49,7 +50,9 @@ import { ProjectListComponent } from './resourcePlans/project-list/project-list.
     ProjectListComponent,
     AstronautComponent,
     missionControlComponent,
+    RxjsComponentComponent,
     
+  
   ],
   imports: [
     BrowserModule,
