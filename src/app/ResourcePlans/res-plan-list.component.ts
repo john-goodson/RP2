@@ -46,9 +46,9 @@ export class ResPlanListComponent implements OnInit, AfterViewInit {
             resPlans: this.fb.array([])
         });
         this._resPlanSvc.getResPlans().subscribe(resPlanData => this.buildResPlans(resPlanData),
-            error => console.log('error'));
-this._modalSvc.modalSubmitted$.subscribe(success => this.buildSelectedProjects(this._modalSvc.projectIdArray),
-            error => console.log('error'));
+            error => console.log('error'),()=> console.log('res Plan get completed'));
+this._modalSvc.modalSubmitted$.subscribe(success => this.buildSelectedProjects(this._modalSvc.projectArray),
+            error => console.log('error'),()=> console.log('modal submit completed'));
         console.log('from ngOnInit: ' + JSON.stringify(this.resPlanData));
         //debugger;
     }

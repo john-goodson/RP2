@@ -112,7 +112,7 @@ export class ProjectListComponent implements OnInit {
 
 clear()
 {
-  this._modalSvc.projectIdArray = [];
+  this._modalSvc.projectArray = [];
   this.selectedProjects =[];
   for(var i=0;i< this.projects.length;i++)
     {
@@ -151,7 +151,7 @@ clear()
     else {
       this.selectedProjects.push(this.projData.filter(t => t.id == id)[0]);
     }
-    this._modalSvc.projectIdArray = this.selectedProjects;
+    this._modalSvc.projectArray = this.selectedProjects;
   
   }
 
