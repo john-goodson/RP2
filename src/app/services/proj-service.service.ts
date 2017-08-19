@@ -16,7 +16,7 @@ import { IIntervals } from '../resourcePlans/res-plan.model';
 @Injectable()
 export class ProjectService {
   
-    private projListUrl = 'api/projects'
+    private projListUrl = 'http://foo.wingtip.com/pwa/_api/ProjectServer/Projects'
 
     constructor(private http: Http) { }
 
@@ -34,12 +34,21 @@ export class ProjectService {
         return Observable.throw(error.json().error || 'Server error');
     }
 
-    getProjects(): Observable<IProject[]> {
+    // getProjects(): Observable<IProject[]> {
+    //     console.log("entering getProjects method:")
+    //     return this.http.get(this.projListUrl)
+    //         .map(this.extractData)
+    //         .do(data => console.log('getProjects from REST: ' + JSON.stringify(data)))
+    //         .catch(this.handleError);
+            
+    // }
+
+    getProjects(): Observable<any> {
         console.log("entering getProjects method:")
+        let headers = new Headers({ 'accept': 'application/json;odata=verbose'   })
         return this.http.get(this.projListUrl)
             .map(this.extractData)
             .do(data => console.log('getProjects from REST: ' + JSON.stringify(data)))
             .catch(this.handleError);
-            
     }
 }

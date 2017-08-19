@@ -9,7 +9,7 @@ import { HttpModule } from '@angular/http';
 import {  ResPlanData } from './services/res-plan-data';
 
 import {  ResPlanService} from './services/res-plan-service.service'
-import { MockProjectService } from './services/mock-Project.service'
+
 import { FooComponent} from './resourcePlans/foo.component'
 
 import { MissionService} from './servicePOC/mission.service'
@@ -32,6 +32,7 @@ import { ResPlanListComponent} from './resourcePlans/res-plan-list.component'
 import { SimpleModalComponent} from './common/simple-modal.component';
 import { ProjectListComponent } from './resourcePlans/project-list/project-list.component';
 import { RxjsComponentComponent } from './resourcePlans/rxjs-component/rxjs-component.component'
+import { Rxjs2 } from './resourcePlans/rxjs-component/rxjs-component.component2'
 
 
 //let jQuery : Object;
@@ -51,6 +52,7 @@ import { RxjsComponentComponent } from './resourcePlans/rxjs-component/rxjs-comp
     AstronautComponent,
     missionControlComponent,
     RxjsComponentComponent,
+    Rxjs2,
     
   
   ],
@@ -63,7 +65,7 @@ import { RxjsComponentComponent } from './resourcePlans/rxjs-component/rxjs-comp
           
   ],
   
-  providers: [ ResPlanService, MockProjectService, MissionService, ModalCommunicator ],
+  providers: [ ResPlanService,  MissionService, ModalCommunicator ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

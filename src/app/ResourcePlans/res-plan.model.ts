@@ -52,6 +52,7 @@ export class Interval implements IIntervals{
     constructor(public intervalName = '',
         public intervalValue = '',
  ) { }
+ 
 }
 
 export enum ProjectActiveStatus {
