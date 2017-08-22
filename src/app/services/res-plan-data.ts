@@ -18,7 +18,7 @@ export class ResPlanData implements InMemoryDbService {
         },
         "projects": [
             {
-                "id": 1,
+                "id": "1",
                 "name": "Data Center Consolidation",
                 "intervals": [
                     {
@@ -36,7 +36,7 @@ export class ResPlanData implements InMemoryDbService {
                 ]
             },
              {
-                "id": 2,
+                "id": "2",
                 "name": "Windows Upgrade",
                 "intervals": [
                     {
@@ -54,7 +54,7 @@ export class ResPlanData implements InMemoryDbService {
                 ]
             },
              {
-                "id": 3,
+                "id": "3",
                 "name": "Server Upgrades",
                 "intervals": [
                     {
@@ -72,7 +72,7 @@ export class ResPlanData implements InMemoryDbService {
                 ]
             },
             {
-                "id": 4,
+                "id": "4",
                 "name": "Payment Processing Upgrade",
                 "intervals": [
                     {
@@ -101,7 +101,7 @@ export class ResPlanData implements InMemoryDbService {
         },
         "projects": [
             {
-                "id": 1,
+                "id": "1",
                 "name": "Data Center",
                 "intervals": [
                     {
@@ -119,7 +119,7 @@ export class ResPlanData implements InMemoryDbService {
                 ]
             },
              {
-                "id": 2,
+                "id": "2",
                 "name": "Windows Upgrade",
                 "intervals": [
                     {
@@ -137,7 +137,7 @@ export class ResPlanData implements InMemoryDbService {
                 ]
             },
              {
-                "id": 3,
+                "id": "3",
                 "name": "Server Upgrades",
                 "intervals": [
                     {
@@ -166,7 +166,7 @@ export class ResPlanData implements InMemoryDbService {
         },
         "projects": [
             {
-                "id": 1,
+                "id": "1",
                 "name": "Project XYZ for Joe Colstad",
                 "intervals": [
                     {
@@ -184,7 +184,7 @@ export class ResPlanData implements InMemoryDbService {
                 ]
             },
             {
-                "id": 2,
+                "id": "2",
                 "name": "Project 123 - Joe Colstad",
                 "intervals": [
                     {

@@ -24,7 +24,7 @@ export class ProjectListComponent implements OnInit {
 
   projListForm: FormGroup;
   
-  projData: IProject[] = this._projSvc.projects; 
+  projData: IProject[]; 
   errorMessage: any;
   selectedProjects: IProject[] = [];
   
@@ -39,6 +39,7 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('project list component created');
+     this.projData = this._projSvc.projects;
     this.projListForm = this.fb.group({
       projects: this.fb.array([])
     });
@@ -76,7 +77,7 @@ clear()
     return projGroup;
   }
 
-  selectProject(id: number) {
+  selectProject(id: string) {
     debugger;
     //uncheck use case
     if (this.selectedProjects.filter(t => t.id == id).length > 0) {

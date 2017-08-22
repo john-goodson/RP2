@@ -14,14 +14,16 @@ export class ProjectService {
     
 
     private url: string = 'api/dataservice/';
-    public projects : Observable<IProject[]>;
-    constructor(private http: Http) { }
+    public projects : IProject[];
+    constructor(private http: Http) {
+        let observer = this.getProjects().subscribe(values=> this.projects = values);
+    }
     
     handleError(error: any) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
     }
-
+    
     getProjects() : Observable<IProject[]> {
 
         let headers = new Headers(); 
@@ -55,9 +57,4 @@ export class ProjectService {
                    })
                    .catch(this.handleError);
     }
-    ngOnInit() {
-      this.projects = this.getProjects(); 
-    }
-
-
 }

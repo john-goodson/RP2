@@ -26,7 +26,7 @@ import { CollapsibleWellComponent} from './common/collapsible-well.component'
 import { HeaderRowComponent} from './common/header-row.component'
 //import { JQ_TOKEN }    from './common/jquery.service'
 
-import {  NestedFormArray } from './poc/formArray.component'
+
 import { ReactiveFormsModule } from '@angular/forms'
 import { ResPlanListComponent} from './resourcePlans/res-plan-list.component'
 import { SimpleModalComponent} from './common/simple-modal.component';
@@ -44,7 +44,6 @@ import {ProjectService} from './services/project-service.service'
     ResPlanDetails2Component,
     CollapsibleWellComponent,
     HeaderRowComponent,
-    NestedFormArray,
     ResPlanListComponent, 
     FooComponent,
     SimpleModalComponent,
