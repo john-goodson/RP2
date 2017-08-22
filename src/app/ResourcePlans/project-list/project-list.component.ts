@@ -7,6 +7,11 @@ import { ResPlan, Project, Interval, ProjectActiveStatus } from '../res-plan.mod
 import { SimpleModalComponent } from '../../common/simple-modal.component';
 import { ModalCommunicator } from '../../resourcePlans/modal-communicator.service';
 import 'rxjs/add/operator/filter';
+
+import { ProjectService }  from '../../services/project-service.service'
+import {Observable} from 'Rxjs'
+
+
 @Component({
   selector: 'project-list',
   templateUrl: './project-list.component.html',
@@ -18,90 +23,22 @@ import 'rxjs/add/operator/filter';
 export class ProjectListComponent implements OnInit {
 
   projListForm: FormGroup;
-  projData =
-    [
-        {
-            "id": 10,
-            "name": "Centennial Hosp Storage Array",
-            "projProperties": {
-                "owner": "John Goodson",
-                "startDate": new Date("8/1/2017"),
-                "finishDate": new Date("12/1/2017"),
-                "projActiveStatus": ProjectActiveStatus.inProgress,
-                "departments": [
-                    { "deptName": "BPG" }
-                ]
-            }
-        },
-        {
-            "id": 11,
-            "name": "Centennial Hosp ER Kiosk Upgrade",
-            "projProperties": {
-                "owner": "John Goodson",
-                "startDate": new Date("8/1/2017"),
-                "finishDate": new Date("12/1/2017"),
-                "projActiveStatus": ProjectActiveStatus.inProgress,
-                "departments": [
-                    { "deptName": "BPG" }
-                ]
-            }
-        },
-        {
-            "id": 12,
-            "name": "Good Sheppard Hosp Nursing Certification",
-            "projProperties": {
-                "owner": "Joe Colstad",
-                "startDate": new Date("8/1/2017"),
-                "finishDate": new Date("12/1/2017"),
-                "projActiveStatus": ProjectActiveStatus.inProgress,
-                "departments": [
-                    { "deptName": "BPG" }
-                ]
-            }
-        },
-        {
-            "id": 13,
-            "name": "Mercy Health Lounge",
-            "projProperties": {
-                "owner": "Stephen Donna",
-                "startDate": new Date("8/1/2017"),
-                "finishDate": new Date("12/1/2017"),
-                "projActiveStatus": ProjectActiveStatus.inProgress,
-                "departments": [
-                    { "deptName": "BPG" }
-                ]
-            }
-        },
-        {
-            "id": 14,
-            "name": "Centennial Hosp Nursing Station Board Upgrade",
-            "projProperties": {
-                "owner": "John Goodson",
-                "startDate": new Date("8/1/2017"),
-                "finishDate": new Date("12/1/2017"),
-                "projActiveStatus": ProjectActiveStatus.inProgress,
-                "departments": [
-                    { "deptName": "BPG" }
-                ]
-            }
-        }
-    ];
+  
+  projData: IProject[] = this._projSvc.projects; 
   errorMessage: any;
   selectedProjects: IProject[] = [];
+  
   //@Input() proj
 
   get projects(): FormArray {  //this getter should return all instances.
     return <FormArray>this.projListForm.get('projects');
   }
   
-
-
-
-  constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator) { }
+  constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator, private _projSvc: ProjectService) { }
 
 
   ngOnInit(): void {
-    debugger;
+    console.log('project list component created');
     this.projListForm = this.fb.group({
       projects: this.fb.array([])
     });

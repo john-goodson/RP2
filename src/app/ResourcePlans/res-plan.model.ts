@@ -12,7 +12,7 @@ export interface IResPlan {
 }
 
 export interface IProject {
-  id: number;
+  id: string;
   name: string;
   projProperties?: {
     owner: string;

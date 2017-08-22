@@ -14,7 +14,7 @@ import { IProject } from '../resourcePlans/res-plan.model';
 import { IIntervals } from '../resourcePlans/res-plan.model';
 
 @Injectable()
-export class ProjectService {
+export class ProjectService_Old {
   
     private projListUrl = 'http://foo.wingtip.com/pwa/_api/ProjectServer/Projects'
 
