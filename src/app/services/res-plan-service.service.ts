@@ -17,10 +17,213 @@ import { IIntervals } from '../resourcePlans/res-plan.model';
 export class ResPlanService {
     private baseUrl = 'api/resPlans';
 
+    RESPLANS: IResPlan[]; 
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) { 
+        this.RESPLANS  = [
+            {
+            "id": "1",
+            "name": "Carey Gower",
+            "org": {
+                "location": "Nashville",
+                "title": "Director",
+                "manager": "Brady"
+            },
+            "projects": [
+                {
+                    "id": "1",
+                    "name": "Data Center Consolidation",
+                    "intervals": [
+                        {
+                        "intervalName": "jan",
+                        "intervalValue": "40"
+                    },
+                    {
+                        "intervalName": "feb",
+                        "intervalValue": "80"
+                    },
+                    {
+                        "intervalName": "mar",
+                        "intervalValue": "80"
+                    }
+                    ]
+                },
+                 {
+                    "id": "2",
+                    "name": "Windows Upgrade",
+                    "intervals": [
+                        {
+                        "intervalName": "jan",
+                        "intervalValue": "40"
+                    },
+                    {
+                        "intervalName": "feb",
+                        "intervalValue": "80"
+                    },
+                    {
+                        "intervalName": "mar",
+                        "intervalValue": "80.5"
+                    }
+                    ]
+                },
+                 {
+                    "id": "3",
+                    "name": "Server Upgrades",
+                    "intervals": [
+                        {
+                        "intervalName": "jan",
+                        "intervalValue": "40"
+                    },
+                    {
+                        "intervalName": "feb",
+                        "intervalValue": "80"
+                    },
+                    {
+                        "intervalName": "mar",
+                        "intervalValue": "45.5"
+                    }
+                    ]
+                },
+                {
+                    "id": "4",
+                    "name": "Payment Processing Upgrade",
+                    "intervals": [
+                        {
+                        "intervalName": "jan",
+                        "intervalValue": "40"
+                    },
+                    {
+                        "intervalName": "feb",
+                        "intervalValue": "80"
+                    },
+                    {
+                        "intervalName": "mar",
+                        "intervalValue": "80"
+                    }
+                    ]
+                }
+            ]
+        },
+           {
+            "id": "2",
+            "name": "John Goodson",
+            "org": {
+                "location": "Nashville",
+                "title": "Cons Engr",
+                "manager": "Ronnie"
+            },
+            "projects": [
+                {
+                    "id": "1",
+                    "name": "Data Center",
+                    "intervals": [
+                        {
+                        "intervalName": "jan",
+                        "intervalValue": "40"
+                    },
+                    {
+                        "intervalName": "feb",
+                        "intervalValue": "80"
+                    },
+                    {
+                        "intervalName": "mar",
+                        "intervalValue": "80"
+                    }
+                    ]
+                },
+                 {
+                    "id": "2",
+                    "name": "Windows Upgrade",
+                    "intervals": [
+                        {
+                        "intervalName": "jan",
+                        "intervalValue": "40"
+                    },
+                    {
+                        "intervalName": "feb",
+                        "intervalValue": "80"
+                    },
+                    {
+                        "intervalName": "mar",
+                        "intervalValue": "80.5"
+                    }
+                    ]
+                },
+                 {
+                    "id": "3",
+                    "name": "Server Upgrades",
+                    "intervals": [
+                        {
+                        "intervalName": "jan",
+                        "intervalValue": "40"
+                    },
+                    {
+                        "intervalName": "feb",
+                        "intervalValue": "80"
+                    },
+                    {
+                        "intervalName": "mar",
+                        "intervalValue": "45.5"
+                    }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "3",
+            "name": "Joe Colstad",
+            "org": {
+                "location": "Nashville",
+                "title": "PS Admin",
+                "manager": "Ronnie"
+            },
+            "projects": [
+                {
+                    "id": "1",
+                    "name": "Project XYZ for Joe Colstad",
+                    "intervals": [
+                        {
+                        "intervalName": "jan",
+                        "intervalValue": "40"
+                    },
+                    {
+                        "intervalName": "feb",
+                        "intervalValue": "80"
+                    },
+                    {
+                        "intervalName": "mar",
+                        "intervalValue": "80"
+                    }
+                    ]
+                },
+                {
+                    "id": "2",
+                    "name": "Project 123 - Joe Colstad",
+                    "intervals": [
+                        {
+                        "intervalName": "jan",
+                        "intervalValue": "40"
+                    },
+                    {
+                        "intervalName": "feb",
+                        "intervalValue": "80"
+                    },
+                    {
+                        "intervalName": "mar",
+                        "intervalValue": "80"
+                    }
+                    ]
+                }
+        
+            ]
+        }
+        ]
+    }
 
     getResPlans(): Observable<IResPlan[]> {
+        return Observable.of(this.RESPLANS)
+    }
+    getResPlans___(): Observable<IResPlan[]> {
         console.log("entering getResPlans method:")
         return this.http.get(this.baseUrl)
             .map(this.extractData)
@@ -74,14 +277,6 @@ export class ResPlanService {
             .catch(this.handleError);
     }
 
-    // private createProject(_resPlan: IResPlan, _project: IProject, options: RequestOptions): Observable<IResPlan> {
-    //     _resPlan.id = undefined;
-    //     return this.http.post(this.baseUrl, _project, options)
-    //         .map(this.extractData)
-    //         .do(data => console.log('createresPlan: ' + JSON.stringify(data)))
-    //         .catch(this.handleError);
-    // }
-
 
     private updateResPlan(resPlan: IResPlan, options: RequestOptions): Observable<IResPlan> {
         console.log('entering updateResPlan ')
@@ -107,7 +302,7 @@ export class ResPlanService {
     initializeResPlan(): IResPlan {
         // Return an initialized object
         return {
-            id: 0,
+            id: '0',
             name: null,
             org: null,
             projects: []
@@ -115,4 +310,11 @@ export class ResPlanService {
     }
 
     
+    
+
+    
+
+    
 }
+
+

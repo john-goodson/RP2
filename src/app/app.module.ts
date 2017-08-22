@@ -6,15 +6,12 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router'
 import { appRoutes } from './routes'
 import { HttpModule } from '@angular/http';
-import {  ResPlanData } from './services/res-plan-data';
 
 import {  ResPlanService} from './services/res-plan-service.service'
 
 import { FooComponent} from './resourcePlans/foo.component'
 
-import { MissionService} from './servicePOC/mission.service'
-import {AstronautComponent} from './servicePOC/astronaut.component'
-import { missionControlComponent } from './servicePOC/missionControl.component'
+
 import { ModalCommunicator } from  './resourcePlans/modal-communicator.service'
 import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component';
 
@@ -48,8 +45,7 @@ import {ProjectService} from './services/project-service.service'
     FooComponent,
     SimpleModalComponent,
     ProjectListComponent,
-    AstronautComponent,
-    missionControlComponent,
+
     RxjsComponentComponent,
     Rxjs2,
     
@@ -60,11 +56,11 @@ import {ProjectService} from './services/project-service.service'
     RouterModule.forRoot(appRoutes) ,
           HttpModule, 
           ReactiveFormsModule ,
-          InMemoryWebApiModule.forRoot(ResPlanData),
+         // InMemoryWebApiModule.forRoot(ResPlanData),
           
   ],
   
-  providers: [ ResPlanService,  MissionService, ModalCommunicator, ProjectService ],
+  providers: [ ResPlanService,   ModalCommunicator, ProjectService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

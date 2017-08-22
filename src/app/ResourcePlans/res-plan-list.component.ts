@@ -23,7 +23,6 @@ export class ResPlanListComponent implements OnInit, AfterViewInit {
     private modalComponent: SimpleModalComponent;
 
 
-
     mainForm: FormGroup;
     resPlanData: IResPlan[];
     currentFormGroup:FormGroup;

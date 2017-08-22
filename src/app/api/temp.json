@@ -1,62 +1,198 @@
-{
-    "firstName": "Carey Gower",
-    "totals": [
-        {
-            "intervalName": "jan",
-            "intervalValue": 120
-        }
-    ],
+[
+    {
+    "id": "1",
+    "name": "Carey Gower",
+    "org": {
+        "location": "Nashville",
+        "title": "Director",
+        "manager": "Brady"
+    },
     "projects": [
         {
-            "projName": "Data Center Consolidation",
+            "id": "1",
+            "name": "Data Center Consolidation",
             "intervals": [
                 {
-                    "intervalName": "jan",
-                    "intervalValue": "40"
-                },
+                "intervalName": "jan",
+                "intervalValue": "40"
+            },
+            {
+                "intervalName": "feb",
+                "intervalValue": "80"
+            },
+            {
+                "intervalName": "mar",
+                "intervalValue": "80"
+            }
+            ]
+        },
+         {
+            "id": "2",
+            "name": "Windows Upgrade",
+            "intervals": [
                 {
-                    "intervalName": "feb",
-                    "intervalValue": "80"
-                },
+                "intervalName": "jan",
+                "intervalValue": "40"
+            },
+            {
+                "intervalName": "feb",
+                "intervalValue": "80"
+            },
+            {
+                "intervalName": "mar",
+                "intervalValue": "80.5"
+            }
+            ]
+        },
+         {
+            "id": "3",
+            "name": "Server Upgrades",
+            "intervals": [
                 {
-                    "intervalName": "mar",
-                    "intervalValue": "80"
-                }
+                "intervalName": "jan",
+                "intervalValue": "40"
+            },
+            {
+                "intervalName": "feb",
+                "intervalValue": "80"
+            },
+            {
+                "intervalName": "mar",
+                "intervalValue": "45.5"
+            }
             ]
         },
         {
-            "projName": "Windows Upgrade",
+            "id": "4",
+            "name": "Payment Processing Upgrade",
             "intervals": [
                 {
-                    "intervalName": "jan",
-                    "intervalValue": "40"
-                },
-                {
-                    "intervalName": "feb",
-                    "intervalValue": "80"
-                },
-                {
-                    "intervalName": "mar",
-                    "intervalValue": "80.5"
-                }
-            ]
-        },
-        {
-            "projName": "Server Upgrades",
-            "intervals": [
-                {
-                    "intervalName": "jan",
-                    "intervalValue": "40"
-                },
-                {
-                    "intervalName": "feb",
-                    "intervalValue": "80"
-                },
-                {
-                    "intervalName": "mar",
-                    "intervalValue": "45.5"
-                }
+                "intervalName": "jan",
+                "intervalValue": "40"
+            },
+            {
+                "intervalName": "feb",
+                "intervalValue": "80"
+            },
+            {
+                "intervalName": "mar",
+                "intervalValue": "80"
+            }
             ]
         }
     ]
+},
+   {
+    "id": "2",
+    "name": "John Goodson",
+    "org": {
+        "location": "Nashville",
+        "title": "Cons Engr",
+        "manager": "Ronnie"
+    },
+    "projects": [
+        {
+            "id": "1",
+            "name": "Data Center",
+            "intervals": [
+                {
+                "intervalName": "jan",
+                "intervalValue": "40"
+            },
+            {
+                "intervalName": "feb",
+                "intervalValue": "80"
+            },
+            {
+                "intervalName": "mar",
+                "intervalValue": "80"
+            }
+            ]
+        },
+         {
+            "id": "2",
+            "name": "Windows Upgrade",
+            "intervals": [
+                {
+                "intervalName": "jan",
+                "intervalValue": "40"
+            },
+            {
+                "intervalName": "feb",
+                "intervalValue": "80"
+            },
+            {
+                "intervalName": "mar",
+                "intervalValue": "80.5"
+            }
+            ]
+        },
+         {
+            "id": "3",
+            "name": "Server Upgrades",
+            "intervals": [
+                {
+                "intervalName": "jan",
+                "intervalValue": "40"
+            },
+            {
+                "intervalName": "feb",
+                "intervalValue": "80"
+            },
+            {
+                "intervalName": "mar",
+                "intervalValue": "45.5"
+            }
+            ]
+        }
+    ]
+},
+{
+    "id": "3",
+    "name": "Joe Colstad",
+    "org": {
+        "location": "Nashville",
+        "title": "PS Admin",
+        "manager": "Ronnie"
+    },
+    "projects": [
+        {
+            "id": "1",
+            "name": "Project XYZ for Joe Colstad",
+            "intervals": [
+                {
+                "intervalName": "jan",
+                "intervalValue": "40"
+            },
+            {
+                "intervalName": "feb",
+                "intervalValue": "80"
+            },
+            {
+                "intervalName": "mar",
+                "intervalValue": "80"
+            }
+            ]
+        },
+        {
+            "id": "2",
+            "name": "Project 123 - Joe Colstad",
+            "intervals": [
+                {
+                "intervalName": "jan",
+                "intervalValue": "40"
+            },
+            {
+                "intervalName": "feb",
+                "intervalValue": "80"
+            },
+            {
+                "intervalName": "mar",
+                "intervalValue": "80"
+            }
+            ]
+        }
+
+    ]
 }
+]

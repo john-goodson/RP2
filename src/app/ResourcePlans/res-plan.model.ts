@@ -1,5 +1,5 @@
 export interface IResPlan {
-  id: number;
+  id: string;
   name: string;
 
   org?: {
@@ -8,6 +8,7 @@ export interface IResPlan {
     manager: string;
   };
 
+  
   projects: IProject[]; 
 }
 
@@ -33,7 +34,7 @@ export interface IIntervals {
 
 export class ResPlan implements IResPlan {
 
-    constructor(public id = 0,
+    constructor(public id = '0',
         public name = '',
     
         public projects = [] )

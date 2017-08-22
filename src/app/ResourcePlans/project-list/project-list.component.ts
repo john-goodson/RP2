@@ -40,6 +40,8 @@ export class ProjectListComponent implements OnInit {
   ngOnInit(): void {
     console.log('project list component created');
      this.projData = this._projSvc.projects;
+     debugger
+
     this.projListForm = this.fb.group({
       projects: this.fb.array([])
     });
