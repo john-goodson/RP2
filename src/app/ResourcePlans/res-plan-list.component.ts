@@ -18,7 +18,7 @@ import { ProjectService } from '../services/project-service.service'
     templateUrl: './res-plan-list.component.html'
 })
 
-export class ResPlanListComponent implements OnInit, AfterViewInit {
+export class ResPlanListComponent implements OnInit {
 
     @ViewChild(SimpleModalComponent)  //we need to call methods on modal
     private modalComponent: SimpleModalComponent;
@@ -44,11 +44,12 @@ export class ResPlanListComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         debugger;
-        this._projSvc.getProjects().subscribe(proj => {
-            this.projData = proj
-            this.mainForm = this.fb.group({
+        this.mainForm = this.fb.group({
                 resPlans: this.fb.array([])
             });
+        this._projSvc.getProjects().subscribe(proj => {
+            this.projData = proj
+            
             this._resPlanSvc.getResPlans().subscribe(resPlanData => this.buildResPlans(resPlanData),
                 error => console.log('error'), () => console.log('res Plan get completed'));
             this._modalSvc.modalSubmitted$.subscribe(success => this.buildSelectedProjects(this._modalSvc.projectArray),
@@ -215,8 +216,6 @@ export class ResPlanListComponent implements OnInit, AfterViewInit {
         this.router.navigate(['/foo']);
 
     }
-    ngAfterViewInit(): void {
-        throw new Error("Method not implemented.");
-    }
+    
 
 }
