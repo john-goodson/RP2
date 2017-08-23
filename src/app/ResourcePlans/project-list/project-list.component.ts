@@ -20,11 +20,13 @@ import {Observable} from 'Rxjs'
 })
 
 
+
 export class ProjectListComponent implements OnInit {
 
+  @Input() projData: IProject[]; 
   projListForm: FormGroup;
   
-  projData: IProject[]; 
+  //projData: IProject[]; 
   errorMessage: any;
   selectedProjects: IProject[] = [];
   
@@ -34,14 +36,12 @@ export class ProjectListComponent implements OnInit {
     return <FormArray>this.projListForm.get('projects');
   }
   
-  constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator, private _projSvc: ProjectService) { }
+  constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator) { }
 
 
   ngOnInit(): void {
     console.log('project list component created');
-     this.projData = this._projSvc.projects;
-     debugger
-
+     
     this.projListForm = this.fb.group({
       projects: this.fb.array([])
     });

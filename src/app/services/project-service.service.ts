@@ -15,7 +15,7 @@ export class ProjectService {
     private url: string = 'api/dataservice/';
     public projects: IProject[];
     constructor(private http: Http) {
-        let observer = this.getProjects().subscribe(values => this.projects = values);
+        //let observer = this.getProjects().subscribe(values => this.projects = values);
     }
 
     handleError(error: any) {
@@ -36,7 +36,7 @@ export class ProjectService {
 
         let baseUrl = 'http://foo.wingtip.com/pwa/_api/ProjectData/Projects?'
         let select = '$select=ProjectId,ProjectName'
-        let filter = "$filter=ProjectActiveStatus eq 'Cancelled'";
+        let filter = "$filter=ProjectActiveStatus ne 'Cancelled'";
 
         return this.http.get(baseUrl + filter + '&' + select, options)
             .map((res: Response) => {

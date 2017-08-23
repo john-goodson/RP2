@@ -11,6 +11,7 @@ import { ResPlanService } from '../services/res-plan-service.service';
 import { ResPlan, Project, Interval } from './res-plan.model';
 import { SimpleModalComponent } from '../common/simple-modal.component'
 import { ModalCommunicator } from '../resourcePlans/modal-communicator.service';
+import { ProjectService } from '../services/project-service.service'
 
 @Component({
     selector: 'my-resplan',
@@ -25,10 +26,11 @@ export class ResPlanListComponent implements OnInit, AfterViewInit {
 
     mainForm: FormGroup;
     resPlanData: IResPlan[];
-    currentFormGroup:FormGroup;
+    projData: IProject[];
+    currentFormGroup: FormGroup;
     errorMessage: any;
     _intervalCount: number = 3; //todo refactor this.
-    
+
 
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
@@ -37,18 +39,30 @@ export class ResPlanListComponent implements OnInit, AfterViewInit {
     //     return <FormArray>this.mainForm.get['projects'];
     // }
 
-    constructor(private fb: FormBuilder, private _resPlanSvc: ResPlanService, private _modalSvc: ModalCommunicator, private router: Router) { }
+    constructor(private fb: FormBuilder, private _resPlanSvc: ResPlanService, private _modalSvc: ModalCommunicator
+        , private router: Router, private _projSvc: ProjectService) { }
 
     ngOnInit(): void {
         debugger;
-        this.mainForm = this.fb.group({
-            resPlans: this.fb.array([])
-        });
-        this._resPlanSvc.getResPlans().subscribe(resPlanData => this.buildResPlans(resPlanData),
-            error => console.log('error'),()=> console.log('res Plan get completed'));
-this._modalSvc.modalSubmitted$.subscribe(success => this.buildSelectedProjects(this._modalSvc.projectArray),
-            error => console.log('error'),()=> console.log('modal submit completed'));
-        console.log('from ngOnInit: ' + JSON.stringify(this.resPlanData));
+        this._projSvc.getProjects().subscribe(proj => {
+            this.projData = proj
+            this.mainForm = this.fb.group({
+                resPlans: this.fb.array([])
+            });
+            this._resPlanSvc.getResPlans().subscribe(resPlanData => this.buildResPlans(resPlanData),
+                error => console.log('error'), () => console.log('res Plan get completed'));
+            this._modalSvc.modalSubmitted$.subscribe(success => this.buildSelectedProjects(this._modalSvc.projectArray),
+                error => console.log('error'), () => console.log('modal submit completed'));
+            console.log('from ngOnInit: ' + JSON.stringify(this.resPlanData));
+
+
+        },
+            (err) => console.log('something went wrong getting projects'),
+            () => { console.log('done getting projects') }
+        )
+
+       
+            
         //debugger;
     }
 
