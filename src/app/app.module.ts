@@ -32,6 +32,7 @@ import { RxjsComponentComponent } from './resourcePlans/rxjs-component/rxjs-comp
 import { Rxjs2 } from './resourcePlans/rxjs-component/rxjs-component.component2'
 
 import {ProjectService} from './services/project-service.service'
+import { ResourcePlanService } from './services/resource-plan.service'
 //let jQuery : Object;
 
 @NgModule({
@@ -60,7 +61,7 @@ import {ProjectService} from './services/project-service.service'
           
   ],
   
-  providers: [ ResPlanService,   ModalCommunicator, ProjectService ],
+  providers: [ ResPlanService,   ModalCommunicator, ProjectService, ResourcePlanService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
