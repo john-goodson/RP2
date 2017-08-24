@@ -52,7 +52,7 @@ export class SimpleModalComponent {
   }
 
   showModal(data) {
-    debugger; 
+    //debugger; 
     console.log("data passed to modal: " + data); 
     $(this.containerEl.nativeElement).modal('show');
     

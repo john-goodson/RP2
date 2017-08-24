@@ -19,7 +19,7 @@ export class ModalCommunicator {
  
   
   modalSubmitClicked() {
-    debugger; 
+    //debugger; 
     this.modalSubmittedSource.next();
   }
 

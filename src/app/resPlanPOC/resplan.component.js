@@ -95,10 +95,9 @@ var ResPlanComponent = (function () {
         console.log("passed in value: " + i);
     };
     ResPlanComponent.prototype.populateTestData = function () {
-        debugger;
+        
     };
     ResPlanComponent.prototype.save = function () {
-        debugger;
         console.log('Saved: ' + JSON.stringify(this.mainForm.value));
     };
     return ResPlanComponent;

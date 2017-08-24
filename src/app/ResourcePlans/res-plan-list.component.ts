@@ -45,7 +45,7 @@ export class ResPlanListComponent implements OnInit {
         private _resourcePlanSvc: ResourcePlanService) { }
 
     ngOnInit(): void {
-            debugger;
+            //debugger;
             this.mainForm = this.fb.group({
                 resPlans: this.fb.array([])
             });
@@ -66,8 +66,8 @@ export class ResPlanListComponent implements OnInit {
             )
 
             this._resourcePlanSvc.getResPlans().subscribe((vals) => {
-                console.log('it worked');
-                debugger
+                console.log('resplan it worked');
+                debugger;
             })
 
 
@@ -185,7 +185,7 @@ export class ResPlanListComponent implements OnInit {
 
     populateTestData(): void {
 
-            debugger;
+            
         }
 
     buildSelectedProjects( projects: IProject[]): void {

@@ -40,12 +40,11 @@ export class ProjectService {
 
         return this.http.get(baseUrl + filter + '&' + select, options)
             .map((res: Response) => {
-                debugger;
+                
                 //this.projects = <IProject[]>res.json().d.results;
                 return <Object[]>res.json().d.results;
             }).map((project: Object[]) => {
                 var projects: IProject[] = [];
-                debugger;
                 for (var i = 0; i < project.length; i++) {
 
                     var newProject = new Project(project[i]["ProjectId"], project[i]["ProjectName"]);

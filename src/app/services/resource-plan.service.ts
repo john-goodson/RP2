@@ -8,6 +8,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/operator/mergeMap';
 
 import { IResPlan } from '../resourcePlans/res-plan.model';
 import { IProject } from '../resourcePlans/res-plan.model';
@@ -33,11 +34,31 @@ export class ResourcePlanService {
     let select = '$select=ProjectId,ProjectName'
     let filter = "$filter=ProjectActiveStatus ne 'Cancelled'";
  
-
-    return this.http.get(baseUrl, options).map(( resp: Response) => resp.json())
+    return this.http.get(baseUrl, options).mergeMap(( resp: Response) => {
+      var results = resp.json().d.results;
+      for(var i=0;i<results.length;i++)
+        {
+          var uri = results[i].Intervals.__deferred.uri;
+           this.http.get(uri, options).subscribe((val:Response) => {debugger;return val.json()});
+        }
+      debugger;  return results;
+    
+    },)
     
 
 
   }
+  // public getCurrentLocationAddress():Observable<String> {
+  //   return Observable.fromPromise(Geolocation.getCurrentPosition())
+  //     .map(location => location.coords)
+  //     .flatmap(coordinates => {
+  //       console.log(coordinates);
+  //       return this.http.request(this.geoCodingServer + "/json?latlng=" + coordinates.latitude + "," + coordinates.longitude)
+  //         .map((res: Response) => {
+  //                      let data = res.json();
+  //                      return data.results[0].formatted_address;
+  //             });
+  //     });
+  // }
 
 }
