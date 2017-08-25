@@ -38,7 +38,7 @@ export class ResourcePlanService {
       var results = Observable.from(resp.json().d.results);
       results.subscribe((project:any)=>{
          var uri = project.Intervals.__deferred.uri;
-          this.http.get(uri, options).subscribe((val:Response) => {debugger;project.Intervals =  val.json()});
+          this.http.get(uri, options).subscribe((val:Response) => {debugger;project.Intervals =  val.json().d.results});
          });
     },)
     
