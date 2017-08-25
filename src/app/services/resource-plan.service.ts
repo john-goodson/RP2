@@ -33,19 +33,16 @@ export class ResourcePlanService {
     let baseUrl = "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')/GetResourcePlanByUrl(start='2017-06-01',end='2017-08-01',scale='Months')/Assignments"
     let select = '$select=ProjectId,ProjectName'
     let filter = "$filter=ProjectActiveStatus ne 'Cancelled'";
- 
-    return this.http.get(baseUrl, options).mergeMap(( resp: Response) => {
-      var results = resp.json().d.results;
-      for(var i=0;i<results.length;i++)
-        {
-          var uri = results[i].Intervals.__deferred.uri;
-           this.http.get(uri, options).subscribe((val:Response) => {debugger;return val.json()});
-        }
-      debugger;  return results;
-    
+    let ob = this.http.get(baseUrl, options);
+     this.http.get(baseUrl, options).subscribe(( resp: Response) => {
+      var results = Observable.from(resp.json().d.results);
+      results.subscribe((project:any)=>{
+         var uri = project.Intervals.__deferred.uri;
+          this.http.get(uri, options).subscribe((val:Response) => {debugger;project.Intervals =  val.json()});
+         });
     },)
     
-
+return ob;
 
   }
   // public getCurrentLocationAddress():Observable<String> {
