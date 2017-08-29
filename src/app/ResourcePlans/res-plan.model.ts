@@ -1,6 +1,6 @@
 export interface IResPlan {
   id: string;
-  name: string;
+  name?: string;
 
   org?: {
     location: string;
@@ -9,7 +9,7 @@ export interface IResPlan {
   };
 
   
-  projects: IProject[]; 
+  projects?: IProject[]; 
 }
 
 export interface IProject {

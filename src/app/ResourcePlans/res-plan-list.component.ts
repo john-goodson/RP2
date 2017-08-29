@@ -13,6 +13,7 @@ import { SimpleModalComponent } from '../common/simple-modal.component'
 import { ModalCommunicator } from '../resourcePlans/modal-communicator.service';
 import { ProjectService } from '../services/project-service.service'
 import { ResourcePlanService } from '../services/resource-plan.service'
+import { ResourcePlanUserStateService} from '../services/resource-plan-user-state.service'
 
 @Component({
     selector: 'my-resplan',
@@ -42,10 +43,14 @@ export class ResPlanListComponent implements OnInit {
 
     constructor(private fb: FormBuilder, private _resPlanSvc: ResPlanService, private _modalSvc: ModalCommunicator
         , private router: Router, private _projSvc: ProjectService,
-        private _resourcePlanSvc: ResourcePlanService) { }
+        private _resourcePlanSvc: ResourcePlanService
+        , private _resPlanUserStateSvc: ResourcePlanUserStateService ) { }
 
     ngOnInit(): void {
             //debugger;
+
+            this._resPlanUserStateSvc.getUserState().subscribe( x => { console.log('it worked') }) 
+            
             this.mainForm = this.fb.group({
                 resPlans: this.fb.array([])
             });
@@ -69,6 +74,8 @@ export class ResPlanListComponent implements OnInit {
                 console.log('resplan it worked');
                 debugger;
             })
+
+            
 
 
 

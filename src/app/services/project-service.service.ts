@@ -33,6 +33,7 @@ export class ProjectService {
             withCredentials: true,
             headers
         })
+        
 
         let baseUrl = 'http://foo.wingtip.com/pwa/_api/ProjectData/Projects?'
         let select = '$select=ProjectId,ProjectName'

@@ -33,6 +33,7 @@ import { Rxjs2 } from './resourcePlans/rxjs-component/rxjs-component.component2'
 
 import {ProjectService} from './services/project-service.service'
 import { ResourcePlanService } from './services/resource-plan.service'
+import {ResourcePlanUserStateService} from './services/resource-plan-user-state.service'
 //let jQuery : Object;
 
 @NgModule({
@@ -47,10 +48,10 @@ import { ResourcePlanService } from './services/resource-plan.service'
     SimpleModalComponent,
     ProjectListComponent,
 
+
     RxjsComponentComponent,
     Rxjs2,
     
-  
   ],
   imports: [
     BrowserModule,
@@ -61,7 +62,7 @@ import { ResourcePlanService } from './services/resource-plan.service'
           
   ],
   
-  providers: [ ResPlanService,   ModalCommunicator, ProjectService, ResourcePlanService ],
+  providers: [ ResPlanService,   ModalCommunicator, ProjectService, ResourcePlanService, ResourcePlanUserStateService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
