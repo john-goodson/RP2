@@ -19,12 +19,12 @@ export class ModalCommunicator {
  
   
   modalSubmitClicked() {
-    //debugger; 
+    //; 
     this.modalSubmittedSource.next();
   }
 
   modalCancelClicked() {
-    debugger
+    
     this.modalCancelledSource.next();
   }
 

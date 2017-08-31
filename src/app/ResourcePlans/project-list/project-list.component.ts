@@ -80,7 +80,7 @@ clear()
   }
 
   selectProject(id: string) {
-    //debugger;
+    //;
     //uncheck use case
     if (this.selectedProjects.filter(t => t.id == id).length > 0) {
       this.selectedProjects.reduce(function(r, v, i) {

@@ -1,0 +1,29 @@
+unique projects ={
+    "_isScalar": false,
+    "source": {
+        "_isScalar": true,
+        "array": [
+            {
+                "id": "FC31D63D-967C-E711-80CC-00155D005A03",
+                "name": "",
+                "projects": [
+                    "AFA7FBBE-E361-E711-80CC-00155D005A03",
+                    "1D399FB8-578A-E711-80CC-00155D005A03",
+                    "E7808E36-588A-E711-80CC-00155D005A03"
+                ]
+            }
+        ],
+        "value": {
+            "id": "FC31D63D-967C-E711-80CC-00155D005A03",
+            "name": "",
+            "projects": [
+                "AFA7FBBE-E361-E711-80CC-00155D005A03",
+                "1D399FB8-578A-E711-80CC-00155D005A03",
+                "E7808E36-588A-E711-80CC-00155D005A03"
+            ]
+        }
+    },
+    "operator": {
+        "concurrent": null
+    }
+}

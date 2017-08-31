@@ -2,11 +2,13 @@ import { Component, OnInit, Inject, DoCheck, AfterViewInit, ViewChild } from '@a
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
 
 import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/mergeMap';
+
 import { IResPlan, IProject, IIntervals, ProjectActiveStatus } from './res-plan.model'
 
 import { ActivatedRoute, Router } from '@angular/router';
 
-
+import { Observable } from 'rxjs/Rx';
 import { ResPlanService } from '../services/res-plan-service.service';
 import { ResPlan, Project, Interval } from './res-plan.model';
 import { SimpleModalComponent } from '../common/simple-modal.component'
@@ -32,7 +34,7 @@ export class ResPlanListComponent implements OnInit {
     currentFormGroup: FormGroup;
     errorMessage: any;
     _intervalCount: number = 3; //todo refactor this.
-
+     resPlanUserState : IResPlan[];
 
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
@@ -49,7 +51,11 @@ export class ResPlanListComponent implements OnInit {
     ngOnInit(): void {
             //debugger;
 
-            this._resPlanUserStateSvc.getUserState().subscribe( x => { console.log('it worked') }) 
+            this._resPlanUserStateSvc.getResPlans().subscribe(resPlans=> 
+                {
+                    this.resPlanData = resPlans;debugger;
+                    this.buildResPlans(this.resPlanData)
+                }) 
             
             this.mainForm = this.fb.group({
                 resPlans: this.fb.array([])
@@ -57,9 +63,9 @@ export class ResPlanListComponent implements OnInit {
             this._projSvc.getProjects().subscribe(proj => {
                 this.projData = proj
 
-                this._resPlanSvc.getResPlans().subscribe(resPlanData => this.buildResPlans(resPlanData),
-                    error => console.log('error'),
-                    () => console.log('res Plan get completed'));
+                // this._resPlanSvc.getResPlans().subscribe(resPlanData => this.buildResPlans(resPlanData),
+                //     error => console.log('error'),
+                //     () => console.log('res Plan get completed'));
                 this._modalSvc.modalSubmitted$.subscribe(success => this.buildSelectedProjects(this._modalSvc.projectArray),
                     error => console.log('error'), () => console.log('modal submit completed'));
                 console.log('from ngOnInit: ' + JSON.stringify(this.resPlanData));
@@ -70,17 +76,14 @@ export class ResPlanListComponent implements OnInit {
                 () => { console.log('done getting projects') }
             )
 
-            this._resourcePlanSvc.getResPlans().subscribe((vals) => {
-                console.log('resplan it worked');
-                debugger;
-            })
-
-            
-
-
-
+            // this._resourcePlanSvc.getResPlans().subscribe((vals) => {
+            //     console.log('resplan it worked');
+            //     debugger;
+            // })
             //debugger;
         }
+
+        
 
     ngAfterViewChecked(): void {
             console.log('ng after view checke fired.')

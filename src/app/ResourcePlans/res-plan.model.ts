@@ -61,6 +61,18 @@ export enum ProjectActiveStatus {
     completed,
     cancelled
   }
+export enum Timescale
+{
+  months,
+  financialMonths,
+  years
+}
+  export enum WorkUnits
+  {
+    hours,
+    days,
+    FTE
+  }
 
   export interface IDept {
      deptName: string;
