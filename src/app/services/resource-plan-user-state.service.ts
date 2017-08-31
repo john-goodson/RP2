@@ -32,7 +32,6 @@ export class ResourcePlanUserStateService {
          .switchMap((data:Response) => data.json().d.results )
         .pluck('ProjectUIDs')
         .map((projectUid:string)=> {
-            
             return projectUid.split('|').map(projUID=>{return new Project(projUID)})
         })
             .distinct()
@@ -40,24 +39,24 @@ export class ResourcePlanUserStateService {
     }
 
 
-     getResPlans():Observable<IResPlan[]>
+     getResPlans():Observable<IResPlan>
   {
        return this.getUniqueProjects().switchMap(x=>{
-           
+             
            return this.getResPlansFromProjectId(x);
        });
   }
 
-  getResPlansFromProjectId(projects:IProject[]):Observable<IResPlan[]>
+  getResPlansFromProjectId(projects:IProject[]):Observable<IResPlan>
   {
       return Observable.from(projects).flatMap(project=>{
-          
-    return this.getResPlan('http://foo.wingtip.com/PWA',project.id,'2017-06-01','2017-08-01',WorkUnits.days,'Months');
-    })
+    return this.getResPlan('http://foo.wingtip.com/PWA',project.id,'2017-06-01','2017-08-01',WorkUnits.days,'Months')
+    
+  })
   }
 
 getResPlan(projectUrl:string='http://foo.wingtip.com/PWA',projectUid: string,start:string='2017-06-01',end:string='2017-08-01',workUnits:WorkUnits,timescale:string)
-    : Observable<IResPlan[]> {
+    : Observable<IResPlan> {
     console.log('entering getResPlans method');
     let headers = new Headers();
     headers.append('accept', 'application/json;odata=verbose')
@@ -68,26 +67,28 @@ getResPlan(projectUrl:string='http://foo.wingtip.com/PWA',projectUid: string,sta
     let baseUrl = `${projectUrl}/_api/ProjectServer/Projects('${projectUid}')/GetResourcePlanByUrl(start='${start}',end='${end}',scale='${timescale}')/Assignments`;
     let select = '$select=ProjectId,ProjectName'
     let filter = "$filter=ProjectActiveStatus ne 'Cancelled'";
-    let resPlans:IResPlan[] = [];
+    
     
        let ob = this.http.get(baseUrl, options);
-       //Observable.forkJoin(ob);
-       ob.switchMap(response=>response.json().d.results)
-       .map((response:Object)  =>
+       return  ob.switchMap(response=>response.json().d.results)
+       .flatMap((response:Object)  =>
        {
             var p = new Project("1","Project1");
             var resPlan = new ResPlan(response["Id"],response["Name"],[p]);
             var uri = response["Intervals"].__deferred.uri;
             var innerOb = this.http.get(uri, options);
-            innerOb.
-            switchMap(response=>response.json().d.results).
-            subscribe((interval:Object) =>{
-               p.intervals.push(new Interval(interval["Name"]),interval["Duration"].replace("d",""));
+            return innerOb.map(response=>
+            {
+               var intervals = response.json().d.results; 
+               intervals.forEach(element => {
+                   
+                   var interval = new Interval(element["Name"],element["Duration"].replace("d",""));
+                    p.intervals.push(interval);
+               });
+            
+                return resPlan;
             })
-          resPlans.push(resPlan);
        });
-        
-       return Observable.of(resPlans);
   }
 
    

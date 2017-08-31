@@ -29,7 +29,7 @@ export class ResPlanListComponent implements OnInit {
 
 
     mainForm: FormGroup;
-    resPlanData: IResPlan[];
+    resPlanData: IResPlan[]=[];
     projData: IProject[];
     currentFormGroup: FormGroup;
     errorMessage: any;
@@ -51,10 +51,13 @@ export class ResPlanListComponent implements OnInit {
     ngOnInit(): void {
             //debugger;
 
-            this._resPlanUserStateSvc.getResPlans().subscribe(resPlans=> 
+            this._resPlanUserStateSvc.getResPlans()
+            .subscribe(resPlans=> 
                 {
-                    this.resPlanData = resPlans;debugger;
-                    this.buildResPlans(this.resPlanData)
+                  
+                    //this.resPlanData.push(resPlans);
+                    this.buildResPlans([resPlans])
+                    console.log("resPlan=" + JSON.stringify(this.resPlanData));
                 }) 
             
             this.mainForm = this.fb.group({
