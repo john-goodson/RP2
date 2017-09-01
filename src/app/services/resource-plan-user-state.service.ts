@@ -39,7 +39,7 @@ export class ResourcePlanUserStateService {
     }
 
 
-     getResPlans():Observable<IResPlan>
+     getResPlans():Observable<IResPlan[]>
   {
        return this.getUniqueProjects().switchMap(x=>{
              
@@ -47,12 +47,13 @@ export class ResourcePlanUserStateService {
        });
   }
 
-  getResPlansFromProjectId(projects:IProject[]):Observable<IResPlan>
+  getResPlansFromProjectId(projects:IProject[]):Observable<IResPlan[]>
   {
-      return Observable.from(projects).flatMap(project=>{
+       return Observable.from(projects).flatMap(project=>{
     return this.getResPlan('http://foo.wingtip.com/PWA',project.id,'2017-06-01','2017-08-01',WorkUnits.days,'Months')
     
-  })
+  }).toArray().flatMap(t=>t).
+groupBy(t=>{return t.name}).flatMap(group =>{  debugger;return group.reduce((acc, curr) => [...acc, curr], [])}).concat();
   }
 
 getResPlan(projectUrl:string='http://foo.wingtip.com/PWA',projectUid: string,start:string='2017-06-01',end:string='2017-08-01',workUnits:WorkUnits,timescale:string)

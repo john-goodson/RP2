@@ -54,10 +54,10 @@ export class ResPlanListComponent implements OnInit {
             this._resPlanUserStateSvc.getResPlans()
             .subscribe(resPlans=> 
                 {
-                  
-                    //this.resPlanData.push(resPlans);
-                    this.buildResPlans([resPlans])
-                    console.log("resPlan=" + JSON.stringify(this.resPlanData));
+                  debugger;
+                    console.log("resPlan=" + JSON.stringify(resPlans));
+                    this.buildResPlans(resPlans)
+                    
                 }) 
             
             this.mainForm = this.fb.group({
@@ -89,7 +89,7 @@ export class ResPlanListComponent implements OnInit {
         
 
     ngAfterViewChecked(): void {
-            console.log('ng after view checke fired.')
+            //console.log('ng after view checke fired.')
         }
 
     calculateTotals(fg: FormGroup): void {
@@ -104,7 +104,7 @@ export class ResPlanListComponent implements OnInit {
                 value["totals"][i]['intervalValue'] = sum;
             }
             fg.setValue(value, { emitEvent: false });
-            console.log('Totals... ' + JSON.stringify(value) + "      stop....")
+            //console.log('Totals... ' + JSON.stringify(value) + "      stop....")
 
         }
 
