@@ -15,7 +15,7 @@ export class ResourcePlanUserStateService {
 
     constructor(private http: Http) {}
 
-    getUniqueProjects():  Observable<IProject[]> {
+   getUniqueProjects():  Observable<IProject[]> {
         let headers = new Headers();
         headers.append('accept', 'application/json;odata=verbose')
         let options = new RequestOptions({
@@ -28,14 +28,15 @@ export class ResourcePlanUserStateService {
         let select = '$select=ResourceManagerUID,ResourceUID0,ProjectUIDs'
         let filter = "$filter=ResourceManagerUID eq '8181FE64-E261-E711-80CC-00155D005A03'";
         //1. get data from SP List UserState  
-         return this.http.get(baseUrl + '?' + filter + '&' + select , options)
+         return  this.http.get(baseUrl + '?' + filter + '&' + select , options)
+        
          .switchMap((data:Response) => data.json().d.results )
         .pluck('ProjectUIDs')
-        .map((projectUid:string)=> {
+        .flatMap((projectUid:string)=> {
             return projectUid.split('|').map(projUID=>{return new Project(projUID)})
         })
-            .distinct()
-        .do(data => console.log('getUserState from REST: ' + JSON.stringify(data)))
+           .distinct(x=>x.id).toArray()
+        //.do(data => console.log('getUserState from REST: ' + JSON.stringify(data)))
     }
 
 
