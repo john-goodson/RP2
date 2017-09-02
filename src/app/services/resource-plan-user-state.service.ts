@@ -32,37 +32,37 @@ export class ResourcePlanUserStateService {
 
             .switchMap((data: Response) => data.json().d.results)
             .pluck('ProjectUIDs')
-            .flatMap((projectUid: string) => {
-                return projectUid.split('|').map(projUID => { return new Project(projUID) })
+            .map((projectUid: string) => {
+                 return JSON.parse(projectUid).map(project => { return  new Project(project.projUid,project.projName) })
             })
-            .distinct(x => x.id).toArray()
+            .distinct(x => x.projUid)
         //.do(data => console.log('getUserState from REST: ' + JSON.stringify(data)))
     }
 
 
     getResPlans(): Observable<IResPlan[]> {
         return this.getUniqueProjects().switchMap(x => {
-
+            debugger;
             return this.getResPlansFromProjectId(x);
         });
     }
 
     getResPlansFromProjectId(projects: IProject[]): Observable<IResPlan[]> {
-        return Observable.from(projects).flatMap(project => {
-            return this.getResPlan('http://foo.wingtip.com/PWA', project.id, '2017-06-01', '2017-08-01', WorkUnits.days, 'Months')
+        return Observable.from(projects).flatMap((project:IProject) => {
+            debugger;
+            return this.getResPlan('http://foo.wingtip.com/PWA', project, '2017-06-01', '2017-08-01', WorkUnits.FTE, 'Months')
 
         }).toArray().flatMap(t => t).
-            groupBy(t => { return t.name }).flatMap(group => {
+            groupBy(t => { return t.resName }).flatMap(group => {
                 return group.reduce(function (a, b) {
                     a.projects = a.projects.concat(b.projects);
-                    debugger;
                     return a; // returns object with property x
                 })
                   
             }).toArray()
     }
 
-    getResPlan(projectUrl: string = 'http://foo.wingtip.com/PWA', projectUid: string, start: string = '2017-06-01', end: string = '2017-08-01', workUnits: WorkUnits, timescale: string)
+    getResPlan(projectUrl: string = 'http://foo.wingtip.com/PWA', project: IProject, start: string = '2017-06-01', end: string = '2017-08-01', workUnits: WorkUnits, timescale: string)
         : Observable<IResPlan> {
         console.log('entering getResPlans method');
         let headers = new Headers();
@@ -71,7 +71,7 @@ export class ResourcePlanUserStateService {
             withCredentials: true,
             headers
         })
-        let baseUrl = `${projectUrl}/_api/ProjectServer/Projects('${projectUid}')/GetResourcePlanByUrl(start='${start}',end='${end}',scale='${timescale}')/Assignments`;
+        let baseUrl = `${projectUrl}/_api/ProjectServer/Projects('${project.projUid}')/GetResourcePlanByUrl(start='${start}',end='${end}',scale='${timescale}')/Assignments`;
         let select = '$select=ProjectId,ProjectName'
         let filter = "$filter=ProjectActiveStatus ne 'Cancelled'";
 
@@ -79,7 +79,7 @@ export class ResourcePlanUserStateService {
         let ob = this.http.get(baseUrl, options);
         return ob.switchMap(response => response.json().d.results)
             .flatMap((response: Object) => {
-                var p = new Project("1", "Project1");
+                var p = new Project(project.projUid,project.projName);
                 var resPlan = new ResPlan(response["Id"], response["Name"], [p]);
                 var uri = response["Intervals"].__deferred.uri;
                 var innerOb = this.http.get(uri, options);
@@ -87,7 +87,7 @@ export class ResourcePlanUserStateService {
                     var intervals = response.json().d.results;
                     intervals.forEach(element => {
 
-                        var interval = new Interval(element["Name"], element["Duration"].replace("d", ""));
+                        var interval = new Interval(element["Name"], element["Duration"]);
                         p.intervals.push(interval);
                     });
 

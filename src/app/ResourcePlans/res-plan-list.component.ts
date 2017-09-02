@@ -99,7 +99,7 @@ export class ResPlanListComponent implements OnInit {
             for (var i = 0; i < value["totals"].length; i++) {
                 var sum = 0;
                 for (var j = 0; j < value["projects"].length; j++) {
-                    sum += +(value["projects"][j]["intervals"][i]["intervalValue"]);
+                    sum += parseFloat(value["projects"][j]["intervals"][i]["intervalValue"]);
                 }
                 value["totals"][i]['intervalValue'] = sum;
             }
@@ -118,9 +118,10 @@ export class ResPlanListComponent implements OnInit {
 
     buildResPlan(_resplan: IResPlan): FormGroup {
             var _totals = this.fb.array([]);
+            debugger;
             var resPlanGroup = this.fb.group({
-                id: _resplan.id,
-                name: _resplan.name,
+                id: _resplan.resUid,
+                name: _resplan.resName,
                 totals: this.initTotals(_totals, _resplan.projects),
                 projects: this.fb.array([]),
             });
@@ -136,8 +137,8 @@ export class ResPlanListComponent implements OnInit {
 
     buildProject(_project: IProject) {
             var project = this.fb.group({
-                id: _project.id,
-                name: _project.name,
+                id: _project.projUid,
+                name: _project.projName,
                 intervals: this.fb.array([])
             });
             for (var i = 0; i < _project.intervals.length; i++) {

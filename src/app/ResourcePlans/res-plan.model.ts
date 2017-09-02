@@ -1,6 +1,6 @@
 export interface IResPlan {
-  id: string;
-  name?: string;
+  resUid: string;
+  resName?: string;
 
   org?: {
     location: string;
@@ -13,8 +13,8 @@ export interface IResPlan {
 }
 
 export interface IProject {
-  id: string;
-  name: string;
+  projUid: string;
+  projName: string;
   projProperties?: {
     owner: string;
     startDate: Date;
@@ -34,8 +34,8 @@ export interface IIntervals {
 
 export class ResPlan implements IResPlan {
 
-    constructor(public id = '0',
-        public name = '',
+    constructor(public resUid = '0',
+        public resName = '',
     
         public projects = [] )
   { }
@@ -43,7 +43,7 @@ export class ResPlan implements IResPlan {
 
 export class Project implements IProject{
 
-    constructor(public id = '',public name='boo',public intervals=[]
+    constructor(public projUid = '',public projName='boo',public intervals=[]
       
  ) { }
 }
