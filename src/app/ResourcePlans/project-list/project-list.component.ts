@@ -71,8 +71,8 @@ clear()
   buildProject(_project: IProject): FormGroup {
 
     var projGroup = this.fb.group({
-      id: _project.id,
-      name: _project.name,
+      id: _project.projUid,
+      name: _project.projName,
       isSelected : false
     });
 
@@ -82,14 +82,14 @@ clear()
   selectProject(id: string) {
     //;
     //uncheck use case
-    if (this.selectedProjects.filter(t => t.id == id).length > 0) {
+    if (this.selectedProjects.filter(t => t.projUid == id).length > 0) {
       this.selectedProjects.reduce(function(r, v, i) {
-        if (v.id == id)
+        if (v.projUid == id)
           return i;
       }, -1);
     }
     else {
-      this.selectedProjects.push(this.projData.filter(t => t.id == id)[0]);
+      this.selectedProjects.push(this.projData.filter(t => t.projUid == id)[0]);
     }
     this._modalSvc.projectArray = this.selectedProjects;
   

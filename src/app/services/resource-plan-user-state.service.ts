@@ -8,7 +8,7 @@ import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/mergeMap'
 import { Observable } from 'rxjs';
 
-import { IResPlan, ResPlan, IProject, Project, WorkUnits, IIntervals, Interval } from '../resourcePlans/res-plan.model'
+import { IResPlan, ResPlan, IProject, Project, WorkUnits,Timescale, IIntervals, Interval } from '../resourcePlans/res-plan.model'
 
 @Injectable()
 export class ResourcePlanUserStateService {
@@ -41,16 +41,14 @@ export class ResourcePlanUserStateService {
 
 
     getResPlans(): Observable<IResPlan[]> {
-        return this.getUniqueProjects().switchMap(x => {
-            debugger;
-            return this.getResPlansFromProjectId(x);
+        return this.getUniqueProjects().switchMap(projects => {
+            return this.getResPlansFromProjects(projects);
         });
     }
 
-    getResPlansFromProjectId(projects: IProject[]): Observable<IResPlan[]> {
+    getResPlansFromProjects(projects: IProject[]): Observable<IResPlan[]> {
         return Observable.from(projects).flatMap((project:IProject) => {
-            debugger;
-            return this.getResPlan('http://foo.wingtip.com/PWA', project, '2017-06-01', '2017-08-01', WorkUnits.FTE, 'Months')
+            return this.getResPlan('http://foo.wingtip.com/PWA', project, '2017-06-01', '2017-08-01', WorkUnits.FTE, Timescale.months)
 
         }).toArray().flatMap(t => t).
             groupBy(t => { return t.resName }).flatMap(group => {

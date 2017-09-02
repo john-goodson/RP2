@@ -64,6 +64,7 @@ export class ResPlanListComponent implements OnInit {
                 resPlans: this.fb.array([])
             });
             this._projSvc.getProjects().subscribe(proj => {
+                debugger;
                 this.projData = proj
 
                 // this._resPlanSvc.getResPlans().subscribe(resPlanData => this.buildResPlans(resPlanData),
@@ -99,7 +100,12 @@ export class ResPlanListComponent implements OnInit {
             for (var i = 0; i < value["totals"].length; i++) {
                 var sum = 0;
                 for (var j = 0; j < value["projects"].length; j++) {
-                    sum += parseFloat(value["projects"][j]["intervals"][i]["intervalValue"]);
+                    var val = parseFloat(value["projects"][j]["intervals"][i]["intervalValue"]);
+                    if(!val)
+                        {
+                            val  = 0.0;
+                        } 
+                    sum += val;
                 }
                 value["totals"][i]['intervalValue'] = sum;
             }

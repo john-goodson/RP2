@@ -63,15 +63,15 @@ export enum ProjectActiveStatus {
   }
 export enum Timescale
 {
-  months,
-  financialMonths,
-  years
+  months="Months",
+  financialMonths='FinancialMonths',
+  years='Years'
 }
   export enum WorkUnits
   {
-    hours,
-    days,
-    FTE
+    hours='Hours',
+    days='Days',
+    FTE='FTE'
   }
 
   export interface IDept {
