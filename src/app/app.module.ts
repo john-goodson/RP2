@@ -33,7 +33,8 @@ import { Rxjs2 } from './resourcePlans/rxjs-component/rxjs-component.component2'
 
 import {ProjectService} from './services/project-service.service'
 import { ResourcePlanService } from './services/resource-plan.service'
-import {ResourcePlanUserStateService} from './services/resource-plan-user-state.service'
+import {ResourcePlanUserStateService} from './services/resource-plan-user-state.service';
+import { ProjectListFilterPipe } from './common/project-list-filter.pipe'
 //let jQuery : Object;
 
 @NgModule({
@@ -51,6 +52,7 @@ import {ResourcePlanUserStateService} from './services/resource-plan-user-state.
 
     RxjsComponentComponent,
     Rxjs2,
+    ProjectListFilterPipe,
     
   ],
   imports: [
