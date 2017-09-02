@@ -9,6 +9,7 @@ import { ModalCommunicator } from '../../resourcePlans/modal-communicator.servic
 import 'rxjs/add/operator/filter';
 
 import { ProjectService }  from '../../services/project-service.service'
+import {ProjectListFilterPipe} from '../../common/project-list-filter.pipe'
 import {Observable} from 'Rxjs'
 
 
@@ -16,7 +17,6 @@ import {Observable} from 'Rxjs'
   selector: 'project-list',
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.css']
-
 })
 
 
@@ -29,7 +29,7 @@ export class ProjectListComponent implements OnInit {
   //projData: IProject[]; 
   errorMessage: any;
   selectedProjects: IProject[] = [];
-  
+   @Input() resPlan:IResPlan
   //@Input() proj
 
   get projects(): FormArray {  //this getter should return all instances.
@@ -37,7 +37,7 @@ export class ProjectListComponent implements OnInit {
   }
   
   constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator) { }
-
+ 
 
   ngOnInit(): void {
     console.log('project list component created');
