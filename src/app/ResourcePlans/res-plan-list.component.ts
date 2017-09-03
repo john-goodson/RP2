@@ -189,7 +189,7 @@ export class ResPlanListComponent implements OnInit {
 
     addProject(_resPlan: FormGroup): void {
             //get IProjects[] array from current formgroup
-            var data = ['how', 'now']
+            var data = _resPlan.value.id;
             this.modalComponent.showModal(data);
             var _projects: [IProject];
             var project = new Project();

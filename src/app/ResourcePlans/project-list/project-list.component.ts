@@ -29,7 +29,7 @@ export class ProjectListComponent implements OnInit {
   //projData: IProject[]; 
   errorMessage: any;
   selectedProjects: IProject[] = [];
-   @Input() resPlan:IResPlan
+   @Input() resPlan:FormGroup
   //@Input() proj
 
   get projects(): FormArray {  //this getter should return all instances.
@@ -41,7 +41,7 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('project list component created');
-     
+     debugger;
     this.projListForm = this.fb.group({
       projects: this.fb.array([])
     });
@@ -59,6 +59,7 @@ clear()
       var isSelected = (this.projects.controls[i] as FormGroup).controls['isSelected'];
       isSelected.setValue(false);
     }
+    this.buildProjects(this.projData);
 }
   buildProjects(_projects: IProject[]) {
 

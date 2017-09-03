@@ -42,19 +42,21 @@ export class SimpleModalComponent {
   @Input() closeOnBodyClick: string;
   @Input() primaryBtnText: string; 
   @ViewChild('modalcontainer') containerEl: ElementRef;
-
+  modalId:string;
   constructor(private _modalSvc: ModalCommunicator ) {}
 
   closeModal() {
     if(this.closeOnBodyClick.toLocaleLowerCase() === "true") {
-      $(this.containerEl.nativeElement).modal('hide');
+      $('#' + this.modalId).modal('hide');
     }
   }
 
   showModal(data) {
     //; 
     console.log("data passed to modal: " + data); 
-    $(this.containerEl.nativeElement).modal('show');
+    debugger;
+    this.modalId = data;
+    $('#' + this.modalId).modal('show');
     
   }
 
