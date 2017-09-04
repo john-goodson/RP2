@@ -15,6 +15,14 @@ export class ResourcePlanUserStateService {
 
     constructor(private http: Http) { }
 
+
+    getResourcePlan(resUID: string): Observable<IResPlan>    {
+        //read sharePoint list
+        //load up project data
+        
+
+    }
+
     getUniqueProjects(): Observable<IProject[]> {
         let headers = new Headers();
         headers.append('accept', 'application/json;odata=verbose')
