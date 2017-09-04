@@ -16,27 +16,51 @@ export class ResourcePlanUserStateService {
     constructor(private http: Http) { }
 
 
-    getResourcePlan(resUID: string): Observable<IResPlan>    {
+    getResourcePlan(resUid: string): Observable<IResPlan>    {
         //read sharePoint list
         //load up project data
-        
+         return this.getUniqueProjectsForResource(resUid).switchMap(projects => {
+            return this.getResPlansFromProjects(projects).mergeAll();
+        });
 
     }
+getUniqueProjectsForResource(resUid:string): Observable<IProject[]> {
+        
+        let baseUrl = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
 
-    getUniqueProjects(): Observable<IProject[]> {
+        //remember to change UID0 to UID
+        let select = '$select=ResourceManagerUID,ResourceUID0,ProjectUIDs'
+        let filter = `$filter=ResourceUID0 eq '${resUid}'`;
+        //1. get data from SP List UserState 
+        let url =  baseUrl + '?' + filter + '&' + select;
+        return this.getProjectListFromSpList(url);
+        //.do(data => console.log('getUserState from REST: ' + JSON.stringify(data)))
+    }
+
+    getUniqueProjectsForResManager(): Observable<IProject[]> {
+        
+        let baseUrl = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
+
+        //remember to change UID0 to UID
+        let select = '$select=ResourceManagerUID,ResourceUID0,ProjectUIDs'
+        let filter = "$filter=ResourceManagerUID eq '8181FE64-E261-E711-80CC-00155D005A03'";
+        //1. get data from SP List UserState 
+        let url =  baseUrl + '?' + filter + '&' + select;
+        return this.getProjectListFromSpList(url);
+        //.do(data => console.log('getUserState from REST: ' + JSON.stringify(data)))
+    }
+
+    getProjectListFromSpList(url) : Observable<IProject[]>
+    {
         let headers = new Headers();
         headers.append('accept', 'application/json;odata=verbose')
         let options = new RequestOptions({
             withCredentials: true,
             headers
         })
-        let baseUrl = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
 
-        //remember to change UID0 to UID
-        let select = '$select=ResourceManagerUID,ResourceUID0,ProjectUIDs'
-        let filter = "$filter=ResourceManagerUID eq '8181FE64-E261-E711-80CC-00155D005A03'";
-        //1. get data from SP List UserState  
-        return this.http.get(baseUrl + '?' + filter + '&' + select, options)
+//1. get data from SP List UserState  
+        return this.http.get(url, options)
 
             .switchMap((data: Response) => data.json().d.results)
             .pluck('ProjectUIDs')
@@ -44,12 +68,11 @@ export class ResourcePlanUserStateService {
                  return JSON.parse(projectUid).map(project => { return  new Project(project.projUid,project.projName) })
             })
             .distinct(x => x.projUid)
-        //.do(data => console.log('getUserState from REST: ' + JSON.stringify(data)))
     }
 
 
     getResPlans(): Observable<IResPlan[]> {
-        return this.getUniqueProjects().switchMap(projects => {
+        return this.getUniqueProjectsForResManager().switchMap(projects => {
             return this.getResPlansFromProjects(projects);
         });
     }
