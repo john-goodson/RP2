@@ -1,4 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
+
+<span class="glyphicon glyphicon-refresh glyphicon-spin spinner" *ngIf="loading"></span>
 <div class="page-title">
   <h1>
      {{title}}
@@ -7,5 +9,7 @@
 
 
 <div class="container" style="margin-left:5px">
+
+    
   <router-outlet></router-outlet>
 </div>

@@ -44,22 +44,27 @@ export class ResPlanListComponent implements OnInit {
     // }
 
     constructor(private fb: FormBuilder, private _resPlanSvc: ResPlanService, private _modalSvc: ModalCommunicator
-        , private router: Router, private _projSvc: ProjectService,
-        private _resourcePlanSvc: ResourcePlanService
-        , private _resPlanUserStateSvc: ResourcePlanUserStateService ) { }
+        , private router: Router, private _projSvc: ProjectService
+        , private _resourcePlanSvc: ResourcePlanService
+        , private _resPlanUserStateSvc: ResourcePlanUserStateService
+        , private _route: ActivatedRoute ) { }
 
     ngOnInit(): void {
             //debugger;
 
             this._resPlanUserStateSvc.getResPlans()
-            .subscribe(resPlans=> 
+            .subscribe( (resPlans: IResPlan[] )=> 
                 {
                   debugger;
                     console.log("resPlan=" + JSON.stringify(resPlans));
                     this.buildResPlans(resPlans)
                     
                 }) 
+
+        //this._route.data.subscribe( (resPlans: IResPlan[] ) => this.buildResPlans(resPlans))
             
+         
+
             this.mainForm = this.fb.group({
                 resPlans: this.fb.array([])
             });
@@ -70,6 +75,7 @@ export class ResPlanListComponent implements OnInit {
                 // this._resPlanSvc.getResPlans().subscribe(resPlanData => this.buildResPlans(resPlanData),
                 //     error => console.log('error'),
                 //     () => console.log('res Plan get completed'));
+                
                 this._modalSvc.modalSubmitted$.subscribe(success => this.buildSelectedProjects(this._modalSvc.projectArray),
                     error => console.log('error'), () => console.log('modal submit completed'));
                 console.log('from ngOnInit: ' + JSON.stringify(this.resPlanData));
@@ -115,7 +121,7 @@ export class ResPlanListComponent implements OnInit {
         }
 
     buildResPlans(_resPlans: IResPlan[]) {
-            //debugger;
+            debugger;
             for (var i = 0; i < _resPlans.length; i++) {
                 var resPlan = this.buildResPlan(_resPlans[i]);
                 this.resPlans.push(resPlan);
@@ -234,6 +240,7 @@ export class ResPlanListComponent implements OnInit {
                     (error: any) => this.errorMessage = <any>error
                     );
             }
+            //
             else if (!this.mainForm.dirty) {
                 this.onSaveComplete();
             }
