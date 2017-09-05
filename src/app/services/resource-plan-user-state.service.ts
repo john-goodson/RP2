@@ -16,10 +16,14 @@ export class ResourcePlanUserStateService {
     constructor(private http: Http) { }
 
 
-    getResourcePlan(resUID: string): Observable<IResPlan>    {
+    getResourcePlan(resUID: string): Observable<any>    {
         //read sharePoint list
         //load up project data
+        let boo = []
         
+            return Observable.from(boo)
+     
+
 
     }
 
