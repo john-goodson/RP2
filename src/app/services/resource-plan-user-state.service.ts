@@ -22,8 +22,6 @@ export class ResourcePlanUserStateService {
         let boo = []
         
             return Observable.from(boo)
-     
-
 
     }
 

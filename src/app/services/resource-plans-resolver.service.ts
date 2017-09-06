@@ -11,8 +11,6 @@ import { IResPlan, IProject, IIntervals, ResPlan, Interval, Project } from '../r
 import { ResourcePlanService } from '../services/resource-plan.service'
 import { ResourcePlanUserStateService } from '../services/resource-plan-user-state.service'
 
-
-
 @Injectable()
 export class ResourcePlansResolverService implements Resolve<IResPlan[]> {
   boo: any[]
