@@ -34,11 +34,7 @@
                             <!-- <button class="btn btn-primary" type="button" (click) = "addProject(plan)" > Add Project  </button> -->
                             <button class="btn btn-primary" type="button" (click) = "addProject(plan)"> Add Project  </button>
                             
-                            <simple-modal #modal closeOnBodyClick="true" elementId="{{plan.value.id}}" title="Add Projects" primaryBtnText="Add Selected Projects">
-                                    <div class="list-group">
-                                     <project-list [projData] = 'projData' [resPlan]=plan></project-list>
-                                    </div>
-                                  </simple-modal>                
+                                         
                               
                    <hr>
             </div>
@@ -47,7 +43,11 @@
         </div>
         
     </div>
-            
+   <simple-modal #modal closeOnBodyClick="true" elementId="1" title="Add Projects" primaryBtnText="Add Selected Projects">
+                                    <div class="list-group">
+                                     <project-list [projData] = 'projData'></project-list>
+                                    </div>
+                                  </simple-modal>            
 
   <button type ="submit" class="btn btn-primary" (click) = "savePlans()"> Submit  </button>
 </form>

@@ -44,8 +44,8 @@ export class ResPlanListComponent implements OnInit {
     // }
 
     constructor(private fb: FormBuilder, private _resPlanSvc: ResPlanService, private _modalSvc: ModalCommunicator
-        , private router: Router, private _projSvc: ProjectService
-        , private _resourcePlanSvc: ResourcePlanService
+        , private router: Router, 
+         private _resourcePlanSvc: ResourcePlanService
         , private _resPlanUserStateSvc: ResourcePlanUserStateService
         , private _route: ActivatedRoute ) { }
 
@@ -53,23 +53,8 @@ export class ResPlanListComponent implements OnInit {
              this.mainForm = this.fb.group({
                 resPlans: this.fb.array([])
             });
-
-        this._route.data.subscribe( values  =>{
-           this.buildResPlans(values.resPlans)
-        })
-           
-            this._projSvc.getProjects().subscribe(proj => {
-                debugger;
-                this.projData = proj
-                this._modalSvc.modalSubmitted$.subscribe(success => this.buildSelectedProjects(this._modalSvc.projectArray),
-                    error => console.log('error'), () => console.log('modal submit completed'));
-                console.log('from ngOnInit: ' + JSON.stringify(this.resPlanData));
-
-
-            },
-                (err) => console.log('something went wrong getting projects'),
-                () => { console.log('done getting projects') }
-            )
+        this._route.data.subscribe( values=> this.buildResPlans(values.resPlans))
+        this._modalSvc.modalSubmitted$.subscribe(()=>this.buildSelectedProjects(this._modalSvc.projectArray))
         }
 
         
@@ -173,6 +158,8 @@ export class ResPlanListComponent implements OnInit {
     addProject(_resPlan: FormGroup): void {
             //get IProjects[] array from current formgroup
             var data = _resPlan.value.resUid;
+            debugger;
+            this._modalSvc.projectsAssignedToResource = Observable.of(_resPlan.value.projects);
             this.modalComponent.showModal(data);
             var _projects: [IProject];
             var project = new Project();

@@ -36,7 +36,7 @@ export class ProjectListComponent implements OnInit {
     return <FormArray>this.projListForm.get('projects');
   }
   
-  constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator) { }
+  constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator,private _projSvc: ProjectService) { }
  
 
   ngOnInit(): void {
@@ -45,7 +45,22 @@ export class ProjectListComponent implements OnInit {
     this.projListForm = this.fb.group({
       projects: this.fb.array([])
     });
-    this.buildProjects(this.projData);
+    debugger;
+     this._projSvc.getProjects().subscribe(projects => {
+               
+                this.projData = projects
+     })
+    this._modalSvc.projectsAssignedToResource.subscribe((projectsInRP:IProject[])=>{
+       console.log('OBSERVABLE FIRED ON PROJECT LIST')
+      if(projectsInRP.length > 0){
+      let filteredProjects = this.projData.filter(all=>
+        {
+          return projectsInRP.map(projUid=>projUid.projUid.indexOf(all.projUid) < 0)
+        });
+        debugger;
+        this.buildProjects(filteredProjects);
+      }
+    })
     this._modalSvc.modalSubmitted$.subscribe(success => this.clear(),
             error => console.log('error'));
   }

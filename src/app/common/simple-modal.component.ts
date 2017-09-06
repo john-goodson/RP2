@@ -47,7 +47,7 @@ export class SimpleModalComponent {
 
   closeModal() {
     if(this.closeOnBodyClick.toLocaleLowerCase() === "true") {
-      $('#' + this.modalId).modal('hide');
+      $(this.containerEl.nativeElement).modal('hide');
     }
   }
 
@@ -56,7 +56,7 @@ export class SimpleModalComponent {
     console.log("data passed to modal: " + data); 
     debugger;
     this.modalId = data;
-    $('#' + this.modalId).modal('show');
+    $(this.containerEl.nativeElement).modal('show');
     
   }
 
