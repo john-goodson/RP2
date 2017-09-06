@@ -1,16 +1,15 @@
 
-
 <button class="btn btn-primary" type="button" (click) = "addResPlan()" > Add Resource  </button>
 <form class="form-horizontal" novalidate (ngSubmit)="savePlans()" [formGroup]="mainForm">
     <div formArrayName="resPlans" *ngIf="resPlans && resPlans.length">
         <div *ngFor="let plan of resPlans.controls;index as i">
             <div [formGroupName]="i">
-                <input formControlName="name" placeholder="First name">
-                <input formControlName="id" placeholder="id" style='display:none'>
+                <input formControlName="resName" placeholder="First name">
+                <input formControlName="resUid" placeholder="id" style='display:none'>
                 <div formArrayName="projects">
                     <div *ngFor="let proj of plan.get('projects').controls;index as j">
                         <div [formGroupName]="j">
-                            <input formControlName="name" placeholder="project" />
+                            <input formControlName="projName" placeholder="project" />
                             <div formArrayName="intervals">
                                 <div *ngFor="let intrvl of proj.get('intervals').controls; index as k">
                                     <div [formGroupName]="k">

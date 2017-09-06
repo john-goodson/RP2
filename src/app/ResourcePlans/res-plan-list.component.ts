@@ -18,7 +18,7 @@ import { ResourcePlanService } from '../services/resource-plan.service'
 import { ResourcePlanUserStateService} from '../services/resource-plan-user-state.service'
 
 @Component({
-    selector: 'my-resplan',
+    //selector: 'my-resplan',
     templateUrl: './res-plan-list.component.html'
 })
 
@@ -50,32 +50,17 @@ export class ResPlanListComponent implements OnInit {
         , private _route: ActivatedRoute ) { }
 
     ngOnInit(): void {
-            //debugger;
-            this._resPlanUserStateSvc.getResourcePlan('F831D63D-967C-E711-80CC-00155D005A03').subscribe(t=>console.log('========================' + JSON.stringify(t)))
-            this._resPlanUserStateSvc.getResPlans()
-            .subscribe( (resPlans: IResPlan[] )=> 
-                {
-                  debugger;
-                    console.log("resPlan=" + JSON.stringify(resPlans));
-                    this.buildResPlans(resPlans)
-                    
-                }) 
-
-        //this._route.data.subscribe( (resPlans: IResPlan[] ) => this.buildResPlans(resPlans))
-            
-         
-
-            this.mainForm = this.fb.group({
+             this.mainForm = this.fb.group({
                 resPlans: this.fb.array([])
             });
+
+        this._route.data.subscribe( values  =>{
+           this.buildResPlans(values.resPlans)
+        })
+           
             this._projSvc.getProjects().subscribe(proj => {
                 debugger;
                 this.projData = proj
-
-                // this._resPlanSvc.getResPlans().subscribe(resPlanData => this.buildResPlans(resPlanData),
-                //     error => console.log('error'),
-                //     () => console.log('res Plan get completed'));
-                
                 this._modalSvc.modalSubmitted$.subscribe(success => this.buildSelectedProjects(this._modalSvc.projectArray),
                     error => console.log('error'), () => console.log('modal submit completed'));
                 console.log('from ngOnInit: ' + JSON.stringify(this.resPlanData));
@@ -85,12 +70,6 @@ export class ResPlanListComponent implements OnInit {
                 (err) => console.log('something went wrong getting projects'),
                 () => { console.log('done getting projects') }
             )
-
-            // this._resourcePlanSvc.getResPlans().subscribe((vals) => {
-            //     console.log('resplan it worked');
-            //     debugger;
-            // })
-            //debugger;
         }
 
         
@@ -120,20 +99,18 @@ export class ResPlanListComponent implements OnInit {
 
         }
 
-    buildResPlans(_resPlans: IResPlan[]) {
-            debugger;
-            for (var i = 0; i < _resPlans.length; i++) {
-                var resPlan = this.buildResPlan(_resPlans[i]);
+    buildResPlans(plans: IResPlan[]) {
+            for (var i = 0; i < plans.length; i++) {
+                var resPlan = this.buildResPlan(plans[i]);
                 this.resPlans.push(resPlan);
             }
         }
 
     buildResPlan(_resplan: IResPlan): FormGroup {
             var _totals = this.fb.array([]);
-            debugger;
             var resPlanGroup = this.fb.group({
-                id: _resplan.resUid,
-                name: _resplan.resName,
+                resUid: _resplan.resUid,
+                resName: _resplan.resName,
                 totals: this.initTotals(_totals, _resplan.projects),
                 projects: this.fb.array([]),
             });
@@ -149,8 +126,8 @@ export class ResPlanListComponent implements OnInit {
 
     buildProject(_project: IProject) {
             var project = this.fb.group({
-                id: _project.projUid,
-                name: _project.projName,
+                projUid: _project.projUid,
+                projName: _project.projName,
                 intervals: this.fb.array([])
             });
             for (var i = 0; i < _project.intervals.length; i++) {
@@ -195,7 +172,7 @@ export class ResPlanListComponent implements OnInit {
 
     addProject(_resPlan: FormGroup): void {
             //get IProjects[] array from current formgroup
-            var data = _resPlan.value.id;
+            var data = _resPlan.value.resUid;
             this.modalComponent.showModal(data);
             var _projects: [IProject];
             var project = new Project();

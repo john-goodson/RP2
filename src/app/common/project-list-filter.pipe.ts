@@ -14,7 +14,7 @@ export class ProjectListFilterPipe implements PipeTransform {
     //let boo = array1.filter(result)
      projects = projects.filter(val => {
        
-       if(resPlan.value.projects.map(t=>t.id.toUpperCase()).indexOf(val.value.id.toUpperCase())< 0)
+       if(resPlan.value.projects.map(t=>t.projUid.toUpperCase()).indexOf(val.value.projUid.toUpperCase())< 0)
        return val;
     })
       debugger;

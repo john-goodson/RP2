@@ -24,7 +24,7 @@ export class ResourcePlansResolverService implements Resolve<IResPlan[]> {
     debugger   //Observable<IResPlan[]
     // let resUid = route.params['resUid']
     // this.router.navigate(['/placeholder'])
-
+  
     return this._resPlanUserStateSvc.getResPlans()
       .map(resPlans => {
         if (resPlans) {
