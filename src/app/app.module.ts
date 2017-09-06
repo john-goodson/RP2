@@ -35,6 +35,7 @@ import {ProjectService} from './services/project-service.service'
 import { ResourcePlanService } from './services/resource-plan.service'
 import {ResourcePlanUserStateService} from './services/resource-plan-user-state.service';
 import { ProjectListFilterPipe } from './common/project-list-filter.pipe'
+import { ResourcePlansResolverService } from './services/resource-plans-resolver.service'
 //let jQuery : Object;
 
 @NgModule({
@@ -48,8 +49,6 @@ import { ProjectListFilterPipe } from './common/project-list-filter.pipe'
     FooComponent,
     SimpleModalComponent,
     ProjectListComponent,
-
-
     RxjsComponentComponent,
     Rxjs2,
     ProjectListFilterPipe,
@@ -64,7 +63,9 @@ import { ProjectListFilterPipe } from './common/project-list-filter.pipe'
           
   ],
   
-  providers: [ ResPlanService,   ModalCommunicator, ProjectService, ResourcePlanService, ResourcePlanUserStateService ],
+  providers: [ ResPlanService,   ModalCommunicator, ProjectService, ResourcePlanService
+    , ResourcePlanUserStateService
+    , ResourcePlansResolverService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
