@@ -9,7 +9,7 @@ export class ModalCommunicator {
  
   // Observable string sources
   public projectArray:IProject[];
-  public projectsAssignedToResource:Observable<IProject[]> = Observable.of([])
+  public projectsAssignedToResource = new Subject<IProject[]>();
   private modalSubmittedSource = new Subject<string>();
   private modalCancelledSource = new Subject<string>(); 
  
@@ -17,7 +17,12 @@ export class ModalCommunicator {
   //projectIdArray$ = this.projectIdArraySource.asObservable();
   modalSubmitted$ = this.modalSubmittedSource.asObservable();
   modalCancelled$ = this.modalCancelledSource.asObservable();
- 
+  projectsAssignedToResource$ = this.projectsAssignedToResource.asObservable();
+ projectsAssigned(projectsAssigned:IProject[])
+ {
+   debugger;
+   this.projectsAssignedToResource.next(projectsAssigned);
+ }
   
   modalSubmitClicked() {
     //; 

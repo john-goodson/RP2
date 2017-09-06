@@ -36,6 +36,7 @@ export class ProjectListComponent implements OnInit {
     return <FormArray>this.projListForm.get('projects');
   }
   
+  
   constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator,private _projSvc: ProjectService) { }
  
 
@@ -50,16 +51,19 @@ export class ProjectListComponent implements OnInit {
                
                 this.projData = projects
      })
-    this._modalSvc.projectsAssignedToResource.subscribe((projectsInRP:IProject[])=>{
+    this._modalSvc.projectsAssignedToResource$.subscribe((projectsInRP:IProject[])=>{
        console.log('OBSERVABLE FIRED ON PROJECT LIST')
-      if(projectsInRP.length > 0){
-      let filteredProjects = this.projData.filter(all=>
-        {
-          return projectsInRP.map(projUid=>projUid.projUid.indexOf(all.projUid) < 0)
-        });
-        debugger;
+      
+      let filteredProjects = this.projData.filter(val => {
+       
+       if(projectsInRP.map(t=>t.projUid.toUpperCase()).indexOf(val.projUid.toUpperCase())< 0)
+       return val;
+    })
+        
+        console.log('all projects in RP=' + filteredProjects.map(t=>t.projUid).toString())
+        
         this.buildProjects(filteredProjects);
-      }
+      
     })
     this._modalSvc.modalSubmitted$.subscribe(success => this.clear(),
             error => console.log('error'));
@@ -77,7 +81,7 @@ clear()
     this.buildProjects(this.projData);
 }
   buildProjects(_projects: IProject[]) {
-
+     this.projects.setValue([]);
     for (var i = 0; i < _projects.length; i++) {
       var project = this.buildProject(_projects[i]);
       this.projects.push(project);

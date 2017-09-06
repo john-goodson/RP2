@@ -159,7 +159,8 @@ export class ResPlanListComponent implements OnInit {
             //get IProjects[] array from current formgroup
             var data = _resPlan.value.resUid;
             debugger;
-            this._modalSvc.projectsAssignedToResource = Observable.of(_resPlan.value.projects);
+            this._modalSvc.projectsAssigned(_resPlan.value.projects);
+            console.log('projects in RP = ' + JSON.stringify(_resPlan.value.projects))
             this.modalComponent.showModal(data);
             var _projects: [IProject];
             var project = new Project();
