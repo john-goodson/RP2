@@ -3,7 +3,7 @@
         <div *ngFor="let p of projects.controls;index as i">
             <div [formGroupName]="i">
 
-                <input type="checkbox" (click) = "selectProject(p.get('id')?.value)" formControlName="isSelected"> {{ p.get('name')?.value }}
+                <input type="checkbox"  (click) = "selectProject(p.get('id')?.value)" formControlName="isSelected"> {{ p.get('name')?.value }}
                 <input formControlName="id" placeholder="id" style='display:none'>
             </div>
         </div>

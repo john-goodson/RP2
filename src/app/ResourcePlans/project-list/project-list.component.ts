@@ -81,11 +81,13 @@ clear()
     this.buildProjects(this.projData);
 }
   buildProjects(_projects: IProject[]) {
-     this.projects.setValue([]);
+    this.projects.controls =[];
+     debugger;
     for (var i = 0; i < _projects.length; i++) {
       var project = this.buildProject(_projects[i]);
       this.projects.push(project);
     }
+    (this.projects.parent as FormGroup).setValue(this.projects);
   }
 
   buildProject(_project: IProject): FormGroup {
