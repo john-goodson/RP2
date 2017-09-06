@@ -20,8 +20,15 @@ export class ResourcePlanUserStateService {
         //read sharePoint list
         //load up project data
          return this.getUniqueProjectsForResource(resUid).switchMap(projects => {
-            return this.getResPlansFromProjects(projects).mergeAll();
-        });
+            return this.getResPlansFromProjects(projects).mergeAll()
+        }).toArray().flatMap(t => t).
+            groupBy(t => { return t.resName }).flatMap(group => {
+                return group.reduce(function (a, b) {
+                    a.projects = a.projects.concat(b.projects);
+                    return a; // returns object with property x
+                })
+                  
+            }).filter(t=>t.resUid == resUid);
 
     }
 getUniqueProjectsForResource(resUid:string): Observable<IProject[]> {

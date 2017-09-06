@@ -50,7 +50,7 @@ export class ResPlanListComponent implements OnInit {
 
     ngOnInit(): void {
             //debugger;
-
+            this._resPlanUserStateSvc.getResourcePlan('F831D63D-967C-E711-80CC-00155D005A03').subscribe(t=>console.log('========================' + JSON.stringify(t)))
             this._resPlanUserStateSvc.getResPlans()
             .subscribe(resPlans=> 
                 {
