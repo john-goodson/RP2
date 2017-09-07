@@ -47,22 +47,26 @@ export class ProjectListComponent implements OnInit {
       projects: this.fb.array([])
     });
     debugger;
-     this._projSvc.getProjects().subscribe(projects => {
+    
+     
+    this._modalSvc.projectsAssignedToResource$.subscribe((projectsInRP:IProject[])=>{
+      this._projSvc.getProjects().subscribe(projects => {
                
                 this.projData = projects
-     })
-    this._modalSvc.projectsAssignedToResource$.subscribe((projectsInRP:IProject[])=>{
-       console.log('OBSERVABLE FIRED ON PROJECT LIST')
+                console.log('OBSERVABLE FIRED ON PROJECT LIST')
       
       let filteredProjects = this.projData.filter(val => {
        
        if(projectsInRP.map(t=>t.projUid.toUpperCase()).indexOf(val.projUid.toUpperCase())< 0)
        return val;
-    })
-        
-        console.log('all projects in RP=' + filteredProjects.map(t=>t.projUid).toString())
+     }) 
+       console.log('all projects in RP=' + filteredProjects.map(t=>t.projUid).toString())
         
         this.buildProjects(filteredProjects);
+      
+    })
+        
+       
       
     })
     this._modalSvc.modalSubmitted$.subscribe(success => this.clear(),
@@ -78,15 +82,16 @@ clear()
       var isSelected = (this.projects.controls[i] as FormGroup).controls['isSelected'];
       isSelected.setValue(false);
     }
-    this.buildProjects(this.projData);
+    //this.buildProjects(this.projData);
 }
   buildProjects(_projects: IProject[]) {
     this.projects.controls =[];
-     debugger;
+     
     for (var i = 0; i < _projects.length; i++) {
       var project = this.buildProject(_projects[i]);
       this.projects.push(project);
     }
+    debugger;
     (this.projects.parent as FormGroup).setValue(this.projects);
   }
 
