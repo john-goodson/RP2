@@ -1,4 +1,5 @@
 
+<data-table-demo-3></data-table-demo-3>
 <button class="btn btn-primary" type="button" (click) = "addResPlan()" > Add Resource  </button>
 <form class="form-horizontal" novalidate (ngSubmit)="savePlans()" [formGroup]="mainForm">
     <div formArrayName="resPlans" *ngIf="resPlans && resPlans.length">

@@ -36,6 +36,8 @@ import { ResourcePlanService } from './services/resource-plan.service'
 import {ResourcePlanUserStateService} from './services/resource-plan-user-state.service';
 import { ProjectListFilterPipe } from './common/project-list-filter.pipe'
 import { ResourcePlansResolverService } from './services/resource-plans-resolver.service'
+import {  DataTableDemo3 } from './common/demo3/data-table-demo3'
+import { DataTableModule } from 'angular-4-data-table';
 //let jQuery : Object;
 
 @NgModule({
@@ -52,6 +54,7 @@ import { ResourcePlansResolverService } from './services/resource-plans-resolver
     RxjsComponentComponent,
     Rxjs2,
     ProjectListFilterPipe,
+    DataTableDemo3 
     
   ],
   imports: [
@@ -59,6 +62,7 @@ import { ResourcePlansResolverService } from './services/resource-plans-resolver
     RouterModule.forRoot(appRoutes) ,
           HttpModule, 
           ReactiveFormsModule ,
+          DataTableModule
          // InMemoryWebApiModule.forRoot(ResPlanData),
           
   ],
