@@ -20,9 +20,8 @@ export class ResourcePlanUserStateService {
         //read sharePoint list
         //load up project data
         let resMgrUid = '8181FE64-E261-E711-80CC-00155D005A03'
-        return this.getUniqueResourcesForResManager(resMgrUid).flatMap((resources) => {
             return this.getUniqueProjectsForResource(resUid).switchMap(projects => {
-                return this.getResPlansFromProjects(resources, projects).mergeAll()
+                return this.getResPlansFromProjects(projects).mergeAll()
             }).map(t => t).
                 groupBy(t => { return t.resName }).flatMap(group => {
                     return group.reduce(function (a, b) {
@@ -31,20 +30,6 @@ export class ResourcePlanUserStateService {
                     })
 
                 }).filter(t => t.resName == 'nishant');
-        })
-    }
-
-    getUniqueProjectsForResource(resUid: string): Observable<IProject[]> {
-
-        let baseUrl = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
-
-        //remember to change UID0 to UID
-        let select = '$select=ResourceManagerUID,ResourceUID0,ProjectUIDs'
-        let filter = `$filter=ResourceUID0 eq '${resUid}'`;
-        //1. get data from SP List UserState 
-        let url = baseUrl + '?' + filter + '&' + select;
-        return this.getProjectListFromSpList(url);
-        //.do(data => console.log('getUserState from REST: ' + JSON.stringify(data)))
     }
 
     getUniqueResourcesForResManager(resUid: string): Observable<IResource[]> {
@@ -70,6 +55,20 @@ export class ResourcePlanUserStateService {
                 
             }).toArray();
 
+    }
+
+
+    getUniqueProjectsForResource(resUid: string): Observable<IProject[]> {
+
+        let baseUrl = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
+
+        //remember to change UID0 to UID
+        let select = '$select=ResourceManagerUID,ResourceUID0,ProjectUIDs'
+        let filter = `$filter=ResourceUID0 eq '${resUid}'`;
+        //1. get data from SP List UserState 
+        let url = baseUrl + '?' + filter + '&' + select;
+        return this.getProjectListFromSpList(url);
+        //.do(data => console.log('getUserState from REST: ' + JSON.stringify(data)))
     }
 
     getUniqueProjectsForResManager(): Observable<IProject[]> {
@@ -107,16 +106,14 @@ export class ResourcePlanUserStateService {
 
     getResPlans(): Observable<IResPlan[]> {
         let resUid = '8181FE64-E261-E711-80CC-00155D005A03'
-        return this.getUniqueResourcesForResManager(resUid).flatMap((resources) => {
             return this.getUniqueProjectsForResManager().switchMap(projects => {
-                return this.getResPlansFromProjects(resources, projects);
+                return this.getResPlansFromProjects(projects);
             })
-        })
     }
 
-    getResPlansFromProjects(resources: IResource[], projects: IProject[]): Observable<IResPlan[]> {
+    getResPlansFromProjects(projects: IProject[]): Observable<IResPlan[]> {
         return Observable.from(projects).flatMap((project: IProject) => {
-            return this.getResPlan(resources, 'http://foo.wingtip.com/PWA', project, '2017-06-01', '2017-08-01', WorkUnits.FTE, Timescale.months)
+            return this.getResPlan('http://foo.wingtip.com/PWA', project, '2017-06-01', '2017-08-01', WorkUnits.FTE, Timescale.months)
 
         }).toArray().flatMap(t => t).
             groupBy(t => { return t.resName }).flatMap(group => {
@@ -128,7 +125,7 @@ export class ResourcePlanUserStateService {
             }).toArray()
     }
 
-    getResPlan(resources: IResource[], projectUrl: string = 'http://foo.wingtip.com/PWA', project: IProject, start: string = '2017-06-01', end: string = '2017-08-01', workUnits: WorkUnits, timescale: string)
+    getResPlan(projectUrl: string = 'http://foo.wingtip.com/PWA', project: IProject, start: string = '2017-06-01', end: string = '2017-08-01', workUnits: WorkUnits, timescale: string)
         : Observable<IResPlan> {
         console.log('entering getResPlans method');
         let headers = new Headers();
@@ -138,33 +135,16 @@ export class ResourcePlanUserStateService {
             headers
         })
         let baseUrl = `${projectUrl}/_api/ProjectServer/Projects('${project.projUid}')/GetResourcePlanByUrl(start='${start}',end='${end}',scale='${timescale}')/Assignments`;
-        let select = '$select=ProjectId,ProjectName'
-        let filter = "$filter=ProjectActiveStatus ne 'Cancelled'";
-
-
-        let ob = this.http.get(baseUrl, options);
-        return ob.switchMap(response => response.json().d.results)
-            .flatMap((response: Object) => {
+         let expand = "$expand=Intervals,Resource"
+         
+        return this.getUniqueProjectsForResManager().flatMap(resources=>{
+        return this.http.get(baseUrl + '?' + expand, options).switchMap(response => response.json().d.results)
+            .map((response: Object) => {
                 var p = new Project(project.projUid, project.projName);
-                //get RESUID from data given to this api as input(read from SP list) since PS does not get it
-                var resUid = resources.filter(t => {
-                    if (t.resName.toUpperCase() == response["Name"].toUpperCase())
-                        return t.resUid;
-                }).map(t=>t.resUid)[0];
-                if(resUid)
-                    {
-                        debugger;
-                    console.log('resource uid found for' + response["Name"])
-                    }
-                else
-                    {
-                        console.log('resource uid not found for' + response["Name"])
-                    }
+                let resUid = response["Resource"]["Id"];
                 var resPlan = new ResPlan(resUid, response["Name"], [p]);
-                var uri = response["Intervals"].__deferred.uri;
-                var innerOb = this.http.get(uri, options);
-                return innerOb.map(response => {
-                    var intervals = response.json().d.results;
+                debugger;
+                var intervals = response["Intervals"]["results"];
                     intervals.forEach(element => {
 
                         var interval = new Interval(element["Name"], element["Duration"]);
@@ -173,10 +153,10 @@ export class ResourcePlanUserStateService {
 
                     return resPlan;
                 })
-            });
+                 });
     }
 
-
+       
 
 }
 
