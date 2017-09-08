@@ -38,7 +38,6 @@ export class ProjectService {
         let baseUrl = 'http://foo.wingtip.com/pwa/_api/ProjectData/Projects?'
         let select = '$select=ProjectId,ProjectName'
         let filter = "" ///$filter=ProjectActiveStatus ne 'Cancelled'";
-        debugger;
         return this.http.get(baseUrl + filter + '&' + select, options)
             .map((res: Response) => {
                 

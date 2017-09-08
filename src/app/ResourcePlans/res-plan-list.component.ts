@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormA
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/mergeMap';
 
-import { IResPlan, IProject, IIntervals, ProjectActiveStatus } from './res-plan.model'
+import { IResPlan, IProject, IIntervals, ProjectActiveStatus,IResource,Resource } from './res-plan.model'
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -16,6 +16,7 @@ import { ModalCommunicator } from '../resourcePlans/modal-communicator.service';
 import { ProjectService } from '../services/project-service.service'
 import { ResourcePlanService } from '../services/resource-plan.service'
 import { ResourcePlanUserStateService} from '../services/resource-plan-user-state.service'
+import{ResourcesModalCommunicatorService} from '../resourcePlans/resources-modal-communicator.service'
 
 @Component({
     //selector: 'my-resplan',
@@ -24,8 +25,8 @@ import { ResourcePlanUserStateService} from '../services/resource-plan-user-stat
 
 export class ResPlanListComponent implements OnInit {
 
-    @ViewChild(SimpleModalComponent)  //we need to call methods on modal
-    private modalComponent: SimpleModalComponent;
+     @ViewChild('modalProjects') private modalProjects: SimpleModalComponent;
+     @ViewChild('modalResources') private modalResources: SimpleModalComponent;
 
 
     mainForm: FormGroup;
@@ -47,6 +48,7 @@ export class ResPlanListComponent implements OnInit {
         , private router: Router, 
          private _resourcePlanSvc: ResourcePlanService
         , private _resPlanUserStateSvc: ResourcePlanUserStateService
+        ,private _resModalSvc:ResourcesModalCommunicatorService
         , private _route: ActivatedRoute ) { }
 
     ngOnInit(): void {
@@ -54,7 +56,7 @@ export class ResPlanListComponent implements OnInit {
                 resPlans: this.fb.array([])
             });
         this._route.data.subscribe( values=> this.buildResPlans(values.resPlans))
-        this._modalSvc.modalSubmitted$.subscribe(()=>this.buildSelectedProjects(this._modalSvc.projectArray))
+        this._modalSvc.modalSubmitted$.subscribe(()=>this.buildSelectedProjects(this._modalSvc.selectedProjects))
         }
 
         
@@ -66,7 +68,6 @@ export class ResPlanListComponent implements OnInit {
     calculateTotals(fg: FormGroup): void {
 
             var value = fg.value;
-            //debugger;
             for (var i = 0; i < value["totals"].length; i++) {
                 var sum = 0;
                 for (var j = 0; j < value["projects"].length; j++) {
@@ -158,21 +159,22 @@ export class ResPlanListComponent implements OnInit {
     addProject(_resPlan: FormGroup): void {
             //get IProjects[] array from current formgroup
             var data = _resPlan.value.resUid;
-            debugger;
             this._modalSvc.projectsAssigned(_resPlan.value.projects);
             console.log('projects in RP = ' + JSON.stringify(_resPlan.value.projects))
-            this.modalComponent.showModal(data);
+            this.modalProjects.showModal(data);
             var _projects: [IProject];
             var project = new Project();
             this.currentFormGroup = _resPlan;
-
-
-
-            // for (var i = 0; i < intervalLength; i++) {
-            //     project.intervals.push(new Interval('', '0.0'));
-            // }
-            // ((_resPlan as FormGroup).controls['projects'] as FormArray).push(this.buildProject(project));
         }
+
+        addResources(resources:IResource[]){
+           
+         let resourcesSelected:IResource[]= this.resPlans.value.map(res=>{return new Resource(res.resUid,res.resName)})
+         console.log('resources selected=' + JSON.stringify(resourcesSelected))
+         this._resModalSvc.ResourcesSelected(resourcesSelected)
+         this.modalResources.showModal('');
+        }
+
 
     populateTestData(): void {
 
@@ -180,7 +182,6 @@ export class ResPlanListComponent implements OnInit {
         }
 
     buildSelectedProjects( projects: IProject[]): void {
-            debugger;
             var intervalLength = this.getIntervalLength();
             for (var k = 0; k < projects.length; k++) {
                 var project: IProject = projects[k];
@@ -193,7 +194,6 @@ export class ResPlanListComponent implements OnInit {
             }
         }
     savePlans(): void {
-            //debugger;
             if (this.mainForm.dirty && this.mainForm.valid) {
                 var _resPlans: [IResPlan];
 

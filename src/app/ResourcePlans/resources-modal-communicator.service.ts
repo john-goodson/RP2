@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Subject }    from 'rxjs/Subject';
-import {IProject} from "./res-plan.model"
+import {IResource} from "./res-plan.model"
  import { Observable} from  'rxjs'
-@Injectable()
-export class ModalCommunicator {
 
+@Injectable()
+export class ResourcesModalCommunicatorService {
+
+ 
   constructor() { }
  
   // Observable string sources
-  public selectedProjects:IProject[];
-  public projectsAssignedToResource = new Subject<IProject[]>();
+  public selectedResources:IResource[];
+  public ResourcesSelect = new Subject<IResource[]>();
   private modalSubmittedSource = new Subject<string>();
   private modalCancelledSource = new Subject<string>(); 
  
@@ -17,10 +19,10 @@ export class ModalCommunicator {
   //projectIdArray$ = this.projectIdArraySource.asObservable();
   modalSubmitted$ = this.modalSubmittedSource.asObservable();
   modalCancelled$ = this.modalCancelledSource.asObservable();
-  projectsAssignedToResource$ = this.projectsAssignedToResource.asObservable();
- projectsAssigned(projectsAssigned:IProject[])
+  ResourcesSelected$ = this.ResourcesSelect.asObservable();
+ ResourcesSelected(projectsAssigned:IResource[])
  {
-   this.projectsAssignedToResource.next(projectsAssigned);
+   this.ResourcesSelect.next(projectsAssigned);
  }
   
   modalSubmitClicked() {

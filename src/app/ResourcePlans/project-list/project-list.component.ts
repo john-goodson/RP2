@@ -42,12 +42,9 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('project list component created');
-     debugger;
     this.projListForm = this.fb.group({
       projects: this.fb.array([])
     });
-    debugger;
-    
      
     this._modalSvc.projectsAssignedToResource$.subscribe((projectsInRP:IProject[])=>{
       this._projSvc.getProjects().subscribe(projects => {
@@ -75,7 +72,7 @@ export class ProjectListComponent implements OnInit {
 
 clear()
 {
-  this._modalSvc.projectArray = [];
+  this._modalSvc.selectedProjects = [];
   this.selectedProjects =[];
   for(var i=0;i< this.projects.length;i++)
     {
@@ -92,8 +89,6 @@ clear()
       var project = this.buildProject(_projects[i]);
       this.projects.push(project);
     }
-    debugger;
-    //this.projects.setValue(this.projects.value);
   }
 
   buildProject(_project: IProject): FormGroup {
@@ -119,7 +114,7 @@ clear()
     else {
       this.selectedProjects.push(this.projData.filter(t => t.projUid == id)[0]);
     }
-    this._modalSvc.projectArray = this.selectedProjects;
+    this._modalSvc.selectedProjects = this.selectedProjects;
   
   }
 

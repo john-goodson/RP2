@@ -13,6 +13,8 @@ import { FooComponent} from './resourcePlans/foo.component'
 
 
 import { ModalCommunicator } from  './resourcePlans/modal-communicator.service'
+import { ResourcesModalCommunicatorService } from  './resourcePlans/resources-modal-communicator.service'
+
 import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component';
 
 import {ResPlanDetails2Component} from './resourcePlans/res-plan-detail2.component';
@@ -34,8 +36,10 @@ import { Rxjs2 } from './resourcePlans/rxjs-component/rxjs-component.component2'
 import {ProjectService} from './services/project-service.service'
 import { ResourcePlanService } from './services/resource-plan.service'
 import {ResourcePlanUserStateService} from './services/resource-plan-user-state.service';
+import {ResourceService} from './services/resource.service'
 import { ProjectListFilterPipe } from './common/project-list-filter.pipe'
-import { ResourcePlansResolverService } from './services/resource-plans-resolver.service'
+import { ResourcePlansResolverService } from './services/resource-plans-resolver.service';
+import { ResourceListComponent } from './ResourcePlans/resource-list/resource-list.component'
 //let jQuery : Object;
 
 @NgModule({
@@ -52,6 +56,7 @@ import { ResourcePlansResolverService } from './services/resource-plans-resolver
     RxjsComponentComponent,
     Rxjs2,
     ProjectListFilterPipe,
+    ResourceListComponent,
     
   ],
   imports: [
@@ -63,9 +68,9 @@ import { ResourcePlansResolverService } from './services/resource-plans-resolver
           
   ],
   
-  providers: [ ResPlanService,   ModalCommunicator, ProjectService, ResourcePlanService
+  providers: [ ResPlanService,   ModalCommunicator, ResourcesModalCommunicatorService,ProjectService, ResourcePlanService
     , ResourcePlanUserStateService
-    , ResourcePlansResolverService ],
+    , ResourcePlansResolverService,ResourceService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
