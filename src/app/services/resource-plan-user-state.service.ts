@@ -136,8 +136,10 @@ export class ResourcePlanUserStateService {
         })
         let baseUrl = `${projectUrl}/_api/ProjectServer/Projects('${project.projUid}')/GetResourcePlanByUrl(start='${start}',end='${end}',scale='${timescale}')/Assignments`;
          let expand = "$expand=Intervals,Resource"
-         
-        return this.getUniqueProjectsForResManager().flatMap(resources=>{
+         let resUid = '8181FE64-E261-E711-80CC-00155D005A03'
+        return this.getUniqueResourcesForResManager(resUid).flatMap(resources=>{
+//            let filter = '$filter=' + resources.map((k:IResource)=>k.resUid).map(t=>"Resource/Id eq '" + t ).join(" or ")
+            debugger;
         return this.http.get(baseUrl + '?' + expand, options).switchMap(response => response.json().d.results)
             .map((response: Object) => {
                 var p = new Project(project.projUid, project.projName);
@@ -152,8 +154,8 @@ export class ResourcePlanUserStateService {
                     });
 
                     return resPlan;
-                })
-                 });
+                }).filter((t:IResPlan) => resources.find(k=>k.resUid.toUpperCase() == t.resUid.toUpperCase()) != null) 
+                 })
     }
 
        
