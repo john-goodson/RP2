@@ -15,7 +15,6 @@ export class ResourcePlanUserStateService {
 
     constructor(private http: Http) { }
 
-
     getResourcePlans(resUids: string[]): Observable<IResPlan[]> {
         //read sharePoint list
         //load up project data

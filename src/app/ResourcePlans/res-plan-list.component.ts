@@ -23,6 +23,7 @@ import{ResourcesModalCommunicatorService} from '../resourcePlans/resources-modal
     templateUrl: './res-plan-list.component.html'
 })
 
+
 export class ResPlanListComponent implements OnInit {
 
      @ViewChild('modalProjects') private modalProjects: SimpleModalComponent;

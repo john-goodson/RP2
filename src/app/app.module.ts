@@ -59,11 +59,8 @@ import { ResourceListComponent } from './ResourcePlans/resource-list/resource-li
     RxjsComponentComponent,
     Rxjs2,
     ProjectListFilterPipe,
-<<<<<<< HEAD
-    DataTableDemo3 
-=======
-    ResourceListComponent,
->>>>>>> a2b4bdcab56c82a4f09e3495be63c305a9bd8c11
+    DataTableDemo3,
+    ResourceListComponent
     
   ],
   imports: [

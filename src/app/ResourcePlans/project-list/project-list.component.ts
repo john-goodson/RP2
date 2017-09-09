@@ -37,6 +37,7 @@ export class ProjectListComponent implements OnInit {
   }
   
   
+  
   constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator,private _projSvc: ProjectService) { }
  
 
