@@ -57,6 +57,9 @@ export class ResPlanListComponent implements OnInit {
             });
         this._route.data.subscribe( values=> this.buildResPlans(values.resPlans))
         this._modalSvc.modalSubmitted$.subscribe(()=>this.buildSelectedProjects(this._modalSvc.selectedProjects))
+        this._resModalSvc.modalSubmitted$.subscribe(()=> this.addSelectedResources());
+        
+        
         }
 
         
@@ -158,6 +161,7 @@ export class ResPlanListComponent implements OnInit {
 
     addProject(_resPlan: FormGroup): void {
             //get IProjects[] array from current formgroup
+            this.modalProjects.modalSubmitted$.subscribe(()=>this._modalSvc.modalSubmitClicked());
             var data = _resPlan.value.resUid;
             this._modalSvc.projectsAssigned(_resPlan.value.projects);
             console.log('projects in RP = ' + JSON.stringify(_resPlan.value.projects))
@@ -172,7 +176,15 @@ export class ResPlanListComponent implements OnInit {
          let resourcesSelected:IResource[]= this.resPlans.value.map(res=>{return new Resource(res.resUid,res.resName)})
          console.log('resources selected=' + JSON.stringify(resourcesSelected))
          this._resModalSvc.ResourcesSelected(resourcesSelected)
+         this.modalResources.modalSubmitted$.subscribe(()=>this._resModalSvc.modalSubmitClicked());
          this.modalResources.showModal('');
+        }
+
+        addSelectedResources()
+        {
+            console.log("add resource fired" + JSON.stringify(this._resModalSvc.selectedResources));
+            var selectedResourceUids = this._resModalSvc.selectedResources.map(t=>t.resUid);
+            this._resPlanUserStateSvc.getResourcePlans(selectedResourceUids).subscribe(plans=>this.buildResPlans(plans));
         }
 
 

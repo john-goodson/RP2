@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild, ElementRef, OnInit} from '@angular/core';
 import { ModalCommunicator} from '../resourcePlans/modal-communicator.service';
-
+import { Subject }    from 'rxjs/Subject';
+ import { Observable} from  'rxjs'
 
 declare var jquery:any;
 declare var $ :any;
@@ -43,7 +44,11 @@ export class SimpleModalComponent {
   @Input() primaryBtnText: string; 
   @ViewChild('modalcontainer') containerEl: ElementRef;
   modalId:string;
-  constructor(private _modalSvc: ModalCommunicator ) {}
+
+  private modalSubmittedSource = new Subject<string>();
+  modalSubmitted$ = this.modalSubmittedSource.asObservable();
+  
+  constructor( ) {}
 
   closeModal() {
     if(this.closeOnBodyClick.toLocaleLowerCase() === "true") {
@@ -60,7 +65,8 @@ export class SimpleModalComponent {
   }
 
   submit() {
-    this._modalSvc.modalSubmitClicked(); 
+    debugger;
+    this.modalSubmittedSource.next();
     this.closeModal();
   }
 

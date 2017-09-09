@@ -2,7 +2,7 @@
     <div formArrayName="resources" *ngIf="resources && resources.length">
         <div *ngFor="let r of resources.controls;index as i">
             <div [formGroupName]="i">
-                <input type="checkbox"  (click) = "selectResources(r.get('id')?.value)" formControlName="isSelected"> {{ r.get('resName')?.value }}
+                <input type="checkbox"  (click) = "selectResources(r.get('resUid')?.value)" formControlName="isSelected"> {{ r.get('resName')?.value }}
                 <input formControlName="resUid" placeholder="id" style='display:none'>
             </div>
         </div>

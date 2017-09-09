@@ -44,6 +44,9 @@ export class ResourceListComponent implements OnInit {
         this.buildResources(filteredResources);
       })
     })
+
+    this._modalResSvc.modalSubmitted$.subscribe(success => this.clear(),
+            error => console.log('error'));
   }
 
   clear() {
@@ -76,10 +79,11 @@ export class ResourceListComponent implements OnInit {
     return resGroup;
   }
 
-  selectProject(id: string) {
+  selectResources(id: string) {
     //;
     //uncheck use case
-    if (this.selectedResources.filter(t => t.resUid == id).length > 0) {
+    debugger;
+    if (this.selectedResources .length > 0 && this.selectedResources.filter(t => t.resUid == id).length > 0) {
       this.selectedResources.reduce(function (r, v, i) {
         if (v.resUid == id)
           return i;

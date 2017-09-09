@@ -16,20 +16,20 @@ export class ResourcePlanUserStateService {
     constructor(private http: Http) { }
 
 
-    getResourcePlan(resUid: string): Observable<IResPlan> {
+    getResourcePlans(resUids: string[]): Observable<IResPlan[]> {
         //read sharePoint list
         //load up project data
         let resMgrUid = '8181FE64-E261-E711-80CC-00155D005A03'
-            return this.getUniqueProjectsForResource(resUid).switchMap(projects => {
+            return this.getUniqueProjectsForResources(resUids).switchMap(projects => {
                 return this.getResPlansFromProjects(projects).mergeAll()
-            }).map(t => t).
+            }).filter((r:IResPlan)=>{return (resUids.indexOf(r.resUid) > -1)}).map(t => t).
                 groupBy(t => { return t.resName }).flatMap(group => {
                     return group.reduce(function (a, b) {
                         a.projects = a.projects.concat(b.projects);
                         return a; // returns object with property x
                     })
 
-                }).filter(t => t.resName == 'nishant');
+                }).toArray()
     }
 
     getUniqueResourcesForResManager(resUid: string): Observable<IResource[]> {
@@ -58,15 +58,22 @@ export class ResourcePlanUserStateService {
     }
 
 
-    getUniqueProjectsForResource(resUid: string): Observable<IProject[]> {
+    getUniqueProjectsForResources(resUids: string[]): Observable<IProject[]> {
 
         let baseUrl = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
 
         //remember to change UID0 to UID
         let select = '$select=ResourceManagerUID,ResourceUID0,ProjectUIDs'
-        let filter = `$filter=ResourceUID0 eq '${resUid}'`;
+
+        let filter = ''
+        if(resUids && resUids.length > 0)
+            {
+                let filterstring = resUids.map(t=>"ResourceUID0 eq '" + t + "'").join('or ')
+                debugger;
+                filter = `$filter=${filterstring}`;
+            }
         //1. get data from SP List UserState 
-        let url = baseUrl + '?' + filter + '&' + select;
+        let url = baseUrl + '?' + select + '&' + filter;
         return this.getProjectListFromSpList(url);
         //.do(data => console.log('getUserState from REST: ' + JSON.stringify(data)))
     }
@@ -135,7 +142,7 @@ export class ResourcePlanUserStateService {
             headers
         })
         let baseUrl = `${projectUrl}/_api/ProjectServer/Projects('${project.projUid}')/GetResourcePlanByUrl(start='${start}',end='${end}',scale='${timescale}')/Assignments`;
-         let expand = "$expand=Intervals,Resource"
+         let expand = "$expand=Intervals,Resource/Id"
          let resUid = '8181FE64-E261-E711-80CC-00155D005A03'
         return this.getUniqueResourcesForResManager(resUid).flatMap(resources=>{
 //            let filter = '$filter=' + resources.map((k:IResource)=>k.resUid).map(t=>"Resource/Id eq '" + t ).join(" or ")
