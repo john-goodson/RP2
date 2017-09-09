@@ -13,6 +13,8 @@ import { FooComponent} from './resourcePlans/foo.component'
 
 
 import { ModalCommunicator } from  './resourcePlans/modal-communicator.service'
+import { ResourcesModalCommunicatorService } from  './resourcePlans/resources-modal-communicator.service'
+
 import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component';
 
 import {ResPlanDetails2Component} from './resourcePlans/res-plan-detail2.component';
@@ -34,10 +36,13 @@ import { Rxjs2 } from './resourcePlans/rxjs-component/rxjs-component.component2'
 import {ProjectService} from './services/project-service.service'
 import { ResourcePlanService } from './services/resource-plan.service'
 import {ResourcePlanUserStateService} from './services/resource-plan-user-state.service';
+import {ResourceService} from './services/resource.service'
 import { ProjectListFilterPipe } from './common/project-list-filter.pipe'
-import { ResourcePlansResolverService } from './services/resource-plans-resolver.service'
+
 import {  DataTableDemo3 } from './common/demo3/data-table-demo3'
 import { DataTableModule } from 'angular-4-data-table';
+import { ResourcePlansResolverService } from './services/resource-plans-resolver.service';
+import { ResourceListComponent } from './ResourcePlans/resource-list/resource-list.component'
 //let jQuery : Object;
 
 @NgModule({
@@ -54,7 +59,11 @@ import { DataTableModule } from 'angular-4-data-table';
     RxjsComponentComponent,
     Rxjs2,
     ProjectListFilterPipe,
+<<<<<<< HEAD
     DataTableDemo3 
+=======
+    ResourceListComponent,
+>>>>>>> a2b4bdcab56c82a4f09e3495be63c305a9bd8c11
     
   ],
   imports: [
@@ -67,9 +76,9 @@ import { DataTableModule } from 'angular-4-data-table';
           
   ],
   
-  providers: [ ResPlanService,   ModalCommunicator, ProjectService, ResourcePlanService
+  providers: [ ResPlanService,   ModalCommunicator, ResourcesModalCommunicatorService,ProjectService, ResourcePlanService
     , ResourcePlanUserStateService
-    , ResourcePlansResolverService ],
+    , ResourcePlansResolverService,ResourceService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

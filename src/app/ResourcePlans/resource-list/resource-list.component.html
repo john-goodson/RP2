@@ -1,0 +1,13 @@
+<form class="form-horizontal" novalidate (ngSubmit) = "submitSelected()" [formGroup]="resListForm">
+    <div formArrayName="resources" *ngIf="resources && resources.length">
+        <div *ngFor="let r of resources.controls;index as i">
+            <div [formGroupName]="i">
+                <input type="checkbox"  (click) = "selectResources(r.get('resUid')?.value)" formControlName="isSelected"> {{ r.get('resName')?.value }}
+                <input formControlName="resUid" placeholder="id" style='display:none'>
+            </div>
+        </div>
+    </div>
+                
+</form>
+
+<br>Dirty: {{ resListForm.dirty }}

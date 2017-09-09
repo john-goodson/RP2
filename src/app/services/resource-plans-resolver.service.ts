@@ -21,7 +21,7 @@ export class ResourcePlansResolverService implements Resolve<IResPlan[]> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IResPlan[]> {
 
-    debugger   //Observable<IResPlan[]
+    //Observable<IResPlan[]
     // let resUid = route.params['resUid']
     // this.router.navigate(['/placeholder'])
   

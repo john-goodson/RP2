@@ -1,5 +1,5 @@
 <form class="form-horizontal" novalidate (ngSubmit) = "submitSelected()" [formGroup]="projListForm">
-    <div formArrayName="projects">
+    <div formArrayName="projects" *ngIf="projects && projects.length">
         <div *ngFor="let p of projects.controls;index as i">
             <div [formGroupName]="i">
 
@@ -8,7 +8,6 @@
             </div>
         </div>
     </div>
-                
 </form>
 
 <br>Dirty: {{ projListForm.dirty }}

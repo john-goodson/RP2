@@ -21,36 +21,41 @@
                         </div>
                     </div>
                     <!-- i = index of resplan formgroup -->
-                   
+
                 </div>
                 <div formArrayName="totals">
                     <div *ngFor="let total of plan.get('totals').controls;index as l">
                         <div [formGroupName]="l">
                             <input formControlName="intervalValue" placeholder="intervalValue" />
-                            
+
                         </div>
                     </div>
-                     
-                </div>
-                            <!-- <button class="btn btn-primary" type="button" (click) = "addProject(plan)" > Add Project  </button> -->
-                            <button class="btn btn-primary" type="button" (click) = "addProject(plan)"> Add Project  </button>
-                            
-                                         
-                              
-                   <hr>
-            </div>
-          
-        
-        </div>
-        
-    </div>
-   <simple-modal #modal closeOnBodyClick="true" elementId="1" title="Add Projects" primaryBtnText="Add Selected Projects">
-                                    <div class="list-group">
-                                     <project-list [projData] = 'projData'></project-list>
-                                    </div>
-                                  </simple-modal>            
 
-  <button type ="submit" class="btn btn-primary" (click) = "savePlans()"> Submit  </button>
+                </div>
+                <!-- <button class="btn btn-primary" type="button" (click) = "addProject(plan)" > Add Project  </button> -->
+                <button class="btn btn-primary" type="button" (click)="addProject(plan)"> Add Project  </button>
+
+
+
+                <hr>
+            </div>
+
+
+        </div>
+
+    </div>
+    <simple-modal #modalProjects closeOnBodyClick="true" elementId="1" title="Add Projects" primaryBtnText="Add Selected Projects">
+        <div class="list-group">
+            <project-list [projData]='projData'></project-list>
+        </div>
+    </simple-modal>
+    <simple-modal #modalResources closeOnBodyClick="true" elementId="1" title="Select Resource" primaryBtnText="Add Selected Resources">
+        <div class="list-group">
+            <resource-list></resource-list>
+        </div>
+    </simple-modal>
+
+    <button type="submit" class="btn btn-primary" (click)="savePlans()"> Submit  </button>
 </form>
 <hr><br>
 

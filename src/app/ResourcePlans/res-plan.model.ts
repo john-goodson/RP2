@@ -12,6 +12,12 @@ export interface IResPlan {
   projects?: IProject[]; 
 }
 
+export interface IResource
+{
+  resUid: string;
+  resName?: string;
+}
+
 export interface IProject {
   projUid: string;
   projName: string;
@@ -54,6 +60,11 @@ export class Interval implements IIntervals{
         public intervalValue = '',
  ) { }
  
+}
+
+export class Resource implements IResource{
+  constructor(public resUid='0',public resName='')
+  {}
 }
 
 export enum ProjectActiveStatus {
