@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Input, Output, EventEmitter, OnDestroy,OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component,ViewChild, OnInit, Inject, Input, Output, EventEmitter, OnDestroy,OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { IResPlan, IProject, IIntervals } from '../res-plan.model'
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
 
@@ -11,6 +11,7 @@ import 'rxjs/add/operator/filter';
 import { ProjectService }  from '../../services/project-service.service'
 import {ProjectListFilterPipe} from '../../common/project-list-filter.pipe'
 import {Observable} from 'Rxjs'
+import { DataTable, DataTableTranslations, DataTableResource } from 'angular-4-data-table-bootstrap-4'
 
 
 @Component({
@@ -24,31 +25,31 @@ import {Observable} from 'Rxjs'
 export class ProjectListComponent implements OnInit {
 
   @Input() projData: IProject[]; 
-  projListForm: FormGroup;
-  
-  //projData: IProject[]; 
-  errorMessage: any;
   selectedProjects: IProject[] = [];
    @Input() resPlan:FormGroup
-  //@Input() proj
+    projectList = [];
+    projListResource:DataTableResource<IProject[]>;
+    @ViewChild(DataTable) projectListTable;
+    projectsCount = 0;
 
-  get projects(): FormArray {  //this getter should return all instances.
-    return <FormArray>this.projListForm.get('projects');
-  }
   
   
+  translations = <DataTableTranslations>{
+        indexColumn: 'Index column',
+        expandColumn: 'Expand column',
+        selectColumn: 'Select column',
+        paginationLimit: 'Max results',
+        paginationRange: 'Result range'
+    };
   
   constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator,private _projSvc: ProjectService) { }
  
 
   ngOnInit(): void {
     console.log('project list component created');
-    this.projListForm = this.fb.group({
-      projects: this.fb.array([])
-    });
      
     this._modalSvc.projectsAssignedToResource$.subscribe((projectsInRP:IProject[])=>{
-      this._projSvc.getProjects().subscribe(projects => {
+     this._projSvc.getProjects().subscribe(projects => {
                
                 this.projData = projects
                 console.log('OBSERVABLE FIRED ON PROJECT LIST')
@@ -58,9 +59,13 @@ export class ProjectListComponent implements OnInit {
        if(projectsInRP.map(t=>t.projUid.toUpperCase()).indexOf(val.projUid.toUpperCase())< 0)
        return val;
      }) 
+      debugger;
        console.log('all projects in RP=' + filteredProjects.map(t=>t.projUid).toString())
-        
-        this.buildProjects(filteredProjects);
+        this.projectList = filteredProjects;
+        this.projListResource =  new DataTableResource(this.projectList)
+        this.projListResource.count().then(count => this.projectsCount = count);
+        this.reloadProjects({limit:8,offset:0});
+        //this.buildProjects(filteredProjects);
       
     })
         
@@ -71,37 +76,21 @@ export class ProjectListComponent implements OnInit {
             error => console.log('error'));
   }
 
+  reloadProjects(params) {
+    debugger;
+    if(this.projListResource)
+        this.projListResource.query(params).then(projects => this.projectList = projects);
+    }
+
+     rowClick(rowEvent) {
+       this.selectProject(rowEvent.row.item.projUid);
+    }
+
 clear()
 {
   this._modalSvc.selectedProjects = [];
   this.selectedProjects =[];
-  for(var i=0;i< this.projects.length;i++)
-    {
-      var isSelected = (this.projects.controls[i] as FormGroup).controls['isSelected'];
-      isSelected.setValue(false);
-    }
-    //this.buildProjects(this.projData);
 }
-  buildProjects(_projects: IProject[]) {
-    var parent = (this.projects.parent as FormGroup);
-    this.projects.controls =[];
-     
-    for (var i = 0; i < _projects.length; i++) {
-      var project = this.buildProject(_projects[i]);
-      this.projects.push(project);
-    }
-  }
-
-  buildProject(_project: IProject): FormGroup {
-
-    var projGroup = this.fb.group({
-      id: _project.projUid,
-      name: _project.projName,
-      isSelected : false
-    });
-
-    return projGroup;
-  }
 
   selectProject(id: string) {
     //;

@@ -32,7 +32,7 @@ declare var $ :any;
 
   `,
   styles: [`
-    .modal-body { height: 250px; overflow-y: scroll; }, 
+    .modal-body { height: auto; overflow-y: scroll; }, 
     .modal-dialog { position: absolute; margin-left: 200px; height: 400px; width: 333}
 
   `]

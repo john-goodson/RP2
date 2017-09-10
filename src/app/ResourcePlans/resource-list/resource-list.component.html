@@ -1,13 +1,40 @@
-<form class="form-horizontal" novalidate (ngSubmit) = "submitSelected()" [formGroup]="resListForm">
-    <div formArrayName="resources" *ngIf="resources && resources.length">
-        <div *ngFor="let r of resources.controls;index as i">
-            <div [formGroupName]="i">
-                <input type="checkbox"  (click) = "selectResources(r.get('resUid')?.value)" formControlName="isSelected"> {{ r.get('resName')?.value }}
-                <input formControlName="resUid" placeholder="id" style='display:none'>
-            </div>
-        </div>
-    </div>
-                
-</form>
+<div style="margin: auto; width: auto;">
+    <data-table id="resources-grid"
+        headerTitle="Resources"
+        [items]="resourceList"
+        [itemCount]="resourcesCount"
+        (reload)="reloadResources($event)"
+        (rowClick)="rowClick($event)"
+        [limit]="8"
+        [sortBy]="'rating'"
+        [sortAsc]="false"
 
-<br>Dirty: {{ resListForm.dirty }}
+        [selectColumn]="true"
+        [multiSelect]="true"
+        [substituteRows]="false"
+        [expandableRows]="true"
+        [translations]="translations"
+        [indexColumnHeader]="'#'"
+        [selectOnRowClick]="true"
+        >
+        <!-- <template #dataTableExpand let-item="item">
+            <div [textContent]="item.description" style="padding: 5px; color: gray"></div>
+        </template> -->
+         <data-table-column
+            [property]="'resUid'"
+            [header]="'Resource Uid'"
+            [sortable]="true"
+            [visible] ="false"
+            >
+            
+        </data-table-column>
+        <data-table-column
+            [property]="'resName'"
+            [header]="'Resource Name'"
+            [sortable]="true"
+            >
+            
+        </data-table-column>
+        
+    </data-table>
+</div>

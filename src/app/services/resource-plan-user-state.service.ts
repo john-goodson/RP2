@@ -68,7 +68,6 @@ export class ResourcePlanUserStateService {
         if(resUids && resUids.length > 0)
             {
                 let filterstring = resUids.map(t=>"ResourceUID0 eq '" + t + "'").join('or ')
-                debugger;
                 filter = `$filter=${filterstring}`;
             }
         //1. get data from SP List UserState 
@@ -145,13 +144,11 @@ export class ResourcePlanUserStateService {
          let resUid = '8181FE64-E261-E711-80CC-00155D005A03'
         return this.getUniqueResourcesForResManager(resUid).flatMap(resources=>{
 //            let filter = '$filter=' + resources.map((k:IResource)=>k.resUid).map(t=>"Resource/Id eq '" + t ).join(" or ")
-            debugger;
         return this.http.get(baseUrl + '?' + expand, options).switchMap(response => response.json().d.results)
             .map((response: Object) => {
                 var p = new Project(project.projUid, project.projName);
                 let resUid = response["Resource"]["Id"];
                 var resPlan = new ResPlan(resUid, response["Name"], [p]);
-                debugger;
                 var intervals = response["Intervals"]["results"];
                     intervals.forEach(element => {
 

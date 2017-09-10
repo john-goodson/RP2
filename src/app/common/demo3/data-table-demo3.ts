@@ -22,6 +22,7 @@ export class DataTableDemo3 {
     }
 
     reloadFilms(params) {
+        debugger;
         this.filmResource.query(params).then(films => this.films = films);
     }
 

@@ -1,13 +1,40 @@
-<form class="form-horizontal" novalidate (ngSubmit) = "submitSelected()" [formGroup]="projListForm">
-    <div formArrayName="projects" *ngIf="projects && projects.length">
-        <div *ngFor="let p of projects.controls;index as i">
-            <div [formGroupName]="i">
+<div style="margin: auto; width: auto;">
+    <data-table id="projects-grid"
+        headerTitle="Projects"
+        [items]="projectList"
+        [itemCount]="projectsCount"
+        (reload)="reloadProjects($event)"
+        (rowClick)="rowClick($event)"
+        [limit]="8"
+        [sortBy]="'rating'"
+        [sortAsc]="false"
 
-                <input type="checkbox"  (click) = "selectProject(p.get('id')?.value)" formControlName="isSelected"> {{ p.get('name')?.value }}
-                <input formControlName="id" placeholder="id" style='display:none'>
-            </div>
-        </div>
-    </div>
-</form>
-
-<br>Dirty: {{ projListForm.dirty }}
+        [selectColumn]="true"
+        [multiSelect]="true"
+        [substituteRows]="false"
+        [expandableRows]="true"
+        [translations]="translations"
+        [indexColumnHeader]="'#'"
+        [selectOnRowClick]="true"
+        >
+        <!-- <template #dataTableExpand let-item="item">
+            <div [textContent]="item.description" style="padding: 5px; color: gray"></div>
+        </template> -->
+         <data-table-column
+            [property]="'projUid'"
+            [header]="'Project Uid'"
+            [sortable]="true"
+            [visible] ="false"
+            >
+            
+        </data-table-column>
+        <data-table-column
+            [property]="'projName'"
+            [header]="'Project Name'"
+            [sortable]="true"
+            >
+            
+        </data-table-column>
+        
+    </data-table>
+</div>

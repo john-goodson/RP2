@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Input, Output, EventEmitter, OnDestroy, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component,ViewChild, OnInit, Inject, Input, Output, EventEmitter, OnDestroy, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { IResPlan, IProject, IIntervals } from '../res-plan.model'
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
 
@@ -10,6 +10,7 @@ import 'rxjs/add/operator/filter';
 
 import { ResourceService } from '../../services/resource.service'
 import { Observable } from 'Rxjs'
+import { DataTable, DataTableTranslations, DataTableResource } from 'angular-4-data-table-bootstrap-4'
 
 
 @Component({
@@ -18,30 +19,40 @@ import { Observable } from 'Rxjs'
   styleUrls: ['./resource-list.component.css']
 })
 export class ResourceListComponent implements OnInit {
-  resListForm: FormGroup;
   selectedResources: IResource[] = [];
   resData: IResource[]
-  get resources(): FormArray {  //this getter should return all instances.
-    return <FormArray>this.resListForm.get('resources');
+  resourceList = [];
+    resListResource:DataTableResource<IProject[]>;
+    @ViewChild(DataTable) resourceListTable;
+    resourcesCount = 0;
+     translations = <DataTableTranslations>{
+        indexColumn: 'resUid',
+        expandColumn: 'Expand column',
+        selectColumn: 'Select column',
+        paginationLimit: 'Max results',
+        paginationRange: 'Result range'
+    };
+
+  constructor(private fb: FormBuilder, private _resSvc: ResourceService, private _modalResSvc: ResourcesModalCommunicatorService) { 
+    
   }
 
-  constructor(private fb: FormBuilder, private _resSvc: ResourceService, private _modalResSvc: ResourcesModalCommunicatorService) { }
-
   ngOnInit() {
-    this.resListForm = this.fb.group({
-      resources: this.fb.array([])
-    });
     this._modalResSvc.ResourcesSelected$.subscribe((resourcesPicked: IResource[]) => {
       this._resSvc.getResources().subscribe(resources => {
         this.resData = resources
-        debugger;
+        
         let filteredResources = this.resData.filter(val => {
        
        if(resourcesPicked.map(t=>t.resName.toUpperCase()).indexOf(val.resName.toUpperCase())< 0)
        return val;
      }) 
         console.log('filtered resources to pick=' + filteredResources.map(t => t.resUid).toString())
-        this.buildResources(filteredResources);
+        debugger;
+        this.resourceList = filteredResources;
+        this.resListResource =  new DataTableResource(this.resourceList)
+        this.resListResource.count().then(count => this.resourcesCount = count);
+        this.reloadResources({limit:8,offset:0,sortBy:"rating",sortAsc:false});
       })
     })
 
@@ -49,37 +60,23 @@ export class ResourceListComponent implements OnInit {
             error => console.log('error'));
   }
 
+  reloadResources(params) {
+    if(this.resListResource)
+        this.resListResource.query(params).then(resources => this.resourceList = resources);
+    }
+
+     rowClick(rowEvent) {
+       this.selectResource(rowEvent.row.item.resUid);
+    }
+
   clear() {
     this._modalResSvc.selectedResources = [];
     this.selectedResources = [];
-    for (var i = 0; i < this.resources.length; i++) {
-      var isSelected = (this.resources.controls[i] as FormGroup).controls['isSelected'];
-      isSelected.setValue(false);
-    }
-    //this.buildProjects(this.projData);
   }
 
-  buildResources(_resources: IResource[]) {
-    var parent = (this.resources.parent as FormGroup);
-    this.resources.controls = [];
+  
 
-    for (var i = 0; i < _resources.length; i++) {
-      var resource = this.buildResource(_resources[i]);
-      this.resources.push(resource);
-    }
-  }
-
-  buildResource(_resource: IResource): FormGroup {
-    var resGroup = this.fb.group({
-      resUid: _resource.resUid,
-      resName: _resource.resName,
-      isSelected: false
-    });
-
-    return resGroup;
-  }
-
-  selectResources(id: string) {
+  selectResource(id: string) {
     //;
     //uncheck use case
     debugger;
