@@ -17,6 +17,7 @@ import { ProjectService } from '../services/project-service.service'
 import { ResourcePlanService } from '../services/resource-plan.service'
 import { ResourcePlanUserStateService} from '../services/resource-plan-user-state.service'
 import{ResourcesModalCommunicatorService} from '../resourcePlans/resources-modal-communicator.service'
+import { SPListService } from '../services/sp-list.service'
 
 @Component({
     //selector: 'my-resplan',
@@ -46,10 +47,11 @@ export class ResPlanListComponent implements OnInit {
     // }
 
     constructor(private fb: FormBuilder, private _resPlanSvc: ResPlanService, private _modalSvc: ModalCommunicator
-        , private router: Router, 
-         private _resourcePlanSvc: ResourcePlanService
+        , private router: Router
+        , private _resourcePlanSvc: ResourcePlanService
         , private _resPlanUserStateSvc: ResourcePlanUserStateService
-        ,private _resModalSvc:ResourcesModalCommunicatorService
+        , private _resModalSvc:ResourcesModalCommunicatorService
+        , private _spListSvc: SPListService
         , private _route: ActivatedRoute ) { }
 
     ngOnInit(): void {
@@ -60,6 +62,12 @@ export class ResPlanListComponent implements OnInit {
         this._modalSvc.modalSubmitted$.subscribe(()=>this.buildSelectedProjects(this._modalSvc.selectedProjects))
         this._resModalSvc.modalSubmitted$.subscribe(()=> this.addSelectedResources());
         
+        //this._spListSvc.updateUserStateProjects("Test1").subscribe(vals => console.log('form digest value: ' + vals))
+        //this._spListSvc.getListMetaData("Test1").subscribe(vals => console.log('list metadata: ' + vals))
+        //this._spListSvc.updateUserStateProjects("Test1", 2).subscribe(vals => console.log( vals))
+        //this._spListSvc.getFormDigestValue().subscribe(vals => console.log( vals))
+        //this._spListSvc.test().subscribe(vals => console.log('ok'))
+        this._spListSvc.test2();
         
         }
 

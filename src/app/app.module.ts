@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router'
 import { appRoutes } from './routes'
 import { HttpModule } from '@angular/http';
-
+import {HttpClientModule} from '@angular/common/http';
 import {  ResPlanService} from './services/res-plan-service.service'
 
 import { FooComponent} from './resourcePlans/foo.component'
@@ -43,6 +43,7 @@ import {  DataTableDemo3 } from './common/demo3/data-table-demo3'
 import { DataTableModule } from 'angular-4-data-table';
 import { ResourcePlansResolverService } from './services/resource-plans-resolver.service';
 import { ResourceListComponent } from './ResourcePlans/resource-list/resource-list.component'
+import { SPListService } from './services/sp-list.service'
 //let jQuery : Object;
 
 @NgModule({
@@ -60,7 +61,7 @@ import { ResourceListComponent } from './ResourcePlans/resource-list/resource-li
     Rxjs2,
     ProjectListFilterPipe,
     DataTableDemo3,
-    ResourceListComponent
+    ResourceListComponent,
     
   ],
   imports: [
@@ -68,14 +69,16 @@ import { ResourceListComponent } from './ResourcePlans/resource-list/resource-li
     RouterModule.forRoot(appRoutes) ,
           HttpModule, 
           ReactiveFormsModule ,
-          DataTableModule
+          DataTableModule,
+          HttpClientModule,
          // InMemoryWebApiModule.forRoot(ResPlanData),
           
   ],
   
   providers: [ ResPlanService,   ModalCommunicator, ResourcesModalCommunicatorService,ProjectService, ResourcePlanService
     , ResourcePlanUserStateService
-    , ResourcePlansResolverService,ResourceService ],
+    , ResourcePlansResolverService
+    ,ResourceService, SPListService  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
