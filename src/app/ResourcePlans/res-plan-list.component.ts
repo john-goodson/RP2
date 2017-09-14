@@ -58,7 +58,7 @@ export class ResPlanListComponent implements OnInit {
              this.mainForm = this.fb.group({
                 resPlans: this.fb.array([])
             });
-        this._route.data.subscribe( values=> this.buildResPlans(values.resPlans))
+        this._route.data.subscribe( values=>{debugger;this.buildResPlans(values.resPlans);console.log(JSON.stringify(values.resPlans))})
         this._modalSvc.modalSubmitted$.subscribe(()=>this.buildSelectedProjects(this._modalSvc.selectedProjects))
         this._resModalSvc.modalSubmitted$.subscribe(()=> this.addSelectedResources());
         
@@ -107,8 +107,8 @@ export class ResPlanListComponent implements OnInit {
     buildResPlan(_resplan: IResPlan): FormGroup {
             var _totals = this.fb.array([]);
             var resPlanGroup = this.fb.group({
-                resUid: _resplan.resUid,
-                resName: _resplan.resName,
+                resUid: _resplan.resource.resUid,
+                resName: _resplan.resource.resName,
                 totals: this.initTotals(_totals, _resplan.projects),
                 projects: this.fb.array([]),
             });
@@ -126,6 +126,7 @@ export class ResPlanListComponent implements OnInit {
             var project = this.fb.group({
                 projUid: _project.projUid,
                 projName: _project.projName,
+                readOnly:_project.readOnly,
                 intervals: this.fb.array([])
             });
             for (var i = 0; i < _project.intervals.length; i++) {

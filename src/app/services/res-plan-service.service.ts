@@ -270,7 +270,7 @@ export class ResPlanService {
     }
 
     private createResPlan(resPlan: IResPlan, options: RequestOptions): Observable<IResPlan> {
-        resPlan.resUid = undefined;
+        resPlan.resource.resUid = undefined;
         return this.http.post(this.baseUrl, resPlan, options)
             .map(this.extractData)
             .do(data => console.log('createresPlan: ' + JSON.stringify(data)))
@@ -280,7 +280,7 @@ export class ResPlanService {
 
     private updateResPlan(resPlan: IResPlan, options: RequestOptions): Observable<IResPlan> {
         console.log('entering updateResPlan ')
-        const url = `${this.baseUrl}/${resPlan.resUid}`;
+        const url = `${this.baseUrl}/${resPlan.resource.resUid}`;
         return this.http.put(url, resPlan, options)
             .map(() => resPlan)
             .do(data => console.log('updateresPlan: ' + JSON.stringify(data)))
@@ -302,9 +302,7 @@ export class ResPlanService {
     initializeResPlan(): IResPlan {
         // Return an initialized object
         return {
-            resUid: '0',
-            resName: null,
-            org: null,
+            resource: null,
             projects: []
         };
     }
