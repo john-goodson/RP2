@@ -178,6 +178,7 @@ export class ResourcePlanUserStateService {
             })
         }).toArray()
         return this.getUniqueResourcesForResManager(resMgrUid).flatMap(resources => {
+            debugger;
             return projectsWithreadOnlyFlag.flatMap(projects => 
                 this.getResPlansFromProjects(resources, projects).do(t => {
                     console.log('resource plans read from add resource =' + JSON.stringify(t))
@@ -262,7 +263,7 @@ export class ResourcePlanUserStateService {
                     let readOnlyFilteredProjects = projects.filter(p => readOnly.map(r => r.projUid).indexOf(p.projUid) > -1)
                     return new ResPlan(new Resource(data["ResourceUID0"], data["ResourceName"]), readOnlyFilteredProjects.map(readOnlyPojectsForResource => readOnlyPojectsForResource))
                 })
-                .groupBy(t => { return t.resource.resName }).flatMap(group => {
+                .groupBy(t => { return t.resource.resUid.toUpperCase() }).flatMap(group => {
                     return group.reduce(function (a, b) {
                         a.projects = a.projects.concat(b.projects);
                         return a; // returns object with property x
@@ -276,11 +277,14 @@ export class ResourcePlanUserStateService {
     }
 
     getResPlansFromProjects(resources: IResource[], projects: IProject[]): Observable<IResPlan[]> {
+        let emptyResPlans = Observable.of(resources.map(r=>new ResPlan(r,[])))
         return Observable.from(projects).flatMap((project: IProject) => {
             return this.getResPlan(resources, 'http://foo.wingtip.com/PWA', project, '2017-06-01', '2017-08-01', WorkUnits.FTE, Timescale.months)
 
-        }).toArray().flatMap(t => t).
-            groupBy(t => { return t.resource.resName }).flatMap(group => {
+        }).toArray()
+        .merge(emptyResPlans)
+        .flatMap(t => t).
+            groupBy(t => { return t.resource.resUid.toUpperCase() }).flatMap(group => {
                 return group.reduce(function (a, b) {
                     a.projects = a.projects.concat(b.projects);
                     return a; // returns object with property x
@@ -318,6 +322,7 @@ export class ResourcePlanUserStateService {
                 return resPlan;
             }).filter((t: IResPlan) => 
             {
+                debugger;
                return resources.find(k => k.resUid.toUpperCase() == t.resource.resUid.toUpperCase()) != null
             })
 

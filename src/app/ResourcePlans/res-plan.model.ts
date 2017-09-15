@@ -37,7 +37,7 @@ export interface IIntervals {
 
 export class ResPlan implements IResPlan {
 
-  constructor(public resource =new Resource('0',''),
+  constructor(public resource:IResource =new Resource('0',''),
 
     public projects = [])
   { }
