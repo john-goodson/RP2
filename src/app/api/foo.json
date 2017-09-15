@@ -1,30 +1,27 @@
 [
     {
-        "id": 1,
-        "name": "John Goodson",
-        "org": {
-            "location": "Nashville",
-            "title": "Cons Engr",
-            "manager": "Ronnie"
+        "resource": {
+            "resUid": "F931D63D-967C-E711-80CC-00155D005A03",
+            "resName": ""
         },
         "projects": [
             {
-                "id": 1,
-                "name": "Data Center",
-                "intervals": [
-                    {
-                        "intervalName": "jan",
-                        "intervalValue": "40"
-                    },
-                    {
-                        "intervalName": "feb",
-                        "intervalValue": "80"
-                    },
-                    {
-                        "intervalName": "mar",
-                        "intervalValue": "80"
-                    }
-                ]
+                "projUid": "1D399FB8-578A-E711-80CC-00155D005A03",
+                "projName": "Nashville SSC Data Center Virtualization",
+                "readOnly": false,
+                "intervals": []
+            },
+            {
+                "projUid": "E7808E36-588A-E711-80CC-00155D005A03",
+                "projName": "Centennial Hospital Urology Credentialing",
+                "readOnly": false,
+                "intervals": []
+            },
+            {
+                "projUid": "426102DA-588A-E711-80CC-00155D005A03",
+                "projName": "Patient Experience ER",
+                "readOnly": false,
+                "intervals": []
             }
         ]
     }
