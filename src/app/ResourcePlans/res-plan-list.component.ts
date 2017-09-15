@@ -188,7 +188,7 @@ export class ResPlanListComponent implements OnInit {
     addSelectedResources() {
         console.log("add resource fired" + JSON.stringify(this._resModalSvc.selectedResources));
         let selectedResources = this._resModalSvc.selectedResources;
-        this._resPlanUserStateSvc.getResPlansFromResources(selectedResources)
+        this._resPlanUserStateSvc.getResPlansFromResources(this._resModalSvc.selectedResources)
             .subscribe(plans => {
                 console.log("===========================================added rp=" + JSON.stringify(plans))
                 this.buildResPlans(plans)
