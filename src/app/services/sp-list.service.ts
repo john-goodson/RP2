@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 
 import {
     IResPlan, ResPlan, IProject, Project, WorkUnits, Timescale
-    , IIntervals, Interval, IResource, Resource, SPListContextInfo
+    , IIntervals, Interval, IResource, Resource
 } from '../resourcePlans/res-plan.model'
 
 declare var jquery:any;
@@ -22,86 +22,88 @@ declare var $ :any;
 export class SPListService {
 
     constructor(private http: HttpClient) { }
+}
 
-    test2() {
-        var call = $.ajax({
-            url: "http://foo.wingtip.com/PWA/_api/Web/lists/GetByTitle('Test1')/items(2)",
-            type: "POST",
-            dataType: "json",
+    // test2() {
+    //     var call = $.ajax({
+    //         url: "http://foo.wingtip.com/PWA/_api/Web/lists/GetByTitle('Test1')/items(2)",
+    //         type: "POST",
+    //         dataType: "json",
             
-            data: JSON.stringify({
-                "__metadata": { type: "SP.Data.Test1ListItem" },
-                Title: "In Progress"
-            }),
+    //         data: JSON.stringify({
+    //             "__metadata": { type: "SP.Data.Test1ListItem" },
+    //             Title: "In Progress"
+    //         }),
 
-            //{"__metadata":{"type":"SP.Data.Test1ListItem"},"Title": "Hello World"}
-            headers: {
-                Accept: "application/json;odata=verbose",
-                "Content-Type": "application/json;odata=verbose",
-                "X-RequestDigest": "0x3AEF231987597435867B2DD9BF10A6552914FD221EED4465C9EE42C69E0A0D885A423AC092026667346EED341C08DFF9E0315C799B222E31116002F3612941EB,14 Sep 2017 15:27:54 -0000",
-                "IF-MATCH": "*",
-                "X-Http-Method": "PATCH"
-            }
-        });
-        call.done(function (data, textStatus, jqXHR) {
-            console.log('ok')
-        });
-        call.fail(function (jqXHR, textStatus, errorThrown) {
-            console.log('nope')
-        });
-
-
-    }
+    //         //{"__metadata":{"type":"SP.Data.Test1ListItem"},"Title": "Hello World"}
+    //         headers: {
+    //             Accept: "application/json;odata=verbose",
+    //             "Content-Type": "application/json;odata=verbose",
+    //             "X-RequestDigest": "0x3AEF231987597435867B2DD9BF10A6552914FD221EED4465C9EE42C69E0A0D885A423AC092026667346EED341C08DFF9E0315C799B222E31116002F3612941EB,14 Sep 2017 15:27:54 -0000",
+    //             "IF-MATCH": "*",
+    //             "X-Http-Method": "PATCH"
+    //         }
+    //     });
+    //     call.done(function (data, textStatus, jqXHR) {
+    //         console.log('ok')
+    //     });
+    //     call.fail(function (jqXHR, textStatus, errorThrown) {
+    //         console.log('nope')
+    //     });
 
 
+    // }
 
 
 
 
-    getFormDigestValue(): Observable<any> {
-
-        let context = new SPListContextInfo()
-        context.resourcePath = "/contextinfo/"
-        let url = context.location + context.service + context.resourcePath
-
-        let _headers = new Headers();
-        _headers.append('Authorization', 'Bearer ' + "");
-        _headers.append('accept', 'application/json;odata=verbose')
-        _headers.append('Content-Type', 'application/json;odata=verbose')
 
 
 
-        console.log(_headers)
-        // _headers.append('message', 'my neck hurts')
+//     getFormDigestValue(): Observable<any> {
 
-        let foo = new HttpHeaders({
-            'Content-Type': 'application/json'
-            , 'accept': 'application/json;odata=verbose'
-        });
+//         let context = new SPListContextInfo()
+//         context.resourcePath = "/contextinfo/"
+//         let url = context.location + context.service + context.resourcePath
 
-        let body = '"{ hey ... this is some data }"'
-//                'accept': 'application/json;odata=verbose',
-        debugger
-        let zoo: HttpHeaders = new HttpHeaders(
-            {
-                'accept': 'application/json;odata=verbose'
-                ,'Content-Type': 'text/plain'
+//         let _headers = new Headers();
+//         _headers.append('Authorization', 'Bearer ' + "");
+//         _headers.append('accept', 'application/json;odata=verbose')
+//         _headers.append('Content-Type', 'application/json;odata=verbose')
+
+
+
+//         console.log(_headers)
+//         // _headers.append('message', 'my neck hurts')
+
+//         let foo = new HttpHeaders({
+//             'Content-Type': 'application/json'
+//             , 'accept': 'application/json;odata=verbose'
+//         });
+
+//         let body = '"{ hey ... this is some data }"'
+// //                'accept': 'application/json;odata=verbose',
+//         debugger
+//         let zoo: HttpHeaders = new HttpHeaders(
+//             {
+//                 'accept': 'application/json;odata=verbose'
+//                 ,'Content-Type': 'text/plain'
            
-            })
+//             })
            
-        console.log(zoo)
+//         console.log(zoo)
 
-        return this.http
-        .post(url, body, {
-          headers: zoo
+//         return this.http
+//         .post(url, body, {
+//           headers: zoo
           
-          ,withCredentials: true,
+//           ,withCredentials: true,
           
-        })
+//         })
 
 
 
-    }
+//     }
 
     // getListMetaData(listName): Observable<string> {
 
@@ -161,46 +163,46 @@ export class SPListService {
     //     })
     // }
 
-    test(): Observable<any> {
+    // test(): Observable<any> {
 
-        let context = new SPListContextInfo()
-        context.formDigest = "0xE101F24D9D0092ECE632A3254F5331F2316B075AC445E3E4D46708F47566B231812702209A9576FFA3B50C48E390E7ABAA66F647CD86A88F6221FC9812E9DFEF,14 Sep 2017 14:26:00 -0000"
-        context.resourcePath = `/web/lists/GetByTitle('Test1')/items(2) `
-        let url = context.location + context.service + context.resourcePath
-        let _headers = new HttpHeaders({ 
-            // 'Accept': 'application/json;odata=verbose' 
-            // ,'X-RequestDigest': context.formDigest
-            // , 'Content-Type': 'text/plain'
-            // ,'IF-MATCH': '*'
-            // ,'X-HTTP-Method':'PATCH'
-            'X-Http-Method': 'PATCH'
-            ,'Content-Type': 'application/json;odata=verbose'
-            ,'Accept': 'application/json;odata=verbose'
-            ,'IF-MATCH': '*'
-            ,'X-RequestDigest': '0xE38439B627BB08A28897525402A040065EB98019D3C8FFE2C48550F3DB234498B65F2A2E4354E26191D33C452E80053305F1D69BEB109A160AFD4BE1401D1F02,14 Sep 2017 14:34:17 -0000'
+    //     let context = new SPListContextInfo()
+    //     context.formDigest = "0xE101F24D9D0092ECE632A3254F5331F2316B075AC445E3E4D46708F47566B231812702209A9576FFA3B50C48E390E7ABAA66F647CD86A88F6221FC9812E9DFEF,14 Sep 2017 14:26:00 -0000"
+    //     context.resourcePath = `/web/lists/GetByTitle('Test1')/items(2) `
+    //     let url = context.location + context.service + context.resourcePath
+    //     let _headers = new HttpHeaders({ 
+    //         // 'Accept': 'application/json;odata=verbose' 
+    //         // ,'X-RequestDigest': context.formDigest
+    //         // , 'Content-Type': 'text/plain'
+    //         // ,'IF-MATCH': '*'
+    //         // ,'X-HTTP-Method':'PATCH'
+    //         'X-Http-Method': 'PATCH'
+    //         ,'Content-Type': 'application/json;odata=verbose'
+    //         ,'Accept': 'application/json;odata=verbose'
+    //         ,'IF-MATCH': '*'
+    //         ,'X-RequestDigest': '0xE38439B627BB08A28897525402A040065EB98019D3C8FFE2C48550F3DB234498B65F2A2E4354E26191D33C452E80053305F1D69BEB109A160AFD4BE1401D1F02,14 Sep 2017 14:34:17 -0000'
             
           
             
             
 
-            // Accept: "application/json;odata=verbose",
-            // "Content-Type": "application/json;odata=verbose",
-            // "X-RequestDigest": jQuery("#__REQUESTDIGEST").val(),
-            // "IF-MATCH": item.__metadata.etag,
-            // "X-Http-Method": "PATCH"
+    //         // Accept: "application/json;odata=verbose",
+    //         // "Content-Type": "application/json;odata=verbose",
+    //         // "X-RequestDigest": jQuery("#__REQUESTDIGEST").val(),
+    //         // "IF-MATCH": item.__metadata.etag,
+    //         // "X-Http-Method": "PATCH"
             
             
-        });
+    //     });
         
-        let body = '{"__metadata": { "type": "SP.Data.Test1ListItem" }, "Title": "Test item added from Fiddler" }'
-        //let body = ""
-        //this.http.
+    //     let body = '{"__metadata": { "type": "SP.Data.Test1ListItem" }, "Title": "Test item added from Fiddler" }'
+    //     //let body = ""
+    //     //this.http.
 
        
-        return this.http.post(url, body, {
-            headers: _headers
-            })
-    }
+    //     return this.http.post(url, body, {
+    //         headers: _headers
+    //         })
+    // }
 
     // // saveProduct(product: any): Observable<any> {
     // //     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -221,7 +223,6 @@ export class SPListService {
 
     // // }
 
-}
 
 
 

@@ -63,6 +63,7 @@ export class Resource implements IResource {
   { }
 }
 
+
 export enum ProjectActiveStatus {
   inProgress,
   completed,

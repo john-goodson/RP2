@@ -9,7 +9,7 @@ import { IResPlan, IProject, IIntervals, ProjectActiveStatus, IResource, Resourc
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Rx';
-import { ResPlanService } from '../services/res-plan-service.service';
+
 import { ResPlan, Project, Interval } from './res-plan.model';
 import { SimpleModalComponent } from '../common/simple-modal.component'
 import { ModalCommunicator } from '../resourcePlans/modal-communicator.service';
@@ -45,7 +45,7 @@ export class ResPlanListComponent implements OnInit {
     //     return <FormArray>this.mainForm.get['projects'];
     // }
 
-    constructor(private fb: FormBuilder, private _resPlanSvc: ResPlanService, private _modalSvc: ModalCommunicator
+    constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator
         , private router: Router,
         private _resourcePlanSvc: ResourcePlanService
         , private _resPlanUserStateSvc: ResourcePlanUserStateService
@@ -213,22 +213,23 @@ export class ResPlanListComponent implements OnInit {
             (this.currentFormGroup.controls['projects'] as FormArray).push(this.buildProject(project));
         }
     }
-    savePlans(): void {
-        if (this.mainForm.dirty && this.mainForm.valid) {
-            var _resPlans: [IResPlan];
 
-            let r = Object.assign([], _resPlans, this.fb.array(this.resPlans.controls
-                .filter(item => item.dirty === true)).value);
-            this._resPlanSvc.saveResPlans(r)
-                .subscribe(
-                () => this.onSaveComplete(),
-                (error: any) => this.errorMessage = <any>error
-                );
-        }
-        //
-        else if (!this.mainForm.dirty) {
-            this.onSaveComplete();
-        }
+    savePlans(): void {
+        // if (this.mainForm.dirty && this.mainForm.valid) {
+        //     var _resPlans: [IResPlan];
+
+        //     let r = Object.assign([], _resPlans, this.fb.array(this.resPlans.controls
+        //         .filter(item => item.dirty === true)).value);
+        //     this._resPlanSvc.saveResPlans(r)
+        //         .subscribe(
+        //         () => this.onSaveComplete(),
+        //         (error: any) => this.errorMessage = <any>error
+        //         );
+        // }
+        // //
+        // else if (!this.mainForm.dirty) {
+        //     this.onSaveComplete();
+        // }
     }
     onSaveComplete(): void {
         // Reset the form to clear the flags
