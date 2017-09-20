@@ -19,7 +19,7 @@ import { ResourcePlanUserStateService } from '../services/resource-plan-user-sta
 import { ResourcesModalCommunicatorService } from '../resourcePlans/resources-modal-communicator.service'
 
 @Component({
-    //selector: 'my-resplan',
+    selector: 'resplan-list',
     templateUrl: './res-plan-list.component.html'
 })
 

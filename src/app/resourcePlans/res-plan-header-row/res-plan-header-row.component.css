@@ -1,0 +1,23 @@
+.table-header
+{
+    position: relative;
+}
+  .header-cell
+{
+    text-align: left;
+    height: 40px;
+}
+.body-cell 
+{
+    text-align: left;
+}
+.col1
+{
+    width:220px;
+    min-width: 220px;
+}
+.col
+{
+    width:100px;
+    min-width: 100px;
+}

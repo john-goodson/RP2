@@ -40,8 +40,10 @@ import { ProjectListFilterPipe } from './common/project-list-filter.pipe'
 
 import { DataTableModule } from 'angular-4-data-table';
 import { ResourcePlansResolverService } from './services/resource-plans-resolver.service';
-import { ResourceListComponent } from './ResourcePlans/resource-list/resource-list.component'
-import { SPListService } from './services/sp-list.service'
+import { ResourceListComponent } from './resourcePlans/resource-list/resource-list.component'
+import { SPListService } from './services/sp-list.service';
+import { ResPlanHomeComponent } from './resourcePlans/res-plan-home/res-plan-home.component';
+import { ResPlanHeaderRowComponent } from './resourcePlans/res-plan-header-row/res-plan-header-row.component'
 //let jQuery : Object;
 
 @NgModule({
@@ -58,6 +60,10 @@ import { SPListService } from './services/sp-list.service'
     ProjectListFilterPipe,
   
     ResourceListComponent,
+  
+    ResPlanHomeComponent,
+  
+    ResPlanHeaderRowComponent,
     
   ],
   imports: [

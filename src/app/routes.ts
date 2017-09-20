@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router'
 import { ResPlanListComponent } from './resourcePlans/res-plan-list.component'
+import {ResPlanHomeComponent} from './resourcePlans/res-plan-home/res-plan-home.component'
 
 
 
@@ -9,7 +10,8 @@ export const appRoutes: Routes = [
 
   {
     path: 'resPlans'
-    , component: ResPlanListComponent
+    , component: ResPlanHomeComponent
+    //npm start
     , resolve: {resPlans: ResourcePlansResolverService }
   },
   
