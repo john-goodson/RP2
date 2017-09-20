@@ -48,7 +48,6 @@ export class ResourceListComponent implements OnInit {
        return val;
      }) 
         console.log('filtered resources to pick=' + filteredResources.map(t => t.resUid).toString())
-        debugger;
         this.resourceList = filteredResources;
         this.resListResource =  new DataTableResource(this.resourceList)
         this.resListResource.count().then(count => this.resourcesCount = count);
@@ -79,7 +78,6 @@ export class ResourceListComponent implements OnInit {
   selectResource(id: string) {
     //;
     //uncheck use case
-    debugger;
     if (this.selectedResources .length > 0 && this.selectedResources.filter(t => t.resUid == id).length > 0) {
       this.selectedResources.reduce(function (r, v, i) {
         if (v.resUid == id)

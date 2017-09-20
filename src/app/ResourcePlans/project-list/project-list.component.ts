@@ -59,7 +59,6 @@ export class ProjectListComponent implements OnInit {
        if(projectsInRP.map(t=>t.projUid.toUpperCase()).indexOf(val.projUid.toUpperCase())< 0)
        return val;
      }) 
-      debugger;
        console.log('all projects in RP=' + filteredProjects.map(t=>t.projUid).toString())
         this.projectList = filteredProjects;
         this.projListResource =  new DataTableResource(this.projectList)
@@ -77,7 +76,6 @@ export class ProjectListComponent implements OnInit {
   }
 
   reloadProjects(params) {
-    debugger;
     if(this.projListResource)
         this.projListResource.query(params).then(projects => this.projectList = projects);
     }

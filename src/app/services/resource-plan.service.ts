@@ -47,7 +47,6 @@ export class ResourcePlanService {
   //           innerOb.subscribe((intervalresPonse:Response) =>{
   //            x["Intervals"] = response.json().d.results;
   //             var intervals:IIntervals[] = [];
-  //             debugger;
   //            x["Intervals"].forEach(element => {
   //              intervals.push(new Interval(element["Name"]),element["Duration"].replace("d",""));
   //             p.intervals = intervals;
