@@ -279,7 +279,7 @@ export class ResourcePlanUserStateService {
     getResPlansFromProjects(resources: IResource[], projects: IProject[]): Observable<IResPlan[]> {
         let emptyResPlans = Observable.of(resources.map(r=>new ResPlan(r,[])))
         return Observable.from(projects).flatMap((project: IProject) => {
-            return this.getResPlan(resources, 'http://foo.wingtip.com/PWA', project, '2017-06-01', '2017-08-01', WorkUnits.FTE, Timescale.months)
+            return this.getResPlan(resources, 'http://foo.wingtip.com/PWA', project, '2016-08-01', '2017-08-01', WorkUnits.FTE, Timescale.months)
 
         }).toArray()
         .merge(emptyResPlans)
@@ -302,7 +302,8 @@ export class ResourcePlanUserStateService {
             withCredentials: true,
             headers
         })
-        let baseUrl = `${projectUrl}/_api/ProjectServer/Projects('${project.projUid}')/GetResourcePlanByUrl(start='${start}',end='${end}',scale='${timescale}')/Assignments`;
+        let baseUrl = `${projectUrl}/_api/ProjectServer/Projects('${project.projUid}')/GetResourcePlanByUrl
+        (start='${start}',end='${end}',scale='${timescale}')/Assignments`;
         let expand = "$expand=Intervals,Resource/Id"
         let resUid = '8181FE64-E261-E711-80CC-00155D005A03'
         //            let filter = '$filter=' + resources.map((k:IResource)=>k.resUid).map(t=>"Resource/Id eq '" + t ).join(" or ")
