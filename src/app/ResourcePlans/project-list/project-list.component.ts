@@ -13,13 +13,11 @@ import {ProjectListFilterPipe} from '../../common/project-list-filter.pipe'
 import {Observable} from 'Rxjs'
 import { DataTable, DataTableTranslations, DataTableResource } from 'angular-4-data-table-bootstrap-4'
 
-
 @Component({
   selector: 'project-list',
   templateUrl: './project-list.component.html',
   styleUrls: ['./project-list.component.css']
 })
-
 
 
 export class ProjectListComponent implements OnInit {
@@ -53,7 +51,7 @@ export class ProjectListComponent implements OnInit {
                
                 this.projData = projects
                 console.log('OBSERVABLE FIRED ON PROJECT LIST')
-      
+     //
       let filteredProjects = this.projData.filter(val => {
        
        if(projectsInRP.map(t=>t.projUid.toUpperCase()).indexOf(val.projUid.toUpperCase())< 0)

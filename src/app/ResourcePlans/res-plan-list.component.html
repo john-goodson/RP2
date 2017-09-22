@@ -13,12 +13,12 @@
                                 <div well-title>
                                     <tr>
                                         <td class="body-cell col1">
-                                            <input formControlName="resName" placeholder="First name">
+                                            <input formControlName="resName" placeholder="First name" style="width:100%">
                                         </td>
                                         <div formArrayName="totals">
-                                            <td *ngFor="let total of plan.get('totals').controls;index as l">
+                                            <td class="body-cell col" *ngFor="let total of plan.get('totals').controls;index as l">
                                                 <div [formGroupName]="l">
-                                                    <input formControlName="intervalValue" placeholder="intervalValue" />
+                                                    <input formControlName="intervalValue" placeholder="intervalValue" style="width:100%"/>
 
                                                 </div>
                                             </td>
@@ -32,12 +32,12 @@
                                         <div *ngFor="let proj of plan.get('projects').controls;index as j">
                                             <tr [formGroupName]="j">
                                                 <td class="body-cell col1">
-                                                    <input formControlName="projName" placeholder="project" /> 
+                                                    <input formControlName="projName" placeholder="project" style="width:100%"/> 
                                                 </td>
                                                 <div formArrayName="intervals" *ngIf="!proj.get('readOnly').value == false">
                                                     <td class="body-cell col" *ngFor="let intrvl of proj.get('intervals').controls; index as k">
                                                         <div [formGroupName]="k">
-                                                            <input formControlName="intervalValue" type="text">
+                                                            <input formControlName="intervalValue" type="text" style="width:100%">
                                                         </div>
                                                     </td>
                                                 </div>

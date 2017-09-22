@@ -43,6 +43,7 @@ export class ResPlan implements IResPlan {
   { }
 }
 
+
 export class Project implements IProject {
 
   constructor(public projUid = '', public projName = 'boo', public readOnly = false, public intervals:IInterval[] = []

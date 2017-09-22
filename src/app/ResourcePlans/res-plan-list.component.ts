@@ -66,14 +66,15 @@ table
 {
     text-align: left;
 }
-.col1, .col3, .col4, .col5
+.col1
 {
     width:220px;
     min-width: 220px;
 }
-.col2
+.col
 {
-    min-width: 300px;
+    width:100px;
+    min-width: 100px;
 }`]
 })
 
