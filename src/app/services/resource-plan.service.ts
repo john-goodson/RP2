@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 
-import { IResPlan,IProject,IIntervals,ResPlan,Interval,Project } from '../resourcePlans/res-plan.model';
+import { IResPlan,IProject,IInterval,ResPlan,Interval,Project } from '../resourcePlans/res-plan.model';
 import { WorkUnits,Timescale } from '../resourcePlans/res-plan.model';
 
 @Injectable()
@@ -46,7 +46,7 @@ export class ResourcePlanService {
   //           var innerOb = this.http.get(uri, options);
   //           innerOb.subscribe((intervalresPonse:Response) =>{
   //            x["Intervals"] = response.json().d.results;
-  //             var intervals:IIntervals[] = [];
+  //             var intervals:IInterval[] = [];
   //            x["Intervals"].forEach(element => {
   //              intervals.push(new Interval(element["Name"]),element["Duration"].replace("d",""));
   //             p.intervals = intervals;

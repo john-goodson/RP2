@@ -8,7 +8,7 @@ import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/mergeMap'
 import { Observable } from 'rxjs';
 
-import { IResPlan, ResPlan, IProject, Project, WorkUnits, Timescale, IIntervals, Interval, IResource, Resource } from '../resourcePlans/res-plan.model'
+import { IResPlan, ResPlan, IProject, Project, WorkUnits, Timescale, IInterval, Interval, IResource, Resource } from '../resourcePlans/res-plan.model'
 
 @Injectable()
 export class ResourcePlanUserStateService {
@@ -293,7 +293,7 @@ export class ResourcePlanUserStateService {
             }).toArray()
     }
 
-    getResPlan(resources: IResource[], projectUrl: string = 'http://foo.wingtip.com/PWA', project: IProject, start: string = '2017-06-01', end: string = '2017-08-01', workUnits: WorkUnits, timescale: string)
+    getResPlan(resources: IResource[], projectUrl: string = 'http://foo.wingtip.com/PWA', project: IProject, start: string = '2017-06-01', end: string = '2017-08-01', workUnits: WorkUnits, timescale: Timescale)
         : Observable<IResPlan> {
         console.log('entering getResPlans method');
         let headers = new Headers();

@@ -25,10 +25,10 @@ export interface IProject {
     projActiveStatus: ProjectActiveStatus;
     departments?: IDept[];
   };
-  intervals?: IIntervals[];
+  intervals?: IInterval[];
 }
 
-export interface IIntervals {
+export interface IInterval {
 
   intervalName: string;
   intervalValue: string;
@@ -39,18 +39,18 @@ export class ResPlan implements IResPlan {
 
   constructor(public resource:IResource =new Resource('0',''),
 
-    public projects = [])
+    public projects:IProject[] = [])
   { }
 }
 
 export class Project implements IProject {
 
-  constructor(public projUid = '', public projName = 'boo', public readOnly = false, public intervals = []
+  constructor(public projUid = '', public projName = 'boo', public readOnly = false, public intervals:IInterval[] = []
 
   ) { }
 }
 
-export class Interval implements IIntervals {
+export class Interval implements IInterval {
 
   constructor(public intervalName = '',
     public intervalValue = '',
@@ -65,14 +65,17 @@ export class Resource implements IResource {
 
 
 export enum ProjectActiveStatus {
-  inProgress,
-  completed,
-  cancelled
+  inProgress='inProgress',
+  completed='completed',
+  cancelled='cancelled'
 }
 export enum Timescale {
-  months = "Months",
-  financialMonths = 'FinancialMonths',
-  years = 'Years'
+    days = 3, 
+    weeks = 4, 
+    months = 5, 
+    quarters = 6,
+    years = 7,
+    financialMonths =8
 }
 export enum WorkUnits {
   hours = 'Hours',

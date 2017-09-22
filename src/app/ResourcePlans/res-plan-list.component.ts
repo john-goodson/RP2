@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormA
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/mergeMap';
 
-import { IResPlan, IProject, IIntervals, ProjectActiveStatus, IResource, Resource } from './res-plan.model'
+import { IResPlan, IProject, IInterval, ProjectActiveStatus, IResource, Resource } from './res-plan.model'
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -20,7 +20,61 @@ import { ResourcesModalCommunicatorService } from '../resourcePlans/resources-mo
 
 @Component({
     selector: 'resplan-list',
-    templateUrl: './res-plan-list.component.html'
+    templateUrl: './res-plan-list.component.html',
+styles : [`*
+{
+    padding: 0;
+    margin: 0;
+}
+body
+{
+    height: 100%;
+    width: 100%;
+}
+table
+{
+    border-collapse: collapse;
+}
+.outer-container
+{
+    background-color: #ccc;
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 300px;
+    bottom: 40px;
+}
+.inner-container
+{
+    height: 100%;
+    overflow: hidden;
+}
+.table-header
+{
+    position: relative;
+}
+.table-body
+{
+    overflow: auto;
+}
+.header-cell
+{
+    text-align: left;
+    height: 40px;
+}
+.body-cell 
+{
+    text-align: left;
+}
+.col1, .col3, .col4, .col5
+{
+    width:220px;
+    min-width: 220px;
+}
+.col2
+{
+    min-width: 300px;
+}`]
 })
 
 
@@ -131,7 +185,7 @@ export class ResPlanListComponent implements OnInit {
         return project;
     }
 
-    buildInterval(interval: IIntervals): FormGroup {
+    buildInterval(interval: IInterval): FormGroup {
         return this.fb.group({
             intervalName: interval.intervalName,
             intervalValue: interval.intervalValue

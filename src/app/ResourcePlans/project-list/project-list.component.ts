@@ -1,5 +1,5 @@
 import { Component,ViewChild, OnInit, Inject, Input, Output, EventEmitter, OnDestroy,OnChanges, ChangeDetectionStrategy } from '@angular/core';
-import { IResPlan, IProject, IIntervals } from '../res-plan.model'
+import { IResPlan, IProject, IInterval } from '../res-plan.model'
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
 
 

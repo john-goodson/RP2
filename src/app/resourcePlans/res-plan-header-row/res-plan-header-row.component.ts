@@ -1,20 +1,26 @@
 import { Component, OnInit,Input } from '@angular/core';
 import {IResPlan} from '../../resourcePlans/res-plan.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-res-plan-header-row',
+  selector: 'res-plan-header-row',
   templateUrl: './res-plan-header-row.component.html',
   styleUrls: ['./res-plan-header-row.component.css']
 })
 export class ResPlanHeaderRowComponent implements OnInit {
 visible: boolean = true;
-  @Input() _resPlans: IResPlan[];
+ _resPlans: IResPlan[];
 
   
 
-  constructor() { }
+  constructor(private router: Router,private _route: ActivatedRoute) { }
 
   ngOnInit() {
+  this._route.data.subscribe(values =>{
+    this._resPlans = values.resPlans; 
+    debugger;
+    console.log('header component data=' + JSON.stringify(values.resPlans))
+  });
   }
 
 }

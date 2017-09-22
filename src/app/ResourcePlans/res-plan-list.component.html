@@ -1,77 +1,95 @@
+<div>
 
-<button class="btn btn-primary" type="button" (click) = "addResources()" > Add Resource  </button>
-<form class="form-horizontal" novalidate (ngSubmit)="savePlans()" [formGroup]="mainForm">
-    <div formArrayName="resPlans" *ngIf="resPlans && resPlans.length">
-        <div *ngFor="let plan of resPlans.controls;index as i">
-            <div [formGroupName]="i">
-                <input formControlName="resName" placeholder="First name">
-                <input formControlName="resUid" placeholder="id" style='display:none'>
-                <div formArrayName="projects">
-                    <div *ngFor="let proj of plan.get('projects').controls;index as j">
-                        <div [formGroupName]="j">
-                            <input formControlName="projName" placeholder="project" />
-                            {{ proj.get('readOnly').value}}
-                           
-                            <div formArrayName="intervals" *ngIf="!proj.get('readOnly').value">
-                                <div *ngFor="let intrvl of proj.get('intervals').controls; index as k">
-                                    <div [formGroupName]="k">
-                                        <input formControlName="intervalValue" type="text">
-                                    </div>
+    <button class="btn btn-primary" type="button" (click)="addResources()"> Add Resource  </button>
+    <form class="form-horizontal" novalidate (ngSubmit)="savePlans()" [formGroup]="mainForm">
+        <div formArrayName="resPlans" *ngIf="resPlans && resPlans.length">
+            <res-plan-header-row></res-plan-header-row>
+            <div class="table-body">
+                <table class="table">
+                    <tbody *ngFor="let plan of resPlans.controls;index as i">
+
+                        <div [formGroupName]="i">
+                            <collapsible-well>
+                                <div well-title>
+                                    <tr>
+                                        <td class="body-cell col1">
+                                            <input formControlName="resName" placeholder="First name">
+                                        </td>
+                                        <div formArrayName="totals">
+                                            <td *ngFor="let total of plan.get('totals').controls;index as l">
+                                                <div [formGroupName]="l">
+                                                    <input formControlName="intervalValue" placeholder="intervalValue" />
+
+                                                </div>
+                                            </td>
+
+                                        </div>
+                                        <input formControlName="resUid" placeholder="id" style='display:none'>
+                                    </tr>
                                 </div>
-                            </div>
+                                <div well-body>
+                                    <div formArrayName="projects">
+                                        <div *ngFor="let proj of plan.get('projects').controls;index as j">
+                                            <tr [formGroupName]="j">
+                                                <td class="body-cell col1">
+                                                    <input formControlName="projName" placeholder="project" /> 
+                                                </td>
+                                                <div formArrayName="intervals" *ngIf="!proj.get('readOnly').value == false">
+                                                    <td class="body-cell col" *ngFor="let intrvl of proj.get('intervals').controls; index as k">
+                                                        <div [formGroupName]="k">
+                                                            <input formControlName="intervalValue" type="text">
+                                                        </div>
+                                                    </td>
+                                                </div>
+                                            </tr>
+                                        </div>
+                                        <!-- i = index of resplan formgroup -->
+
+                                    </div>
+
+                                    <!-- <button class="btn btn-primary" type="button" (click) = "addProject(plan)" > Add Project  </button> -->
+                                    <button class="btn btn-primary" type="button" (click)="addProject(plan)"> Add Project  </button>
+
+
+
+                                    <hr>
+                                </div>
+                            </collapsible-well>
                         </div>
-                    </div>
-                    <!-- i = index of resplan formgroup -->
-
-                </div>
-                <div formArrayName="totals">
-                    <div *ngFor="let total of plan.get('totals').controls;index as l">
-                        <div [formGroupName]="l">
-                            <input formControlName="intervalValue" placeholder="intervalValue" />
-
-                        </div>
-                    </div>
-
-                </div>
-                <!-- <button class="btn btn-primary" type="button" (click) = "addProject(plan)" > Add Project  </button> -->
-                <button class="btn btn-primary" type="button" (click)="addProject(plan)"> Add Project  </button>
 
 
-
-                <hr>
+                    </tbody>
+                </table>
             </div>
-
-
         </div>
+        <simple-modal #modalProjects closeOnBodyClick="true" elementId="1" title="Add Projects" primaryBtnText="Add Selected Projects">
+            <div class="list-group">
+                <project-list [projData]='projData'></project-list>
+            </div>
+        </simple-modal>
+        <simple-modal #modalResources closeOnBodyClick="true" elementId="1" title="Select Resource" primaryBtnText="Add Selected Resources">
+            <div class="list-group">
+                <resource-list></resource-list>
+            </div>
+        </simple-modal>
 
-    </div>
-    <simple-modal #modalProjects closeOnBodyClick="true" elementId="1" title="Add Projects" primaryBtnText="Add Selected Projects">
-        <div class="list-group">
-            <project-list [projData]='projData'></project-list>
-        </div>
-    </simple-modal>
-    <simple-modal #modalResources closeOnBodyClick="true" elementId="1" title="Select Resource" primaryBtnText="Add Selected Resources">
-        <div class="list-group">
-            <resource-list></resource-list>
-        </div>
-    </simple-modal>
-
-    <button type="submit" class="btn btn-primary" (click)="savePlans()"> Submit  </button>
-</form>
-<hr><br>
+        <button type="submit" class="btn btn-primary" (click)="savePlans()"> Submit  </button>
+    </form>
+    <hr><br>
 
 
 
-<!-- 
+    <!-- 
 <button class="btn btn-primary" (click)="addResPlan()">Add a Resource Plan</button>
 <button class="btn btn-primary" (click)="addProject()">Add a project</button> -->
 
-<br>Dirty: {{ resPlans.dirty }}
-<br>Touched: {{ resPlans.touched }}
-<br>hello world
+    <br>Dirty: {{ resPlans.dirty }}
+    <br>Touched: {{ resPlans.touched }}
+    <br>hello world
 
 
-<br>gg: {{ resPlans.get('0.firstName')?.value }}
-<br>gg: {{ resPlans.get('1.firstName')?.value }}
-<br>gg: {{ resPlans.get('2.firstName')?.value }}
-<br>gg: {{ resPlans.get('3.firstName')?.value }}
+    <br>gg: {{ resPlans.get('0.firstName')?.value }}
+    <br>gg: {{ resPlans.get('1.firstName')?.value }}
+    <br>gg: {{ resPlans.get('2.firstName')?.value }}
+    <br>gg: {{ resPlans.get('3.firstName')?.value }}
+</div>
