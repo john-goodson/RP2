@@ -178,7 +178,7 @@ export class ResourcePlanUserStateService {
             })
         }).toArray()
         return this.getUniqueResourcesForResManager(resMgrUid).flatMap(resources => {
-            debugger;
+            
             return projectsWithreadOnlyFlag.flatMap(projects => 
                 this.getResPlansFromProjects(resources, projects).do(t => {
                     console.log('resource plans read from add resource =' + JSON.stringify(t))
@@ -192,7 +192,7 @@ export class ResourcePlanUserStateService {
 
     ///Add Resource Plan use case
     getResPlansFromResources(resources: IResource[]): Observable<IResPlan[]> {
-        debugger;
+        
         let resMgrUid = '8181FE64-E261-E711-80CC-00155D005A03'
         let projectsForAllResources = this.getUniqueProjectsAcrossResMgrs(resources);
         let projectsThatUserHasAccessOn = this.getProjectIdsFromAssignmentsForResources(resources);
@@ -221,7 +221,6 @@ export class ResourcePlanUserStateService {
         var readOnlyProjects = allProjectsWithReadOnlyFlags.map(t => { return t.filter(project => project.readOnly == true) })
         var readableResPlans = readableProjects.flatMap(projects => {
             return this.getResPlansFromProjects(resources, projects).filter((r: IResPlan[]) => {
-                debugger;
                 return r.find(x => { 
                     return resources.map(p => p.resUid.toUpperCase()).indexOf(x.resource.resUid.toUpperCase()) > -1 
                 }) != null
@@ -323,7 +322,6 @@ export class ResourcePlanUserStateService {
                 return resPlan;
             }).filter((t: IResPlan) => 
             {
-                debugger;
                return resources.find(k => k.resUid.toUpperCase() == t.resource.resUid.toUpperCase()) != null
             })
 

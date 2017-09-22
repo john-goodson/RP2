@@ -18,7 +18,6 @@ visible: boolean = true;
   ngOnInit() {
   this._route.data.subscribe(values =>{
     this._resPlans = values.resPlans; 
-    debugger;
     console.log('header component data=' + JSON.stringify(values.resPlans))
   });
   }

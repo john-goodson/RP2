@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, DoCheck, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, DoCheck, AfterViewInit, ViewChild, AfterViewChecked } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
 
 import 'rxjs/add/operator/debounceTime';
@@ -21,7 +21,7 @@ import { ResourcesModalCommunicatorService } from '../resourcePlans/resources-mo
 @Component({
     selector: 'resplan-list',
     templateUrl: './res-plan-list.component.html',
-styles : [`*
+    styles: [`*
 {
     padding: 0;
     margin: 0;
@@ -90,15 +90,17 @@ export class ResPlanListComponent implements OnInit {
     projData: IProject[];
     currentFormGroup: FormGroup;
     errorMessage: any;
-    _intervalCount: number = 3; //todo refactor this.
+    _intervalCount: number = 0;
     resPlanUserState: IResPlan[];
 
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
     }
-    // get projects(): FormArray {  //this getter should return all instances.
-    //     return <FormArray>this.mainForm.get['projects'];
-    // }
+
+    set resPlans(value: FormArray) {  //this getter should return all instances.
+        (<FormArray>this.mainForm.controls['resPlans']) = value;
+    }
+
 
     constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator
         , private router: Router,
@@ -111,11 +113,15 @@ export class ResPlanListComponent implements OnInit {
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
         });
-        this._route.data.subscribe(values => {  this.buildResPlans(values.resPlans); console.log(JSON.stringify(values.resPlans)) })
+
+        this._route.data.subscribe(values => {
+            //this.resPlans = values.resPlans;
+            this.setIntervalLength((<IResPlan[]>values.resPlans).map(t => t.projects).reduce((a, b) => a.concat(b)))
+            this.buildResPlans(values.resPlans);
+            console.log(JSON.stringify(values.resPlans))
+        })
         this._modalSvc.modalSubmitted$.subscribe(() => this.buildSelectedProjects(this._modalSvc.selectedProjects))
         this._resModalSvc.modalSubmitted$.subscribe(() => this.addSelectedResources());
-
-
     }
 
 
@@ -124,15 +130,15 @@ export class ResPlanListComponent implements OnInit {
     }
 
     calculateTotals(fg: FormGroup): void {
-       
+
         var value = fg.value;
-        
-        if(value.readOnly == true)
+
+        if (value.readOnly == true)
             return
         for (var i = 0; i < value["totals"].length; i++) {
             var sum = 0;
             for (var j = 0; j < value["projects"].length; j++) {
-                if(value["projects"][j]["intervals"].length < 1)
+                if (value["projects"][j]["intervals"].length < 1)
                     continue;
                 var val = parseFloat(value["projects"][j]["intervals"][i]["intervalValue"]);
                 if (!val) {
@@ -218,6 +224,18 @@ export class ResPlanListComponent implements OnInit {
         //toDo... thinking about putting interval count in data service
         return this._intervalCount;
     }
+    setIntervalLength(projects: IProject[]) {
+
+        if (this._intervalCount < 1) {
+            for (var j = 0; j < projects.length; j++) {
+                if (projects[j].readOnly == false) {
+                    this._intervalCount = projects[j].intervals.length;
+                    return;
+                }
+            }
+        }
+
+    }
 
     addProject(_resPlan: FormGroup): void {
         //get IProjects[] array from current formgroup
@@ -246,6 +264,8 @@ export class ResPlanListComponent implements OnInit {
         this._resPlanUserStateSvc.getResPlansFromResources(this._resModalSvc.selectedResources)
             .subscribe(plans => {
                 console.log("===========================================added rp=" + JSON.stringify(plans))
+                this.setIntervalLength((<IResPlan[]>plans).map(t => t.projects).reduce((a, b) => a.concat(b)))
+                debugger;
                 this.buildResPlans(plans)
             });
     }
@@ -257,6 +277,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     buildSelectedProjects(projects: IProject[]): void {
+        this.setIntervalLength(projects)
         var intervalLength = this.getIntervalLength();
         for (var k = 0; k < projects.length; k++) {
             var project: IProject = projects[k];
