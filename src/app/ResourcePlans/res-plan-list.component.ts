@@ -121,7 +121,11 @@ export class ResPlanListComponent implements OnInit {
             console.log(JSON.stringify(values.resPlans))
         })
         this._modalSvc.modalSubmitted$.subscribe(() => this.buildSelectedProjects(this._modalSvc.selectedProjects))
-        this._resModalSvc.modalSubmitted$.subscribe(() => this.addSelectedResources());
+        this._resModalSvc.modalSubmitted$.subscribe(() =>
+        { 
+            debugger;
+            this.addSelectedResources()
+        });
     }
 
 
@@ -154,6 +158,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     buildResPlans(plans: IResPlan[]) {
+      console.log('add resources ==========================================' + JSON.stringify(plans) ); 
         for (var i = 0; i < plans.length; i++) {
             var resPlan = this.buildResPlan(plans[i]);
             this.resPlans.push(resPlan);
@@ -163,7 +168,7 @@ export class ResPlanListComponent implements OnInit {
     buildResPlan(_resplan: IResPlan): FormGroup {
         var _totals = this.fb.array([]);
         var resPlanGroup = this.fb.group({
-            resUid: _resplan.resource.resUid,
+            resUid: _resplan.resource.resUid.toLowerCase(),
             resName: _resplan.resource.resName,
             totals: this.initTotals(_totals, _resplan.projects),
             projects: this.fb.array([]),
@@ -265,7 +270,6 @@ export class ResPlanListComponent implements OnInit {
             .subscribe(plans => {
                 console.log("===========================================added rp=" + JSON.stringify(plans))
                 this.setIntervalLength((<IResPlan[]>plans).map(t => t.projects).reduce((a, b) => a.concat(b)))
-                debugger;
                 this.buildResPlans(plans)
             });
     }

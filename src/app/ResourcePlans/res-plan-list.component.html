@@ -34,7 +34,7 @@
                                                 <td class="body-cell col1">
                                                     <input formControlName="projName" placeholder="project" style="width:100%"/> 
                                                 </td>
-                                                <div formArrayName="intervals" *ngIf="!proj.get('readOnly').value == false">
+                                                <div formArrayName="intervals" *ngIf="proj.get('readOnly').value == false">
                                                     <td class="body-cell col" *ngFor="let intrvl of proj.get('intervals').controls; index as k">
                                                         <div [formGroupName]="k">
                                                             <input formControlName="intervalValue" type="text" style="width:100%">

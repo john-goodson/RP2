@@ -168,10 +168,10 @@ export class ResourcePlanUserStateService {
             return uniqueProjectsResMgrHasAccessOn.flatMap(projectsWithRights => {
                 return val.map(x => {
                     if (projectsWithRights.find(k => k.projUid.toUpperCase() == x.projUid.toUpperCase()) == null) {
-                        x.readOnly = false;
+                        x.readOnly = true;
                     }
                     else {
-                        x.readOnly = true;
+                        x.readOnly = false;
                     }
                     return x;
                 })
@@ -218,7 +218,7 @@ export class ResourcePlanUserStateService {
 
                 this.AddResourceToManager(resMgrUid, resources, allProjects);
             });
-        var readOnlyProjects = allProjectsWithReadOnlyFlags.map(t => { return t.filter(project => project.readOnly == true) })
+        var readOnlyProjects = allProjectsWithReadOnlyFlags.map(t => {debugger; return t.filter(project => project.readOnly == true) })
         var readableResPlans = readableProjects.flatMap(projects => {
             return this.getResPlansFromProjects(resources, projects).filter((r: IResPlan[]) => {
                 return r.find(x => { 
@@ -227,16 +227,28 @@ export class ResourcePlanUserStateService {
             })
 
         });
-        var readOnlyResPlans = readOnlyProjects.flatMap(resources=>
-        {
-            return this.getReadOnlyResPlans(readOnlyResPlans);
-        })
-        return allProjectsWithReadOnlyFlags.flatMap(t => {
+        
+            return this.getReadOnlyResPlans(resources,readOnlyProjects)
+            .flatMap(x=>{
+                return readableResPlans.flatMap(t=>{
+              return Observable.from(x.concat(t)).groupBy(t => { return t.resource.resUid.toUpperCase() }).flatMap(group => {
+                  
+                    return group && group.key  && group.reduce(function (a, b) {
+                        a.projects = a.projects.concat(b.projects);
+                        debugger;
+                        return a; // returns object with property x
+                    })
+              })
+              }).toArray()
+            })
+            
+        // return allProjectsWithReadOnlyFlags.flatMap(t => {
 
-            return readableResPlans.merge(readOnlyResPlans);
-        })
+        //     return readOnlyResPlans;
+        // })
     }
-    public getReadOnlyResPlans(readOnlyProjects: Observable<IProject[]>): Observable<IResPlan[]> {
+    public getReadOnlyResPlans(resources:IResource[],readOnlyProjects: Observable<IProject[]>): Observable<IResPlan[]> {
+        debugger;
         let baseUrl = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
 
         //remember to change UID0 to UID
@@ -260,16 +272,17 @@ export class ResourcePlanUserStateService {
 
                     let projects: IProject[] = JSON.parse(data['ProjectUIDs']).map(project => { return new Project(project.projUid, project.projName) })
                     let readOnlyFilteredProjects = projects.filter(p => readOnly.map(r => r.projUid).indexOf(p.projUid) > -1)
-                    return new ResPlan(new Resource(data["ResourceUID0"], data["ResourceName"]), readOnlyFilteredProjects.map(readOnlyPojectsForResource => readOnlyPojectsForResource))
+                    return new ResPlan(new Resource(data["ResourceUID0"], data["su3i"]), readOnlyFilteredProjects.map(readOnlyPojectsForResource => readOnlyPojectsForResource))
                 })
+                .filter(t=>resources.map(r=>r.resUid.toUpperCase()).indexOf(t.resource.resUid.toUpperCase()) > -1)
                 .groupBy(t => { return t.resource.resUid.toUpperCase() }).flatMap(group => {
-                    return group.reduce(function (a, b) {
+                    return group && group.key  && group.reduce(function (a, b) {
                         a.projects = a.projects.concat(b.projects);
                         return a; // returns object with property x
                     })
 
-                }).toArray()
-        })
+                })
+        }).toArray()
     }
     public AddResourceToManager(resMgrUid: string, resources: IResource[], projects: IProject[]) {
 
@@ -284,12 +297,15 @@ export class ResourcePlanUserStateService {
         .merge(emptyResPlans)
         .flatMap(t => t).
             groupBy(t => { return t.resource.resUid.toUpperCase() }).flatMap(group => {
+                
                 return group.reduce(function (a, b) {
                     a.projects = a.projects.concat(b.projects);
                     return a; // returns object with property x
                 })
 
-            }).toArray()
+            }).toArray().do(t=>{
+                debugger;
+            })
     }
 
     getResPlan(resources: IResource[], projectUrl: string = 'http://foo.wingtip.com/PWA', project: IProject, start: string = '2017-06-01', end: string = '2017-08-01', workUnits: WorkUnits, timescale: Timescale)
