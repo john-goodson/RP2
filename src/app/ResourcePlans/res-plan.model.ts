@@ -27,7 +27,6 @@ export interface IProject {
   };
   intervals?: IInterval[];
 }
-
 export interface IInterval {
 
   intervalName: string;

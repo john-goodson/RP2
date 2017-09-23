@@ -23,7 +23,6 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { CollapsibleWellComponent} from './common/collapsible-well.component'
 import { HeaderRowComponent} from './common/header-row.component'
 //import { JQ_TOKEN }    from './common/jquery.service'
-
 import { ReactiveFormsModule } from '@angular/forms'
 import { ResPlanListComponent} from './resourcePlans/res-plan-list.component'
 import { SimpleModalComponent} from './common/simple-modal.component';

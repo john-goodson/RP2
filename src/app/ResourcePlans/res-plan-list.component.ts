@@ -56,6 +56,8 @@ table
 .table-body
 {
     overflow: auto;
+    height:auto;
+    width:auto;
 }
 .header-cell
 {

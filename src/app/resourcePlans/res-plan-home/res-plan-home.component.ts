@@ -13,10 +13,12 @@ declare var $ :any;
     left: 0;
     right: 0px;
     bottom: 40px;
+    
 }
 .inner-container
 {
-    height: 100%;
+    
+    height:100%;
     overflow: hidden;
 }
 `]
