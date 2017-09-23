@@ -291,7 +291,7 @@ export class ResourcePlanUserStateService {
     getResPlansFromProjects(resources: IResource[], projects: IProject[]): Observable<IResPlan[]> {
         let emptyResPlans = Observable.of(resources.map(r=>new ResPlan(r,[])))
         return Observable.from(projects).flatMap((project: IProject) => {
-            return this.getResPlan(resources, 'http://foo.wingtip.com/PWA', project, '2016-08-01', '2017-08-01', WorkUnits.FTE, Timescale.months)
+            return this.getResPlan(resources, 'http://foo.wingtip.com/PWA', project, '2015-08-01', '2017-08-01', WorkUnits.FTE, Timescale.months)
 
         }).toArray()
         .merge(emptyResPlans)
