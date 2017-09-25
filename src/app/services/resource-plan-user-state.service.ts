@@ -214,10 +214,7 @@ export class ResourcePlanUserStateService {
             .map(t => {
                 return t.filter(project => project.readOnly == false)
             })
-            .do(allProjects => {
-
-                this.AddResourceToManager(resMgrUid, resources, allProjects);
-            });
+            
         var readOnlyProjects = allProjectsWithReadOnlyFlags.map(t => {debugger; return t.filter(project => project.readOnly == true) })
         var readableResPlans = readableProjects.flatMap(projects => {
             return this.getResPlansFromProjects(resources, projects).filter((r: IResPlan[]) => {
@@ -226,7 +223,10 @@ export class ResourcePlanUserStateService {
                 }) != null
             })
 
-        });
+        }).do(resPlans => {
+
+                this.AddResourceToManager(resMgrUid, resPlans);
+            });
         
             return this.getReadOnlyResPlans(resources,readOnlyProjects)
             .flatMap(x=>{
@@ -284,8 +284,39 @@ export class ResourcePlanUserStateService {
                 })
         }).toArray()
     }
-    public AddResourceToManager(resMgrUid: string, resources: IResource[], projects: IProject[]) {
 
+    public getRequestDigestToken() : Observable<string>
+    {
+       let url = 'http://foo.wingtip.com/PWA/_api/contextinfo';
+       let headers = new Headers();
+       headers.append('Accept', 'application/json;odata=verbose')
+        let options = new RequestOptions({
+            withCredentials: true,
+            headers
+        })
+       return this.http.post(url,{},options).switchMap(response=>response["d"].FormDigestValue)
+    }
+    public AddResourceToManager(resMgrUid: string, resourcePlans:IResPlan[]) {
+      this.getRequestDigestToken().flatMap(digest=>{
+      return Observable.from(resourcePlans).flatMap(resource=>{
+          let url = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
+
+        let headers = new Headers();
+        headers.append('Accept', 'application/json;odata=verbose')
+        headers.append('X-RequestDigest:', digest)
+        let options = new RequestOptions({
+            withCredentials: true,
+            headers
+        })
+       let body = `{'__metadata': { 'type': 'SP.Data.ResourcePlanUserStateListItem' }, 
+       'ResourceManagerUID': '${resMgrUid}',
+       'ResourceUID0':'${resource.resource.resUid}',
+       'ProjectUIDs':'[${resource.projects.map(t=>t.projUid)}]',
+       'su3i': '${resource.resource.resName}',
+     }`
+          return this.http.post(url,body,options)
+      })
+      })
     }
 
     getResPlansFromProjects(resources: IResource[], projects: IProject[]): Observable<IResPlan[]> {
