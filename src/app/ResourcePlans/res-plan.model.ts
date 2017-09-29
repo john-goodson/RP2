@@ -65,9 +65,9 @@ export class Resource implements IResource {
 
 
 export enum ProjectActiveStatus {
-  inProgress='inProgress',
-  completed='completed',
-  cancelled='cancelled'
+  inProgress=1,
+  completed=2,
+  cancelled=3
 }
 export enum Timescale {
     days = 3, 
@@ -78,9 +78,9 @@ export enum Timescale {
     financialMonths =8
 }
 export enum WorkUnits {
-  hours = 'Hours',
-  days = 'Days',
-  FTE = 'FTE'
+  hours = 1,
+  days = 2,
+  FTE = 3
 }
 
 export interface IDept {

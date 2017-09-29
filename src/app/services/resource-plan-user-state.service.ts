@@ -95,6 +95,7 @@ export class ResourcePlanUserStateService {
         return this.http.get(url, options)
             .switchMap((data: Response) => data.json().d.results)
             .filter((t: Object) => {
+                debugger;
                 return (resources.map(r => r.resUid).find(f => f.toUpperCase() == t["ResourceUID0"].toUpperCase()) != null)
             })
             .pluck('ProjectUIDs')
@@ -161,12 +162,13 @@ export class ResourcePlanUserStateService {
 
         var uniqueProjectsForAllResMgr = resourceForResMgr.flatMap(resources => this.getUniqueProjectsAcrossResMgrs(resources));
         var uniqueProjectsResMgrHasAccessOn = resourceForResMgr.flatMap(resources => this.getProjectIdsFromAssignmentsForResources(resources));
-        var mergedProjects = uniqueProjectsForResMgr.merge(uniqueProjectsForAllResMgr);
+        var mergedProjects = uniqueProjectsForResMgr.concat(uniqueProjectsForAllResMgr);
 
         let projectsWithreadOnlyFlag = mergedProjects.flatMap(val => {
-
+debugger;
             return uniqueProjectsResMgrHasAccessOn.flatMap(projectsWithRights => {
                 return val.map(x => {
+                    debugger;
                     if (projectsWithRights.find(k => k.projUid.toUpperCase() == x.projUid.toUpperCase()) == null) {
                         x.readOnly = true;
                     }
@@ -225,7 +227,7 @@ export class ResourcePlanUserStateService {
 
         }).do(resPlans => {
 
-                this.AddResourceToManager(resMgrUid, resPlans);
+                this.AddResourceToManager(resMgrUid, resPlans).subscribe();
             });
         
             return this.getReadOnlyResPlans(resources,readOnlyProjects)
@@ -296,8 +298,9 @@ export class ResourcePlanUserStateService {
         })
        return this.http.post(url,{},options).switchMap(response=>response["d"].FormDigestValue)
     }
-    public AddResourceToManager(resMgrUid: string, resourcePlans:IResPlan[]) {
-      this.getRequestDigestToken().flatMap(digest=>{
+    public AddResourceToManager(resMgrUid: string, resourcePlans:IResPlan[]):Observable<Response> {
+        debugger;
+      return this.getRequestDigestToken().flatMap(digest=>{
       return Observable.from(resourcePlans).flatMap(resource=>{
           let url = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
 

@@ -99,9 +99,7 @@ export class ResPlanListComponent implements OnInit {
         return <FormArray>this.mainForm.get('resPlans');
     }
 
-    set resPlans(value: FormArray) {  //this getter should return all instances.
-        (<FormArray>this.mainForm.controls['resPlans']) = value;
-    }
+    
 
 
     constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator
