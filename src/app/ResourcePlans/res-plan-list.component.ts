@@ -119,13 +119,13 @@ export class ResPlanListComponent implements OnInit {
             this.setIntervalLength((<IResPlan[]>values.resPlans).map(t => t.projects).reduce((a, b) => a.concat(b)))
             this.buildResPlans(values.resPlans);
             console.log(JSON.stringify(values.resPlans))
-        })
-        this._modalSvc.modalSubmitted$.subscribe(() => this.buildSelectedProjects(this._modalSvc.selectedProjects))
+        },(error)=>console.log(error))
+        this._modalSvc.modalSubmitted$.subscribe(() => this.buildSelectedProjects(this._modalSvc.selectedProjects),(error)=>console.log(error))
         this._resModalSvc.modalSubmitted$.subscribe(() =>
         { 
             debugger;
             this.addSelectedResources()
-        });
+        },(error)=>console.log(error));
     }
 
 
@@ -179,7 +179,7 @@ export class ResPlanListComponent implements OnInit {
         }
 
         this.calculateTotals(resPlanGroup);
-        resPlanGroup.valueChanges.subscribe(value => this.calculateTotals(resPlanGroup));
+        resPlanGroup.valueChanges.subscribe(value => this.calculateTotals(resPlanGroup),(error)=>console.log(error));
         return resPlanGroup;
     }
 
@@ -244,7 +244,7 @@ export class ResPlanListComponent implements OnInit {
 
     addProject(_resPlan: FormGroup): void {
         //get IProjects[] array from current formgroup
-        this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked());
+        this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked(),(error)=>console.log(error));
         var data = _resPlan.value.resUid;
         this._modalSvc.projectsAssigned(_resPlan.value.projects);
         console.log('projects in RP = ' + JSON.stringify(_resPlan.value.projects))
@@ -254,12 +254,12 @@ export class ResPlanListComponent implements OnInit {
         this.currentFormGroup = _resPlan;
     }
 
-    addResources(resources: IResource[]) {
+    addResources() {
 
         let resourcesSelected: IResource[] = this.resPlans.value.map(res => { return new Resource(res.resUid, res.resName) })
         console.log('resources selected=' + JSON.stringify(resourcesSelected))
         this._resModalSvc.ResourcesSelected(resourcesSelected)
-        this.modalResources.modalSubmitted$.subscribe(() => this._resModalSvc.modalSubmitClicked());
+        this.modalResources.modalSubmitted$.subscribe(() => this._resModalSvc.modalSubmitClicked(),(error)=>console.log(error));
         this.modalResources.showModal('');
     }
 
@@ -271,7 +271,7 @@ export class ResPlanListComponent implements OnInit {
                 console.log("===========================================added rp=" + JSON.stringify(plans))
                 this.setIntervalLength((<IResPlan[]>plans).map(t => t.projects).reduce((a, b) => a.concat(b)))
                 this.buildResPlans(plans)
-            });
+            },(error)=>console.log(error));
     }
 
 

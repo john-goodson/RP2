@@ -52,8 +52,8 @@ export class ResourceListComponent implements OnInit {
         this.resListResource =  new DataTableResource(this.resourceList)
         this.resListResource.count().then(count => this.resourcesCount = count);
         this.reloadResources({limit:8,offset:0,sortBy:"rating",sortAsc:false});
-      })
-    })
+      },(error)=>console.log(error))
+    },(error)=>console.log(error))
 
     this._modalResSvc.modalSubmitted$.subscribe(success => this.clear(),
             error => console.log('error'));
