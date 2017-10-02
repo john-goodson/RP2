@@ -17,7 +17,7 @@ export class AppComponent {
 
     router.events.subscribe((routerEvent: Event) => {
       this.checkRouterEvent(routerEvent);
-    });
+    },(error)=>console.log(error));
   }
 
   checkRouterEvent(routerEvent: Event): void {

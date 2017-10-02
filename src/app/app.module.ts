@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
@@ -27,7 +27,6 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { ResPlanListComponent} from './resourcePlans/res-plan-list.component'
 import { SimpleModalComponent} from './common/simple-modal.component';
 import { ProjectListComponent } from './resourcePlans/project-list/project-list.component';
-
 
 import {ProjectService} from './services/project-service.service'
 import { ResourcePlanService } from './services/resource-plan.service'
@@ -64,6 +63,7 @@ import { ResPlanHeaderRowComponent } from './resourcePlans/res-plan-header-row/r
     ResPlanHeaderRowComponent,
     
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes) ,
