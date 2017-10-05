@@ -225,23 +225,26 @@ debugger;
                 }) != null
             })
 
-        }).do(resPlans => {
-
-                this.AddResourceToManager(resMgrUid, resPlans).subscribe();
-            });
+        })
+        // .do(resPlans => {
+        //         this.AddResourceToManager(resMgrUid, resPlans).subscribe();
+        //     });
         
-            return this.getReadOnlyResPlans(resources,readOnlyProjects)
-            .flatMap(x=>{
-                return readableResPlans.flatMap(t=>{
-              return Observable.from(x.concat(t)).groupBy(t => { return t.resource.resUid.toUpperCase() }).flatMap(group => {
+            return readableResPlans.flatMap(x=>{
+                return this.getReadOnlyResPlans(resources,readOnlyProjects) .flatMap(t=>{
+                   
+              return Observable.from(x.concat(t)).groupBy(t => { 
+                  return t.resource.resUid.toUpperCase() 
+                }).flatMap(group => {
                   
                     return group && group.key  && group.reduce(function (a, b) {
                         a.projects = a.projects.concat(b.projects);
                         debugger;
                         return a; // returns object with property x
-                    })
+                    },new ResPlan(new Resource(group.key)))
               })
-              }).toArray()
+        }).
+            toArray()
             })
             
         // return allProjectsWithReadOnlyFlags.flatMap(t => {
@@ -281,7 +284,7 @@ debugger;
                     return group && group.key  && group.reduce(function (a, b) {
                         a.projects = a.projects.concat(b.projects);
                         return a; // returns object with property x
-                    })
+                    },new ResPlan(new Resource(group.key)))
 
                 })
         }).toArray()
@@ -296,7 +299,7 @@ debugger;
             withCredentials: true,
             headers
         })
-       return this.http.post(url,{},options).switchMap(response=>response["d"].FormDigestValue)
+       return this.http.post(url,{},options).map(response=>JSON.parse(response["_body"]).d.GetContextWebInformation.FormDigestValue)
     }
     public AddResourceToManager(resMgrUid: string, resourcePlans:IResPlan[]):Observable<Response> {
         debugger;
@@ -306,18 +309,19 @@ debugger;
 
         let headers = new Headers();
         headers.append('Accept', 'application/json;odata=verbose')
-        headers.append('X-RequestDigest:', digest)
+        headers.append('Content-Type', 'application/json;odata=verbose')
+        headers.append('X-RequestDigest', digest)
         let options = new RequestOptions({
             withCredentials: true,
-            headers
+           headers: headers
         })
-       let body = `{'__metadata': { 'type': 'SP.Data.ResourcePlanUserStateListItem' }, 
-       'ResourceManagerUID': '${resMgrUid}',
-       'ResourceUID0':'${resource.resource.resUid}',
-       'ProjectUIDs':'[${resource.projects.map(t=>t.projUid)}]',
-       'su3i': '${resource.resource.resName}',
+       let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" }, 
+       "ResourceManagerUID": "${resMgrUid}",
+       "ResourceUID0":"${resource.resource.resUid}",
+       "ProjectUIDs":[${resource.projects.map(t=>t.projUid)}],
+       "su3i": "test",
      }`
-          return this.http.post(url,body,options)
+          return this.http.post(url,JSON.stringify(body),options)
       })
       })
     }
@@ -331,11 +335,10 @@ debugger;
         .merge(emptyResPlans)
         .flatMap(t => t).
             groupBy(t => { return t.resource.resUid.toUpperCase() }).flatMap(group => {
-                
                 return group.reduce(function (a, b) {
                     a.projects = a.projects.concat(b.projects);
                     return a; // returns object with property x
-                })
+                },new ResPlan(new Resource(group.key)))
 
             }).toArray().do(t=>{
                 debugger;

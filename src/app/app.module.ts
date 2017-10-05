@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router'
 import { appRoutes } from './routes'
 import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
-
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 
 
@@ -63,7 +63,7 @@ import { ResPlanHeaderRowComponent } from './resourcePlans/res-plan-header-row/r
     ResPlanHeaderRowComponent,
     
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
+  //schemas:[CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes) ,
@@ -71,6 +71,7 @@ import { ResPlanHeaderRowComponent } from './resourcePlans/res-plan-header-row/r
           ReactiveFormsModule ,
           DataTableModule,
           HttpClientModule,
+          Ng2SmartTableModule
          // InMemoryWebApiModule.forRoot(ResPlanData),
           
   ],
@@ -78,7 +79,8 @@ import { ResPlanHeaderRowComponent } from './resourcePlans/res-plan-header-row/r
   providers: [    ModalCommunicator, ResourcesModalCommunicatorService,ProjectService, ResourcePlanService
     , ResourcePlanUserStateService
     , ResourcePlansResolverService
-    ,ResourceService, SPListService  ],
+    ,ResourceService, SPListService,DataTableModule  ],
   bootstrap: [AppComponent]
+  
 })
 export class AppModule { }

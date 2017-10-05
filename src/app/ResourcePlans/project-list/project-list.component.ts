@@ -11,12 +11,11 @@ import 'rxjs/add/operator/filter';
 import { ProjectService } from '../../services/project-service.service'
 import { ProjectListFilterPipe } from '../../common/project-list-filter.pipe'
 import { Observable } from 'Rxjs'
-import { DataTable, DataTableTranslations, DataTableResource } from 'angular-4-data-table-bootstrap-4'
 
 @Component({
   selector: 'project-list',
   templateUrl: './project-list.component.html',
-  styleUrls: ['./project-list.component.css']
+  styleUrls: ['./project-list.component.scss']
 })
 
 
@@ -26,19 +25,28 @@ export class ProjectListComponent implements OnInit {
   selectedProjects: IProject[] = [];
   @Input() resPlan: FormGroup
   projectList = [];
-  projListResource: DataTableResource<IProject[]>;
-  @ViewChild(DataTable) projectListTable;
-  projectsCount = 0;
-
-
-
-  translations = <DataTableTranslations>{
-    indexColumn: 'Index column',
-    expandColumn: 'Expand column',
-    selectColumn: 'Select column',
-    paginationLimit: 'Max results',
-    paginationRange: 'Result range'
-  };
+  settings = {
+    selectMode: 'multi',
+    actions :{
+      edit:false,
+      delete:false,
+      add:false
+    },
+    pager:{
+      display:true,
+      perPage:8
+    },
+  columns: {
+    id: {
+      projUid: 'Project UID'
+    },
+    projName: {
+      title: 'Project Name'
+    }
+  }
+  
+};
+data:IProject[];
 
   constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator, private _projSvc: ProjectService) { }
 
@@ -57,9 +65,7 @@ export class ProjectListComponent implements OnInit {
         }, (error) => console.log(error))
         console.log('all projects in RP=' + filteredProjects.map(t => t.projUid).toString())
         this.projectList = filteredProjects;
-        this.projListResource = new DataTableResource(this.projectList)
-        this.projListResource.count().then(count => this.projectsCount = count);
-        this.reloadProjects({ limit: 8, offset: 0 });
+        this.data =filteredProjects;
         //this.buildProjects(filteredProjects);
 
       })
@@ -69,13 +75,8 @@ export class ProjectListComponent implements OnInit {
       error => console.log('error'));
   }
 
-  reloadProjects(params) {
-    if (this.projListResource)
-      this.projListResource.query(params).then(projects => this.projectList = projects);
-  }
-
-  rowClick(rowEvent) {
-    this.selectProject(rowEvent.row.item.projUid);
+  rowClick(event) {
+    this.selectProject(event.data.projUid);
   }
 
   clear() {

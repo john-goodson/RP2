@@ -10,8 +10,6 @@ import 'rxjs/add/operator/filter';
 
 import { ResourceService } from '../../services/resource.service'
 import { Observable } from 'Rxjs'
-import { DataTable, DataTableTranslations, DataTableResource } from 'angular-4-data-table-bootstrap-4'
-
 
 @Component({
   selector: 'resource-list',
@@ -19,19 +17,31 @@ import { DataTable, DataTableTranslations, DataTableResource } from 'angular-4-d
   styleUrls: ['./resource-list.component.css']
 })
 export class ResourceListComponent implements OnInit {
+  resData: IResource[];
   selectedResources: IResource[] = [];
-  resData: IResource[]
   resourceList = [];
-    resListResource:DataTableResource<IProject[]>;
-    @ViewChild(DataTable) resourceListTable;
-    resourcesCount = 0;
-     translations = <DataTableTranslations>{
-        indexColumn: 'resUid',
-        expandColumn: 'Expand column',
-        selectColumn: 'Select column',
-        paginationLimit: 'Max results',
-        paginationRange: 'Result range'
-    };
+      settings = {
+    selectMode: 'multi',
+    actions :{
+      edit:false,
+      delete:false,
+      add:false
+    },
+    pager:{
+      display:true,
+      perPage:8
+    },
+  columns: {
+    id: {
+      resUid: 'Resource UID'
+    },
+    resName: {
+      title: 'Resource Name'
+    }
+  }
+  
+};
+data:IResource[];
 
   constructor(private fb: FormBuilder, private _resSvc: ResourceService, private _modalResSvc: ResourcesModalCommunicatorService) { 
     
@@ -49,9 +59,11 @@ export class ResourceListComponent implements OnInit {
      }) 
         console.log('filtered resources to pick=' + filteredResources.map(t => t.resUid).toString())
         this.resourceList = filteredResources;
-        this.resListResource =  new DataTableResource(this.resourceList)
-        this.resListResource.count().then(count => this.resourcesCount = count);
-        this.reloadResources({limit:8,offset:0,sortBy:"rating",sortAsc:false});
+        this.data = this.resourceList;
+        
+                
+            
+        //this.reloadResources({limit:8,offset:0,sortBy:"rating",sortAsc:false});
       },(error)=>console.log(error))
     },(error)=>console.log(error))
 
@@ -59,13 +71,10 @@ export class ResourceListComponent implements OnInit {
             error => console.log('error'));
   }
 
-  reloadResources(params) {
-    if(this.resListResource)
-        this.resListResource.query(params).then(resources => this.resourceList = resources);
-    }
 
-     rowClick(rowEvent) {
-       this.selectResource(rowEvent.row.item.resUid);
+     rowClick(event) {
+       debugger;
+       this.selectResource(event.data.resUid);
     }
 
   clear() {
