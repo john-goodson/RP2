@@ -319,7 +319,7 @@ debugger;
        "ResourceManagerUID": "${resMgrUid}",
        "ResourceUID0":"${resource.resource.resUid}",
        "ProjectUIDs":[${resource.projects.map(t=>t.projUid)}],
-       "su3i": "test",
+       "su3i": "${resource.resource.resName}"
      }`
           return this.http.post(url,JSON.stringify(body),options)
       })
