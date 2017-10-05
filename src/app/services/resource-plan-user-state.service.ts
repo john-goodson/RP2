@@ -198,8 +198,8 @@ debugger;
         let resMgrUid = '8181FE64-E261-E711-80CC-00155D005A03'
         let projectsForAllResources = this.getUniqueProjectsAcrossResMgrs(resources);
         let projectsThatUserHasAccessOn = this.getProjectIdsFromAssignmentsForResources(resources);
-
-        let allProjectsWithReadOnlyFlags = projectsForAllResources.flatMap(projectsForResource => {
+        let combinedProjects = projectsForAllResources.merge(projectsThatUserHasAccessOn);
+        let allProjectsWithReadOnlyFlags = combinedProjects.flatMap(projectsForResource => {
             return projectsThatUserHasAccessOn.flatMap(projectsWithrights => {
                 return projectsForResource.map(x => {
                     if (projectsWithrights.find(k => k.projUid.toUpperCase() == x.projUid.toUpperCase()) != null) {
@@ -241,7 +241,7 @@ debugger;
                         a.projects = a.projects.concat(b.projects);
                         debugger;
                         return a; // returns object with property x
-                    },new ResPlan(new Resource(group.key)))
+                    })
               })
         }).
             toArray()
@@ -284,7 +284,7 @@ debugger;
                     return group && group.key  && group.reduce(function (a, b) {
                         a.projects = a.projects.concat(b.projects);
                         return a; // returns object with property x
-                    },new ResPlan(new Resource(group.key)))
+                    })
 
                 })
         }).toArray()
@@ -329,7 +329,7 @@ debugger;
     getResPlansFromProjects(resources: IResource[], projects: IProject[]): Observable<IResPlan[]> {
         let emptyResPlans = Observable.of(resources.map(r=>new ResPlan(r,[])))
         return Observable.from(projects).flatMap((project: IProject) => {
-            return this.getResPlan(resources, 'http://foo.wingtip.com/PWA', project, '2015-08-01', '2017-08-01', WorkUnits.FTE, Timescale.months)
+            return this.getResPlan(resources, 'http://foo.wingtip.com/PWA', project, '2017-05-01', '2017-08-01', WorkUnits.FTE, Timescale.months)
 
         }).toArray()
         .merge(emptyResPlans)
@@ -338,14 +338,14 @@ debugger;
                 return group.reduce(function (a, b) {
                     a.projects = a.projects.concat(b.projects);
                     return a; // returns object with property x
-                },new ResPlan(new Resource(group.key)))
+                })
 
             }).toArray().do(t=>{
                 debugger;
             })
     }
 
-    getResPlan(resources: IResource[], projectUrl: string = 'http://foo.wingtip.com/PWA', project: IProject, start: string = '2017-06-01', end: string = '2017-08-01', workUnits: WorkUnits, timescale: Timescale)
+    getResPlan(resources: IResource[], projectUrl: string = 'http://foo.wingtip.com/PWA', project: IProject, start: string = '2017-05-01', end: string = '2017-08-01', workUnits: WorkUnits, timescale: Timescale)
         : Observable<IResPlan> {
         console.log('entering getResPlans method');
         let headers = new Headers();
