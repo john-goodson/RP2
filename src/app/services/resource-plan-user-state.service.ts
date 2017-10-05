@@ -198,8 +198,8 @@ debugger;
         let resMgrUid = '8181FE64-E261-E711-80CC-00155D005A03'
         let projectsForAllResources = this.getUniqueProjectsAcrossResMgrs(resources);
         let projectsThatUserHasAccessOn = this.getProjectIdsFromAssignmentsForResources(resources);
-
-        let allProjectsWithReadOnlyFlags = projectsForAllResources.flatMap(projectsForResource => {
+        let combinedProjects = projectsForAllResources.merge(projectsThatUserHasAccessOn);
+        let allProjectsWithReadOnlyFlags = combinedProjects.flatMap(projectsForResource => {
             return projectsThatUserHasAccessOn.flatMap(projectsWithrights => {
                 return projectsForResource.map(x => {
                     if (projectsWithrights.find(k => k.projUid.toUpperCase() == x.projUid.toUpperCase()) != null) {
@@ -225,15 +225,17 @@ debugger;
                 }) != null
             })
 
-        }).do(resPlans => {
-
-                this.AddResourceToManager(resMgrUid, resPlans).subscribe();
-            });
+        })
+        // .do(resPlans => {
+        //         this.AddResourceToManager(resMgrUid, resPlans).subscribe();
+        //     });
         
-            return this.getReadOnlyResPlans(resources,readOnlyProjects)
-            .flatMap(x=>{
-                return readableResPlans.flatMap(t=>{
-              return Observable.from(x.concat(t)).groupBy(t => { return t.resource.resUid.toUpperCase() }).flatMap(group => {
+            return readableResPlans.flatMap(x=>{
+                return this.getReadOnlyResPlans(resources,readOnlyProjects) .flatMap(t=>{
+                   
+              return Observable.from(x.concat(t)).groupBy(t => { 
+                  return t.resource.resUid.toUpperCase() 
+                }).flatMap(group => {
                   
                     return group && group.key  && group.reduce(function (a, b) {
                         a.projects = a.projects.concat(b.projects);
@@ -241,7 +243,8 @@ debugger;
                         return a; // returns object with property x
                     })
               })
-              }).toArray()
+        }).
+            toArray()
             })
             
         // return allProjectsWithReadOnlyFlags.flatMap(t => {
@@ -296,7 +299,7 @@ debugger;
             withCredentials: true,
             headers
         })
-       return this.http.post(url,{},options).switchMap(response=>response["d"].FormDigestValue)
+       return this.http.post(url,{},options).map(response=>JSON.parse(response["_body"]).d.GetContextWebInformation.FormDigestValue)
     }
     public AddResourceToManager(resMgrUid: string, resourcePlans:IResPlan[]):Observable<Response> {
         debugger;
@@ -306,18 +309,19 @@ debugger;
 
         let headers = new Headers();
         headers.append('Accept', 'application/json;odata=verbose')
-        headers.append('X-RequestDigest:', digest)
+        headers.append('Content-Type', 'application/json;odata=verbose')
+        headers.append('X-RequestDigest', digest)
         let options = new RequestOptions({
             withCredentials: true,
-            headers
+           headers: headers
         })
-       let body = `{'__metadata': { 'type': 'SP.Data.ResourcePlanUserStateListItem' }, 
-       'ResourceManagerUID': '${resMgrUid}',
-       'ResourceUID0':'${resource.resource.resUid}',
-       'ProjectUIDs':'[${resource.projects.map(t=>t.projUid)}]',
-       'su3i': '${resource.resource.resName}',
+       let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" }, 
+       "ResourceManagerUID": "${resMgrUid}",
+       "ResourceUID0":"${resource.resource.resUid}",
+       "ProjectUIDs":[${resource.projects.map(t=>t.projUid)}],
+       "su3i": "${resource.resource.resName}"
      }`
-          return this.http.post(url,body,options)
+          return this.http.post(url,JSON.stringify(body),options)
       })
       })
     }
@@ -325,13 +329,12 @@ debugger;
     getResPlansFromProjects(resources: IResource[], projects: IProject[]): Observable<IResPlan[]> {
         let emptyResPlans = Observable.of(resources.map(r=>new ResPlan(r,[])))
         return Observable.from(projects).flatMap((project: IProject) => {
-            return this.getResPlan(resources, 'http://foo.wingtip.com/PWA', project, '2015-08-01', '2017-08-01', WorkUnits.FTE, Timescale.months)
+            return this.getResPlan(resources, 'http://foo.wingtip.com/PWA', project, '2017-05-01', '2017-08-01', WorkUnits.FTE, Timescale.months)
 
         }).toArray()
         .merge(emptyResPlans)
         .flatMap(t => t).
             groupBy(t => { return t.resource.resUid.toUpperCase() }).flatMap(group => {
-                
                 return group.reduce(function (a, b) {
                     a.projects = a.projects.concat(b.projects);
                     return a; // returns object with property x
@@ -342,7 +345,7 @@ debugger;
             })
     }
 
-    getResPlan(resources: IResource[], projectUrl: string = 'http://foo.wingtip.com/PWA', project: IProject, start: string = '2017-06-01', end: string = '2017-08-01', workUnits: WorkUnits, timescale: Timescale)
+    getResPlan(resources: IResource[], projectUrl: string = 'http://foo.wingtip.com/PWA', project: IProject, start: string = '2017-05-01', end: string = '2017-08-01', workUnits: WorkUnits, timescale: Timescale)
         : Observable<IResPlan> {
         console.log('entering getResPlans method');
         let headers = new Headers();

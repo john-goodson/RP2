@@ -270,6 +270,8 @@ export class ResPlanListComponent implements OnInit {
             .subscribe(plans => {
                 console.log("===========================================added rp=" + JSON.stringify(plans))
                 this.setIntervalLength((<IResPlan[]>plans).map(t => t.projects).reduce((a, b) => a.concat(b)))
+                let resMgrUid = '8181FE64-E261-E711-80CC-00155D005A03'
+                this._resPlanUserStateSvc.AddResourceToManager(resMgrUid, plans).subscribe();
                 this.buildResPlans(plans)
             },(error)=>console.log(error));
     }

@@ -19,7 +19,7 @@ visible: boolean = true;
   this._route.data.subscribe(values =>{
     this._resPlans = values.resPlans; 
     console.log('header component data=' + JSON.stringify(values.resPlans))
-  });
+  },(error)=>console.log(error));
   }
 
 }
