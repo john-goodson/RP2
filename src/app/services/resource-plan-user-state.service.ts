@@ -236,7 +236,7 @@ export class ResourcePlanUserStateService {
                 return Observable.from(x.concat(t)).groupBy(t => {
                     return t.resource.resUid.toUpperCase()
                 }).flatMap(group => {
-                   debugger;
+                    debugger;
                     return group && group.key && group.reduce(function (a, b) {
                         for (var i = 0; i < b.projects.length; i++) {
                             if (a.projects.findIndex(t => t.projUid.toUpperCase() == b.projects[i].projUid.toUpperCase()) < 0)
@@ -457,12 +457,11 @@ export class ResourcePlanUserStateService {
         //1. get data from SP List UserState  
         return this.http.get(url + filter, options)
 
-            .subscribe((data: Response) => 
-            {
+            .subscribe((data: Response) => {
                 debugger;
-                let projects = JSON.parse(data.json().d.results[0]["ProjectUIDs"]).map(project => { return new Project(project.projUid, project.projName)})
+                let projects = JSON.parse(data.json().d.results[0]["ProjectUIDs"]).map(project => { return new Project(project.projUid, project.projName) })
                 projects = projects.concat(project)
-                 this.getRequestDigestToken().subscribe(digest => {
+                this.getRequestDigestToken().subscribe(digest => {
 
                     let headers = new Headers();
                     headers.append('Accept', 'application/json;odata=verbose')
@@ -477,7 +476,7 @@ export class ResourcePlanUserStateService {
                     let mergedProjects = `'[${projects.map(t => '{"projUid":"' + t.projUid + '","projName":"' + t.projName + '"}').join(",")}]'`
                     let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ProjectUIDs":${mergedProjects}}"}`
                     return this.http.post(data.json().d.results[0].__metadata.uri, body, options).subscribe();
-            })
+                })
             })
 
     }
@@ -493,6 +492,55 @@ export class ResourcePlanUserStateService {
         }
     }
 
+    saveResPlans(resourceplans: IResPlan[], fromDate: string, toDate: string, timeScale: Timescale, workScale: WorkUnits): Observable<IResPlan[]> {
+        debugger;
+        let ob = Observable.from(resourceplans).flatMap(r => {
+            return Observable.from(r.projects).flatMap(p => {
+                return this.saveResPlan(r, p, fromDate, toDate, timeScale, workScale)
+            })
+        }).toArray()
+        //ob.subscribe();
+        return ob;
+    }
 
+    saveResPlan(resPlan: IResPlan, project: IProject, fromDate: string, toDate: string, timeScale: Timescale, workScale: WorkUnits): Observable<IResPlan> {
+        var success;
+        //TODO
+        let pwaPath = "http://foo.wingtip.com/pwa/"
+        let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
+        let body = {
+            method: 'PwaupdateResourcePlanCommand',
+            'resourceplan': JSON.stringify(resPlan),
+            'puid': project.projUid,
+            'resuid': resPlan.resource["resUid"], 
+            'projname': project.projName,
+            'fromDate': fromDate,
+            'toDate': toDate,
+            'timeScale': this.getTimeScaleString(timeScale),
+            'workScale': WorkUnits[workScale]
+        }
+        let headers = new Headers();
+        headers.append('accept', 'application/json;odata=verbose')
+        headers.append('content-type', 'application/x-www-form-urlencoded')
+        let options = new RequestOptions({
+            withCredentials: true,
+            headers
+        })
+        return Observable.fromPromise($.ajax({
+            url: adapterPath,
+            type: 'POST',
+            dataType: "json",
+            data: body
+        })).map(r => {
+            debugger;
+            if (r["Result"] == true) {
+                return resPlan;
+            }
+        })
+        // return this.http.post(adapterPath,body,options).flatMap(r=>
+        //     {
+        //         return Observable.of(project);
+        //     })
+    }
 }
 

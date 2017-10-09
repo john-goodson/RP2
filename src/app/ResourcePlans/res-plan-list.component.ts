@@ -312,21 +312,36 @@ export class ResPlanListComponent implements OnInit {
     }
 
     savePlans(): void {
-        // if (this.mainForm.dirty && this.mainForm.valid) {
-        //     var _resPlans: [IResPlan];
+        debugger;
+        if (this.mainForm.dirty && this.mainForm.valid) {
+            
+      
+            let resourceplans =  this.fb.array(this.resPlans.controls
+                .filter(item => item.dirty === true)).controls
+                .map(t=>
+                    {
+                        var _resPlan: IResPlan;
+                        var _projects: [IProject];
+                    var projects = Object.assign([], _projects, this.fb.array(((t as FormGroup).controls['projects'] as FormArray).controls.filter(s=>s.dirty == true)).value)
+                     let resPlan = new ResPlan();
+                      resPlan.resource = new Resource(t.value.resUid,t.value.resName);
+                     resPlan.projects = projects;
+                    return resPlan;
+                })
+               
+            
 
-        //     let r = Object.assign([], _resPlans, this.fb.array(this.resPlans.controls
-        //         .filter(item => item.dirty === true)).value);
-        //     this._resPlanSvc.saveResPlans(r)
-        //         .subscribe(
-        //         () => this.onSaveComplete(),
-        //         (error: any) => this.errorMessage = <any>error
-        //         );
-        // }
-        // //
-        // else if (!this.mainForm.dirty) {
-        //     this.onSaveComplete();
-        // }
+            console.log("dirty resPlans" + JSON.stringify(resourceplans))
+            this._resPlanUserStateSvc.saveResPlans(resourceplans,'2017-05-01', '2017-08-01', Timescale.calendarMonths,WorkUnits.days)
+                .subscribe(
+                () => this.onSaveComplete(),
+                (error: any) => this.errorMessage = <any>error
+                );
+        }
+        //()
+        else if (!this.mainForm.dirty) {
+            this.onSaveComplete();
+        }
     }
     onSaveComplete(): void {
         // Reset the form to clear the flags
