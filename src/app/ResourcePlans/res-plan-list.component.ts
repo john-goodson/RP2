@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormA
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/mergeMap';
 
-import { IResPlan, IProject, IInterval, ProjectActiveStatus, IResource, Resource } from './res-plan.model'
+import { IResPlan, IProject, IInterval, ProjectActiveStatus, IResource, Resource ,Timescale,WorkUnits} from './res-plan.model'
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -99,7 +99,7 @@ export class ResPlanListComponent implements OnInit {
         return <FormArray>this.mainForm.get('resPlans');
     }
 
-    
+
 
 
     constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator
@@ -115,17 +115,20 @@ export class ResPlanListComponent implements OnInit {
         });
 
         this._route.data.subscribe(values => {
+            debugger;
             //this.resPlans = values.resPlans;
+            if(values.resPlans && values.resPlans.length > 0)
             this.setIntervalLength((<IResPlan[]>values.resPlans).map(t => t.projects).reduce((a, b) => a.concat(b)))
             this.buildResPlans(values.resPlans);
             console.log(JSON.stringify(values.resPlans))
-        },(error)=>console.log(error))
-        this._modalSvc.modalSubmitted$.subscribe(() => this.buildSelectedProjects(this._modalSvc.selectedProjects),(error)=>console.log(error))
-        this._resModalSvc.modalSubmitted$.subscribe(() =>
-        { 
+        }, (error) => console.log(error))
+        this._modalSvc.modalSubmitted$.subscribe(() => {
+            this.addSelectedProjects();
+        }, (error) => console.log(error))
+        this._resModalSvc.modalSubmitted$.subscribe(() => {
             debugger;
             this.addSelectedResources()
-        },(error)=>console.log(error));
+        }, (error) => console.log(error));
     }
 
 
@@ -158,7 +161,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     buildResPlans(plans: IResPlan[]) {
-      console.log('add resources ==========================================' + JSON.stringify(plans) ); 
+        console.log('add resources ==========================================' + JSON.stringify(plans));
         for (var i = 0; i < plans.length; i++) {
             var resPlan = this.buildResPlan(plans[i]);
             this.resPlans.push(resPlan);
@@ -179,7 +182,7 @@ export class ResPlanListComponent implements OnInit {
         }
 
         this.calculateTotals(resPlanGroup);
-        resPlanGroup.valueChanges.subscribe(value => this.calculateTotals(resPlanGroup),(error)=>console.log(error));
+        resPlanGroup.valueChanges.subscribe(value => this.calculateTotals(resPlanGroup), (error) => console.log(error));
         return resPlanGroup;
     }
 
@@ -244,7 +247,7 @@ export class ResPlanListComponent implements OnInit {
 
     addProject(_resPlan: FormGroup): void {
         //get IProjects[] array from current formgroup
-        this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked(),(error)=>console.log(error));
+        this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked(), (error) => console.log(error));
         var data = _resPlan.value.resUid;
         this._modalSvc.projectsAssigned(_resPlan.value.projects);
         console.log('projects in RP = ' + JSON.stringify(_resPlan.value.projects))
@@ -259,21 +262,32 @@ export class ResPlanListComponent implements OnInit {
         let resourcesSelected: IResource[] = this.resPlans.value.map(res => { return new Resource(res.resUid, res.resName) })
         console.log('resources selected=' + JSON.stringify(resourcesSelected))
         this._resModalSvc.ResourcesSelected(resourcesSelected)
-        this.modalResources.modalSubmitted$.subscribe(() => this._resModalSvc.modalSubmitClicked(),(error)=>console.log(error));
+        this.modalResources.modalSubmitted$.subscribe(() => this._resModalSvc.modalSubmitClicked(), (error) => console.log(error));
         this.modalResources.showModal('');
     }
 
     addSelectedResources() {
+        debugger;
         console.log("add resource fired" + JSON.stringify(this._resModalSvc.selectedResources));
         let selectedResources = this._resModalSvc.selectedResources;
         this._resPlanUserStateSvc.getResPlansFromResources(this._resModalSvc.selectedResources)
             .subscribe(plans => {
                 console.log("===========================================added rp=" + JSON.stringify(plans))
                 this.setIntervalLength((<IResPlan[]>plans).map(t => t.projects).reduce((a, b) => a.concat(b)))
-                let resMgrUid = '8181FE64-E261-E711-80CC-00155D005A03'
-                this._resPlanUserStateSvc.AddResourceToManager(resMgrUid, plans).subscribe();
                 this.buildResPlans(plans)
-            },(error)=>console.log(error));
+            }, (error) => console.log(error));
+    }
+
+    addSelectedProjects() {
+       console.log("current=" + JSON.stringify(this.currentFormGroup.value))
+        this._resPlanUserStateSvc.addProjects(this._modalSvc.selectedProjects,new Resource(this.currentFormGroup.value["resUid"],this.currentFormGroup.value["resName"]),
+        '2017-05-01', '2017-08-01', Timescale.calendarMonths,WorkUnits.days)
+        .subscribe(projects => {
+            debugger;
+            console.log("===added projects" + JSON.stringify(projects))
+            if(projects)
+            this.buildSelectedProjects(projects)
+        })
     }
 
 
@@ -283,6 +297,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     buildSelectedProjects(projects: IProject[]): void {
+        debugger;
         this.setIntervalLength(projects)
         var intervalLength = this.getIntervalLength();
         for (var k = 0; k < projects.length; k++) {
@@ -297,21 +312,36 @@ export class ResPlanListComponent implements OnInit {
     }
 
     savePlans(): void {
-        // if (this.mainForm.dirty && this.mainForm.valid) {
-        //     var _resPlans: [IResPlan];
+        debugger;
+        if (this.mainForm.dirty && this.mainForm.valid) {
+            
+      
+            let resourceplans =  this.fb.array(this.resPlans.controls
+                .filter(item => item.dirty === true)).controls
+                .map(t=>
+                    {
+                        var _resPlan: IResPlan;
+                        var _projects: [IProject];
+                    var projects = Object.assign([], _projects, this.fb.array(((t as FormGroup).controls['projects'] as FormArray).controls.filter(s=>s.dirty == true)).value)
+                     let resPlan = new ResPlan();
+                      resPlan.resource = new Resource(t.value.resUid,t.value.resName);
+                     resPlan.projects = projects;
+                    return resPlan;
+                })
+               
+            
 
-        //     let r = Object.assign([], _resPlans, this.fb.array(this.resPlans.controls
-        //         .filter(item => item.dirty === true)).value);
-        //     this._resPlanSvc.saveResPlans(r)
-        //         .subscribe(
-        //         () => this.onSaveComplete(),
-        //         (error: any) => this.errorMessage = <any>error
-        //         );
-        // }
-        // //
-        // else if (!this.mainForm.dirty) {
-        //     this.onSaveComplete();
-        // }
+            console.log("dirty resPlans" + JSON.stringify(resourceplans))
+            this._resPlanUserStateSvc.saveResPlans(resourceplans,'2017-05-01', '2017-08-01', Timescale.calendarMonths,WorkUnits.days)
+                .subscribe(
+                () => this.onSaveComplete(),
+                (error: any) => this.errorMessage = <any>error
+                );
+        }
+        //()
+        else if (!this.mainForm.dirty) {
+            this.onSaveComplete();
+        }
     }
     onSaveComplete(): void {
         // Reset the form to clear the flags

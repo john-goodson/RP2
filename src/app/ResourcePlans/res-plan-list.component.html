@@ -1,7 +1,7 @@
 <div>
 <!-- kk -->
     <button class="btn btn-primary" type="button" (click)="addResources()"> Add Resource  </button>
-    <form class="form-horizontal" novalidate (ngSubmit)="savePlans()" [formGroup]="mainForm">
+    <form class="form-horizontal" novalidate  [formGroup]="mainForm">
         <div formArrayName="resPlans" *ngIf="resPlans && resPlans.length">
             <res-plan-header-row></res-plan-header-row>
             <div class="table-body">
@@ -60,6 +60,7 @@
 
                     </tbody>
                 </table>
+                <button type="button" class="btn btn-primary" (click)="savePlans()"> Submit  </button>
             </div>
         </div>
         <simple-modal #modalProjects closeOnBodyClick="true" elementId="1" title="Add Projects" primaryBtnText="Add Selected Projects">
@@ -73,7 +74,7 @@
             </div>
         </simple-modal>
 
-        <button type="submit" class="btn btn-primary" (click)="savePlans()"> Submit  </button>
+        
     </form>
     <hr><br>
 

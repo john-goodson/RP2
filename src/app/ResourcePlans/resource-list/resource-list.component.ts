@@ -51,7 +51,7 @@ data:IResource[];
     this._modalResSvc.ResourcesSelected$.subscribe((resourcesPicked: IResource[]) => {
       this._resSvc.getResources().subscribe(resources => {
         this.resData = resources
-        
+        debugger;
         let filteredResources = this.resData.filter(val => {
        
        if(resourcesPicked.map(t=>t.resName.toUpperCase()).indexOf(val.resName.toUpperCase())< 0)
@@ -73,7 +73,6 @@ data:IResource[];
 
 
      rowClick(event) {
-       debugger;
        this.selectResource(event.data.resUid);
     }
 

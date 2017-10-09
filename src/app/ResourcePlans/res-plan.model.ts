@@ -72,7 +72,7 @@ export enum ProjectActiveStatus {
 export enum Timescale {
     days = 3, 
     weeks = 4, 
-    months = 5, 
+    calendarMonths = 5, 
     quarters = 6,
     years = 7,
     financialMonths =8
