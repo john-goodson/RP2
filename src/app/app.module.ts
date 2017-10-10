@@ -28,6 +28,7 @@ import { ResPlanListComponent} from './resourcePlans/res-plan-list.component'
 import { SimpleModalComponent} from './common/simple-modal.component';
 import { ProjectListComponent } from './resourcePlans/project-list/project-list.component';
 
+
 import {ProjectService} from './services/project-service.service'
 import { ResourcePlanService } from './services/resource-plan.service'
 import {ResourcePlanUserStateService} from './services/resource-plan-user-state.service';
@@ -40,7 +41,8 @@ import { ResourcePlansResolverService } from './services/resource-plans-resolver
 import { ResourceListComponent } from './resourcePlans/resource-list/resource-list.component'
 import { SPListService } from './services/sp-list.service';
 import { ResPlanHomeComponent } from './resourcePlans/res-plan-home/res-plan-home.component';
-import { ResPlanHeaderRowComponent } from './resourcePlans/res-plan-header-row/res-plan-header-row.component'
+import { ResPlanHeaderRowComponent } from './resourcePlans/res-plan-header-row/res-plan-header-row.component';
+import { ResPlanTimescaleComponent } from './res-plan-timescale/res-plan-timescale.component'
 //let jQuery : Object;
 
 @NgModule({
@@ -61,6 +63,8 @@ import { ResPlanHeaderRowComponent } from './resourcePlans/res-plan-header-row/r
     ResPlanHomeComponent,
   
     ResPlanHeaderRowComponent,
+  
+    ResPlanTimescaleComponent,
     
   ],
 

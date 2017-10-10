@@ -1,7 +1,10 @@
 <div>
 <!-- kk -->
+
     <button class="btn btn-primary" type="button" (click)="addResources()"> Add Resource  </button>
+    <res-plan-timescale (onTimescaleChanged)="timescaleChanged($event)"></res-plan-timescale>
     <form class="form-horizontal" novalidate  [formGroup]="mainForm">
+        
         <div formArrayName="resPlans" *ngIf="resPlans && resPlans.length">
             <res-plan-header-row></res-plan-header-row>
             <div class="table-body">

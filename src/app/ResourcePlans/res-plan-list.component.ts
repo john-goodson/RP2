@@ -94,7 +94,7 @@ export class ResPlanListComponent implements OnInit {
     errorMessage: any;
     _intervalCount: number = 0;
     resPlanUserState: IResPlan[];
-
+    timescale:Timescale;
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
     }
@@ -113,9 +113,10 @@ export class ResPlanListComponent implements OnInit {
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
         });
-
+        
+        
         this._route.data.subscribe(values => {
-            debugger;
+           this.resPlanData = values.resPlans;
             //this.resPlans = values.resPlans;
             if(values.resPlans && values.resPlans.length > 0)
             this.setIntervalLength((<IResPlan[]>values.resPlans).map(t => t.projects).reduce((a, b) => a.concat(b)))
@@ -290,7 +291,10 @@ export class ResPlanListComponent implements OnInit {
         })
     }
 
-
+timescaleChanged(value)
+{
+    alert(value);
+}
     populateTestData(): void {
 
 

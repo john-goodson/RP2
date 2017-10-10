@@ -371,7 +371,7 @@ export class ResourcePlanUserStateService {
                 var intervals = response["Intervals"]["results"];
                 intervals.forEach(element => {
 
-                    var interval = new Interval(element["Name"], element["Duration"]);
+                    var interval = new Interval(element["Name"], element["Duration"],new Date(element["Start"]),new Date(element["End"]));
                     p.intervals.push(interval);
                 });
 
@@ -492,18 +492,8 @@ export class ResourcePlanUserStateService {
         }
     }
 
-    saveResPlans(resourceplans: IResPlan[], fromDate: string, toDate: string, timeScale: Timescale, workScale: WorkUnits): Observable<IResPlan[]> {
-        debugger;
-        let ob = Observable.from(resourceplans).flatMap(r => {
-            return Observable.from(r.projects).flatMap(p => {
-                return this.saveResPlan(r, p, fromDate, toDate, timeScale, workScale)
-            })
-        }).toArray()
-        //ob.subscribe();
-        return ob;
-    }
 
-    saveResPlan(resPlan: IResPlan, project: IProject, fromDate: string, toDate: string, timeScale: Timescale, workScale: WorkUnits): Observable<IResPlan> {
+    saveResPlans(resPlan: IResPlan[], fromDate: string, toDate: string, timeScale: Timescale, workScale: WorkUnits): Observable<IResPlan[]> {
         var success;
         //TODO
         let pwaPath = "http://foo.wingtip.com/pwa/"
@@ -511,9 +501,6 @@ export class ResourcePlanUserStateService {
         let body = {
             method: 'PwaupdateResourcePlanCommand',
             'resourceplan': JSON.stringify(resPlan),
-            'puid': project.projUid,
-            'resuid': resPlan.resource["resUid"], 
-            'projname': project.projName,
             'fromDate': fromDate,
             'toDate': toDate,
             'timeScale': this.getTimeScaleString(timeScale),
