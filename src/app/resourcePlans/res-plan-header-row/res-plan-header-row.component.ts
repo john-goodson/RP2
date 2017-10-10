@@ -1,5 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
-import {IResPlan} from '../../resourcePlans/res-plan.model';
+import {IResPlan,Timescale,WorkUnits} from '../../resourcePlans/res-plan.model';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
