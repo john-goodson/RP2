@@ -1,3 +1,8 @@
-<p>
-  res-plan-workunits works!
-</p>
+<div >
+  <label for="workunits">Work Units:</label>
+  <select id="workunits" name="workunits" (change) = "workunitsChange($event.target.value)">
+    <option  value="1" >Hours</option>
+    <option  value="2">Days</option>
+    <option  valuey="3" >FTE</option>
+  </select>
+</div> 

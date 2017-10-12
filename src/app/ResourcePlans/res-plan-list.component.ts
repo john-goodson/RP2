@@ -124,7 +124,7 @@ export class ResPlanListComponent implements OnInit {
         this.toDate = this._route.params["toDate"] && new Date(this._route.params["toDate"]) || todayDate;
         this.timescale = this._route.params["timescale"] || Timescale.calendarMonths;
         this.workunits = this._route.params["workunits"] || WorkUnits.days;
-        
+
         this._route.data.subscribe(values => {
             this.resPlanData = values.resPlans;
             //this.resPlans = values.resPlans;
@@ -301,28 +301,42 @@ export class ResPlanListComponent implements OnInit {
                     this.buildSelectedProjects(projects)
             })
     }
-
+    worksunitsChanged(value) {
+        debugger;
+        this.workunits = value;
+        this.ReloadPage();
+    }
     timescaleChanged(value) {
         debugger;
         this.timescale = value;
+        this.ReloadPage();
+    }
+    dateRangeChanged(value) {
+        debugger
+   
+        this.fromDate = new Date(value.start._d)
+        this.toDate = new Date(value.start._d)
+        console.log(JSON.stringify(value))
+        this.ReloadPage()
+    }
+    ReloadPage() {
         //console.log(this.fromDate.toDateString())
         var url = '/resPlans'
-         let oldConfig = this.router.routeReuseStrategy.shouldReuseRoute;
-        this.router.routeReuseStrategy.shouldReuseRoute = function(){return false};
-        this.router.isActive = function() {return false;}
+        let oldConfig = this.router.routeReuseStrategy.shouldReuseRoute;
+        this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
+        this.router.isActive = function () { return false; }
         //this.router.navigate(['/products/2', {name: randomNum}])
         this.router.navigate(['/resPlans',
-        {
-                    fromDate: this.fromDate,
-                    toDate: this.toDate,
-                    timescale: this.timescale,
-                    workunits: this.workunits,
-              
+            {
+                fromDate: this.fromDate,
+                toDate: this.toDate,
+                timescale: this.timescale,
+                workunits: this.workunits,
+
             }]
-    ).then(function(){
-     //this.router.routeReuseStrategy.shouldReuseRoute = oldConfig;
+        ).then(function () {
+            //this.router.routeReuseStrategy.shouldReuseRoute = oldConfig;
         });
-        
     }
     populateTestData(): void {
 
