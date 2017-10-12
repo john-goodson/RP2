@@ -1,6 +1,6 @@
 <div >
           <label for="status">Timescale:</label>
-          <select name="status" (change) = "timescaleChange($event.target.value)">
+          <select name="status" (change) = "timescaleChange($event.target.value)" ng-value="5">
             <option  [value]="4" [selected]="timescale ==4">Weeks</option>
             <option  [value]="5" [selected]="timescale ==5">Months</option>
             <option  [value]="7" [selected]="timescale ==7">Years</option>
