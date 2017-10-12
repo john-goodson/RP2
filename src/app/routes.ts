@@ -14,8 +14,16 @@ export const appRoutes: Routes = [
     //npm start
     , resolve: {resPlans: ResourcePlansResolverService }
   },
+  // {
+  //   path: 'resPlansWithQuery'
+  //   , component: ResPlanHomeComponent
+  //   //npm start
+  //   , resolve: {resPlans: ResourcePlansResolverService }
+  // },
   
 
+  
+  
   { path: '', redirectTo: '/resPlans', pathMatch: 'full' }
 
 ]

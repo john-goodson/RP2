@@ -36,7 +36,7 @@ export class ResourcePlanUserStateService {
         return this.http.get(url, options)
             .switchMap((data: Response) => data.json().d.results)
             .map((result: Object) => {
-                console.log("Unique Resource got=" + JSON.stringify(new Resource(result["ResourceUID0"], result["su3i"])))
+                //console.log("Unique Resource got=" + JSON.stringify(new Resource(result["ResourceUID0"], result["su3i"])))
                 return new Resource(result["ResourceUID0"], result["su3i"])
 
             }).toArray();
@@ -115,7 +115,7 @@ export class ResourcePlanUserStateService {
             withCredentials: true,
             headers
         })
-        console.log('=======================hitting project server for assigments')
+        //console.log('=======================hitting project server for assigments')
         return Observable.from(resources).flatMap(t => {
             let filter = `ResourceName eq '${t.resName}' and AssignmentType eq 101`
             let url = baseUrl + '?' + filter + '&' + select;
@@ -131,7 +131,7 @@ export class ResourcePlanUserStateService {
                 })
 
         }).toArray()
-            .do(t => console.log('projects user has access on=' + JSON.stringify(t)))
+            //.do(t => console.log('projects user has access on=' + JSON.stringify(t)))
 
 
     }
@@ -184,12 +184,14 @@ debugger;
         return this.getUniqueResourcesForResManager(resMgrUid).flatMap(resources => {
 
             return projectsWithreadOnlyFlag.flatMap(projects =>
-                this.getResPlansFromProjects(resources, projects,fromDate,toDate,timescale,workunits).do(t => {
-                    console.log('resource plans read from add resource =' + JSON.stringify(t))
-                }))
-                .do(t => {
-                    console.log('projects passed in =' + JSON.stringify(t))
-                })
+                this.getResPlansFromProjects(resources, projects,fromDate,toDate,timescale,workunits)
+                // .do(t => {
+                //     //console.log('resource plans read from add resource =' + JSON.stringify(t))
+                // })
+            )
+                // .do(t => {
+                //     //console.log('projects passed in =' + JSON.stringify(t))
+                // })
         })
 
     }

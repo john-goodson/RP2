@@ -120,10 +120,10 @@ export class ResPlanListComponent implements OnInit {
         let today = new Date();
         let todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         let lastYearDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
-        this.fromDate = this._route.queryParams["fromDate"] && new Date(this._route.queryParams["fromDate"]) || lastYearDate;
-        this.toDate = this._route.queryParams["toDate"] && new Date(this._route.queryParams["toDate"]) || todayDate;
-        this.timescale = this._route.queryParams["timescale"] || Timescale.calendarMonths;
-        this.workunits = this._route.queryParams["workunits"] || WorkUnits.days;
+        this.fromDate = this._route.params["fromDate"] && new Date(this._route.params["fromDate"]) || lastYearDate;
+        this.toDate = this._route.params["toDate"] && new Date(this._route.params["toDate"]) || todayDate;
+        this.timescale = this._route.params["timescale"] || Timescale.calendarMonths;
+        this.workunits = this._route.params["workunits"] || WorkUnits.days;
         
         this._route.data.subscribe(values => {
             this.resPlanData = values.resPlans;
@@ -131,7 +131,7 @@ export class ResPlanListComponent implements OnInit {
             if (values.resPlans && values.resPlans.length > 0)
                 this.setIntervalLength((<IResPlan[]>values.resPlans).map(t => t.projects).reduce((a, b) => a.concat(b)))
             this.buildResPlans(values.resPlans);
-            console.log(JSON.stringify(values.resPlans))
+            //console.log(JSON.stringify(values.resPlans))
         }, (error) => console.log(error))
         this._modalSvc.modalSubmitted$.subscribe(() => {
             this.addSelectedProjects();
@@ -173,7 +173,7 @@ export class ResPlanListComponent implements OnInit {
 
     buildResPlans(plans: IResPlan[]) {
         debugger;
-        console.log('add resources ==========================================' + JSON.stringify(plans));
+        //console.log('add resources ==========================================' + JSON.stringify(plans));
         for (var i = 0; i < plans.length; i++) {
             var resPlan = this.buildResPlan(plans[i]);
             this.resPlans.push(resPlan);
@@ -262,7 +262,7 @@ export class ResPlanListComponent implements OnInit {
         this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked(), (error) => console.log(error));
         var data = _resPlan.value.resUid;
         this._modalSvc.projectsAssigned(_resPlan.value.projects);
-        console.log('projects in RP = ' + JSON.stringify(_resPlan.value.projects))
+        //console.log('projects in RP = ' + JSON.stringify(_resPlan.value.projects))
         this.modalProjects.showModal(data);
         var _projects: [IProject];
         var project = new Project();
@@ -272,7 +272,7 @@ export class ResPlanListComponent implements OnInit {
     addResources() {
 
         let resourcesSelected: IResource[] = this.resPlans.value.map(res => { return new Resource(res.resUid, res.resName) })
-        console.log('resources selected=' + JSON.stringify(resourcesSelected))
+        //console.log('resources selected=' + JSON.stringify(resourcesSelected))
         this._resModalSvc.ResourcesSelected(resourcesSelected)
         this.modalResources.modalSubmitted$.subscribe(() => this._resModalSvc.modalSubmitClicked(), (error) => console.log(error));
         this.modalResources.showModal('');
@@ -280,23 +280,23 @@ export class ResPlanListComponent implements OnInit {
 
     addSelectedResources() {
         debugger;
-        console.log("add resource fired" + JSON.stringify(this._resModalSvc.selectedResources));
+        //console.log("add resource fired" + JSON.stringify(this._resModalSvc.selectedResources));
         let selectedResources = this._resModalSvc.selectedResources;
         this._resPlanUserStateSvc.getResPlansFromResources(this._resModalSvc.selectedResources, this.fromDate, this.toDate, this.timescale, this.workunits)
             .subscribe(plans => {
-                console.log("===========================================added rp=" + JSON.stringify(plans))
+                //console.log("=======================added rp=" + JSON.stringify(plans))
                 this.setIntervalLength((<IResPlan[]>plans).map(t => t.projects).reduce((a, b) => a.concat(b)))
                 this.buildResPlans(plans)
             }, (error) => console.log(error));
     }
 
     addSelectedProjects() {
-        console.log("current=" + JSON.stringify(this.currentFormGroup.value))
+        //console.log("current=" + JSON.stringify(this.currentFormGroup.value))
         this._resPlanUserStateSvc.addProjects(this._modalSvc.selectedProjects, new Resource(this.currentFormGroup.value["resUid"], this.currentFormGroup.value["resName"]),
             '2017-05-01', '2017-08-01', Timescale.calendarMonths, WorkUnits.days)
             .subscribe(projects => {
                 debugger;
-                console.log("===added projects" + JSON.stringify(projects))
+                //console.log("===added projects" + JSON.stringify(projects))
                 if (projects)
                     this.buildSelectedProjects(projects)
             })
@@ -305,25 +305,22 @@ export class ResPlanListComponent implements OnInit {
     timescaleChanged(value) {
         debugger;
         this.timescale = value;
-        console.log(this.fromDate.toDateString())
+        //console.log(this.fromDate.toDateString())
         var url = '/resPlans'
          let oldConfig = this.router.routeReuseStrategy.shouldReuseRoute;
         this.router.routeReuseStrategy.shouldReuseRoute = function(){return false};
-        this.router.navigate(['/resPlans'],
+        this.router.isActive = function() {return false;}
+        //this.router.navigate(['/products/2', {name: randomNum}])
+        this.router.navigate(['/resPlans',
         {
-            
-            queryParams:
-                {
                     fromDate: this.fromDate,
                     toDate: this.toDate,
                     timescale: this.timescale,
                     workunits: this.workunits,
-                }
-                
-                
-            }
+              
+            }]
     ).then(function(){
-     this.router.routeReuseStrategy.shouldReuseRoute = oldConfig;
+     //this.router.routeReuseStrategy.shouldReuseRoute = oldConfig;
         });
         
     }
