@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+declare var moment : any 
 
 @Component({
   selector: 'app-date-range-picker',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./date-range-picker.component.css']
 })
 export class DateRangePickerComponent implements OnInit {
+@Output() onDateRangeChanged = new EventEmitter<any>()
 
   constructor() { }
 
@@ -19,16 +21,11 @@ export class DateRangePickerComponent implements OnInit {
   };
   public selectedDate(value: any, datepicker?: any) {
     // this is the date the iser selected
-    console.log(value);
+    console.log(JSON.stringify(value));
+    this.onDateRangeChanged.emit(value)
 
-    // any object can be passed to the selected event and it will be passed back here
-    datepicker.start = value.start;
-    datepicker.end = value.end;
 
-    // or manupulat your own internal property
-    this.daterange.start = value.start;
-    this.daterange.end = value.end;
-    this.daterange.label = value.label;
+ 
   }
 
 }
