@@ -1,6 +1,8 @@
 import { Component, OnInit,EventEmitter,Output } from '@angular/core';
 import {IResPlan,Timescale,WorkUnits} from '../resourcePlans/res-plan.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {ActivatedRoute} from '@angular/router'
+declare var $:any;
 @Component({
   selector: 'res-plan-timescale',
   templateUrl: './res-plan-timescale.component.html',
@@ -8,9 +10,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class ResPlanTimescaleComponent implements OnInit {
  @Output() onTimescaleChanged = new EventEmitter<Timescale>();
-  constructor() { }
+  constructor(private _route: ActivatedRoute) { }
 timescale:Timescale;
   ngOnInit() {
+    debugger;
+    $('#timescale').val(this._route.snapshot.params["timescale"] || '5');
   }
 
   timescaleChange(value:number)
