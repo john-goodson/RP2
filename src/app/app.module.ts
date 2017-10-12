@@ -8,6 +8,7 @@ import { appRoutes } from './routes'
 import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { Daterangepicker, DaterangepickerConfig } from 'ng2-daterangepicker'
 
 
 
@@ -35,14 +36,14 @@ import {ResourcePlanUserStateService} from './services/resource-plan-user-state.
 import {ResourceService} from './services/resource.service'
 import { ProjectListFilterPipe } from './common/project-list-filter.pipe'
 
-
-import { DataTableModule } from 'angular-4-data-table';
 import { ResourcePlansResolverService } from './services/resource-plans-resolver.service';
 import { ResourceListComponent } from './resourcePlans/resource-list/resource-list.component'
 import { SPListService } from './services/sp-list.service';
 import { ResPlanHomeComponent } from './resourcePlans/res-plan-home/res-plan-home.component';
 import { ResPlanHeaderRowComponent } from './resourcePlans/res-plan-header-row/res-plan-header-row.component';
-import { ResPlanTimescaleComponent } from './res-plan-timescale/res-plan-timescale.component'
+import { ResPlanTimescaleComponent } from './res-plan-timescale/res-plan-timescale.component';
+import { DateRangePickerComponent } from './resourcePlans/date-range-picker/date-range-picker.component';
+import { ResPlanWorkunitsComponent } from './resourcePlans/res-plan-workunits/res-plan-workunits.component'
 //let jQuery : Object;
 
 @NgModule({
@@ -55,17 +56,13 @@ import { ResPlanTimescaleComponent } from './res-plan-timescale/res-plan-timesca
     ResPlanListComponent, 
     SimpleModalComponent,
     ProjectListComponent,
- 
     ProjectListFilterPipe,
-  
     ResourceListComponent,
-  
     ResPlanHomeComponent,
-  
     ResPlanHeaderRowComponent,
-  
     ResPlanTimescaleComponent,
-    
+    DateRangePickerComponent,
+    ResPlanWorkunitsComponent,
   ],
 
   imports: [
@@ -73,17 +70,18 @@ import { ResPlanTimescaleComponent } from './res-plan-timescale/res-plan-timesca
     RouterModule.forRoot(appRoutes) ,
           HttpModule, 
           ReactiveFormsModule ,
-          DataTableModule,
+          Daterangepicker,
           HttpClientModule,
           Ng2SmartTableModule
          // InMemoryWebApiModule.forRoot(ResPlanData),
+         
           
   ],
   
   providers: [    ModalCommunicator, ResourcesModalCommunicatorService,ProjectService, ResourcePlanService
     , ResourcePlanUserStateService
     , ResourcePlansResolverService
-    ,ResourceService, SPListService,DataTableModule  ],
+    ,ResourceService, SPListService  ],
   bootstrap: [AppComponent]
   
 })
