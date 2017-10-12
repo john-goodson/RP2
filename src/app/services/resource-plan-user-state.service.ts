@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 
 import { IResPlan, ResPlan, IProject, Project, WorkUnits, Timescale, IInterval, Interval, IResource, Resource } from '../resourcePlans/res-plan.model'
 declare var $: any;
+declare var moment:any;
 @Injectable()
 export class ResourcePlanUserStateService {
 
@@ -155,7 +156,8 @@ export class ResourcePlanUserStateService {
     }
 
 
-    getResPlans(): Observable<IResPlan[]> {
+    getResPlans(fromDate:Date,toDate:Date,timescale:Timescale,workunits:WorkUnits): Observable<IResPlan[]> {
+debugger;
         let resMgrUid = '8181FE64-E261-E711-80CC-00155D005A03'
         var uniqueProjectsForResMgr = this.getUniqueProjectsForResManager();
         var resourceForResMgr = this.getUniqueResourcesForResManager(resMgrUid);
@@ -165,10 +167,10 @@ export class ResourcePlanUserStateService {
         var mergedProjects = uniqueProjectsForResMgr.concat(uniqueProjectsForAllResMgr)
 
         let projectsWithreadOnlyFlag = mergedProjects.flatMap(val => {
-            debugger;
+            
             return uniqueProjectsResMgrHasAccessOn.flatMap(projectsWithRights => {
                 return val.map(x => {
-                    debugger;
+                    
                     if (projectsWithRights.find(k => k.projUid.toUpperCase() == x.projUid.toUpperCase()) == null) {
                         x.readOnly = true;
                     }
@@ -182,7 +184,7 @@ export class ResourcePlanUserStateService {
         return this.getUniqueResourcesForResManager(resMgrUid).flatMap(resources => {
 
             return projectsWithreadOnlyFlag.flatMap(projects =>
-                this.getResPlansFromProjects(resources, projects).do(t => {
+                this.getResPlansFromProjects(resources, projects,fromDate,toDate,timescale,workunits).do(t => {
                     console.log('resource plans read from add resource =' + JSON.stringify(t))
                 }))
                 .do(t => {
@@ -193,7 +195,7 @@ export class ResourcePlanUserStateService {
     }
 
     ///Add Resource Plan use case
-    getResPlansFromResources(resources: IResource[]): Observable<IResPlan[]> {
+    getResPlansFromResources(resources: IResource[],fromDate:Date,toDate:Date,timescale:Timescale,workunits:WorkUnits): Observable<IResPlan[]> {
 
         let resMgrUid = '8181FE64-E261-E711-80CC-00155D005A03'
         let projectsForAllResources = this.getUniqueProjectsAcrossResMgrs(resources);
@@ -219,7 +221,7 @@ export class ResourcePlanUserStateService {
 
         var readOnlyProjects = allProjectsWithReadOnlyFlags.map(t => { debugger; return t.filter(project => project.readOnly == true) })
         var readableResPlans = readableProjects.flatMap(projects => {
-            return this.getResPlansFromProjects(resources, projects).filter((r: IResPlan[]) => {
+            return this.getResPlansFromProjects(resources, projects,fromDate,toDate,timescale,workunits).filter((r: IResPlan[]) => {
                 return r.find(x => {
                     return resources.map(p => p.resUid.toUpperCase()).indexOf(x.resource.resUid.toUpperCase()) > -1
                 }) != null
@@ -326,10 +328,10 @@ export class ResourcePlanUserStateService {
         })
     }
 
-    getResPlansFromProjects(resources: IResource[], projects: IProject[]): Observable<IResPlan[]> {
+    getResPlansFromProjects(resources: IResource[], projects: IProject[],fromDate:Date,toDate:Date,timescale:Timescale,workunits:WorkUnits): Observable<IResPlan[]> {
         let emptyResPlans = Observable.of(resources.map(r => new ResPlan(r, [])))
         return Observable.from(projects).flatMap((project: IProject) => {
-            return this.getResPlan(resources, 'http://foo.wingtip.com/PWA', project, '2017-05-01', '2017-08-01', WorkUnits.FTE, Timescale.calendarMonths)
+            return this.getResPlan(resources, 'http://foo.wingtip.com/PWA', project, fromDate, toDate, timescale,workunits)
 
         }).toArray()
             .merge(emptyResPlans)
@@ -347,8 +349,14 @@ export class ResourcePlanUserStateService {
                 debugger;
             })
     }
-
-    getResPlan(resources: IResource[], projectUrl: string = 'http://foo.wingtip.com/PWA', project: IProject, start: string = '2017-05-01', end: string = '2017-08-01', workUnits: WorkUnits, timescale: Timescale)
+    getDateFormatString(date:Date):string{
+      var NowMoment = moment(date);
+      debugger;
+      NowMoment.dat
+      return NowMoment.format('YYYY-MM-DD');
+    }
+    getResPlan(resources: IResource[], projectUrl: string = 'http://foo.wingtip.com/PWA', project: IProject, start: Date, end: Date, 
+     timescale: Timescale,workunits:WorkUnits)
         : Observable<IResPlan> {
         console.log('entering getResPlans method');
         let headers = new Headers();
@@ -358,7 +366,7 @@ export class ResourcePlanUserStateService {
             headers
         })
         let baseUrl = `${projectUrl}/_api/ProjectServer/Projects('${project.projUid}')/GetResourcePlanByUrl
-        (start='${start}',end='${end}',scale='${timescale}')/Assignments`;
+        (start='${this.getDateFormatString(start)}',end='${this.getDateFormatString(end)}',scale='${timescale}')/Assignments`;
         let expand = "$expand=Intervals,Resource/Id"
         let resUid = '8181FE64-E261-E711-80CC-00155D005A03'
         //            let filter = '$filter=' + resources.map((k:IResource)=>k.resUid).map(t=>"Resource/Id eq '" + t ).join(" or ")
