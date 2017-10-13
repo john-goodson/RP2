@@ -503,7 +503,7 @@ debugger;
     }
 
 
-    saveResPlans(resPlan: IResPlan[], fromDate: string, toDate: string, timeScale: Timescale, workScale: WorkUnits): Observable<IResPlan[]> {
+    saveResPlans(resPlan: IResPlan[], fromDate: Date, toDate: Date, timeScale: Timescale, workScale: WorkUnits): Observable<IResPlan[]> {
         var success;
         //TODO
         let pwaPath = "http://foo.wingtip.com/pwa/"
@@ -511,8 +511,45 @@ debugger;
         let body = {
             method: 'PwaupdateResourcePlanCommand',
             'resourceplan': JSON.stringify(resPlan),
-            'fromDate': fromDate,
-            'toDate': toDate,
+            'fromDate': this.getDateFormatString(fromDate) ,
+            'toDate': this.getDateFormatString(toDate),
+            'timeScale': this.getTimeScaleString(timeScale),
+            'workScale': WorkUnits[workScale]
+        }
+        let headers = new Headers();
+        headers.append('accept', 'application/json;odata=verbose')
+        headers.append('content-type', 'application/x-www-form-urlencoded')
+        let options = new RequestOptions({
+            withCredentials: true,
+            headers
+        })
+        return Observable.fromPromise($.ajax({
+            url: adapterPath,
+            type: 'POST',
+            dataType: "json",
+            data: body
+        })).map(r => {
+            debugger;
+            if (r["Result"] == true) {
+                return resPlan;
+            }
+        })
+        // return this.http.post(adapterPath,body,options).flatMap(r=>
+        //     {
+        //         return Observable.of(project);
+        //     })
+    }
+
+    deleteResPlans(resPlan: IResPlan[], fromDate: Date, toDate: Date, timeScale: Timescale, workScale: WorkUnits): Observable<IResPlan[]> {
+        var success;
+        //TODO
+        let pwaPath = "http://foo.wingtip.com/pwa/"
+        let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
+        let body = {
+            method: 'PwaDeleteResourcePlanCommand',
+            'resourceplan': JSON.stringify(resPlan),
+            'fromDate': this.getDateFormatString(fromDate),
+            'toDate': this.getDateFormatString(toDate),
             'timeScale': this.getTimeScaleString(timeScale),
             'workScale': WorkUnits[workScale]
         }

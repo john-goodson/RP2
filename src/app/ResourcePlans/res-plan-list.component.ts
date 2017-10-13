@@ -98,6 +98,7 @@ export class ResPlanListComponent implements OnInit {
     toDate: Date;
     timescale: Timescale;
     workunits: WorkUnits;
+    
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
     }
@@ -187,6 +188,7 @@ export class ResPlanListComponent implements OnInit {
             resName: _resplan.resource.resName,
             totals: this.initTotals(_totals, _resplan.projects),
             projects: this.fb.array([]),
+            selected : this.fb.control(false)
         });
         for (var i = 0; i < _resplan.projects.length; i++) {
             var project = this.buildProject(_resplan.projects[i]);
@@ -203,7 +205,8 @@ export class ResPlanListComponent implements OnInit {
             projUid: _project.projUid,
             projName: _project.projName,
             readOnly: _project.readOnly,
-            intervals: this.fb.array([])
+            intervals: this.fb.array([]),
+            selected : this.fb.control(false)
         });
         for (var i = 0; i < _project.intervals.length; i++) {
             var interval = this.buildInterval(_project.intervals[i]);
@@ -257,6 +260,23 @@ export class ResPlanListComponent implements OnInit {
 
     }
 
+    toggleSelectAll(value:boolean)
+    {
+        this.resPlans.controls.forEach((_resPlan : FormGroup) => {
+            _resPlan.controls['selected'].setValue(value);
+            (_resPlan.controls['projects'] as FormArray).controls.forEach(element => {
+                (element as FormGroup).controls['selected'].setValue(value)
+            });
+        });
+    }
+   toggleResPlanSelection(_resPlan: FormGroup)
+   {
+     let selected = !_resPlan.controls['selected'].value;
+     _resPlan.controls['selected'].setValue(selected);
+     (_resPlan.controls['projects'] as FormArray).controls.forEach(element => {
+         (element as FormGroup).controls['selected'].setValue(selected)
+     });
+   }
     addProject(_resPlan: FormGroup): void {
         //get IProjects[] array from current formgroup
         this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked(), (error) => console.log(error));
@@ -358,7 +378,7 @@ export class ResPlanListComponent implements OnInit {
         }
     }
 
-    savePlans(): void {
+    savePlans(fromDate:Date,toDate:Date,timescale:Timescale,workunits:WorkUnits): void {
         debugger;
         if (this.mainForm.dirty && this.mainForm.valid) {
 
@@ -378,7 +398,41 @@ export class ResPlanListComponent implements OnInit {
 
 
             console.log("dirty resPlans" + JSON.stringify(resourceplans))
-            this._resPlanUserStateSvc.saveResPlans(resourceplans, '2017-05-01', '2017-08-01', Timescale.calendarMonths, WorkUnits.days)
+            this._resPlanUserStateSvc.saveResPlans(resourceplans, fromDate, toDate, timescale, workunits)
+                .subscribe(
+                () => this.onSaveComplete(),
+                (error: any) => this.errorMessage = <any>error
+                );
+        }
+        //()
+        else if (!this.mainForm.dirty) {
+            this.onSaveComplete();
+        }
+    }
+
+    deleteResPlans(fromDate:Date,toDate:Date,timescale:Timescale,workunits:WorkUnits): void {
+        debugger;
+        if (this.mainForm.dirty && this.mainForm.valid) {
+
+
+            let resourceplans = this.fb.array(this.resPlans.controls
+                .filter(item => item.dirty === true // item is dirty
+                    && (item.value.selected || item.value.projects.count(p=>p.selected == true) > 0) // res Plan marked for delete or atleast one project in ResPlan marked for delete
+                )).controls
+                .map(t => {
+                    var _resPlan: IResPlan;
+                    var _projects: [IProject];
+                    var projects = Object.assign([], _projects, this.fb.array(((t as FormGroup).controls['projects'] as FormArray).controls.filter(s => s.value.selected == true)).value)
+                    let resPlan = new ResPlan();
+                    resPlan.resource = new Resource(t.value.resUid, t.value.resName);
+                    resPlan.projects = projects;
+                    return resPlan;
+                })
+
+
+
+            console.log("dirty resPlans" + JSON.stringify(resourceplans))
+            this._resPlanUserStateSvc.deleteResPlans(resourceplans, fromDate, toDate, timescale, workunits)
                 .subscribe(
                 () => this.onSaveComplete(),
                 (error: any) => this.errorMessage = <any>error

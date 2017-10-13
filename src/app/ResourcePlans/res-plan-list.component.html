@@ -1,15 +1,15 @@
 <div>
-<!-- kk -->
+    <!-- kk -->
 
-    <button class="btn btn-primary" type="button" (click)="addResources()"> Add Resource  </button>
+    <button class="btn btn-primary" type="button" (click)="addResources()"> Add Resource </button>
     <res-plan-timescale (onTimescaleChanged)="timescaleChanged($event)"></res-plan-timescale>
-    <app-date-range-picker (onDateRangeChanged) = "dateRangeChanged($event)"></app-date-range-picker>
+    <app-date-range-picker (onDateRangeChanged)="dateRangeChanged($event)"></app-date-range-picker>
     <res-plan-workunits (onWorkUnitsChanged)="worksunitsChanged($event)"></res-plan-workunits>
-    
-    <form class="form-horizontal" novalidate  [formGroup]="mainForm">
-        
+
+    <form class="form-horizontal" novalidate [formGroup]="mainForm">
+
         <div formArrayName="resPlans" *ngIf="resPlans && resPlans.length">
-            <res-plan-header-row></res-plan-header-row>
+            <res-plan-header-row (onselectAllChanged)="toggleSelectAll($event)"></res-plan-header-row>
             <div class="table-body">
                 <table class="table">
                     <tbody *ngFor="let plan of resPlans.controls;index as i">
@@ -18,13 +18,16 @@
                             <collapsible-well>
                                 <div well-title>
                                     <tr>
+                                        <td class="body-cell" style="padding-left:5px">
+                                            <input type="checkbox" formControlName="selected" (click)="toggleResPlanSelection(plan)"/>
+                                        </td>
                                         <td class="body-cell col1">
                                             <input formControlName="resName" placeholder="First name" style="width:100%">
                                         </td>
                                         <div formArrayName="totals">
                                             <td class="body-cell col" *ngFor="let total of plan.get('totals').controls;index as l">
                                                 <div [formGroupName]="l">
-                                                    <input formControlName="intervalValue" placeholder="intervalValue" style="width:100%"/>
+                                                    <input formControlName="intervalValue" placeholder="intervalValue" style="width:100%" />
 
                                                 </div>
                                             </td>
@@ -37,8 +40,11 @@
                                     <div formArrayName="projects">
                                         <div *ngFor="let proj of plan.get('projects').controls;index as j">
                                             <tr [formGroupName]="j">
+                                                <td class="body-cell" style="padding-left:5px">
+                                                    <input type="checkbox" formControlName="selected"/>
+                                                </td>
                                                 <td class="body-cell col1">
-                                                    <input formControlName="projName" placeholder="project" style="width:100%"/> 
+                                                    <input formControlName="projName" placeholder="project" style="width:100%" />
                                                 </td>
                                                 <div formArrayName="intervals" *ngIf="proj.get('readOnly').value == false">
                                                     <td class="body-cell col" *ngFor="let intrvl of proj.get('intervals').controls; index as k">
@@ -54,7 +60,7 @@
                                     </div>
 
                                     <!-- <button class="btn btn-primary" type="button" (click) = "addProject(plan)" > Add Project  </button> -->
-                                    <button class="btn btn-primary" type="button" (click)="addProject(plan)"> Add Project  </button>
+                                    <button class="btn btn-primary" type="button" (click)="addProject(plan)"> Add Project </button>
 
 
 
@@ -66,7 +72,7 @@
 
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-primary" (click)="savePlans()"> Submit  </button>
+                <button type="button" class="btn btn-primary" (click)="savePlans()"> Submit </button>
             </div>
         </div>
         <simple-modal #modalProjects closeOnBodyClick="true" elementId="1" title="Add Projects" primaryBtnText="Add Selected Projects">
@@ -80,9 +86,10 @@
             </div>
         </simple-modal>
 
-        
+
     </form>
-    <hr><br>
+    <hr>
+    <br>
 
 
 
