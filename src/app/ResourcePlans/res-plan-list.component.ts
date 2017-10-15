@@ -434,18 +434,23 @@ export class ResPlanListComponent implements OnInit {
 
 
             console.log("dirty resPlans" + JSON.stringify(resourceplans))
-
             this._resPlanUserStateSvc.deleteResPlans(resourceplans, fromDate, toDate, timescale, workunits)
-                .subscribe(
+                .flatMap(
                 (resPlans: IResPlan[]) => {
                     debugger;
-                    this._resPlanUserStateSvc.HideResPlans(resPlans as IResPlan[]).subscribe(r => {
+                   return this._resPlanUserStateSvc.HideResPlans(resPlans as IResPlan[]).map(r => {
                         this.deleteResourcePlans(resPlans)
                     }
                     ,
                         (error: any) => this.errorMessage = <any>error
-                    );
-                })
+                    )
+                    // this._resPlanUserStateSvc.HideResPlans(resPlans as IResPlan[]).subscribe(r => {
+                    //     this.deleteResourcePlans(resPlans)
+                    // }
+                    // ,
+                    //     (error: any) => this.errorMessage = <any>error
+                    // );
+                }).subscribe()
         }
         //()
         else if (!this.mainForm.dirty) {
