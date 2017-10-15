@@ -188,7 +188,7 @@ debugger;
                     return x;
                 })
             })
-        }).toArray()
+        }).distinct(t=>t.projUid).toArray()
         return resourceForResMgr.flatMap(resources => {
 
             return projectsWithreadOnlyFlag.flatMap(projects =>
