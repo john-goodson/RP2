@@ -101,7 +101,7 @@ export class ResourcePlanUserStateService {
             })
             .pluck('ProjectUIDs')
             .map((projectUid: string) => {
-                return JSON.parse(projectUid).map(project => { return new Project(project.projUid, project.projName) })
+                return JSON.parse(projectUid).map(project => { return new Project(project.projUid, project.projName,false,[]) })
             })
             .distinct(x => x.projUid)
     }
@@ -124,7 +124,7 @@ export class ResourcePlanUserStateService {
 
             return this.http.get(url, options)
                 .switchMap((data: Response) => data.json().d.results)
-                .map(p => new Project(p["ProjectId"], p["ProjectName"]))
+                .map(p => new Project(p["ProjectId"], p["ProjectName"],false,[]))
                 .filter(t => {
 
                     return t.projUid != 'd9621fef-5c96-e711-80cc-00155d005a03'
@@ -150,7 +150,7 @@ export class ResourcePlanUserStateService {
             .switchMap((data: Response) => data.json().d.results)
             .pluck('ProjectUIDs')
             .map((projectUid: string) => {
-                return JSON.parse(projectUid).map(project => { return new Project(project.projUid, project.projName) })
+                return JSON.parse(projectUid).map(project => { return new Project(project.projUid, project.projName,false,[]) })
             })
             .distinct(x => x.projUid)
     }
@@ -281,7 +281,7 @@ debugger;
                 .switchMap((data: Response) => data.json().d.results)
                 .map((data: Object) => {
 
-                    let projects: IProject[] = JSON.parse(data['ProjectUIDs']).map(project => { return new Project(project.projUid, project.projName) })
+                    let projects: IProject[] = JSON.parse(data['ProjectUIDs']).map(project => { return new Project(project.projUid, project.projName,false,[]) })
                     let readOnlyFilteredProjects = projects.filter(p => readOnly.map(r => r.projUid).indexOf(p.projUid) > -1)
                     return new ResPlan(new Resource(data["ResourceUID0"], data["su3i"]), readOnlyFilteredProjects.map(readOnlyPojectsForResource => readOnlyPojectsForResource))
                 })
@@ -374,7 +374,8 @@ debugger;
         //            let filter = '$filter=' + resources.map((k:IResource)=>k.resUid).map(t=>"Resource/Id eq '" + t ).join(" or ")
         return this.http.get(baseUrl + '?' + expand, options).switchMap(response => response.json().d.results)
             .map((response: Object) => {
-                var p = new Project(project.projUid, project.projName);
+               
+                var p = new Project(project.projUid, project.projName,false,[]);
                 p.readOnly = project.readOnly;
                 let resUid = response["Resource"]["Id"];
                 var resPlan = new ResPlan(new Resource(resUid, response["Name"]), [p]);
@@ -469,7 +470,7 @@ debugger;
 
             .subscribe((data: Response) => {
                 debugger;
-                let projects = JSON.parse(data.json().d.results[0]["ProjectUIDs"]).map(project => { return new Project(project.projUid, project.projName) })
+                let projects = JSON.parse(data.json().d.results[0]["ProjectUIDs"]).map(project => { return new Project(project.projUid, project.projName,false,[]) })
                 projects = projects.concat(project)
                 this.getRequestDigestToken().subscribe(digest => {
 
@@ -565,16 +566,81 @@ debugger;
             type: 'POST',
             dataType: "json",
             data: body
-        })).map(r => {
+        })).map((r:Response) => {
+            let resPlans : [IResPlan]
             debugger;
-            if (r["Result"] == true) {
-                return resPlan;
-            }
+            return Object.assign([], resPlans, r)
         })
+        
         // return this.http.post(adapterPath,body,options).flatMap(r=>
         //     {
         //         return Observable.of(project);
         //     })
+    }
+
+    HideResPlans(resPlans:IResPlan[]) : Observable<IResPlan[]>
+    {
+     if(resPlans.length == 0)
+     {
+         debugger;
+         resPlans = resPlans.map(t=>t)
+     }
+      return Observable.from(resPlans)
+      .map(resPlan=>{
+          debugger;
+        if(this.HideResPlan(resPlan))
+        return resPlan;
+      })
+      .toArray();
+    }
+
+    HideResPlan(resPlan : IResPlan) 
+    {
+        let headers = new Headers();
+        headers.append('accept', 'application/json;odata=verbose')
+        let options = new RequestOptions({
+            withCredentials: true,
+            headers
+        })
+        let url = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
+        let resMgrUid = '8181FE64-E261-E711-80CC-00155D005A03'
+        let filter = `?ResourceManagerUID=${resMgrUid}&su3i=${resPlan.resource.resName}&$top=1`
+        //1. get data from SP List UserState  
+        this.http.get(url + filter, options)
+
+            .subscribe((data:Response)=> {
+                debugger;
+                let ob =  this.getRequestDigestToken().subscribe(digest => {
+
+                    let headers = new Headers();
+                    headers.append('Accept', 'application/json;odata=verbose')
+                    headers.append('Content-Type', 'application/json;odata=verbose')
+                    headers.append('X-RequestDigest', digest)
+                    
+                    headers.append('IF-MATCH', '*')
+                    let options = new RequestOptions({
+                        withCredentials: true,
+                        headers: headers
+                    })
+                    if(resPlan["selected"] != true){
+                        headers.append('X-HTTP-Method', 'MERGE')
+                    let mergedProjects = `'[${resPlan.projects.filter(p=>p["selected"] == false).map(t => '{"projUid":"' + t.projUid + '","projName":"' + t.projName + '"}').join(",")}]'`
+                    let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ProjectUIDs":${mergedProjects}}"}`
+                    return this.http.post(data.json().d.results[0].__metadata.uri, body, options)
+                    .map((response:Response)=>{
+                        return response.status == 200
+                    }).subscribe()
+                }
+                else{
+                    headers.append('X-HTTP-Method', 'DELETE')
+                    return this.http.post(data.json().d.results[0].__metadata.uri,  options)
+                    .map((response:Response)=>{
+                        return response.status == 200
+                    }).subscribe()
+                }
+                })
+            })
+
     }
 }
 

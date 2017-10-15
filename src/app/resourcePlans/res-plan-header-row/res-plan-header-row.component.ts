@@ -1,5 +1,5 @@
 import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
-import {IResPlan,Timescale,WorkUnits} from '../../resourcePlans/res-plan.model';
+import {IResPlan,Timescale,WorkUnits,IInterval} from '../../resourcePlans/res-plan.model';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ResPlanHeaderRowComponent implements OnInit {
 visible: boolean = true;
  _resPlans: IResPlan[];
-
+ _intervals: IInterval[];
   
 
   constructor(private router: Router,private _route: ActivatedRoute) { }
@@ -18,6 +18,7 @@ visible: boolean = true;
   ngOnInit() {
   this._route.data.subscribe(values =>{
     this._resPlans = values.resPlans; 
+    this.setIntervals(this._resPlans)
     //console.log('header component data=' + JSON.stringify(values.resPlans))
   },(error)=>console.log(error));
   }
@@ -25,6 +26,19 @@ visible: boolean = true;
   selectAllChange(value:boolean)
   {
    this.onselectAllChanged.emit(value);
+  }
+
+  setIntervals(resPlans:IResPlan[]) 
+  {
+   resPlans.forEach(resPlan=>{
+     let projectWithIntervals = resPlan.projects.find(t=>t.intervals.length > 0);
+     if(projectWithIntervals)
+     {
+       this._intervals = projectWithIntervals.intervals;
+       //TODO how to break out of for loop when intervals already found
+     }
+
+   })
   }
 
 }

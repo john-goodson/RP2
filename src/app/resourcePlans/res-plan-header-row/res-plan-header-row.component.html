@@ -9,7 +9,7 @@
                 <td>
                     <div class="header-cell col1"></div>
                 </td>
-                <td  *ngFor="let interval of _resPlans[0].projects[0].intervals">
+                <td  *ngFor="let interval of _intervals">
                    <div class="header-cell col" style="padding:19px;">
                        <strong> {{interval.start | date :  "dd/MM/yy"}} -  {{interval.end | date :  "dd/MM/yy"}}</strong></div></td>
             </tr>

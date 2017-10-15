@@ -98,7 +98,7 @@ export class ResPlanListComponent implements OnInit {
     toDate: Date;
     timescale: Timescale;
     workunits: WorkUnits;
-    
+
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
     }
@@ -188,7 +188,7 @@ export class ResPlanListComponent implements OnInit {
             resName: _resplan.resource.resName,
             totals: this.initTotals(_totals, _resplan.projects),
             projects: this.fb.array([]),
-            selected : this.fb.control(false)
+            selected: this.fb.control(false)
         });
         for (var i = 0; i < _resplan.projects.length; i++) {
             var project = this.buildProject(_resplan.projects[i]);
@@ -206,7 +206,7 @@ export class ResPlanListComponent implements OnInit {
             projName: _project.projName,
             readOnly: _project.readOnly,
             intervals: this.fb.array([]),
-            selected : this.fb.control(false)
+            selected: this.fb.control(false)
         });
         for (var i = 0; i < _project.intervals.length; i++) {
             var interval = this.buildInterval(_project.intervals[i]);
@@ -260,23 +260,25 @@ export class ResPlanListComponent implements OnInit {
 
     }
 
-    toggleSelectAll(value:boolean)
-    {
-        this.resPlans.controls.forEach((_resPlan : FormGroup) => {
-            _resPlan.controls['selected'].setValue(value);
+    toggleSelectAll(value: boolean) {
+        this.resPlans.controls.forEach((_resPlan: FormGroup) => {
+            _resPlan.controls['selected'].setValue(value, { emitEvent: false });
             (_resPlan.controls['projects'] as FormArray).controls.forEach(element => {
-                (element as FormGroup).controls['selected'].setValue(value)
+                (element as FormGroup).controls['selected'].setValue(value, { emitEvent: false })
             });
         });
     }
-   toggleResPlanSelection(_resPlan: FormGroup)
-   {
-     let selected = !_resPlan.controls['selected'].value;
-     _resPlan.controls['selected'].setValue(selected);
-     (_resPlan.controls['projects'] as FormArray).controls.forEach(element => {
-         (element as FormGroup).controls['selected'].setValue(selected)
-     });
-   }
+    toggleResPlanSelection(_resPlan: FormGroup, selected: boolean) {
+        _resPlan.controls['selected'].setValue(selected, { emitEvent: false });
+        (_resPlan.controls['projects'] as FormArray).controls.forEach(element => {
+            (element as FormGroup).controls['selected'].setValue(selected, { emitEvent: false })
+        });
+    }
+    DeselectGroupOnUncheck(_resPlan: FormGroup, value: boolean) {
+        if (value == false) {
+            _resPlan.controls['selected'].setValue(false, { emitEvent: false });
+        }
+    }
     addProject(_resPlan: FormGroup): void {
         //get IProjects[] array from current formgroup
         this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked(), (error) => console.log(error));
@@ -333,7 +335,7 @@ export class ResPlanListComponent implements OnInit {
     }
     dateRangeChanged(value) {
         debugger
-   
+
         this.fromDate = new Date(value.start._d)
         this.toDate = new Date(value.start._d)
         console.log(JSON.stringify(value))
@@ -378,7 +380,7 @@ export class ResPlanListComponent implements OnInit {
         }
     }
 
-    savePlans(fromDate:Date,toDate:Date,timescale:Timescale,workunits:WorkUnits): void {
+    savePlans(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits): void {
         debugger;
         if (this.mainForm.dirty && this.mainForm.valid) {
 
@@ -410,14 +412,14 @@ export class ResPlanListComponent implements OnInit {
         }
     }
 
-    deleteResPlans(fromDate:Date,toDate:Date,timescale:Timescale,workunits:WorkUnits): void {
+    deleteResPlans(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits): void {
         debugger;
         if (this.mainForm.dirty && this.mainForm.valid) {
 
 
             let resourceplans = this.fb.array(this.resPlans.controls
                 .filter(item => item.dirty === true // item is dirty
-                    && (item.value.selected || item.value.projects.count(p=>p.selected == true) > 0) // res Plan marked for delete or atleast one project in ResPlan marked for delete
+                    && (item.value.selected || item.value.projects.map(p => p.selected == true).length > 0) // res Plan marked for delete or atleast one project in ResPlan marked for delete
                 )).controls
                 .map(t => {
                     var _resPlan: IResPlan;
@@ -432,11 +434,18 @@ export class ResPlanListComponent implements OnInit {
 
 
             console.log("dirty resPlans" + JSON.stringify(resourceplans))
+
             this._resPlanUserStateSvc.deleteResPlans(resourceplans, fromDate, toDate, timescale, workunits)
                 .subscribe(
-                () => this.onSaveComplete(),
-                (error: any) => this.errorMessage = <any>error
-                );
+                (resPlans: IResPlan[]) => {
+                    debugger;
+                    this._resPlanUserStateSvc.HideResPlans(resPlans as IResPlan[]).subscribe(r => {
+                        this.deleteResourcePlans(resPlans)
+                    }
+                    ,
+                        (error: any) => this.errorMessage = <any>error
+                    );
+                })
         }
         //()
         else if (!this.mainForm.dirty) {
@@ -450,5 +459,26 @@ export class ResPlanListComponent implements OnInit {
 
     }
 
+    deleteResourcePlans(resPlans: IResPlan[]) {
+        debugger;
+        resPlans.forEach(resPlan => {
+            //entire res plan selected for delete
+            if (resPlan["selected"] == true) {
+                let resPlanCtrlIndex = this.resPlans.controls.findIndex(t => ((t as FormGroup).controls['resUid'].value as string).toUpperCase() == resPlan.resource.resUid.toUpperCase());
+                this.resPlans.removeAt(resPlanCtrlIndex);
+            }
+            // one or more projects selected to delete
+            else {
+                let deletedProjectUids = resPlan.projects.filter(p => p["selected"] == true).map(p => p.projUid.toUpperCase())
+                let resPlanCtrl = this.resPlans.controls.find(t => ((t as FormGroup).controls['resUid'].value as string).toUpperCase() == resPlan.resource.resUid.toUpperCase()) as FormGroup;
+                // let allProjects = resPlanCtrl.value['projects'];
+                // let newProjects = allProjects.filter(a=> deletedProjectUids.indexOf(a["projUid"]) > -1);
+                deletedProjectUids.forEach(deletedProject => {
+                    let index = (resPlanCtrl.controls['projects'] as FormArray).controls.findIndex(t => t.value.projUid.toUpperCase() == deletedProject.toUpperCase());
+                    (resPlanCtrl.controls['projects'] as FormArray).removeAt(index);
+                })
 
+            }
+        });
+    }
 }

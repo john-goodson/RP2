@@ -89,3 +89,10 @@ export interface IDept {
   deptName: string;
 }
 
+export class UpdateResult
+{
+  projectName : string;
+  result:boolean;
+  error:string;
+}
+

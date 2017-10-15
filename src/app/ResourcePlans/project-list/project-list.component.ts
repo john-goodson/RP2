@@ -63,7 +63,8 @@ data:IProject[];
           if (projectsInRP.map(t => t.projUid.toUpperCase()).indexOf(val.projUid.toUpperCase()) < 0)
             return val;
         }, (error) => console.log(error))
-        console.log('all projects in RP=' + filteredProjects.map(t => t.projUid).toString())
+        console.log('all projects in RP=' + projectsInRP.map(t => t.projUid).toString())
+        console.log('projects to show on modal=' + filteredProjects.map(t => t.projUid).toString())
         this.projectList = filteredProjects;
         this.data =filteredProjects;
         //this.buildProjects(filteredProjects);
