@@ -622,12 +622,13 @@ debugger;
                     headers.append('Content-Type', 'application/json;odata=verbose')
                     headers.append('X-RequestDigest', digest)
                     
-                    headers.append('IF-MATCH', '*')
+                    
                     let options = new RequestOptions({
                         withCredentials: true,
                         headers: headers
                     })
                     if(resPlan["selected"] != true){
+                        headers.append('IF-MATCH', '*')
                         headers.append('X-HTTP-Method', 'MERGE')
                     let mergedProjects = `'[${projects.map(t => '{"projUid":"' + t.projUid + '","projName":"' + t.projName + '"}').join(",")}]'`
                     let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ProjectUIDs":${mergedProjects}}"}`
@@ -640,6 +641,7 @@ debugger;
                     })
                 }
                 else{
+                    headers.append('IF-MATCH', data.json().d.results[0].__metadata.etag)
                     headers.append('X-HTTP-Method', 'DELETE')
                     return this.http.post(data.json().d.results[0].__metadata.uri,  options)
                     .map((response:Response)=>{
