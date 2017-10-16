@@ -274,6 +274,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     toggleSelectAll(value: boolean) {
+        debugger;
         this.resPlans.controls.forEach((_resPlan: FormGroup) => {
             _resPlan.controls['selected'].setValue(value, { emitEvent: false });
             (_resPlan.controls['projects'] as FormArray).controls.forEach(element => {
@@ -282,6 +283,8 @@ export class ResPlanListComponent implements OnInit {
         });
     }
     toggleResPlanSelection(_resPlan: FormGroup, selected: boolean) {
+        
+        debugger;
         _resPlan.controls['selected'].setValue(selected, { emitEvent: false });
         (_resPlan.controls['projects'] as FormArray).controls.forEach(element => {
             (element as FormGroup).controls['selected'].setValue(selected, { emitEvent: false })
@@ -407,6 +410,7 @@ export class ResPlanListComponent implements OnInit {
                     var projects = Object.assign([], _projects, this.fb.array(((t as FormGroup).controls['projects'] as FormArray).controls.filter(s => s.dirty == true)).value)
                     let resPlan = new ResPlan();
                     resPlan.resource = new Resource(t.value.resUid, t.value.resName);
+                   
                     resPlan.projects = projects;
                     return resPlan;
                 })
@@ -442,6 +446,9 @@ export class ResPlanListComponent implements OnInit {
                     let resPlan = new ResPlan();
                     resPlan.resource = new Resource(t.value.resUid, t.value.resName);
                     resPlan.projects = projects;
+                    resPlan["selected"] = (t as FormGroup).controls['selected'].value;
+                    console.log(JSON.stringify(resPlan))
+                    //resPlan["selected"] = _resPlan["selected"]
                     return resPlan;
                 })
 
