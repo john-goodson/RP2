@@ -32,6 +32,11 @@ export class AppComponent {
     }
   }
 
+  onLoading(val: boolean) {
+    console.log('toggleLoadingState fired')
+    //this.loading = !this.loading
+  }
+
 
 
 

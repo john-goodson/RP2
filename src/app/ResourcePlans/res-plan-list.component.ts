@@ -1,4 +1,5 @@
-import { Component, OnInit, Inject, DoCheck, AfterViewInit, ViewChild, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Inject, DoCheck, AfterViewInit, ViewChild,
+     AfterViewChecked, Output, EventEmitter  } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
 
 import 'rxjs/add/operator/debounceTime';
@@ -99,8 +100,19 @@ export class ResPlanListComponent implements OnInit {
     timescale: Timescale;
     workunits: WorkUnits;
 
+
+
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
+    } 
+
+    @Output() onLoading = new EventEmitter<boolean>(); 
+    loading = false
+
+    load(val: boolean) {
+ 
+        this.onLoading.emit(true)
+        this.loading = true
     }
 
 
@@ -115,6 +127,7 @@ export class ResPlanListComponent implements OnInit {
 
     ngOnInit(): void {
         debugger;
+        
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
         });
@@ -303,6 +316,7 @@ export class ResPlanListComponent implements OnInit {
     addSelectedResources() {
         debugger;
         //console.log("add resource fired" + JSON.stringify(this._resModalSvc.selectedResources));
+        ///EMIT HERE
         let selectedResources = this._resModalSvc.selectedResources;
         this._resPlanUserStateSvc.getResPlansFromResources(this._resModalSvc.selectedResources, this.fromDate, this.toDate, this.timescale, this.workunits)
             .subscribe(plans => {
