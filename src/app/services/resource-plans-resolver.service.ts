@@ -29,13 +29,15 @@ export class ResourcePlansResolverService implements Resolve<IResPlan[]> {
     let timescale = route.params["timescale"] || Timescale.calendarMonths;
     let workunits = route.params["workunits"] || WorkUnits.days;
 
-    return this._resPlanUserStateSvc.getResPlans(fromDate, toDate, timescale, workunits)
+    return this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr=>{
+    return this._resPlanUserStateSvc.getResPlans(resMgr,fromDate, toDate, timescale, workunits)
       .map(resPlans => {
         if (resPlans) {
           console.log('Resplans from resolver: ')
           return resPlans
         }
       })
+    })
 
   }
 }

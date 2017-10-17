@@ -77,7 +77,8 @@ data:IResource[];
     }
 
   clear() {
-    this._modalResSvc.selectedResources = [];
+    debugger;
+    //this._modalResSvc.selectedResources = [];
     this.selectedResources = [];
   }
 
@@ -86,6 +87,7 @@ data:IResource[];
   selectResource(id: string) {
     //;
     //uncheck use case
+    debugger;
     if (this.selectedResources .length > 0 && this.selectedResources.filter(t => t.resUid == id).length > 0) {
       this.selectedResources.reduce(function (r, v, i) {
         if (v.resUid == id)

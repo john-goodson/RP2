@@ -81,7 +81,7 @@ data:IProject[];
   }
 
   clear() {
-    this._modalSvc.selectedProjects = [];
+    //this._modalSvc.selectedProjects = [];
     this.selectedProjects = [];
   }
 

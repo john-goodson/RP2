@@ -148,7 +148,7 @@ export class ResPlanListComponent implements OnInit {
             //console.log(JSON.stringify(values.resPlans))
         }, (error) => console.log(error))
         this._modalSvc.modalSubmitted$.subscribe(() => {
-            this.addSelectedProjects();
+            this.addSelectedProjects(this.fromDate,this.toDate,this.timescale,this.workunits);
         }, (error) => console.log(error))
         this._resModalSvc.modalSubmitted$.subscribe(() => {
             debugger;
@@ -321,24 +321,32 @@ export class ResPlanListComponent implements OnInit {
         //console.log("add resource fired" + JSON.stringify(this._resModalSvc.selectedResources));
         ///EMIT HERE
         let selectedResources = this._resModalSvc.selectedResources;
-        this._resPlanUserStateSvc.getResPlansFromResources(this._resModalSvc.selectedResources, this.fromDate, this.toDate, this.timescale, this.workunits)
+        this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr=>{
+            debugger
+            console.log('selected resources=' + JSON.stringify(this._resModalSvc.selectedResources))
+        this._resPlanUserStateSvc.getResPlansFromResources(resMgr,this._resModalSvc.selectedResources, this.fromDate, this.toDate, this.timescale, this.workunits)
             .subscribe(plans => {
-                //console.log("=======================added rp=" + JSON.stringify(plans))
+                console.log('added resplans=' + JSON.stringify(plans))
                 this.setIntervalLength((<IResPlan[]>plans).map(t => t.projects).reduce((a, b) => a.concat(b)))
                 this.buildResPlans(plans)
-            }, (error) => console.log(error));
+                this._resModalSvc.selectedResources=[];
+            }, (error) => console.log(error))
+        }, (error) => console.log(error))
     }
 
-    addSelectedProjects() {
-        //console.log("current=" + JSON.stringify(this.currentFormGroup.value))
-        this._resPlanUserStateSvc.addProjects(this._modalSvc.selectedProjects, new Resource(this.currentFormGroup.value["resUid"], this.currentFormGroup.value["resName"]),
-            '2017-05-01', '2017-08-01', Timescale.calendarMonths, WorkUnits.days)
+    addSelectedProjects(fromDate:Date,toDate:Date,timescale:Timescale,workunits:WorkUnits) {
+        this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr=>{
+                    this._resPlanUserStateSvc.addProjects(resMgr,this._modalSvc.selectedProjects, new Resource(this.currentFormGroup.value["resUid"], 
+                    this.currentFormGroup.value["resName"]),
+                    fromDate,toDate, timescale, workunits)
             .subscribe(projects => {
+                this._modalSvc.selectedProjects = [];
                 debugger;
-                //console.log("===added projects" + JSON.stringify(projects))
+                console.log("===added projects" + JSON.stringify(projects))
                 if (projects)
                     this.buildSelectedProjects(projects)
             })
+        }, (error) => console.log(error))
     }
     worksunitsChanged(value) {
         debugger;
@@ -459,12 +467,16 @@ export class ResPlanListComponent implements OnInit {
                 .flatMap(
                 (resPlans: IResPlan[]) => {
                     debugger;
-                   return this._resPlanUserStateSvc.HideResPlans(resPlans as IResPlan[]).map(r => {
+                   return this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr=>{
+                   return this._resPlanUserStateSvc.HideResPlans(resMgr,resPlans as IResPlan[]).map(r => {
                         this.deleteResourcePlans(resPlans)
-                    }
-                    ,
+                    },
                         (error: any) => this.errorMessage = <any>error
                     )
+                },
+                (error: any) => this.errorMessage = <any>error
+            )
+                    
                     // this._resPlanUserStateSvc.HideResPlans(resPlans as IResPlan[]).subscribe(r => {
                     //     this.deleteResourcePlans(resPlans)
                     // }
