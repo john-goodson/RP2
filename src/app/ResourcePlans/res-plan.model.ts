@@ -96,3 +96,9 @@ export class UpdateResult
   error:string;
 }
 
+export class Config
+{
+  projectServerUrl:string;
+  ResPlanUserStateUrl:string;
+}
+

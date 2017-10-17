@@ -8,13 +8,14 @@ import 'rxjs/add/operator/filter'
 import { Observable } from 'rxjs/Rx';
 
 import { IProject, Project } from '../resourcePlans/res-plan.model'
+import {ConfigService} from "./config-service.service"
 
 @Injectable()
 export class ProjectService {
 
     private url: string = 'api/dataservice/';
     public projects: IProject[];
-    constructor(private http: Http) {
+    constructor(private http: Http,private _confiSvc:ConfigService) {
         //let observer = this.getProjects().subscribe(values => this.projects = values);
     }
 
@@ -35,7 +36,7 @@ export class ProjectService {
         })
         
 
-        let baseUrl = 'http://foo.wingtip.com/pwa/_api/ProjectData/Projects?'
+        let baseUrl = `${this._confiSvc.config.projectServerUrl}/_api/ProjectData/Projects?`
         let select = '$select=ProjectId,ProjectName'
         let filter = "" ///$filter=ProjectActiveStatus ne 'Cancelled'";
         return this.http.get(baseUrl + filter + '&' + select, options)

@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IResource, Resource } from '../resourcePlans/res-plan.model'
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-
+import {ConfigService} from "./config-service.service"
 @Injectable()
 export class ResourceService {
 
-  constructor(private http: Http) { }
+  constructor(private http: Http,private _configSvc:ConfigService) { }
 
   getResources() : Observable<IResource[]>
   {
-    let baseUrl = "http://foo.wingtip.com/pwa/_api/ProjectData/Resources"
+    let baseUrl = `${this._configSvc.config.projectServerUrl}/pwa/_api/ProjectData/Resources`
 
         //remember to change UID0 to UID
         let select = '$select=ResourceId,ResourceName'

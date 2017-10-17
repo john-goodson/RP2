@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-
+import{ConfigService,} from './config-service.service'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
@@ -8,17 +8,22 @@ import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/mergeMap'
 import { Observable } from 'rxjs';
 
-import { IResPlan, ResPlan, IProject, Project, WorkUnits, Timescale, IInterval, Interval, IResource, Resource } from '../resourcePlans/res-plan.model'
+import { IResPlan, ResPlan, IProject, Project, WorkUnits, Timescale, IInterval, Interval, IResource, Resource,Config } from '../resourcePlans/res-plan.model'
 declare var $: any;
 declare var moment:any;
 @Injectable()
 export class ResourcePlanUserStateService {
-
-    constructor(private http: Http) { }
+config:Config;
+    constructor(private http: Http,private _configSvc:ConfigService) { 
+       this.config = _configSvc.config;
+    }
 
    getCurrentUserId():Observable<string>
    {
-    let baseUrl = "http://foo.wingtip.com/PWA/_api/SP.UserProfiles.PeopleManager/GetMyProperties/AccountName"
+    
+    
+    console.log("configuration = " + JSON.stringify(this.config))  
+    let baseUrl = `${this.config.projectServerUrl}/_api/SP.UserProfiles.PeopleManager/GetMyProperties/AccountName`
      //1. get data from SP List UserState 
      let url = baseUrl;
      let headers = new Headers();
@@ -32,7 +37,7 @@ export class ResourcePlanUserStateService {
      .flatMap((spData:Response)=>
     {
         var accountName = spData.json().d.AccountName
-        url = "http://foo.wingtip.com/PWA/_api/ProjectData/Resources"
+        url = `${this.config.projectServerUrl}/_api/ProjectData/Resources`
         let filter = "?$filter=ResourceNTAccount eq '" + encodeURIComponent('i:0#.w|' + accountName) + "'"
         return this.http.get(url + filter, options)
         .map((data:Response)=>{
@@ -42,7 +47,7 @@ export class ResourcePlanUserStateService {
    }
 
     getUniqueResourcesForResManager(resUid: string): Observable<IResource[]> {
-        let baseUrl = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
+        let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
 
         //remember to change UID0 to UID
         let select = '$select=ResourceUID0,su3i'
@@ -69,7 +74,7 @@ export class ResourcePlanUserStateService {
 
     getUniqueProjectsForResources(resUids: string[]): Observable<IProject[]> {
 
-        let baseUrl = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
+        let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
 
         //remember to change UID0 to UID
         let select = '$select=ResourceManagerUID,ResourceUID0,ProjectUIDs'
@@ -87,7 +92,7 @@ export class ResourcePlanUserStateService {
 
     getUniqueProjectsForResManager(resMgrUid:string): Observable<IProject[]> {
        debugger
-        let baseUrl = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
+        let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
 
         //remember to change UID0 to UID
         let select = '$select=ResourceManagerUID,ResourceUID0,ProjectUIDs'
@@ -100,7 +105,7 @@ export class ResourcePlanUserStateService {
 
     getUniqueProjectsAcrossResMgrs(resMgrId:string,resources: IResource[]): Observable<IProject[]> {
 debugger
-        let baseUrl = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
+        let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
 
         //remember to change UID0 to UID
         let select = '$select=ResourceManagerUID,ResourceUID0,ProjectUIDs'
@@ -130,8 +135,8 @@ debugger
     }
 
     getProjectIdsFromAssignmentsForResources(resources: IResource[]): Observable<IProject[]> {
-        let baseUrl = "http://foo.wingtip.com/PWA/_api/ProjectData/Assignments";
-        let select = "ProjectId,ProjectName";
+        let baseUrl = `${this.config.projectServerUrl}/_api/ProjectData/Assignments`;
+        let select = "$select=ProjectId,ProjectName";
         let headers = new Headers();
         headers.append('accept', 'application/json;odata=verbose')
         let options = new RequestOptions({
@@ -288,7 +293,7 @@ debugger;
     }
     public getReadOnlyResPlans(resMgrUid:string,resources: IResource[], readOnlyProjects: Observable<IProject[]>): Observable<IResPlan[]> {
         debugger;
-        let baseUrl = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
+        let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
 
         //remember to change UID0 to UID
         let select = '$select=ResourceManagerUID,ResourceUID0,ProjectUIDs,su3i'
@@ -328,7 +333,7 @@ debugger;
     }
 
     public getRequestDigestToken(): Observable<string> {
-        let url = 'http://foo.wingtip.com/PWA/_api/contextinfo';
+        let url = `${this.config.projectServerUrl}/_api/contextinfo`;
         let headers = new Headers();
         headers.append('Accept', 'application/json;odata=verbose')
         let options = new RequestOptions({
@@ -341,7 +346,7 @@ debugger;
         debugger;
         return this.getRequestDigestToken().flatMap(digest => {
             return Observable.from(resourcePlans).flatMap(resource => {
-                let url = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
+                let url = `${this.config.ResPlanUserStateUrl}/Items`
 
                 let headers = new Headers();
                 headers.append('Accept', 'application/json;odata=verbose')
@@ -361,7 +366,7 @@ debugger;
     getResPlansFromProjects(resUid:string,resources: IResource[], projects: IProject[],fromDate:Date,toDate:Date,timescale:Timescale,workunits:WorkUnits): Observable<IResPlan[]> {
         let emptyResPlans = Observable.of(resources.map(r => new ResPlan(r, [])))
         return Observable.from(projects).flatMap((project: IProject) => {
-            return this.getResPlan(resUid,resources, 'http://foo.wingtip.com/PWA', project, fromDate, toDate, timescale,workunits)
+            return this.getResPlan(resUid,resources, `${this.config.projectServerUrl}`, project, fromDate, toDate, timescale,workunits)
 
         }).toArray()
             .merge(emptyResPlans)
@@ -383,7 +388,7 @@ debugger;
       var NowMoment = moment(date);
       return NowMoment.format('YYYY-MM-DD');
     }
-    getResPlan(resUid:string,resources: IResource[], projectUrl: string = 'http://foo.wingtip.com/PWA', project: IProject, start: Date, end: Date, 
+    getResPlan(resUid:string,resources: IResource[], projectUrl: string = `${this.config.projectServerUrl}/`, project: IProject, start: Date, end: Date, 
      timescale: Timescale,workunits:WorkUnits)
         : Observable<IResPlan> {
         console.log('entering getResPlans method');
@@ -440,7 +445,7 @@ debugger;
     addProject(resMgrUid:string,project: IProject, resource: IResource, fromDate: string, toDate: string, timeScale: Timescale, workScale: WorkUnits): Observable<IProject> {
         var success;
         //TODO
-        let pwaPath = "http://foo.wingtip.com/pwa/"
+        let pwaPath = `${this.config.projectServerUrl}/`
         let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
         let body = {
             method: 'PwaAddResourcePlanCommand',
@@ -487,7 +492,7 @@ debugger;
             withCredentials: true,
             headers
         })
-        let url = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
+        let url = `${this.config.ResPlanUserStateUrl}/Items`
         let filter = `?$filter=ResourceManagerUID eq '${resMgrUid}' and su3i eq '${resource.resName}'`
         //1. get data from SP List UserState  
         return this.http.get(url + filter, options)
@@ -531,7 +536,7 @@ debugger;
     saveResPlans(resPlan: IResPlan[], fromDate: Date, toDate: Date, timeScale: Timescale, workScale: WorkUnits): Observable<IResPlan[]> {
         var success;
         //TODO
-        let pwaPath = "http://foo.wingtip.com/pwa/"
+        let pwaPath =`${this.config.projectServerUrl}/`
         let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
         let body = {
             method: 'PwaupdateResourcePlanCommand',
@@ -568,7 +573,7 @@ debugger;
     deleteResPlans(resPlan: IResPlan[], fromDate: Date, toDate: Date, timeScale: Timescale, workScale: WorkUnits): Observable<IResPlan[]> {
         var success;
         //TODO
-        let pwaPath = "http://foo.wingtip.com/pwa/"
+        let pwaPath = `${this.config.projectServerUrl}/`
         let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
         let body = {
             method: 'PwaDeleteResourcePlanCommand',
@@ -620,7 +625,7 @@ debugger;
             withCredentials: true,
             headers
         })
-        let url = "http://foo.wingtip.com/PWA/_api/Web/Lists(guid'd6ad3403-7faf-44bb-b907-b7a689c1d97c')/Items"
+        let url = `${this.config.ResPlanUserStateUrl}/Items`
         let filter = `?$filter=ResourceManagerUID eq '${resMgrUid}' and su3i eq '${resPlan.resource.resName}'`
         //1. get data from SP List UserState  
         return this.http.get(url + filter, options)

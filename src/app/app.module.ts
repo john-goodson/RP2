@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule,NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule,NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA,APP_INITIALIZER } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
@@ -11,7 +11,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { Daterangepicker, DaterangepickerConfig } from 'ng2-daterangepicker'
 
 
-
+import {Config} from './resourcePlans/res-plan.model'
 import { ModalCommunicator } from  './resourcePlans/modal-communicator.service'
 import { ResourcesModalCommunicatorService } from  './resourcePlans/resources-modal-communicator.service'
 
@@ -34,6 +34,7 @@ import {ProjectService} from './services/project-service.service'
 import { ResourcePlanService } from './services/resource-plan.service'
 import {ResourcePlanUserStateService} from './services/resource-plan-user-state.service';
 import {ResourceService} from './services/resource.service'
+import {ConfigService} from './services/config-service.service'
 import { ProjectListFilterPipe } from './common/project-list-filter.pipe'
 
 import { ResourcePlansResolverService } from './services/resource-plans-resolver.service';
@@ -45,6 +46,10 @@ import { ResPlanTimescaleComponent } from './res-plan-timescale/res-plan-timesca
 import { DateRangePickerComponent } from './resourcePlans/date-range-picker/date-range-picker.component';
 import { ResPlanWorkunitsComponent } from './resourcePlans/res-plan-workunits/res-plan-workunits.component'
 //let jQuery : Object;
+// Add this function
+function initConfig(configSvc: ConfigService){
+  return () => configSvc.ReadConfig() 
+ }
 
 @NgModule({
   declarations: [
@@ -81,7 +86,12 @@ import { ResPlanWorkunitsComponent } from './resourcePlans/res-plan-workunits/re
   providers: [    ModalCommunicator, ResourcesModalCommunicatorService,ProjectService, ResourcePlanService
     , ResourcePlanUserStateService
     , ResourcePlansResolverService
-    ,ResourceService, SPListService  ],
+    ,ResourceService, SPListService
+  ,ConfigService , 
+  { provide: APP_INITIALIZER,
+     useFactory: initConfig, // And use it here
+     deps: [ConfigService], 
+     multi: true }   ],
   bootstrap: [AppComponent]
   
 })
