@@ -10,7 +10,7 @@ export class ResourceService {
 
   getResources() : Observable<IResource[]>
   {
-    let baseUrl = `${this._configSvc.config.projectServerUrl}/pwa/_api/ProjectData/Resources`
+    let baseUrl = `${this._configSvc.config.projectServerUrl}/_api/ProjectData/Resources`
 
         //remember to change UID0 to UID
         let select = '$select=ResourceId,ResourceName'
