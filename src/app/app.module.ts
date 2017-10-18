@@ -45,9 +45,8 @@ import { ResPlanHeaderRowComponent } from './resourcePlans/res-plan-header-row/r
 import { ResPlanTimescaleComponent } from './res-plan-timescale/res-plan-timescale.component';
 import { DateRangePickerComponent } from './resourcePlans/date-range-picker/date-range-picker.component';
 import { ResPlanWorkunitsComponent } from './resourcePlans/res-plan-workunits/res-plan-workunits.component'
-//let jQuery : Object;
-// Add this function
-function initConfig(configSvc: ConfigService){
+//let jQuery : Object;// Add this function
+export function initConfig(configSvc: ConfigService){
   return () => configSvc.ReadConfig() 
  }
 
@@ -95,4 +94,5 @@ function initConfig(configSvc: ConfigService){
   bootstrap: [AppComponent]
   
 })
+
 export class AppModule { }

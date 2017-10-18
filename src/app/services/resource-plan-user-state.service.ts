@@ -398,34 +398,38 @@ debugger;
             withCredentials: true,
             headers
         })
-        let baseUrl = `${projectUrl}/_api/ProjectServer/Projects('${project.projUid}')/GetResourcePlanByUrl
-        (start='${this.getDateFormatString(start)}',end='${this.getDateFormatString(end)}',scale='${timescale}')/Assignments`;
-        let expand = "$expand=Intervals,Resource/Id"
-        //            let filter = '$filter=' + resources.map((k:IResource)=>k.resUid).map(t=>"Resource/Id eq '" + t ).join(" or ")
-        return this.http.get(baseUrl + '?' + expand, options).switchMap(response => response.json().d.results)
-            .map((response: Object) => {
-               
-                var p = new Project(project.projUid, project.projName,false,[]);
-                p.readOnly = project.readOnly;
-                let resUid = response["Resource"]["Id"];
-                var resPlan = new ResPlan(new Resource(resUid, response["Name"]), [p]);
-                var intervals = response["Intervals"]["results"];
-                intervals.forEach(element => {
-
-                    var interval = new Interval(element["Name"], element["Duration"],new Date(element["Start"]),new Date(element["End"]));
-                    p.intervals.push(interval);
-                });
-
-                return resPlan;
+        let pwaPath = `${this.config.projectServerUrl}/`
+        let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
+        let body = {
+            method: 'PwaGetResourcePlansCommand',
+            'puid': project.projUid,
+            'fromDate': this.getDateFormatString(start),
+            'toDate': this.getDateFormatString(end),
+            'timeScale': this.getTimeScaleString(timescale),
+            'workScale': WorkUnits[workunits]
+        }
+        
+        return Observable.fromPromise($.ajax({
+            url: adapterPath,
+            type: 'POST',
+            dataType: "json",
+            data: body
+        }))
+            .map((r: ResPlan) => {
+                // let resPlans : IResPlan
+                // debugger;
+                // console.log("++++++++++++++++++++++++++++++++++++++++")
+                // Object.assign({}, resPlans, r)
+               return r;
             })
-            .merge(
-            Observable.from(resources).flatMap((r: IResource) => {
-                return Observable.of(new ResPlan(new Resource(r.resUid, r.resName)))
-            })
-            )
-            .filter((t: IResPlan) => {
-                return resources.find(k => k.resUid.toUpperCase() == t.resource.resUid.toUpperCase()) != null
-            })
+            // .merge(
+            // Observable.from(resources).flatMap((r: IResource) => {
+            //     return Observable.of(new ResPlan(new Resource(r.resUid, r.resName)))
+            // })
+            //)
+            // .filter((t: IResPlan) => {
+            //     return resources.find(k => k.resUid.toUpperCase() == t.resource.resUid.toUpperCase()) != null
+            // })
 
     }
 
