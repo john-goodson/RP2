@@ -21,7 +21,6 @@ export class DateRangePickerComponent implements OnInit {
   };
   public selectedDate(value: any, datepicker?: any) {
     // this is the date the iser selected
-    debugger
     console.log(JSON.stringify(value));
     this.onDateRangeChanged.emit(value)
 

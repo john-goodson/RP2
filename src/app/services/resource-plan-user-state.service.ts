@@ -91,7 +91,7 @@ config:Config;
     }
 
     getUniqueProjectsForResManager(resMgrUid:string): Observable<IProject[]> {
-       debugger
+       
         let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
 
         //remember to change UID0 to UID
@@ -104,7 +104,7 @@ config:Config;
     }
 
     getUniqueProjectsAcrossResMgrs(resMgrId:string,resources: IResource[]): Observable<IProject[]> {
-debugger
+
         let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
 
         //remember to change UID0 to UID
@@ -124,7 +124,7 @@ debugger
         return this.http.get(url, options)
             .switchMap((data: Response) => data.json().d.results)
             .filter((t: Object) => {
-                debugger;
+                ;
                 return (resources.map(r => r.resUid).find(f => f.toUpperCase() == t["ResourceUID0"].toUpperCase()) != null)
             })
             .pluck('ProjectUIDs')
@@ -145,7 +145,7 @@ debugger
         })
         //console.log('=======================hitting project server for assigments')
         return Observable.from(resources).flatMap(t => {
-            let filter = `ResourceName eq '${t.resName}' and AssignmentType eq 101`
+            let filter = `$filter=ResourceName eq '${t.resName}' and AssignmentType eq 101`
             let url = baseUrl + '?' + filter + '&' + select;
             // get unique project Uids from PS where the current resource has access to
             //and project has resource plan assignments
@@ -179,7 +179,7 @@ debugger
 
             .map((data: Response) =>
             { 
-                debugger;
+                ;
                 let allProjects:IProject[] =[];
                  data.json().d.results.forEach(element => {
                      let data = JSON.parse(element['ProjectUIDs']).map(project => { return new Project(project.projUid, project.projName,false,[]) })
@@ -204,7 +204,7 @@ debugger
             
             return uniqueProjectsResMgrHasAccessOn.flatMap(projectsWithRights => {
                 return val.map(x => {
-                    debugger;
+                    ;
                     if (projectsWithRights.find(k => k.projUid.toUpperCase() == x.projUid.toUpperCase()) == null) {
                         x.readOnly = true;
                     }
@@ -248,15 +248,12 @@ debugger
                 })
             })
         }).toArray()
-        var readableProjects = allProjectsWithReadOnlyFlags
-            .map(t => {
-                return t.filter(project => project.readOnly == false)
-            })
+      
 
-        var readOnlyProjects = allProjectsWithReadOnlyFlags.map(t => { debugger; return t.filter(project => project.readOnly == true) })
-        var readableResPlans = readableProjects.flatMap(projects => {
+        var readOnlyProjects = allProjectsWithReadOnlyFlags.map(t => { ; return t.filter(project => project.readOnly == true) })
+        var readableResPlans = projectsThatUserHasAccessOn.flatMap(projects => {
             return this.getResPlansFromProjects(resMgrUid,resources, projects,fromDate,toDate,timescale,workunits).filter((r: IResPlan[]) => {
-                debugger;
+                ;
                 return r.find(x => {
                     return resources.map(p => p.resUid.toUpperCase()).indexOf(x.resource.resUid.toUpperCase()) > -1
                 }) != null
@@ -269,11 +266,11 @@ debugger
 
         return readableResPlans.flatMap(x => {
             return this.getReadOnlyResPlans(resMgrUid,resources, readOnlyProjects).flatMap(t => {
-debugger;
+;
                 return Observable.from(x.concat(t)).groupBy(t => {
                     return t.resource.resUid.toUpperCase()
                 }).flatMap(group => {
-                    debugger;
+                    ;
                     return group && group.key && group.reduce(function (a, b) {
                         for (var i = 0; i < b.projects.length; i++) {
                             if (a.projects.findIndex(t => t.projUid.toUpperCase() == b.projects[i].projUid.toUpperCase()) < 0)
@@ -292,7 +289,7 @@ debugger;
         // })
     }
     public getReadOnlyResPlans(resMgrUid:string,resources: IResource[], readOnlyProjects: Observable<IProject[]>): Observable<IResPlan[]> {
-        debugger;
+        ;
         let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
 
         //remember to change UID0 to UID
@@ -343,7 +340,7 @@ debugger;
         return this.http.post(url, {}, options).map(response => JSON.parse(response["_body"]).d.GetContextWebInformation.FormDigestValue)
     }
     public AddResourceToManager(resMgrUid: string, resourcePlans: IResPlan[]): Observable<Response> {
-        debugger;
+        ;
         return this.getRequestDigestToken().flatMap(digest => {
             return Observable.from(resourcePlans).flatMap(resource => {
                 let url = `${this.config.ResPlanUserStateUrl}/Items`
@@ -381,7 +378,7 @@ debugger;
                 })
 
             }).toArray().do(t => {
-                debugger;
+                ;
             })
     }
     getDateFormatString(date:Date):string{
@@ -418,10 +415,12 @@ debugger;
         }))
             .flatMap((r: ResPlan[]) => {
                 // let resPlans : IResPlan
-                // debugger;
+                // ;
                 // console.log("++++++++++++++++++++++++++++++++++++++++")
                 // Object.assign({}, resPlans, r)
+                
                 return Observable.from(r)
+                
             })
             .merge(
             Observable.from(resources).flatMap((r: IResource) => {
@@ -477,7 +476,7 @@ debugger;
             dataType: "json",
             data: body
         })).map(r => {
-            debugger;
+            ;
             if (r["Result"] == true) {
                 this.addProjectToResMgr(resMgrUid, project, resource)
                 return project;
@@ -503,7 +502,7 @@ debugger;
         return this.http.get(url + filter, options)
 
             .subscribe((data: Response) => {
-                debugger;
+                ;
                 let projects = JSON.parse(data.json().d.results[0]["ProjectUIDs"]).map(project => { return new Project(project.projUid, project.projName,false,[]) })
                 projects = projects.concat(project)
                 this.getRequestDigestToken().subscribe(digest => {
@@ -527,7 +526,7 @@ debugger;
     }
 
     getTimeScaleString(value: Timescale): string {
-        debugger;
+        ;
         switch (value.toString()) {
             case Timescale.calendarMonths.toString(): return "Calendar Months";
             case Timescale.financialMonths.toString(): return "Financial Months";
@@ -565,7 +564,7 @@ debugger;
             dataType: "json",
             data: body
         })).map(r => {
-            debugger;
+            ;
             if (r["Result"] == true) {
                 return resPlan;
             }
@@ -603,7 +602,7 @@ debugger;
             data: body
         })).map((r:Response) => {
             let resPlans : [IResPlan]
-            debugger;
+            ;
             return Object.assign([], resPlans, r)
         })
         
@@ -616,7 +615,7 @@ debugger;
     {
       return Observable.from(resPlans)
       .flatMap(resPlan=>{
-          debugger;
+          ;
           return this.HideResPlan(resMgrUid,resPlan)
          
       })
@@ -637,7 +636,7 @@ debugger;
         return this.http.get(url + filter, options)
 
             .flatMap((data:Response)=> {
-                debugger;
+                ;
                 let projects =<IProject[]> JSON.parse(data.json().d.results[0]["ProjectUIDs"]).map(project => { return new Project(project.projUid, project.projName,false,[]) })
                 projects = projects.filter(p=>resPlan.projects.map(t=>t.projUid.toUpperCase()).indexOf(p.projUid.toUpperCase()) < 0)
                 return this.getRequestDigestToken().flatMap(digest => {

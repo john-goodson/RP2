@@ -51,7 +51,6 @@ data:IResource[];
     this._modalResSvc.ResourcesSelected$.subscribe((resourcesPicked: IResource[]) => {
       this._resSvc.getResources().subscribe(resources => {
         this.resData = resources
-        debugger;
         let filteredResources = this.resData.filter(val => {
        
        if(resourcesPicked.map(t=>t.resName.toUpperCase()).indexOf(val.resName.toUpperCase())< 0)
@@ -77,7 +76,6 @@ data:IResource[];
     }
 
   clear() {
-    debugger;
     //this._modalResSvc.selectedResources = [];
     this.selectedResources = [];
   }
@@ -87,7 +85,6 @@ data:IResource[];
   selectResource(id: string) {
     //;
     //uncheck use case
-    debugger;
     if (this.selectedResources .length > 0 && this.selectedResources.filter(t => t.resUid == id).length > 0) {
       this.selectedResources.reduce(function (r, v, i) {
         if (v.resUid == id)

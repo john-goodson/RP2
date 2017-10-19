@@ -13,7 +13,6 @@ export class ResPlanTimescaleComponent implements OnInit {
   constructor(private _route: ActivatedRoute) { }
 timescale:Timescale;
   ngOnInit() {
-    debugger;
     $('#timescale').val(this._route.snapshot.params["timescale"] || '5');
   }
 
