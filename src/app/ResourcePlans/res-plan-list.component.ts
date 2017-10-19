@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, DoCheck, AfterViewInit, ViewChild,
      AfterViewChecked, Output, EventEmitter  } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
-
+import {IntervalPipe} from "../common/interval.pipe"
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/mergeMap';
 
@@ -134,10 +134,10 @@ export class ResPlanListComponent implements OnInit {
         let today = new Date();
         let todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         let lastYearDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
-        this.fromDate = this._route.params["fromDate"] && new Date(this._route.params["fromDate"]) || lastYearDate;
-        this.toDate = this._route.params["toDate"] && new Date(this._route.params["toDate"]) || todayDate;
-        this.timescale = this._route.params["timescale"] || Timescale.calendarMonths;
-        this.workunits = this._route.params["workunits"] || WorkUnits.days;
+        this.fromDate = this._route.snapshot.params["fromDate"] && new Date(this._route.snapshot.params["fromDate"]) || lastYearDate;
+        this.toDate = this._route.snapshot.params["toDate"] && new Date(this._route.snapshot.params["toDate"]) || todayDate;
+        this.timescale = this._route.snapshot.params["timescale"] || Timescale.calendarMonths;
+        this.workunits = this._route.snapshot.params["workunits"] || WorkUnits.days;
 
         this._route.data.subscribe(values => {
             this.resPlanData = values.resPlans;
@@ -178,7 +178,7 @@ export class ResPlanListComponent implements OnInit {
                 }
                 sum += val;
             }
-            value["totals"][i]['intervalValue'] = sum;
+            value["totals"][i]['intervalValue'] = new IntervalPipe().transform(sum.toString(),this.workunits);
         }
         fg.setValue(value, { emitEvent: false });
         //console.log('Totals... ' + JSON.stringify(value) + "      stop....")
@@ -231,7 +231,7 @@ export class ResPlanListComponent implements OnInit {
     buildInterval(interval: IInterval): FormGroup {
         return this.fb.group({
             intervalName: interval.intervalName,
-            intervalValue: interval.intervalValue
+            intervalValue: new IntervalPipe().transform(interval.intervalValue,this.workunits)
         });
     }
 
@@ -241,7 +241,7 @@ export class ResPlanListComponent implements OnInit {
 
             var total = this.fb.group({
                 intervalName: '',
-                intervalValue: '0'
+                intervalValue: new IntervalPipe().transform('0',this.workunits)
             });
             totals.push(total);
         }
@@ -348,12 +348,12 @@ export class ResPlanListComponent implements OnInit {
             })
         }, (error) => console.log(error))
     }
-    worksunitsChanged(value) {
+    worksunitsChanged(value:number) {
         debugger;
         this.workunits = value;
         this.ReloadPage();
     }
-    timescaleChanged(value) {
+    timescaleChanged(value:number) {
         debugger;
         this.timescale = value;
         this.ReloadPage();

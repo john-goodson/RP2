@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError, NavigationCancel } from '@angular/router';
+import { ModalCommunicator } from './resourcePlans/modal-communicator.service'
 
 @Component({
   selector: 'app-root',
@@ -13,8 +14,8 @@ export class AppComponent {
 
   constructor(
 
-    private router: Router) {
-
+    private router: Router,private _modalSvc:ModalCommunicator) {
+      _modalSvc.modalSubmitted$.subscribe( val => console.log('inside root component: Submit was clicked'))
     router.events.subscribe((routerEvent: Event) => {
       this.checkRouterEvent(routerEvent);
     },(error)=>console.log(error));

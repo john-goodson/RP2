@@ -44,7 +44,8 @@ import { ResPlanHomeComponent } from './resourcePlans/res-plan-home/res-plan-hom
 import { ResPlanHeaderRowComponent } from './resourcePlans/res-plan-header-row/res-plan-header-row.component';
 import { ResPlanTimescaleComponent } from './res-plan-timescale/res-plan-timescale.component';
 import { DateRangePickerComponent } from './resourcePlans/date-range-picker/date-range-picker.component';
-import { ResPlanWorkunitsComponent } from './resourcePlans/res-plan-workunits/res-plan-workunits.component'
+import { ResPlanWorkunitsComponent } from './resourcePlans/res-plan-workunits/res-plan-workunits.component';
+import { IntervalPipe } from './common/interval.pipe'
 //let jQuery : Object;// Add this function
 export function initConfig(configSvc: ConfigService){
   return () => configSvc.ReadConfig() 
@@ -67,6 +68,7 @@ export function initConfig(configSvc: ConfigService){
     ResPlanTimescaleComponent,
     DateRangePickerComponent,
     ResPlanWorkunitsComponent,
+    IntervalPipe,
   ],
 
   imports: [

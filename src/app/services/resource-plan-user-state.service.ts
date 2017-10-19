@@ -403,6 +403,7 @@ debugger;
         let body = {
             method: 'PwaGetResourcePlansCommand',
             'puid': project.projUid,
+            'projname' : project.projName,
             'fromDate': this.getDateFormatString(start),
             'toDate': this.getDateFormatString(end),
             'timeScale': this.getTimeScaleString(timescale),
@@ -415,21 +416,21 @@ debugger;
             dataType: "json",
             data: body
         }))
-            .map((r: ResPlan) => {
+            .flatMap((r: ResPlan[]) => {
                 // let resPlans : IResPlan
                 // debugger;
                 // console.log("++++++++++++++++++++++++++++++++++++++++")
                 // Object.assign({}, resPlans, r)
-               return r;
+                return Observable.from(r)
             })
-            // .merge(
-            // Observable.from(resources).flatMap((r: IResource) => {
-            //     return Observable.of(new ResPlan(new Resource(r.resUid, r.resName)))
-            // })
-            //)
-            // .filter((t: IResPlan) => {
-            //     return resources.find(k => k.resUid.toUpperCase() == t.resource.resUid.toUpperCase()) != null
-            // })
+            .merge(
+            Observable.from(resources).flatMap((r: IResource) => {
+                return Observable.of(new ResPlan(new Resource(r.resUid, r.resName)))
+            })
+            )
+            .filter((t: IResPlan) => {
+                return resources.find(k => k.resUid.toUpperCase() == t.resource.resUid.toUpperCase()) != null
+            })
 
     }
 
@@ -527,10 +528,11 @@ debugger;
 
     getTimeScaleString(value: Timescale): string {
         debugger;
-        switch (value) {
-            case Timescale.calendarMonths: return "Calendar Months";
-            case Timescale.financialMonths: return "Financial Months";
-            case Timescale.weeks: return "Weeks";
+        switch (value.toString()) {
+            case Timescale.calendarMonths.toString(): return "Calendar Months";
+            case Timescale.financialMonths.toString(): return "Financial Months";
+            case Timescale.weeks.toString(): return "Weeks";
+            case Timescale.years.toString(): return "Years";
             default: return "";
 
         }
