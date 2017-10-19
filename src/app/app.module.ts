@@ -14,6 +14,7 @@ import { Daterangepicker, DaterangepickerConfig } from 'ng2-daterangepicker'
 import {Config} from './resourcePlans/res-plan.model'
 import { ModalCommunicator } from  './resourcePlans/modal-communicator.service'
 import { ResourcesModalCommunicatorService } from  './resourcePlans/resources-modal-communicator.service'
+import { AppStateService } from  './services/app-state.service'
 
 import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component';
 
@@ -88,6 +89,7 @@ export function initConfig(configSvc: ConfigService){
     , ResourcePlanUserStateService
     , ResourcePlansResolverService
     ,ResourceService, SPListService
+    ,AppStateService
   ,ConfigService , 
   { provide: APP_INITIALIZER,
      useFactory: initConfig, // And use it here

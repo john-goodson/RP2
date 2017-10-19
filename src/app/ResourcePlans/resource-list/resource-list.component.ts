@@ -9,6 +9,7 @@ import { ResourcesModalCommunicatorService } from '../../resourcePlans/resources
 import 'rxjs/add/operator/filter';
 
 import { ResourceService } from '../../services/resource.service'
+import {AppStateService} from '../../services/app-state.service'
 import { Observable } from 'Rxjs'
 
 @Component({
@@ -43,12 +44,14 @@ export class ResourceListComponent implements OnInit {
 };
 data:IResource[];
 
-  constructor(private fb: FormBuilder, private _resSvc: ResourceService, private _modalResSvc: ResourcesModalCommunicatorService) { 
+  constructor(private fb: FormBuilder, private _resSvc: ResourceService, 
+    private _modalResSvc: ResourcesModalCommunicatorService,private _appSvc:AppStateService) { 
     
   }
 
   ngOnInit() {
     this._modalResSvc.ResourcesSelected$.subscribe((resourcesPicked: IResource[]) => {
+      this._appSvc.loading(true);
       this._resSvc.getResources().subscribe(resources => {
         this.resData = resources
         let filteredResources = this.resData.filter(val => {
@@ -59,12 +62,9 @@ data:IResource[];
         console.log('filtered resources to pick=' + filteredResources.map(t => t.resUid).toString())
         this.resourceList = filteredResources;
         this.data = this.resourceList;
-        
-                
-            
-        //this.reloadResources({limit:8,offset:0,sortBy:"rating",sortAsc:false});
+        this._appSvc.loading(false);
       },(error)=>console.log(error))
-    },(error)=>console.log(error))
+    },(error)=>{ console.log(error);this._appSvc.loading(false);})
 
     this._modalResSvc.modalSubmitted$.subscribe(success => this.clear(),
             error => console.log('error'));

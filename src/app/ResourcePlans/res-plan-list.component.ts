@@ -18,6 +18,7 @@ import { ProjectService } from '../services/project-service.service'
 import { ResourcePlanService } from '../services/resource-plan.service'
 import { ResourcePlanUserStateService } from '../services/resource-plan-user-state.service'
 import { ResourcesModalCommunicatorService } from '../resourcePlans/resources-modal-communicator.service'
+import { AppStateService } from '../services/app-state.service'
 
 @Component({
     selector: 'resplan-list',
@@ -123,6 +124,7 @@ export class ResPlanListComponent implements OnInit {
         private _resourcePlanSvc: ResourcePlanService
         , private _resPlanUserStateSvc: ResourcePlanUserStateService
         , private _resModalSvc: ResourcesModalCommunicatorService
+        ,private _appSvc :AppStateService
         , private _route: ActivatedRoute) { }
 
     ngOnInit(): void {
@@ -321,6 +323,7 @@ export class ResPlanListComponent implements OnInit {
         //console.log("add resource fired" + JSON.stringify(this._resModalSvc.selectedResources));
         ///EMIT HERE
         let selectedResources = this._resModalSvc.selectedResources;
+        this._appSvc.loading(true);
         this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr=>{
             debugger
             console.log('selected resources=' + JSON.stringify(this._resModalSvc.selectedResources))
@@ -330,11 +333,13 @@ export class ResPlanListComponent implements OnInit {
                 this.setIntervalLength((<IResPlan[]>plans).map(t => t.projects).reduce((a, b) => a.concat(b)))
                 this.buildResPlans(plans)
                 this._resModalSvc.selectedResources=[];
-            }, (error) => console.log(error))
-        }, (error) => console.log(error))
+                this._appSvc.loading(false);
+            }, (error) => {console.log(error);this._appSvc.loading(false);})
+        }, (error) => {console.log(error);this._appSvc.loading(false);})
     }
 
     addSelectedProjects(fromDate:Date,toDate:Date,timescale:Timescale,workunits:WorkUnits) {
+        this._appSvc.loading(true);
         this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr=>{
                     this._resPlanUserStateSvc.addProjects(resMgr,this._modalSvc.selectedProjects, new Resource(this.currentFormGroup.value["resUid"], 
                     this.currentFormGroup.value["resName"]),
@@ -345,8 +350,9 @@ export class ResPlanListComponent implements OnInit {
                 console.log("===added projects" + JSON.stringify(projects))
                 if (projects)
                     this.buildSelectedProjects(projects)
+                    this._appSvc.loading(false);
             })
-        }, (error) => console.log(error))
+        }, (error) => {console.log(error);this._appSvc.loading(false);})
     }
     worksunitsChanged(value:number) {
         debugger;
@@ -426,11 +432,14 @@ export class ResPlanListComponent implements OnInit {
 
 
             console.log("dirty resPlans" + JSON.stringify(resourceplans))
+            this._appSvc.loading(true);
             this._resPlanUserStateSvc.saveResPlans(resourceplans, fromDate, toDate, timescale, workunits)
                 .subscribe(
                 () => this.onSaveComplete(),
-                (error: any) => this.errorMessage = <any>error
-                );
+                (error: any) => {
+                    this.errorMessage = <any>error
+                    this._appSvc.loading(false);
+                });
         }
         //()
         else if (!this.mainForm.dirty) {
@@ -463,6 +472,7 @@ export class ResPlanListComponent implements OnInit {
 
 
             console.log("dirty resPlans" + JSON.stringify(resourceplans))
+            this._appSvc.loading(true);
             this._resPlanUserStateSvc.deleteResPlans(resourceplans, fromDate, toDate, timescale, workunits)
                 .flatMap(
                 (resPlans: IResPlan[]) => {
@@ -470,11 +480,16 @@ export class ResPlanListComponent implements OnInit {
                    return this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr=>{
                    return this._resPlanUserStateSvc.HideResPlans(resMgr,resPlans as IResPlan[]).map(r => {
                         this.deleteResourcePlans(resPlans)
+                        this._appSvc.loading(false);
                     },
-                        (error: any) => this.errorMessage = <any>error
+                        (error: any) => {this.errorMessage = <any>error
+                        this._appSvc.loading(false);}
                     )
                 },
-                (error: any) => this.errorMessage = <any>error
+                (error: any) => {
+                    this.errorMessage = <any>error;
+                    this._appSvc.loading(false);
+                }
             )
                     
                     // this._resPlanUserStateSvc.HideResPlans(resPlans as IResPlan[]).subscribe(r => {
@@ -493,7 +508,7 @@ export class ResPlanListComponent implements OnInit {
     onSaveComplete(): void {
         // Reset the form to clear the flags
         //this.mainForm.reset();
-        this.router.navigate(['/foo']);
+        this._appSvc.loading(false);
 
     }
 

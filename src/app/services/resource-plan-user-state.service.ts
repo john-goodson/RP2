@@ -665,9 +665,10 @@ config:Config;
                     })
                 }
                 else{
-                    headers.append('IF-MATCH', data.json().d.results[0].__metadata.etag)
+                    //headers.append('IF-MATCH', data.json().d.results[0].__metadata.etag)
+                    headers.append('IF-MATCH', '*')
                     headers.append('X-HTTP-Method', 'DELETE')
-                    return this.http.post(data.json().d.results[0].__metadata.uri,  options)
+                    return this.http.post(data.json().d.results[0].__metadata.uri,null,options)
                     .map((response:Response)=>{
                         if(response.status == 200)
                         {

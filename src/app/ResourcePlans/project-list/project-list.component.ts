@@ -9,6 +9,7 @@ import { ModalCommunicator } from '../../resourcePlans/modal-communicator.servic
 import 'rxjs/add/operator/filter';
 
 import { ProjectService } from '../../services/project-service.service'
+import{ AppStateService} from '../../services/app-state.service'
 import { ProjectListFilterPipe } from '../../common/project-list-filter.pipe'
 import { Observable } from 'Rxjs'
 
@@ -48,13 +49,17 @@ export class ProjectListComponent implements OnInit {
 };
 data:IProject[];
 
-  constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator, private _projSvc: ProjectService) { }
+  constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator, private _projSvc: ProjectService
+    ,private _appSvc:AppStateService
+  ) { }
 
 
   ngOnInit(): void {
+    
     console.log('project list component created');
 
     this._modalSvc.projectsAssignedToResource$.subscribe((projectsInRP: IProject[]) => {
+      this._appSvc.loading(true);
       this._projSvc.getProjects().subscribe(projects => {
 
         this.projData = projects
@@ -67,11 +72,10 @@ data:IProject[];
         console.log('projects to show on modal=' + filteredProjects.map(t => t.projUid).toString())
         this.projectList = filteredProjects;
         this.data =filteredProjects;
-        //this.buildProjects(filteredProjects);
-
+        this._appSvc.loading(false);
       })
 
-    }, (error) => console.log(error))
+    }, (error) => {console.log(error);this._appSvc.loading(false);})
     this._modalSvc.modalSubmitted$.subscribe(success => this.clear(),
       error => console.log('error'));
   }

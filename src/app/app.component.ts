@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError, NavigationCancel } from '@angular/router';
-
+import { AppStateService } from './services/app-state.service'
 
 @Component({
   selector: 'app-root',
@@ -14,8 +14,8 @@ export class AppComponent {
 
   constructor(
 
-    private router: Router) {
-      // _modalSvc.modalSubmitted$.subscribe( val => console.log('inside root component: Submit was clicked'))
+    private router: Router,private _appSvc:AppStateService) {
+      _appSvc.loading$.subscribe( val => this.loading = val)
     router.events.subscribe((routerEvent: Event) => {
       this.checkRouterEvent(routerEvent);
     },(error)=>console.log(error));
