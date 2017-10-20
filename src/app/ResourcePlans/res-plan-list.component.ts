@@ -453,12 +453,12 @@ export class ResPlanListComponent implements OnInit {
 
     deleteResPlans(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits): void {
         debugger;
-        if (this.mainForm.dirty && this.mainForm.valid) {
+        if (this.mainForm.valid) {
 
 
             let resourceplans = this.fb.array(this.resPlans.controls
-                .filter(item => item.dirty === true // item is dirty
-                    && (item.value.selected || item.value.projects.map(p => p.selected == true).length > 0) // res Plan marked for delete or atleast one project in ResPlan marked for delete
+                .filter(item => 
+                    (item.value.selected || item.value.projects.map(p => p.selected == true).length > 0) // res Plan marked for delete or atleast one project in ResPlan marked for delete
                 )).controls
                 .map(t => {
                     var _resPlan: IResPlan;

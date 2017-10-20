@@ -217,7 +217,7 @@ config:Config;
         }).distinct(t=>t.projUid).toArray()
         return resourceForResMgr.flatMap(resources => {
 
-            return projectsWithreadOnlyFlag.flatMap(projects =>
+            return uniqueProjectsResMgrHasAccessOn.flatMap(projects =>
                 this.getResPlansFromProjects(resMgrUid,resources, projects,fromDate,toDate,timescale,workunits)
                 // .do(t => {
                 //     //console.log('resource plans read from add resource =' + JSON.stringify(t))
