@@ -497,6 +497,7 @@ config:Config;
             headers
         })
         let url = `${this.config.ResPlanUserStateUrl}/Items`
+        //toDo
         let filter = `?$filter=ResourceManagerUID eq '${resMgrUid}' and su3i eq '${resource.resName}'`
         //1. get data from SP List UserState  
         return this.http.get(url + filter, options)
