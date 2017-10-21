@@ -382,7 +382,7 @@ config:Config;
             })
     }
     getDateFormatString(date:Date):string{
-      var NowMoment = moment(date);
+      var NowMoment = moment(date)
       return NowMoment.format('YYYY-MM-DD');
     }
     getResPlan(resUid:string,resources: IResource[], projectUrl: string = `${this.config.projectServerUrl}/`, project: IProject, start: Date, end: Date, 

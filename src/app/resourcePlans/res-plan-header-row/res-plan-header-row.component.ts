@@ -1,6 +1,7 @@
 import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
 import {IResPlan,Timescale,WorkUnits,IInterval} from '../../resourcePlans/res-plan.model';
 import { ActivatedRoute, Router } from '@angular/router';
+declare var moment:any;
 
 @Component({
   selector: 'res-plan-header-row',
@@ -35,6 +36,10 @@ visible: boolean = true;
      if(projectWithIntervals)
      {
        this._intervals = projectWithIntervals.intervals;
+       this._intervals.forEach(interval=>{
+        interval.end = moment(interval.end).add(-1,'days').toDate();
+       })
+       
        //TODO how to break out of for loop when intervals already found
      }
 
