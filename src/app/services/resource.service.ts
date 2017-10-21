@@ -13,7 +13,7 @@ export class ResourceService {
     let baseUrl = `${this._configSvc.config.projectServerUrl}/_api/ProjectData/Resources`
 
         //remember to change UID0 to UID
-        let select = '$select=ResourceId,ResourceName'
+        let select = '$select=ResourceId,ResourceName,RBS'
         let filter = '$filter=ResourceIsActive eq true';
         //1. get data from SP List UserState 
         let url =  baseUrl + '?' + filter + '&' + select;
@@ -28,7 +28,8 @@ export class ResourceService {
         return this.http.get(url, options)
             .switchMap((data: Response) => data.json().d.results)
             .map((resource: Object) => {
-                 return new Resource(resource["ResourceId"],resource["ResourceName"])
+                debugger;
+                 return new Resource(resource["ResourceId"],resource["ResourceName"],resource['RBS'])
             }).toArray()
             
   }

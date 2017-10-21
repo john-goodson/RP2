@@ -37,7 +37,7 @@ export class ProjectService {
         
 
         let baseUrl = `${this._confiSvc.config.projectServerUrl}/_api/ProjectData/Projects?`
-        let select = '$select=ProjectId,ProjectName'
+        let select = '$select=ProjectId,ProjectName,ProjectOwnerName,ProjectChargeBackCategory'
         let filter = "" ///$filter=ProjectActiveStatus ne 'Cancelled'";
         return this.http.get(baseUrl + filter + '&' + select, options)
             .map((res: Response) => {
@@ -49,6 +49,9 @@ export class ProjectService {
                 for (var i = 0; i < project.length; i++) {
 
                     var newProject = new Project(project[i]["ProjectId"], project[i]["ProjectName"]);
+                    debugger;
+                    newProject.owner = project[i]["ProjectOwnerName"];
+                    newProject.projectChargeBackCategory =  project[i]["ProjectChargeBackCategory"];
                     projects.push(newProject);
                 }
 

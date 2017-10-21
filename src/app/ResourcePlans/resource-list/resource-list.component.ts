@@ -33,11 +33,13 @@ export class ResourceListComponent implements OnInit {
       perPage:8
     },
   columns: {
-    id: {
-      resUid: 'Resource UID'
-    },
+    
     resName: {
       title: 'Resource Name'
+    },
+    rbs:
+    {
+     title:'RBS'
     }
   }
   
