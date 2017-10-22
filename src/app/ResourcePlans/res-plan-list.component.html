@@ -3,7 +3,8 @@
 
     <button class="btn btn-primary" type="button" (click)="addResources()"> Add Resource </button>
     <button type="button" class="btn btn-primary" (click)="savePlans(fromDate,toDate,timescale,workunits)"> Submit </button>
-    <button type="button" class="btn btn-primary" (click)="deleteResPlans(fromDate,toDate,timescale,workunits)"> Delete </button>
+    <button type="button" class="btn btn-primary" (click)="deleteResPlans(fromDate,toDate,timescale,workunits,false)"> Delete </button>
+    <button type="button" class="btn btn-primary" (click)="deleteResPlans(fromDate,toDate,timescale,workunits,true)"> Hide </button>
     <res-plan-timescale (onTimescaleChanged)="timescaleChanged($event)"></res-plan-timescale>
     <app-date-range-picker (onDateRangeChanged)="dateRangeChanged($event)"></app-date-range-picker>
     <res-plan-workunits (onWorkUnitsChanged)="worksunitsChanged($event)"></res-plan-workunits>
@@ -82,7 +83,7 @@
                 <project-list [projData]='projData'></project-list>
             </div>
         </simple-modal>
-        <simple-modal #modalResources closeOnBodyClick="true" elementId="1" title="Select Resource" primaryBtnText="Add Selected Resources">
+        <simple-modal #modalResources closeOnBodyClick="true" elementId="2" title="Select Resource" primaryBtnText="Add Selected Resources">
             <div class="list-group">
                 <resource-list></resource-list>
             </div>

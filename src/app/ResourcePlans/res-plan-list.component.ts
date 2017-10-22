@@ -1,7 +1,9 @@
-import { Component, OnInit, Inject, DoCheck, AfterViewInit, ViewChild,
-     AfterViewChecked, Output, EventEmitter  } from '@angular/core';
+import {
+    Component, OnInit, Inject, DoCheck, AfterViewInit, ViewChild,
+    AfterViewChecked, Output, EventEmitter
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
-import {IntervalPipe} from "../common/interval.pipe"
+import { IntervalPipe } from "../common/interval.pipe"
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/mergeMap';
 
@@ -105,13 +107,13 @@ export class ResPlanListComponent implements OnInit {
 
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
-    } 
+    }
 
-    @Output() onLoading = new EventEmitter<boolean>(); 
+    @Output() onLoading = new EventEmitter<boolean>();
     loading = false
 
     load(val: boolean) {
- 
+
         this.onLoading.emit(true)
         this.loading = true
     }
@@ -124,12 +126,12 @@ export class ResPlanListComponent implements OnInit {
         private _resourcePlanSvc: ResourcePlanService
         , private _resPlanUserStateSvc: ResourcePlanUserStateService
         , private _resModalSvc: ResourcesModalCommunicatorService
-        ,private _appSvc :AppStateService
+        , private _appSvc: AppStateService
         , private _route: ActivatedRoute) { }
 
     ngOnInit(): void {
         debugger;
-        
+
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
         });
@@ -150,12 +152,16 @@ export class ResPlanListComponent implements OnInit {
             //console.log(JSON.stringify(values.resPlans))
         }, (error) => console.log(error))
         this._modalSvc.modalSubmitted$.subscribe(() => {
-            this.addSelectedProjects(this.fromDate,this.toDate,this.timescale,this.workunits);
+            this.addSelectedProjects(this.fromDate, this.toDate, this.timescale, this.workunits);
         }, (error) => console.log(error))
+        console.log("=========multi subscribe")
         this._resModalSvc.modalSubmitted$.subscribe(() => {
-            debugger;
+
             this.addSelectedResources()
+
         }, (error) => console.log(error));
+        this.modalResources.modalSubmitted$.subscribe(() => this._resModalSvc.modalSubmitClicked(), (error) => console.log(error));
+        this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked(), (error) => console.log(error));
     }
 
 
@@ -180,7 +186,7 @@ export class ResPlanListComponent implements OnInit {
                 }
                 sum += val;
             }
-            value["totals"][i]['intervalValue'] = new IntervalPipe().transform(sum.toString(),this.workunits);
+            value["totals"][i]['intervalValue'] = new IntervalPipe().transform(sum.toString(), this.workunits);
         }
         fg.setValue(value, { emitEvent: false });
         //console.log('Totals... ' + JSON.stringify(value) + "      stop....")
@@ -233,7 +239,7 @@ export class ResPlanListComponent implements OnInit {
     buildInterval(interval: IInterval): FormGroup {
         return this.fb.group({
             intervalName: interval.intervalName,
-            intervalValue: new IntervalPipe().transform(interval.intervalValue,this.workunits)
+            intervalValue: new IntervalPipe().transform(interval.intervalValue, this.workunits)
         });
     }
 
@@ -243,7 +249,7 @@ export class ResPlanListComponent implements OnInit {
 
             var total = this.fb.group({
                 intervalName: '',
-                intervalValue: new IntervalPipe().transform('0',this.workunits)
+                intervalValue: new IntervalPipe().transform('0', this.workunits)
             });
             totals.push(total);
         }
@@ -285,7 +291,7 @@ export class ResPlanListComponent implements OnInit {
         });
     }
     toggleResPlanSelection(_resPlan: FormGroup, selected: boolean) {
-        
+
         debugger;
         _resPlan.controls['selected'].setValue(selected, { emitEvent: false });
         (_resPlan.controls['projects'] as FormArray).controls.forEach(element => {
@@ -299,7 +305,7 @@ export class ResPlanListComponent implements OnInit {
     }
     addProject(_resPlan: FormGroup): void {
         //get IProjects[] array from current formgroup
-        this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked(), (error) => console.log(error));
+
         var data = _resPlan.value.resUid;
         this._modalSvc.projectsAssigned(_resPlan.value.projects);
         //console.log('projects in RP = ' + JSON.stringify(_resPlan.value.projects))
@@ -310,11 +316,11 @@ export class ResPlanListComponent implements OnInit {
     }
 
     addResources() {
-
+        console.log("add resources fired");
         let resourcesSelected: IResource[] = this.resPlans.value.map(res => { return new Resource(res.resUid, res.resName) })
         //console.log('resources selected=' + JSON.stringify(resourcesSelected))
+
         this._resModalSvc.ResourcesSelected(resourcesSelected)
-        this.modalResources.modalSubmitted$.subscribe(() => this._resModalSvc.modalSubmitClicked(), (error) => console.log(error));
         this.modalResources.showModal('');
     }
 
@@ -324,42 +330,46 @@ export class ResPlanListComponent implements OnInit {
         ///EMIT HERE
         let selectedResources = this._resModalSvc.selectedResources;
         this._appSvc.loading(true);
-        this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr=>{
+        this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr => {
             debugger
             console.log('selected resources=' + JSON.stringify(this._resModalSvc.selectedResources))
-        this._resPlanUserStateSvc.getResPlansFromResources(resMgr,this._resModalSvc.selectedResources, this.fromDate, this.toDate, this.timescale, this.workunits)
-            .subscribe(plans => {
-                console.log('added resplans=' + JSON.stringify(plans))
-                this.setIntervalLength((<IResPlan[]>plans).map(t => t.projects).reduce((a, b) => a.concat(b)))
-                this.buildResPlans(plans)
-                this._resModalSvc.selectedResources=[];
-                this._appSvc.loading(false);
-            }, (error) => {console.log(error);this._appSvc.loading(false);})
-        }, (error) => {console.log(error);this._appSvc.loading(false);})
+            this._resPlanUserStateSvc.getResPlansFromResources(resMgr, this._resModalSvc.selectedResources, this.fromDate, this.toDate, this.timescale, this.workunits)
+                .subscribe(plans => {
+                    console.log('added resplans=' + JSON.stringify(plans))
+                    this.setIntervalLength((<IResPlan[]>plans).map(t => t.projects).reduce((a, b) => a.concat(b)))
+                    this.buildResPlans(plans)
+                    this._resModalSvc.selectedResources = [];
+                    this._appSvc.loading(false);
+                }, (error) => { console.log(error); this._appSvc.loading(false); })
+        }, (error) => { console.log(error); this._appSvc.loading(false); })
     }
 
-    addSelectedProjects(fromDate:Date,toDate:Date,timescale:Timescale,workunits:WorkUnits) {
+    addSelectedProjects(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits) {
         this._appSvc.loading(true);
-        this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr=>{
-                    this._resPlanUserStateSvc.addProjects(resMgr,this._modalSvc.selectedProjects, new Resource(this.currentFormGroup.value["resUid"], 
-                    this.currentFormGroup.value["resName"]),
-                    fromDate,toDate, timescale, workunits)
-            .subscribe(projects => {
-                this._modalSvc.selectedProjects = [];
-                debugger;
-                console.log("===added projects" + JSON.stringify(projects))
-                if (projects)
-                    this.buildSelectedProjects(projects)
-                    this._appSvc.loading(false);
-            })
-        }, (error) => {console.log(error);this._appSvc.loading(false);})
+        this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr => {
+            let resource = new Resource(this.currentFormGroup.value["resUid"],
+                this.currentFormGroup.value["resName"]);
+            this._resPlanUserStateSvc.addProjects(resMgr, this._modalSvc.selectedProjects, resource,
+                fromDate, toDate, timescale, workunits)
+                .subscribe(projects => {
+                    this._modalSvc.selectedProjects = [];
+                    debugger;
+                    console.log("===added projects" + JSON.stringify(projects))
+
+                    this._resPlanUserStateSvc.addProjectToResMgr(resMgr, projects, resource).subscribe(projects => {
+
+                        this.buildSelectedProjects(projects)
+                        this._appSvc.loading(false);
+                    }, (error) => { console.log(error); this._appSvc.loading(false); });
+                })
+        }, (error) => { console.log(error); this._appSvc.loading(false); })
     }
-    worksunitsChanged(value:number) {
+    worksunitsChanged(value: number) {
         debugger;
         this.workunits = value;
         this.ReloadPage();
     }
-    timescaleChanged(value:number) {
+    timescaleChanged(value: number) {
         debugger;
         this.timescale = value;
         this.ReloadPage();
@@ -424,7 +434,7 @@ export class ResPlanListComponent implements OnInit {
                     var projects = Object.assign([], _projects, this.fb.array(((t as FormGroup).controls['projects'] as FormArray).controls.filter(s => s.dirty == true)).value)
                     let resPlan = new ResPlan();
                     resPlan.resource = new Resource(t.value.resUid, t.value.resName);
-                   
+
                     resPlan.projects = projects;
                     return resPlan;
                 })
@@ -447,14 +457,14 @@ export class ResPlanListComponent implements OnInit {
         }
     }
 
-    deleteResPlans(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits): void {
+    deleteResPlans(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, hideOnly: boolean): void {
         debugger;
-        if (this.mainForm.dirty && this.mainForm.valid) {
+        if (this.mainForm.valid) {
 
 
             let resourceplans = this.fb.array(this.resPlans.controls
-                .filter(item => item.dirty === true // item is dirty
-                    && (item.value.selected || item.value.projects.map(p => p.selected == true).length > 0) // res Plan marked for delete or atleast one project in ResPlan marked for delete
+                .filter(item =>
+                    (item.value.selected || item.value.projects.map(p => p.selected == true).length > 0) // res Plan marked for delete or atleast one project in ResPlan marked for delete
                 )).controls
                 .map(t => {
                     var _resPlan: IResPlan;
@@ -467,43 +477,59 @@ export class ResPlanListComponent implements OnInit {
                     console.log(JSON.stringify(resPlan))
                     //resPlan["selected"] = _resPlan["selected"]
                     return resPlan;
-                })
+                });
 
 
 
             console.log("dirty resPlans" + JSON.stringify(resourceplans))
             this._appSvc.loading(true);
-            this._resPlanUserStateSvc.deleteResPlans(resourceplans, fromDate, toDate, timescale, workunits)
-                .flatMap(
-                (resPlans: IResPlan[]) => {
-                    debugger;
-                   return this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr=>{
-                   return this._resPlanUserStateSvc.HideResPlans(resMgr,resPlans as IResPlan[]).map(r => {
-                        this.deleteResourcePlans(resPlans)
+            if (hideOnly == true) {
+                this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr => {
+                    return this._resPlanUserStateSvc.HideResPlans(resMgr, resourceplans as IResPlan[]).map(r => {
+                        this.deleteResourcePlans(resourceplans)
                         this._appSvc.loading(false);
                     },
-                        (error: any) => {this.errorMessage = <any>error
-                        this._appSvc.loading(false);}
+                        (error: any) => {
+                            this.errorMessage = <any>error
+                            this._appSvc.loading(false);
+                        }
                     )
                 },
-                (error: any) => {
-                    this.errorMessage = <any>error;
-                    this._appSvc.loading(false);
-                }
-            )
-                    
-                    // this._resPlanUserStateSvc.HideResPlans(resPlans as IResPlan[]).subscribe(r => {
-                    //     this.deleteResourcePlans(resPlans)
-                    // }
-                    // ,
-                    //     (error: any) => this.errorMessage = <any>error
-                    // );
-                }).subscribe()
+                    (error: any) => {
+                        this.errorMessage = <any>error;
+                        this._appSvc.loading(false);
+                    }
+                ).subscribe(() => { this._appSvc.loading(false) }, () => { this._appSvc.loading(false) })
+            }
+            else {
+                this._resPlanUserStateSvc.deleteResPlans(resourceplans, fromDate, toDate, timescale, workunits)
+                    .flatMap(
+                    (resPlans: IResPlan[]) => {
+                        debugger;
+                        return this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr => {
+                            return this._resPlanUserStateSvc.HideResPlans(resMgr, resPlans as IResPlan[]).map(r => {
+                                this.deleteResourcePlans(resPlans)
+                                this._appSvc.loading(false);
+                            },
+                                (error: any) => {
+                                    this.errorMessage = <any>error
+                                    this._appSvc.loading(false);
+                                }
+                            )
+                        },
+                            (error: any) => {
+                                this.errorMessage = <any>error;
+                                this._appSvc.loading(false);
+                            }
+                        )
+                    }).subscribe(() => { this._appSvc.loading(false) }, () => { this._appSvc.loading(false) })
+            }
         }
         //()
         else if (!this.mainForm.dirty) {
             this.onSaveComplete();
         }
+
     }
     onSaveComplete(): void {
         // Reset the form to clear the flags

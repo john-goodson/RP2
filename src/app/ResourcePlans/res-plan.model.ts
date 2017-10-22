@@ -6,7 +6,7 @@ export interface IResPlan {
 export interface IResource {
   resUid: string;
   resName?: string;
-
+  rbs? : string
   org?: {
     location: string;
     title: string;
@@ -18,6 +18,8 @@ export interface IProject {
   projUid: string;
   projName: string;
   readOnly: boolean;
+  owner?:string,
+  projectChargeBackCategory?:string,
   projProperties?: {
     owner: string;
     startDate: Date;
@@ -48,6 +50,7 @@ export class ResPlan implements IResPlan {
 export class Project implements IProject {
 
   constructor(public projUid = '', public projName = 'boo', public readOnly = false, public intervals:IInterval[] = []
+  ,public owner='',public projectChargeBackCategory=''
 
   ) { }
 }
@@ -61,7 +64,7 @@ export class Interval implements IInterval {
 }
 
 export class Resource implements IResource {
-  constructor(public resUid = '0', public resName = '')
+  constructor(public resUid = '0', public resName = '',public rbs='')
   { }
 }
 

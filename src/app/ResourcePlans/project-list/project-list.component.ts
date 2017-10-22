@@ -38,12 +38,24 @@ export class ProjectListComponent implements OnInit {
       perPage:8
     },
   columns: {
-    id: {
-      projUid: 'Project UID'
-    },
+    // id: {
+    //   projUid: 'Project UID',
+    //   title:'id'
+    // },
     projName: {
       title: 'Project Name'
     }
+    ,
+    owner :
+    {
+       title:'Owner'
+    }
+    ,
+    projectChargeBackCategory :
+    {
+      title:'Project Chargeback'
+    }
+    
   }
   
 };
