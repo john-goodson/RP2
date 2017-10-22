@@ -217,7 +217,7 @@ config:Config;
         }).distinct(t=>t.projUid).toArray()
         return resourceForResMgr.flatMap(resources => {
 
-            return uniqueProjectsResMgrHasAccessOn.flatMap(projects =>
+            return uniqueProjectsForResMgr.flatMap(projects =>
                 this.getResPlansFromProjects(resMgrUid,resources, projects,fromDate,toDate,timescale,workunits)
                 // .do(t => {
                 //     //console.log('resource plans read from add resource =' + JSON.stringify(t))
@@ -442,6 +442,7 @@ config:Config;
             return this.addProject(resMgrUid,p, resource,this.getDateFormatString(fromDate), this.getDateFormatString(toDate), timeScale, workScale)
             // })
         }).toArray()
+        
         //ob.subscribe();
         return ob;
     }
@@ -478,7 +479,7 @@ config:Config;
         })).map(r => {
             ;
             if (r["Result"] == true) {
-                this.addProjectToResMgr(resMgrUid, project, resource)
+                //this.addProjectToResMgr(resMgrUid, project, resource)
                 return project;
             }
         })
@@ -488,7 +489,7 @@ config:Config;
         //     })
     }
 
-    addProjectToResMgr(resMgrUid:string,project: IProject, resource: IResource) {
+    addProjectToResMgr(resMgrUid:string,project: IProject[], resource: IResource) :Observable<IProject[]> {
 
         let headers = new Headers();
         headers.append('accept', 'application/json;odata=verbose')
@@ -501,11 +502,11 @@ config:Config;
         //1. get data from SP List UserState  
         return this.http.get(url + filter, options)
 
-            .subscribe((data: Response) => {
+            .flatMap((data: Response) => {
                 ;
                 let projects = JSON.parse(data.json().d.results[0]["ProjectUIDs"]).map(project => { return new Project(project.projUid, project.projName,false,[]) })
                 projects = projects.concat(project)
-                this.getRequestDigestToken().subscribe(digest => {
+                return this.getRequestDigestToken().flatMap(digest => {
 
                     let headers = new Headers();
                     headers.append('Accept', 'application/json;odata=verbose')
@@ -519,9 +520,11 @@ config:Config;
                     })
                     let mergedProjects = `'[${projects.map(t => '{"projUid":"' + t.projUid + '","projName":"' + t.projName + '"}').join(",")}]'`
                     let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ProjectUIDs":${mergedProjects}}"}`
-                    return this.http.post(data.json().d.results[0].__metadata.uri, body, options).subscribe();
+                    return this.http.post(data.json().d.results[0].__metadata.uri, body, options)
+                        .flatMap(r=>Observable.of(project)) 
                 })
             })
+
 
     }
 
