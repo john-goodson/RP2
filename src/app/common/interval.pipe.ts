@@ -10,7 +10,7 @@ export class IntervalPipe  {
   }
   getWorkUnitChar(workUnits:WorkUnits) : string
   {
-    switch(workUnits)
+    switch(+(workUnits))
     {
       case WorkUnits.days: return 'd';
       case WorkUnits.hours: return 'h';
