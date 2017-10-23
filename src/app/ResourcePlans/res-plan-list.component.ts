@@ -136,12 +136,12 @@ export class ResPlanListComponent implements OnInit {
             resPlans: this.fb.array([])
         });
         let today = new Date();
-        let todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        let lastYearDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+        let todayDate = new Date(2017, 11, 31);
+        let lastYearDate = new Date(2017, 0, 1);
         this.fromDate = this._route.snapshot.params["fromDate"] && new Date(this._route.snapshot.params["fromDate"]) || lastYearDate;
         this.toDate = this._route.snapshot.params["toDate"] && new Date(this._route.snapshot.params["toDate"]) || todayDate;
         this.timescale = this._route.snapshot.params["timescale"] || Timescale.calendarMonths;
-        this.workunits = this._route.snapshot.params["workunits"] || WorkUnits.days;
+        this.workunits = this._route.snapshot.params["workunits"] || WorkUnits.FTE;
 
         this._route.data.subscribe(values => {
             this.resPlanData = values.resPlans;
@@ -378,7 +378,7 @@ export class ResPlanListComponent implements OnInit {
         debugger
 
         this.fromDate = new Date(value.start._d)
-        this.toDate = new Date(value.start._d)
+        this.toDate = new Date(value.end._d)
         console.log(JSON.stringify(value))
         this.ReloadPage()
     }
