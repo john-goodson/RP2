@@ -8,7 +8,7 @@ import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/mergeMap'
 import { Observable } from 'rxjs';
 
-import { IResPlan, ResPlan, IProject, Project, WorkUnits, Timescale, IInterval, Interval, IResource, Resource,Config } from '../resourcePlans/res-plan.model'
+import { IResPlan, ResPlan, IProject, Project, WorkUnits, Timescale, IInterval, Interval, IResource, Resource,Config,Result } from '../resourcePlans/res-plan.model'
 declare var $: any;
 declare var moment:any;
 @Injectable()
@@ -434,7 +434,7 @@ config:Config;
     }
 
 
-    addProjects(resMgrUid:string,projects: IProject[], resource: IResource, fromDate: Date, toDate: Date, timeScale: Timescale, workScale: WorkUnits): Observable<IProject[]> {
+    addProjects(resMgrUid:string,projects: IProject[], resource: IResource, fromDate: Date, toDate: Date, timeScale: Timescale, workScale: WorkUnits): Observable<Result[]> {
 
         let ob = Observable.from(projects).flatMap(p => {
             // return r.filter(project=>{
@@ -447,7 +447,7 @@ config:Config;
         return ob;
     }
 
-    addProject(resMgrUid:string,project: IProject, resource: IResource, fromDate: string, toDate: string, timeScale: Timescale, workScale: WorkUnits): Observable<IProject> {
+    addProject(resMgrUid:string,project: IProject, resource: IResource, fromDate: string, toDate: string, timeScale: Timescale, workScale: WorkUnits): Observable<Result> {
         var success;
         //TODO
         let pwaPath = `${this.config.projectServerUrl}/`
@@ -477,11 +477,7 @@ config:Config;
             dataType: "json",
             data: body
         })).map(r => {
-            ;
-            if (r["Result"] == true) {
-                //this.addProjectToResMgr(resMgrUid, project, resource)
-                return project;
-            }
+            return r as Result
         })
         // return this.http.post(adapterPath,body,options).flatMap(r=>
         //     {
@@ -489,7 +485,7 @@ config:Config;
         //     })
     }
 
-    addProjectToResMgr(resMgrUid:string,project: IProject[], resource: IResource) :Observable<IProject[]> {
+    addProjectToResMgr(resMgrUid:string,project: IProject[], resource: IResource) :Observable<Result> {
 
         let headers = new Headers();
         headers.append('accept', 'application/json;odata=verbose')
@@ -503,7 +499,6 @@ config:Config;
         return this.http.get(url + filter, options)
 
             .flatMap((data: Response) => {
-                ;
                 let projects = JSON.parse(data.json().d.results[0]["ProjectUIDs"]).map(project => { return new Project(project.projUid, project.projName,false,[]) })
                 projects = projects.concat(project)
                 return this.getRequestDigestToken().flatMap(digest => {
@@ -521,7 +516,25 @@ config:Config;
                     let mergedProjects = `'[${projects.map(t => '{"projUid":"' + t.projUid + '","projName":"' + t.projName + '"}').join(",")}]'`
                     let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ProjectUIDs":${mergedProjects}}"}`
                     return this.http.post(data.json().d.results[0].__metadata.uri, body, options)
-                        .flatMap(r=>Observable.of(project)) 
+                        .map(r=> {
+                            let result = new Result();
+                            switch(Math.floor(r.status / 100))
+                            {
+                                case 4 :  result.debugError = r.statusText;
+                                        result.error = "An error occured in update"
+                                        result.success = false;
+                                        return result;
+                                case 5 :  result.debugError = r.statusText;
+                                        result.error = "An error occured in update";
+                                        result.success = false;
+                                        return result;
+                                 case 2 :  result.debugError = "";
+                                        result.error = "";
+                                        result.success = true;
+                                        return result;
+                            }
+                            return result;
+                        }) 
                 })
             })
 
@@ -541,7 +554,7 @@ config:Config;
     }
 
 
-    saveResPlans(resPlan: IResPlan[], fromDate: Date, toDate: Date, timeScale: Timescale, workScale: WorkUnits): Observable<IResPlan[]> {
+    saveResPlans(resPlan: IResPlan[], fromDate: Date, toDate: Date, timeScale: Timescale, workScale: WorkUnits): Observable<Result[]> {
         var success;
         //TODO
         let pwaPath =`${this.config.projectServerUrl}/`
@@ -567,15 +580,8 @@ config:Config;
             dataType: "json",
             data: body
         })).map(r => {
-            ;
-            if (r["Result"] == true) {
-                return resPlan;
-            }
+                return r as Result[];
         })
-        // return this.http.post(adapterPath,body,options).flatMap(r=>
-        //     {
-        //         return Observable.of(project);
-        //     })
     }
 
     deleteResPlans(resPlan: IResPlan[], fromDate: Date, toDate: Date, timeScale: Timescale, workScale: WorkUnits): Observable<IResPlan[]> {

@@ -7,7 +7,7 @@ import { IntervalPipe } from "../common/interval.pipe"
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/mergeMap';
 
-import { IResPlan, IProject, IInterval, ProjectActiveStatus, IResource, Resource, Timescale, WorkUnits } from './res-plan.model'
+import { IResPlan, IProject, IInterval, ProjectActiveStatus, IResource, Resource, Timescale, WorkUnits ,Result} from './res-plan.model'
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -351,15 +351,18 @@ export class ResPlanListComponent implements OnInit {
                 this.currentFormGroup.value["resName"]);
             this._resPlanUserStateSvc.addProjects(resMgr, this._modalSvc.selectedProjects, resource,
                 fromDate, toDate, timescale, workunits)
-                .subscribe(projects => {
+                .subscribe(results => {
+                    let projects = this._modalSvc.selectedProjects;
                     this._modalSvc.selectedProjects = [];
                     debugger;
-                    console.log("===added projects" + JSON.stringify(projects))
+                    let successfullProjects = projects.filter(p=>results.findIndex(r=>r.success == true && r.projUid.toUpperCase() == p.projUid.toUpperCase()) > -1)
+                    console.log("===added projects" + JSON.stringify(successfullProjects))
 
-                    this._resPlanUserStateSvc.addProjectToResMgr(resMgr, projects, resource).subscribe(projects => {
-
-                        this.buildSelectedProjects(projects)
+                    this._resPlanUserStateSvc.addProjectToResMgr(resMgr, successfullProjects, resource).subscribe(result => {
+                       if(result.success == true){
+                        this.buildSelectedProjects(successfullProjects)
                         this._appSvc.loading(false);
+                       }
                     }, (error) => { console.log(error); this._appSvc.loading(false); });
                 })
         }, (error) => { console.log(error); this._appSvc.loading(false); })
@@ -445,7 +448,7 @@ export class ResPlanListComponent implements OnInit {
             this._appSvc.loading(true);
             this._resPlanUserStateSvc.saveResPlans(resourceplans, fromDate, toDate, timescale, workunits)
                 .subscribe(
-                () => this.onSaveComplete(),
+                (results:Result[]) => this.onSaveComplete(results),
                 (error: any) => {
                     this.errorMessage = <any>error
                     this._appSvc.loading(false);
@@ -453,7 +456,7 @@ export class ResPlanListComponent implements OnInit {
         }
         //()
         else if (!this.mainForm.dirty) {
-            this.onSaveComplete();
+            //this.onSaveComplete();
         }
     }
 
@@ -527,11 +530,11 @@ export class ResPlanListComponent implements OnInit {
         }
         //()
         else if (!this.mainForm.dirty) {
-            this.onSaveComplete();
+            //this.onSaveComplete();
         }
 
     }
-    onSaveComplete(): void {
+    onSaveComplete(results:Result[]): void {
         // Reset the form to clear the flags
         //this.mainForm.reset();
         this._appSvc.loading(false);

@@ -92,16 +92,20 @@ export interface IDept {
   deptName: string;
 }
 
-export class UpdateResult
-{
-  projectName : string;
-  result:boolean;
-  error:string;
-}
+
 
 export class Config
 {
   projectServerUrl:string;
   ResPlanUserStateUrl:string;
+}
+
+export class Result
+{
+  projName : string;
+  success:boolean;
+  error:string;
+  debugError:string;
+  projUid:string
 }
 
