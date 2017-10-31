@@ -13,7 +13,7 @@ export class ResPlanWorkunitsComponent implements OnInit {
   constructor(private _route: ActivatedRoute) { }
 workunits:WorkUnits;
   ngOnInit() {
-    $('#workunits').val(this._route.snapshot.params["workunits"] || '2');
+    $('#workunits').val(this._route.snapshot.params["workunits"] || '3');
   }
 
   workunitsChange(value:number)

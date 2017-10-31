@@ -28,7 +28,6 @@ export class ResourceService {
         return this.http.get(url, options)
             .switchMap((data: Response) => data.json().d.results)
             .map((resource: Object) => {
-                debugger;
                  return new Resource(resource["ResourceId"],resource["ResourceName"],resource['RBS'])
             }).toArray()
             

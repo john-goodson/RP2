@@ -65,7 +65,6 @@ export class SimpleModalComponent {
   }
 
   submit() {
-    debugger;
     this.modalSubmittedSource.next();
     this.closeModal();
   }

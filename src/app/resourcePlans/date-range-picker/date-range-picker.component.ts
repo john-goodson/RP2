@@ -18,6 +18,8 @@ export class DateRangePickerComponent implements OnInit {
   public options: any = {
     locale: { format: 'YYYY-MM-DD' },
     alwaysShowCalendars: false,
+    startDate:new Date(2017,0,1),
+    endDate: new Date(2017,11,31),
   };
   public selectedDate(value: any, datepicker?: any) {
     // this is the date the iser selected

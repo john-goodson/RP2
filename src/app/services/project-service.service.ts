@@ -47,9 +47,7 @@ export class ProjectService {
             }).map((project: Object[]) => {
                 var projects: IProject[] = [];
                 for (var i = 0; i < project.length; i++) {
-
                     var newProject = new Project(project[i]["ProjectId"], project[i]["ProjectName"]);
-                    debugger;
                     newProject.owner = project[i]["ProjectOwnerName"];
                     newProject.projectChargeBackCategory =  project[i]["ProjectChargeBackCategory"];
                     projects.push(newProject);
