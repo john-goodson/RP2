@@ -20,6 +20,7 @@ import { ProjectService } from '../services/project-service.service'
 import { ResourcePlanService } from '../services/resource-plan.service'
 import { ResourcePlanUserStateService } from '../services/resource-plan-user-state.service'
 import { ResourcesModalCommunicatorService } from '../resourcePlans/resources-modal-communicator.service'
+import {ResPlanHeaderRowComponent} from "../resourcePlans/res-plan-header-row/res-plan-header-row.component"
 import { AppStateService } from '../services/app-state.service'
 
 @Component({
@@ -89,7 +90,8 @@ export class ResPlanListComponent implements OnInit {
 
     @ViewChild('modalProjects') private modalProjects: SimpleModalComponent;
     @ViewChild('modalResources') private modalResources: SimpleModalComponent;
-
+    @ViewChild('header') private header: ResPlanHeaderRowComponent;
+    
 
     mainForm: FormGroup;
     resPlanData: IResPlan[] = [];
@@ -217,7 +219,9 @@ export class ResPlanListComponent implements OnInit {
         }
 
         this.calculateTotals(resPlanGroup);
-        resPlanGroup.valueChanges.subscribe(value => this.calculateTotals(resPlanGroup), (error) => console.log(error));
+        resPlanGroup.valueChanges.subscribe(value => {
+            this.calculateTotals(resPlanGroup)
+        }, (error) => console.log(error));
         return resPlanGroup;
     }
 
@@ -363,15 +367,18 @@ export class ResPlanListComponent implements OnInit {
             this._resPlanUserStateSvc.addProjects(resMgr, this._modalSvc.selectedProjects, resource,
                 fromDate, toDate, timescale, workunits)
                 .subscribe(results => {
-                    let projects = this._modalSvc.selectedProjects;
+                    //let projects = this._modalSvc.selectedProjects;
                     this._modalSvc.selectedProjects = [];
                     debugger;
-                    let successfullProjects = projects.filter(p => results.findIndex(r => r.success == true && r.projUid.toUpperCase() == p.projUid.toUpperCase()) > -1)
+                    let successfullProjects = results.filter(r=>r.success == true).map(t=>t.project);
+                    //projects.filter(p => results.findIndex(r => r.success == true && r.project.projUid.toUpperCase() == p.projUid.toUpperCase()) > -1)
                     console.log("===added projects" + JSON.stringify(successfullProjects))
 
                     this._resPlanUserStateSvc.addProjectToResMgr(resMgr, successfullProjects, resource).subscribe(result => {
                         if (result.success == true) {
                             this.buildSelectedProjects(successfullProjects)
+                            debugger;
+                            this.header.setIntervals([new ResPlan(resource,successfullProjects)]);
                             this._appSvc.loading(false);
                         }
                         else {
@@ -428,11 +435,11 @@ export class ResPlanListComponent implements OnInit {
         this.setIntervalLength(projects)
         var intervalLength = this.getIntervalLength();
         for (var k = 0; k < projects.length; k++) {
-            var project: IProject = projects[k];
-            project.intervals = [];
-            for (var i = 0; i < intervalLength; i++) {
-                project.intervals.push(new Interval('', '0.0'));
-            }
+            let project: IProject = projects[k];
+            // project.intervals = [];
+            // for (var i = 0; i < intervalLength; i++) {
+            //     project.intervals.push(new Interval('', '0.0'));
+            // }
 
             (this.currentFormGroup.controls['projects'] as FormArray).push(this.buildProject(project));
         }
@@ -531,7 +538,7 @@ export class ResPlanListComponent implements OnInit {
                                 //if resource marked for selection check if all projects were successful by comparing count of projects prior to upadte and after
                                 let projectsMarkedForDeleteCount = resPlan.projects.length;
                                 
-                                resPlan.projects = resPlan.projects.filter(function (p) { return results.findIndex(function (r) { return r.success == true && r.projUid.toUpperCase() == p.projUid.toUpperCase(); }) > -1; });
+                                resPlan.projects = resPlan.projects.filter(function (p) { return results.findIndex(function (r) { return r.success == true && r.project.projUid.toUpperCase() == p.projUid.toUpperCase(); }) > -1; });
                                 if(resPlan["selected"] == true)
                                 {
                                    resPlan["selected"] = (projectsMarkedForDeleteCount == resPlan.projects.length);

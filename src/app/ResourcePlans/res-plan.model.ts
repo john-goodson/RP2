@@ -102,10 +102,10 @@ export class Config
 
 export class Result
 {
-  projName : string;
+ project:IProject;
   success:boolean;
   error:string;
   debugError:string;
-  projUid:string
+  projUid:string;
 }
 

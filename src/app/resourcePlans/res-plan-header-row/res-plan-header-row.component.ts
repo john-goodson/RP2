@@ -1,4 +1,4 @@
-import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit,Input,Output,EventEmitter, } from '@angular/core';
 import {IResPlan,Timescale,WorkUnits,IInterval} from '../../resourcePlans/res-plan.model';
 import { ActivatedRoute, Router } from '@angular/router';
 declare var moment:any;
@@ -29,8 +29,9 @@ visible: boolean = true;
    this.onselectAllChanged.emit(value);
   }
 
-  setIntervals(resPlans:IResPlan[]) 
+  public setIntervals(resPlans:IResPlan[]) 
   {
+    debugger;
    resPlans.forEach(resPlan=>{
      let projectWithIntervals = resPlan.projects.find(t=>t.intervals.length > 0);
      if(projectWithIntervals)

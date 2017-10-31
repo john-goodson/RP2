@@ -12,7 +12,7 @@
     <form class="form-horizontal" novalidate [formGroup]="mainForm">
 
         <div formArrayName="resPlans" *ngIf="resPlans && resPlans.length">
-            <res-plan-header-row (onselectAllChanged)="toggleSelectAll($event)"></res-plan-header-row>
+            <res-plan-header-row #header (onselectAllChanged)="toggleSelectAll($event)"></res-plan-header-row>
             <div class="table-body">
                 <table class="table">
                     <tbody *ngFor="let plan of resPlans.controls;index as i">
