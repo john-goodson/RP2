@@ -343,7 +343,8 @@ export class ResPlanListComponent implements OnInit {
                         if (r.success == true) {
                             console.log('added resplans=' + JSON.stringify(plans))
                             this.setIntervalLength((<IResPlan[]>plans).map(t => t.projects).reduce((a, b) => a.concat(b)))
-                            this.buildResPlans(plans)
+                            //filter resplan on the resource who got updated in SP list successfully
+                            this.buildResPlans(plans.filter(p=>p.resource.resUid.toUpperCase() == r.resUid.toUpperCase()))
                             this._resModalSvc.selectedResources = [];
                             this._appSvc.loading(false);
                         }
@@ -376,7 +377,7 @@ export class ResPlanListComponent implements OnInit {
 
                     this._resPlanUserStateSvc.addProjectToResMgr(resMgr, successfullProjects, resource).subscribe(result => {
                         if (result.success == true) {
-                            this.buildSelectedProjects(successfullProjects)
+                            this.buildSelectedProjects(successfullProjects.filter(r=>r.projUid.toUpperCase))
                             debugger;
                             this.header.setIntervals([new ResPlan(resource,successfullProjects)]);
                             this._appSvc.loading(false);

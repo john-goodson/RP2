@@ -106,6 +106,6 @@ export class Result
   success:boolean;
   error:string;
   debugError:string;
-  projUid:string;
+  resUid:string;
 }
 

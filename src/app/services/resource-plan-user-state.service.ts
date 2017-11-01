@@ -212,9 +212,11 @@ export class ResourcePlanUserStateService {
                 })
             })
         }).distinct(t => t.projUid).toArray()
+        
+        
         return resourceForResMgr.flatMap(resources => {
 
-            return uniqueProjectsForResMgr.flatMap(projects =>
+            return uniqueProjectsResMgrHasAccessOn.flatMap(projects =>
                 this.getResPlansFromProjects(resMgrUid, resources, projects, fromDate, toDate, timescale, workunits)
                 // .do(t => {
                 //     //console.log('resource plans read from add resource =' + JSON.stringify(t))
@@ -358,19 +360,23 @@ export class ResourcePlanUserStateService {
                             case 4: result.debugError = r.statusText;
                                 result.error = "An error occured in update"
                                 result.success = false;
+                                result.resUid = resource.resource.resUid
                                 return result;
                             case 5: result.debugError = r.statusText;
                                 result.error = "An error occured in update";
                                 result.success = false;
+                                result.resUid = resource.resource.resUid
                                 return result;
                             case 2: result.debugError = "";
                                 result.error = "";
                                 result.success = true;
+                                result.resUid = resource.resource.resUid
                                 return result;
                             default:
                                 result.debugError = r.statusText;
                                 result.error = "An error occured in update"
                                 result.success = false;
+                                result.resUid = resource.resource.resUid
                                 return result;
                         }
                     })
