@@ -344,7 +344,7 @@ export class ResPlanListComponent implements OnInit {
                             console.log('added resplans=' + JSON.stringify(plans))
                             this.setIntervalLength((<IResPlan[]>plans).map(t => t.projects).reduce((a, b) => a.concat(b)))
                             //filter resplan on the resource who got updated in SP list successfully
-                            this.buildResPlans(plans.filter(p=>p.resource.resUid.toUpperCase() == r.resUid.toUpperCase()))
+                            this.buildResPlans(plans)
                             this._resModalSvc.selectedResources = [];
                             this._appSvc.loading(false);
                         }
@@ -375,9 +375,8 @@ export class ResPlanListComponent implements OnInit {
                     //projects.filter(p => results.findIndex(r => r.success == true && r.project.projUid.toUpperCase() == p.projUid.toUpperCase()) > -1)
                     console.log("===added projects" + JSON.stringify(successfullProjects))
 
-                    this._resPlanUserStateSvc.addProjectToResMgr(resMgr, successfullProjects, resource).subscribe(result => {
-                        if (result.success == true) {
-                            this.buildSelectedProjects(successfullProjects.filter(r=>r.projUid.toUpperCase))
+                        if (successfullProjects.length > 0) {
+                            this.buildSelectedProjects(successfullProjects)//.filter(r=>r.projUid.toUpperCase))
                             debugger;
                             this.header.setIntervals([new ResPlan(resource,successfullProjects)]);
                             this._appSvc.loading(false);
@@ -385,7 +384,7 @@ export class ResPlanListComponent implements OnInit {
                         else {
                             this._appSvc.loading(false);
                         }
-                    }, (error) => { console.log(error); this._appSvc.loading(false); });
+                    
                 })
         }, (error) => { console.log(error); this._appSvc.loading(false); })
     }
@@ -540,10 +539,10 @@ export class ResPlanListComponent implements OnInit {
                                 let projectsMarkedForDeleteCount = resPlan.projects.length;
                                 
                                 resPlan.projects = resPlan.projects.filter(function (p) { return results.findIndex(function (r) { return r.success == true && r.project.projUid.toUpperCase() == p.projUid.toUpperCase(); }) > -1; });
-                                if(resPlan["selected"] == true)
-                                {
-                                   resPlan["selected"] = (projectsMarkedForDeleteCount == resPlan.projects.length);
-                                }
+                                // if(resPlan["selected"] == true)
+                                // {
+                                //    resPlan["selected"] = (projectsMarkedForDeleteCount == resPlan.projects.length);
+                                // }
                             });
                             
                             

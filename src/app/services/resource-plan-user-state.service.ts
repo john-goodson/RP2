@@ -48,7 +48,7 @@ export class ResourcePlanUserStateService {
         let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
 
         //remember to change UID0 to UID
-        let select = '$select=ResourceUID0,su3i'
+        let select = '$select=ResourceUID0'
         let filter = `$filter=ResourceManagerUID eq '${resUid}'`;
         //1. get data from SP List UserState 
         let url = baseUrl + '?' + filter + '&' + select;
@@ -60,76 +60,14 @@ export class ResourcePlanUserStateService {
         })
 
         return this.http.get(url, options)
-            .switchMap((data: Response) => data.json().d.results)
-            .map((result: Object) => {
-                //console.log("Unique Resource got=" + JSON.stringify(new Resource(result["ResourceUID0"], result["su3i"])))
-                return new Resource(result["ResourceUID0"], result["su3i"])
-
-            }).toArray();
-
-    }
-
-
-    getUniqueProjectsForResources(resUids: string[]): Observable<IProject[]> {
-
-        let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
-
-        //remember to change UID0 to UID
-        let select = '$select=ResourceManagerUID,ResourceUID0,ProjectUIDs'
-
-        let filter = ''
-        if (resUids && resUids.length > 0) {
-            let filterstring = resUids.map(t => "ResourceUID0 eq '" + t + "'").join('or ')
-            filter = `$filter=${filterstring}`;
-        }
-        //1. get data from SP List UserState 
-        let url = baseUrl + '?' + select + '&' + filter;
-        return this.getProjectListFromSpList(url);
-        //.do(data => console.log('getUserState from REST: ' + JSON.stringify(data)))
-    }
-
-    getUniqueProjectsForResManager(resMgrUid: string): Observable<IProject[]> {
-
-        let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
-
-        //remember to change UID0 to UID
-        let select = '$select=ResourceManagerUID,ResourceUID0,ProjectUIDs'
-        let filter = `$filter=ResourceManagerUID eq '${resMgrUid}'`;
-        //1. get data from SP List UserState 
-        let url = baseUrl + '?' + filter + '&' + select;
-        return this.getProjectListFromSpList(url);
-        //.do(data => console.log('getUserState from REST: ' + JSON.stringify(data)))
-    }
-
-    getUniqueProjectsAcrossResMgrs(resMgrId: string, resources: IResource[]): Observable<IProject[]> {
-
-        let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
-
-        //remember to change UID0 to UID
-        let select = '$select=ResourceManagerUID,ResourceUID0,ProjectUIDs'
-        let filter = `$filter=ResourceManagerUID ne '${resMgrId}'`;
-        //1. get data from SP List UserState 
-        let url = baseUrl + '?' + filter + '&' + select;
-        let headers = new Headers();
-        headers.append('accept', 'application/json;odata=verbose')
-        let options = new RequestOptions({
-            withCredentials: true,
-            headers
-        })
-
-        // get unique project Uids from  from SP List UserState for all res managers that have resources
-        //contained by current Res Manager
-        return this.http.get(url, options)
-            .switchMap((data: Response) => data.json().d.results)
-            .filter((t: Object) => {
-                ;
-                return (resources.map(r => r.resUid).find(f => f.toUpperCase() == t["ResourceUID0"].toUpperCase()) != null)
+            .map((data: Response) => 
+            {
+                if(data.json().d.results.length > 0)
+                return JSON.parse(data.json().d.results.map(r=>r["ResourceUID0"])) as IResource[]
+                else{
+                    return []
+                }
             })
-            .pluck('ProjectUIDs')
-            .map((projectUid: string) => {
-                return JSON.parse(projectUid).map(project => { return new Project(project.projUid, project.projName, false, []) })
-            })
-            .distinct(x => x.projUid)
     }
 
     getProjectIdsFromAssignmentsForResources(resources: IResource[]): Observable<IResPlan[]> {
@@ -174,31 +112,6 @@ export class ResourcePlanUserStateService {
 
     }
 
-    getProjectListFromSpList(url): Observable<IProject[]> {
-        let headers = new Headers();
-        headers.append('accept', 'application/json;odata=verbose')
-        let options = new RequestOptions({
-            withCredentials: true,
-            headers
-        })
-
-        //1. get data from SP List UserState  
-        return this.http.get(url, options)
-
-            .map((data: Response) => {
-                ;
-                let allProjects: IProject[] = [];
-                data.json().d.results.forEach(element => {
-                    let data = JSON.parse(element['ProjectUIDs']).map(project => { return new Project(project.projUid, project.projName, false, []) })
-                    allProjects = allProjects.concat(data);
-                });
-
-                return allProjects
-            })
-        //.distinct(x => x.projUid)
-    }
-
-
     getResPlans(resMgrUid: string, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits): Observable<IResPlan[]> {
         //let uniqueProjectsForResMgr = this.getUniqueProjectsForResManager(resMgrUid);
         let resourceForResMgr = this.getUniqueResourcesForResManager(resMgrUid);
@@ -228,7 +141,7 @@ export class ResourcePlanUserStateService {
         return resourceForResMgr.flatMap(resources => {
 
             
-                return this.getResPlansFromProjects(resMgrUid, resources, uniqueProjectsResMgrHasAccessOn, fromDate, toDate, timescale, workunits, resProjMap)
+                return this.getResPlansFromProjects(resMgrUid, resources, uniqueProjectsResMgrHasAccessOn, fromDate, toDate, timescale, workunits)
                 // .do(t => {
                 //     //console.log('resource plans read from add resource =' + JSON.stringify(t))
                 // })
@@ -242,10 +155,9 @@ export class ResourcePlanUserStateService {
 
     ///Add Resource Plan use case
     getResPlansFromResources(resMgrUid: string, resources: IResource[], fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits): Observable<IResPlan[]> {
-        let projectsForAllResources = this.getUniqueProjectsAcrossResMgrs(resMgrUid, resources);
-        let resProjMap: [IResPlan];
+        //let projectsForAllResources = this.getUniqueProjectsAcrossResMgrs(resMgrUid, resources);
         let projectsThatUserHasAccessOn = this.getProjectIdsFromAssignmentsForResources(resources);
-        let combinedProjects = projectsForAllResources.merge(projectsThatUserHasAccessOn);
+        //let combinedProjects = projectsForAllResources.merge(projectsThatUserHasAccessOn);
         // let allProjectsWithReadOnlyFlags = combinedProjects.flatMap(projectsForResource => {
         //     return projectsThatUserHasAccessOn.flatMap(projectsWithrights => {
         //         return projectsForResource.map(x => {
@@ -262,7 +174,7 @@ export class ResourcePlanUserStateService {
 
 
         // var readOnlyProjects = allProjectsWithReadOnlyFlags.map(t => { ; return t.filter(project => project.readOnly == true) })
-        return this.getResPlansFromProjects(resMgrUid, resources, projectsThatUserHasAccessOn, fromDate, toDate, timescale, workunits, resProjMap).filter((r: IResPlan[]) => {
+        return this.getResPlansFromProjects(resMgrUid, resources, projectsThatUserHasAccessOn, fromDate, toDate, timescale, workunits).filter((r: IResPlan[]) => {
                 ;
                 return r.find(x => {
                     return resources.map(p => p.resUid.toUpperCase()).indexOf(x.resource.resUid.toUpperCase()) > -1
@@ -298,46 +210,7 @@ export class ResourcePlanUserStateService {
         //     return readOnlyResPlans;
         // })
     }
-    public getReadOnlyResPlans(resMgrUid: string, resources: IResource[], readOnlyProjects: Observable<IProject[]>): Observable<IResPlan[]> {
-        ;
-        let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
-
-        //remember to change UID0 to UID
-        let select = '$select=ResourceManagerUID,ResourceUID0,ProjectUIDs,su3i'
-        let filter = `$filter=ResourceManagerUID ne '${resMgrUid}'`;
-        //1. get data from SP List UserState 
-        let url = baseUrl + '?' + filter + '&' + select;
-        let headers = new Headers();
-        headers.append('accept', 'application/json;odata=verbose')
-        let options = new RequestOptions({
-            withCredentials: true,
-            headers
-        })
-
-        // get unique project Uids from  from SP List UserState for all res managers that have resources
-        //contained by current Res Manager
-        return readOnlyProjects.flatMap(readOnly => {
-            return this.http.get(url, options)
-                .switchMap((data: Response) => data.json().d.results)
-                .map((data: Object) => {
-
-                    let projects: IProject[] = JSON.parse(data['ProjectUIDs']).map(project => { return new Project(project.projUid, project.projName, false, []) })
-                    let readOnlyFilteredProjects = projects.filter(p => readOnly.map(r => r.projUid).indexOf(p.projUid) > -1)
-                    return new ResPlan(new Resource(data["ResourceUID0"], data["su3i"]), readOnlyFilteredProjects.map(readOnlyPojectsForResource => readOnlyPojectsForResource))
-                })
-                .filter(t => resources.map(r => r.resUid.toUpperCase()).indexOf(t.resource.resUid.toUpperCase()) > -1)
-                .groupBy(t => { return t.resource.resUid.toUpperCase() }).flatMap(group => {
-                    return group && group.key && group.reduce(function (a, b) {
-                        for (var i = 0; i < b.projects.length; i++) {
-                            if (a.projects.findIndex(t => t.projUid.toUpperCase() == b.projects[i].projUid.toUpperCase()) < 0)
-                                a.projects = a.projects.concat(b.projects[i]);
-                        }
-                        return a; // returns object with property x
-                    })
-
-                })
-        }).toArray()
-    }
+    
 
     public getRequestDigestToken(): Observable<string> {
         let url = `${this.config.projectServerUrl}/_api/contextinfo`;
@@ -350,20 +223,54 @@ export class ResourcePlanUserStateService {
         return this.http.post(url, {}, options).map(response => JSON.parse(response["_body"]).d.GetContextWebInformation.FormDigestValue)
     }
     public AddResourceToManager(resMgrUid: string, resourcePlans: IResPlan[]): Observable<Result> {
+        let headers = new Headers();
+        let existingResources :[IResPlan] ;
+        
+        headers.append('accept', 'application/json;odata=verbose')
+        let options = new RequestOptions({
+            withCredentials: true,
+            headers
+        })
+        let url = `${this.config.ResPlanUserStateUrl}/Items`
+        let filter = `?$filter=ResourceManagerUID eq '${resMgrUid}'`
+        let isNewEntry = false;
+        return this.http.get(url + filter, options)
+                    .flatMap((data: Response) => {
+                        let resources = [];
+                        if(data.json().d.results.length > 0){
+                        existingResources = JSON.parse(data.json().d.results[0]["ResourceUID0"]).map(resource => { return new Resource(resource.resUid, resource.resName) })
+                        }
+                        else{
+                            isNewEntry = true;
+                        }
+                        resources = resources.concat(resourcePlans.map(r=>r.resource));
         return this.getRequestDigestToken().flatMap(digest => {
-            return Observable.from(resourcePlans).flatMap(resource => {
+            
                 let url = `${this.config.ResPlanUserStateUrl}/Items`
 
                 let headers = new Headers();
                 headers.append('Accept', 'application/json;odata=verbose')
                 headers.append('Content-Type', 'application/json;odata=verbose')
                 headers.append('X-RequestDigest', digest)
+                if(isNewEntry == false){
+                headers.append('X-HTTP-Method', 'MERGE')
+                headers.append('IF-MATCH', '*')
+                }
                 let options = new RequestOptions({
                     withCredentials: true,
                     headers: headers
                 })
-                let projects = `'[${resource.projects.map(t => '{"projUid":"' + t.projUid + '","projName":"' + t.projName + '"}').join(",")}]'`
-                let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceManagerUID": "${resMgrUid}","ResourceUID0":"${resource.resource.resUid}","ProjectUIDs":${projects},"su3i": "${resource.resource.resName}"}`
+                //let resources = `'[${resourcePlans.map(t => 
+                
+ 
+                if(isNewEntry == false)
+                {
+                    url = data.json().d.results[0].__metadata.uri;
+                    resources = existingResources.concat(resources);
+                }
+                let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName + '"}').join(",")}]'`
+                let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceManagerUID": "${resMgrUid}"
+                ,"ResourceUID0":${resourcesJSON}}`;
                 return this.http.post(url, body, options)
                     .map(r => {
                         let result = new Result();
@@ -371,31 +278,31 @@ export class ResourcePlanUserStateService {
                             case 4: result.debugError = r.statusText;
                                 result.error = "An error occured in update"
                                 result.success = false;
-                                result.resUid = resource.resource.resUid
+                                result.resUid = resMgrUid
                                 return result;
                             case 5: result.debugError = r.statusText;
                                 result.error = "An error occured in update";
                                 result.success = false;
-                                result.resUid = resource.resource.resUid
+                                result.resUid =resMgrUid
                                 return result;
                             case 2: result.debugError = "";
                                 result.error = "";
                                 result.success = true;
-                                result.resUid = resource.resource.resUid
+                                result.resUid = resMgrUid
                                 return result;
                             default:
                                 result.debugError = r.statusText;
                                 result.error = "An error occured in update"
                                 result.success = false;
-                                result.resUid = resource.resource.resUid
+                                result.resUid = resMgrUid
                                 return result;
                         }
                     })
-            })
+                })
         })
     }
 
-    getResPlansFromProjects(resUid: string, resources: IResource[], resPlans: Observable<IResPlan[]>, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, resProjMap: IResPlan[]): Observable<IResPlan[]> {
+    getResPlansFromProjects(resUid: string, resources: IResource[], resPlans: Observable<IResPlan[]>, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits): Observable<IResPlan[]> {
         let emptyResPlans = Observable.of(resources.map(r => new ResPlan(r, [])))
         var uniqueProjects = resPlans.flatMap(r=>Observable.from(r).flatMap(r=>r.projects)).distinct(x=>x.projUid);
         return uniqueProjects.flatMap((project: IProject) => {
@@ -445,13 +352,6 @@ export class ResourcePlanUserStateService {
            })
     }
 
-    buildReadOnlyProjects(resPlans:Observable<IResPlan[]>)
-    {
-        resPlans.do(rp=>
-        {
-            console.log("ALLL RES PLANS=========================================================" + JSON.stringify(resPlans))
-        })
-    }
     getDateFormatString(date: Date): string {
         var NowMoment = moment(date)
         return NowMoment.format('YYYY-MM-DD');
@@ -557,60 +457,6 @@ export class ResourcePlanUserStateService {
         //     })
     }
 
-    addProjectToResMgr(resMgrUid: string, project: IProject[], resource: IResource): Observable<Result> {
-
-        let headers = new Headers();
-        headers.append('accept', 'application/json;odata=verbose')
-        let options = new RequestOptions({
-            withCredentials: true,
-            headers
-        })
-        let url = `${this.config.ResPlanUserStateUrl}/Items`
-        let filter = `?$filter=ResourceManagerUID eq '${resMgrUid}' and su3i eq '${resource.resName}'`
-        //1. get data from SP List UserState  
-        return this.http.get(url + filter, options)
-
-            .flatMap((data: Response) => {
-                let projects = JSON.parse(data.json().d.results[0]["ProjectUIDs"]).map(project => { return new Project(project.projUid, project.projName, false, []) })
-                projects = projects.concat(project)
-                return this.getRequestDigestToken().flatMap(digest => {
-
-                    let headers = new Headers();
-                    headers.append('Accept', 'application/json;odata=verbose')
-                    headers.append('Content-Type', 'application/json;odata=verbose')
-                    headers.append('X-RequestDigest', digest)
-                    headers.append('X-HTTP-Method', 'MERGE')
-                    headers.append('IF-MATCH', '*')
-                    let options = new RequestOptions({
-                        withCredentials: true,
-                        headers: headers
-                    })
-                    let mergedProjects = `'[${projects.map(t => '{"projUid":"' + t.projUid + '","projName":"' + t.projName + '"}').join(",")}]'`
-                    let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ProjectUIDs":${mergedProjects}}"}`
-                    return this.http.post(data.json().d.results[0].__metadata.uri, body, options)
-                        .map(r => {
-                            let result = new Result();
-                            switch (Math.floor(r.status / 100)) {
-                                case 4: result.debugError = r.statusText;
-                                    result.error = "An error occured in update"
-                                    result.success = false;
-                                    return result;
-                                case 5: result.debugError = r.statusText;
-                                    result.error = "An error occured in update";
-                                    result.success = false;
-                                    return result;
-                                case 2: result.debugError = "";
-                                    result.error = "";
-                                    result.success = true;
-                                    return result;
-                            }
-                            return result;
-                        })
-                })
-            })
-
-
-    }
 
     getTimeScaleString(value: Timescale): string {
         ;
@@ -707,14 +553,15 @@ export class ResourcePlanUserStateService {
             headers
         })
         let url = `${this.config.ResPlanUserStateUrl}/Items`
-        let filter = `?$filter=ResourceManagerUID eq '${resMgrUid}' and su3i eq '${resPlan.resource.resName}'`
+        let filter = `?$filter=ResourceManagerUID eq '${resMgrUid}'`
         //1. get data from SP List UserState  
         return this.http.get(url + filter, options)
 
             .flatMap((data: Response) => {
                 ;
-                let projects = <IProject[]>JSON.parse(data.json().d.results[0]["ProjectUIDs"]).map(project => { return new Project(project.projUid, project.projName, false, []) })
-                projects = projects.filter(p => resPlan.projects.map(t => t.projUid.toUpperCase()).indexOf(p.projUid.toUpperCase()) < 0)
+                let resources = <IResource[]>JSON.parse(data.json().d.results[0]["ResourceUID0"])
+                .map(resource => { return new Resource(resource.resUid, resource.resName) })
+                resources = resources.filter(r => resPlan.resource.resUid.toUpperCase() != r.resUid.toUpperCase())
                 return this.getRequestDigestToken().flatMap(digest => {
 
                     let headers = new Headers();
@@ -727,11 +574,11 @@ export class ResourcePlanUserStateService {
                         withCredentials: true,
                         headers: headers
                     })
-                    if (resPlan["selected"] != true) {
+                    if (resPlan["selected"] == true) {
+                        let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName + '"}').join(",")}]'`
                         headers.append('IF-MATCH', '*')
                         headers.append('X-HTTP-Method', 'MERGE')
-                        let mergedProjects = `'[${projects.map(t => '{"projUid":"' + t.projUid + '","projName":"' + t.projName + '"}').join(",")}]'`
-                        let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ProjectUIDs":${mergedProjects}}"}`
+                        let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID0":${resourcesJSON}}"}`
                         return this.http.post(data.json().d.results[0].__metadata.uri, body, options)
                             .map((response: Response) => {
                                 if (Math.floor(response.status / 100) == 2) {
@@ -740,15 +587,8 @@ export class ResourcePlanUserStateService {
                             })
                     }
                     else {
-                        //headers.append('IF-MATCH', data.json().d.results[0].__metadata.etag)
-                        headers.append('IF-MATCH', '*')
-                        headers.append('X-HTTP-Method', 'DELETE')
-                        return this.http.post(data.json().d.results[0].__metadata.uri, null, options)
-                            .map((response: Response) => {
-                                if (Math.floor(response.status / 100) == 2) {
-                                    return resPlan
-                                }
-                            })
+                        //do nothing
+                        return Observable.of(resPlan);
                     }
                 })
             })
