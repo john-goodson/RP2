@@ -1,198 +1,823 @@
 [
     {
-    "id": "1",
-    "name": "Carey Gower",
-    "org": {
-        "location": "Nashville",
-        "title": "Director",
-        "manager": "Brady"
+        "__metadata": {
+            "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('e7808e36-588a-e711-80cc-00155d005a03')",
+            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('e7808e36-588a-e711-80cc-00155d005a03')",
+            "type": "PS.PublishedProject"
+        },
+        "CheckedOutBy": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('e7808e36-588a-e711-80cc-00155d005a03')/CheckedOutBy"
+            }
+        },
+        "CustomFields": {
+            "results": []
+        },
+        "EnterpriseProjectType": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('e7808e36-588a-e711-80cc-00155d005a03')/EnterpriseProjectType"
+            }
+        },
+        "Phase": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('e7808e36-588a-e711-80cc-00155d005a03')/Phase"
+            }
+        },
+        "QueueJobs": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('e7808e36-588a-e711-80cc-00155d005a03')/QueueJobs"
+            }
+        },
+        "Stage": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('e7808e36-588a-e711-80cc-00155d005a03')/Stage"
+            }
+        },
+        "Assignments": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('e7808e36-588a-e711-80cc-00155d005a03')/Assignments"
+            }
+        },
+        "Calendar": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('e7808e36-588a-e711-80cc-00155d005a03')/Calendar"
+            }
+        },
+        "Draft": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('e7808e36-588a-e711-80cc-00155d005a03')/Draft"
+            }
+        },
+        "IncludeCustomFields": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('e7808e36-588a-e711-80cc-00155d005a03')/IncludeCustomFields"
+            }
+        },
+        "Owner": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('e7808e36-588a-e711-80cc-00155d005a03')/Owner"
+            }
+        },
+        "ProjectResources": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('e7808e36-588a-e711-80cc-00155d005a03')/ProjectResources"
+            }
+        },
+        "TaskLinks": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('e7808e36-588a-e711-80cc-00155d005a03')/TaskLinks"
+            }
+        },
+        "Tasks": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('e7808e36-588a-e711-80cc-00155d005a03')/Tasks"
+            }
+        },
+        "ApprovedEnd": "0001-01-01T00:00:00",
+        "ApprovedStart": "0001-01-01T00:00:00",
+        "CheckedOutDate": "2017-10-17T20:48:59.13",
+        "CheckOutDescription": "Check out project from PWA Team Builder",
+        "CheckOutId": "00000000-0000-0000-0000-000000000000",
+        "CreatedDate": "2017-08-26T05:15:14.81",
+        "Id": "e7808e36-588a-e711-80cc-00155d005a03",
+        "IsCheckedOut": false,
+        "LastPublishedDate": "2017-10-31T16:44:16.73",
+        "LastSavedDate": "2017-08-26T05:15:41.93",
+        "OptimizerDecision": 0,
+        "PlannerDecision": 0,
+        "ProjectType": 0,
+        "Name": "Centennial Hospital Urology Credentialing",
+        "WinprojVersion": "14.1549230000"
     },
-    "projects": [
-        {
-            "id": "1",
-            "name": "Data Center Consolidation",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "80"
+    {
+        "__metadata": {
+            "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')",
+            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')",
+            "type": "PS.PublishedProject"
+        },
+        "CheckedOutBy": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')/CheckedOutBy"
             }
+        },
+        "CustomFields": {
+            "results": [
+                {
+                    "__metadata": {
+                        "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('6ad2a918-8586-e711-80cc-00155d005a03')",
+                        "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('6ad2a918-8586-e711-80cc-00155d005a03')",
+                        "type": "PS.CustomField"
+                    },
+                    "EntityType": {
+                        "__deferred": {
+                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('6ad2a918-8586-e711-80cc-00155d005a03')/EntityType"
+                        }
+                    },
+                    "LookupEntries": {
+                        "__deferred": {
+                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('6ad2a918-8586-e711-80cc-00155d005a03')/LookupEntries"
+                        }
+                    },
+                    "LookupTable": {
+                        "__metadata": {
+                            "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('6ad2a918-8586-e711-80cc-00155d005a03')/LookupTable",
+                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('6ad2a918-8586-e711-80cc-00155d005a03')/LookupTable",
+                            "type": "PS.LookupTable"
+                        },
+                        "Entries": {
+                            "results": [
+                                {
+                                    "__metadata": {
+                                        "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('85e20208-8586-e711-80cc-00155d005a03')",
+                                        "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('85e20208-8586-e711-80cc-00155d005a03')",
+                                        "type": "PS.LookupText"
+                                    },
+                                    "Parent": {
+                                        "__deferred": {
+                                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('85e20208-8586-e711-80cc-00155d005a03')/Parent"
+                                        }
+                                    },
+                                    "AppAlternateId": "00000000-0000-0000-0000-000000000000",
+                                    "Description": "",
+                                    "FullValue": "In-Progress",
+                                    "Id": "85e20208-8586-e711-80cc-00155d005a03",
+                                    
+                                    "InternalName": "Entry_85e202088586e71180cc00155d005a03",
+                                    "SortIndex": "1.0000000000",
+                                    "HasChildren": false,
+                                    "Mask": {
+                                        "__metadata": {
+                                            "type": "PS.LookupMask"
+                                        },
+                                        "Length": 0,
+                                        "MaskType": 3,
+                                        "Separator": "."
+                                    },
+                                    "Value": "In-Progress"
+                                },
+                                {
+                                    "__metadata": {
+                                        "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('86e20208-8586-e711-80cc-00155d005a03')",
+                                        "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('86e20208-8586-e711-80cc-00155d005a03')",
+                                        "type": "PS.LookupText"
+                                    },
+                                    "Parent": {
+                                        "__deferred": {
+                                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('86e20208-8586-e711-80cc-00155d005a03')/Parent"
+                                        }
+                                    },
+                                    "AppAlternateId": "00000000-0000-0000-0000-000000000000",
+                                    "Description": "",
+                                    "FullValue": "Cancelled",
+                                    "Id": "86e20208-8586-e711-80cc-00155d005a03",
+                                    "InternalName": "Entry_86e202088586e71180cc00155d005a03",
+                                    "SortIndex": "2.0000000000",
+                                    "HasChildren": false,
+                                    "Mask": {
+                                        "__metadata": {
+                                            "type": "PS.LookupMask"
+                                        },
+                                        "Length": 0,
+                                        "MaskType": 3,
+                                        "Separator": "."
+                                    },
+                                    "Value": "Cancelled"
+                                },
+                                {
+                                    "__metadata": {
+                                        "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('87e20208-8586-e711-80cc-00155d005a03')",
+                                        "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('87e20208-8586-e711-80cc-00155d005a03')",
+                                        "type": "PS.LookupText"
+                                    },
+                                    "Parent": {
+                                        "__deferred": {
+                                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('87e20208-8586-e711-80cc-00155d005a03')/Parent"
+                                        }
+                                    },
+                                    "AppAlternateId": "00000000-0000-0000-0000-000000000000",
+                                    "Description": "",
+                                    "FullValue": "Completed",
+                                    "Id": "87e20208-8586-e711-80cc-00155d005a03",
+                                    "InternalName": "Entry_87e202088586e71180cc00155d005a03",
+                                    "SortIndex": "3.0000000000",
+                                    "HasChildren": false,
+                                    "Mask": {
+                                        "__metadata": {
+                                            "type": "PS.LookupMask"
+                                        },
+                                        "Length": 0,
+                                        "MaskType": 3,
+                                        "Separator": "."
+                                    },
+                                    "Value": "Completed"
+                                }
+                            ]
+                        },
+                        "AppAlternateId": "00000000-0000-0000-0000-000000000000",
+                        "FieldType": 21,
+                        "Id": "84e20208-8586-e711-80cc-00155d005a03",
+                        "Masks": {
+                            "__metadata": {
+                                "type": "Collection(PS.LookupMask)"
+                            },
+                            "results": [
+                                {
+                                    "Length": 0,
+                                    "MaskType": 3,
+                                    "Separator": "."
+                                }
+                            ]
+                        },
+                        "Name": "ProjectActiveStatus",
+                        "SortOrder": 0
+                    },
+                    "AppAlternateId": "6ad2a918-8586-e711-80cc-00155d005a03",
+                    "Description": "",
+                    "FieldType": 21,
+                    "Formula": null,
+                    "Id": "6ad2a918-8586-e711-80cc-00155d005a03",
+                    "InternalName": "Custom_6ad2a9188586e71180cc00155d005a03",
+                    "IsEditableInVisibility": false,
+                    "IsMultilineText": false,
+                    "IsRequired": false,
+                    "IsWorkflowControlled": false,
+                    "LookupAllowMultiSelect": false,
+                    "LookupDefaultValue": "00000000-0000-0000-0000-000000000000",
+                    "Name": "Project Active Status",
+                    "RollsDownToAssignments": false,
+                    "RollupType": 11
+                }
             ]
         },
-         {
-            "id": "2",
-            "name": "Windows Upgrade",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "80.5"
+        "EnterpriseProjectType": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')/EnterpriseProjectType"
             }
-            ]
         },
-         {
-            "id": "3",
-            "name": "Server Upgrades",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "45.5"
+        "Phase": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')/Phase"
             }
-            ]
         },
-        {
-            "id": "4",
-            "name": "Payment Processing Upgrade",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "80"
+        "QueueJobs": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')/QueueJobs"
             }
-            ]
-        }
-    ]
-},
-   {
-    "id": "2",
-    "name": "John Goodson",
-    "org": {
-        "location": "Nashville",
-        "title": "Cons Engr",
-        "manager": "Ronnie"
+        },
+        "Stage": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')/Stage"
+            }
+        },
+        "Assignments": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')/Assignments"
+            }
+        },
+        "Calendar": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')/Calendar"
+            }
+        },
+        "Draft": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')/Draft"
+            }
+        },
+        "IncludeCustomFields": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')/IncludeCustomFields"
+            }
+        },
+        "Owner": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')/Owner"
+            }
+        },
+        "ProjectResources": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')/ProjectResources"
+            }
+        },
+        "TaskLinks": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')/TaskLinks"
+            }
+        },
+        "Tasks": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('afa7fbbe-e361-e711-80cc-00155d005a03')/Tasks"
+            }
+        },
+        "ApprovedEnd": "0001-01-01T00:00:00",
+        "ApprovedStart": "0001-01-01T00:00:00",
+        "CheckedOutDate": "2017-09-02T08:11:32.09",
+        "CheckOutDescription": "PWA PDP Edit",
+        "CheckOutId": "00000000-0000-0000-0000-000000000000",
+        "CreatedDate": "2017-07-05T17:40:49.767",
+        "Id": "afa7fbbe-e361-e711-80cc-00155d005a03",
+        "IsCheckedOut": false,
+        "LastPublishedDate": "2017-10-31T16:44:13.533",
+        "LastSavedDate": "2017-09-02T08:11:42.53",
+        "OptimizerDecision": 0,
+        "PlannerDecision": 0,
+        "ProjectType": 0,
+        "Name": "project 1",
+        "WinprojVersion": "14.1549230000"
     },
-    "projects": [
-        {
-            "id": "1",
-            "name": "Data Center",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "80"
+    {
+        "__metadata": {
+            "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('ba42bbfe-e361-e711-80cc-00155d005a03')",
+            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('ba42bbfe-e361-e711-80cc-00155d005a03')",
+            "type": "PS.PublishedProject"
+        },
+        "CheckedOutBy": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('ba42bbfe-e361-e711-80cc-00155d005a03')/CheckedOutBy"
             }
+        },
+        "CustomFields": {
+            "results": [
+                {
+                    "__metadata": {
+                        "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('6ad2a918-8586-e711-80cc-00155d005a03')",
+                        "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('6ad2a918-8586-e711-80cc-00155d005a03')",
+                        "type": "PS.CustomField"
+                    },
+                    "EntityType": {
+                        "__deferred": {
+                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('6ad2a918-8586-e711-80cc-00155d005a03')/EntityType"
+                        }
+                    },
+                    "LookupEntries": {
+                        "__deferred": {
+                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('6ad2a918-8586-e711-80cc-00155d005a03')/LookupEntries"
+                        }
+                    },
+                    "LookupTable": {
+                        "__metadata": {
+                            "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('6ad2a918-8586-e711-80cc-00155d005a03')/LookupTable",
+                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('6ad2a918-8586-e711-80cc-00155d005a03')/LookupTable",
+                            "type": "PS.LookupTable"
+                        },
+                        "Entries": {
+                            "results": [
+                                {
+                                    "__metadata": {
+                                        "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('85e20208-8586-e711-80cc-00155d005a03')",
+                                        "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('85e20208-8586-e711-80cc-00155d005a03')",
+                                        "type": "PS.LookupText"
+                                    },
+                                    "Parent": {
+                                        "__deferred": {
+                                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('85e20208-8586-e711-80cc-00155d005a03')/Parent"
+                                        }
+                                    },
+                                    "AppAlternateId": "00000000-0000-0000-0000-000000000000",
+                                    "Description": "",
+                                    "FullValue": "In-Progress",
+                                    "Id": "85e20208-8586-e711-80cc-00155d005a03",
+                                    "InternalName": "Entry_85e202088586e71180cc00155d005a03",
+                                    "SortIndex": "1.0000000000",
+                                    "HasChildren": false,
+                                    "Mask": {
+                                        "__metadata": {
+                                            "type": "PS.LookupMask"
+                                        },
+                                        "Length": 0,
+                                        "MaskType": 3,
+                                        "Separator": "."
+                                    },
+                                    "Value": "In-Progress"
+                                },
+                                {
+                                    "__metadata": {
+                                        "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('86e20208-8586-e711-80cc-00155d005a03')",
+                                        "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('86e20208-8586-e711-80cc-00155d005a03')",
+                                        "type": "PS.LookupText"
+                                    },
+                                    "Parent": {
+                                        "__deferred": {
+                                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('86e20208-8586-e711-80cc-00155d005a03')/Parent"
+                                        }
+                                    },
+                                    "AppAlternateId": "00000000-0000-0000-0000-000000000000",
+                                    "Description": "",
+                                    "FullValue": "Cancelled",
+                                    "Id": "86e20208-8586-e711-80cc-00155d005a03",
+                                    "InternalName": "Entry_86e202088586e71180cc00155d005a03",
+                                    "SortIndex": "2.0000000000",
+                                    "HasChildren": false,
+                                    "Mask": {
+                                        "__metadata": {
+                                            "type": "PS.LookupMask"
+                                        },
+                                        "Length": 0,
+                                        "MaskType": 3,
+                                        "Separator": "."
+                                    },
+                                    "Value": "Cancelled"
+                                },
+                                {
+                                    "__metadata": {
+                                        "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('87e20208-8586-e711-80cc-00155d005a03')",
+                                        "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('87e20208-8586-e711-80cc-00155d005a03')",
+                                        "type": "PS.LookupText"
+                                    },
+                                    "Parent": {
+                                        "__deferred": {
+                                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('84e20208-8586-e711-80cc-00155d005a03')/Entries('87e20208-8586-e711-80cc-00155d005a03')/Parent"
+                                        }
+                                    },
+                                    "AppAlternateId": "00000000-0000-0000-0000-000000000000",
+                                    "Description": "",
+                                    "FullValue": "Completed",
+                                    "Id": "87e20208-8586-e711-80cc-00155d005a03",
+                                    "InternalName": "Entry_87e202088586e71180cc00155d005a03",
+                                    "SortIndex": "3.0000000000",
+                                    "HasChildren": false,
+                                    "Mask": {
+                                        "__metadata": {
+                                            "type": "PS.LookupMask"
+                                        },
+                                        "Length": 0,
+                                        "MaskType": 3,
+                                        "Separator": "."
+                                    },
+                                    "Value": "Completed"
+                                }
+                            ]
+                        },
+                        "AppAlternateId": "00000000-0000-0000-0000-000000000000",
+                        "FieldType": 21,
+                        "Id": "84e20208-8586-e711-80cc-00155d005a03",
+                        "Masks": {
+                            "__metadata": {
+                                "type": "Collection(PS.LookupMask)"
+                            },
+                            "results": [
+                                {
+                                    "Length": 0,
+                                    "MaskType": 3,
+                                    "Separator": "."
+                                }
+                            ]
+                        },
+                        "Name": "ProjectActiveStatus",
+                        "SortOrder": 0
+                    },
+                    "AppAlternateId": "6ad2a918-8586-e711-80cc-00155d005a03",
+                    "Description": "",
+                    "FieldType": 21,
+                    "Formula": null,
+                    "Id": "6ad2a918-8586-e711-80cc-00155d005a03",
+                    "InternalName": "Custom_6ad2a9188586e71180cc00155d005a03",
+                    "IsEditableInVisibility": false,
+                    "IsMultilineText": false,
+                    "IsRequired": false,
+                    "IsWorkflowControlled": false,
+                    "LookupAllowMultiSelect": false,
+                    "LookupDefaultValue": "00000000-0000-0000-0000-000000000000",
+                    "Name": "Project Active Status",
+                    "RollsDownToAssignments": false,
+                    "RollupType": 11
+                },
+                {
+                    "__metadata": {
+                        "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('4836fff0-f0b4-e711-80ce-00155dcd8a01')",
+                        "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('4836fff0-f0b4-e711-80ce-00155dcd8a01')",
+                        "type": "PS.CustomField"
+                    },
+                    "EntityType": {
+                        "__deferred": {
+                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('4836fff0-f0b4-e711-80ce-00155dcd8a01')/EntityType"
+                        }
+                    },
+                    "LookupEntries": {
+                        "__deferred": {
+                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('4836fff0-f0b4-e711-80ce-00155dcd8a01')/LookupEntries"
+                        }
+                    },
+                    "LookupTable": {
+                        "__metadata": {
+                            "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('4836fff0-f0b4-e711-80ce-00155dcd8a01')/LookupTable",
+                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('4836fff0-f0b4-e711-80ce-00155dcd8a01')/LookupTable",
+                            "type": "PS.LookupTable"
+                        },
+                        "Entries": {
+                            "results": [
+                                {
+                                    "__metadata": {
+                                        "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('ea971be3-f0b4-e711-80ce-00155dcd8a01')/Entries('eb971be3-f0b4-e711-80ce-00155dcd8a01')",
+                                        "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('ea971be3-f0b4-e711-80ce-00155dcd8a01')/Entries('eb971be3-f0b4-e711-80ce-00155dcd8a01')",
+                                        "type": "PS.LookupText"
+                                    },
+                                    "Parent": {
+                                        "__deferred": {
+                                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('ea971be3-f0b4-e711-80ce-00155dcd8a01')/Entries('eb971be3-f0b4-e711-80ce-00155dcd8a01')/Parent"
+                                        }
+                                    },
+                                    "AppAlternateId": "00000000-0000-0000-0000-000000000000",
+                                    "Description": "",
+                                    "FullValue": "BPG Group 1",
+                                    "Id": "eb971be3-f0b4-e711-80ce-00155dcd8a01",
+                                    "InternalName": "Entry_eb971be3f0b4e71180ce00155dcd8a01",
+                                    "SortIndex": "1.0000000000",
+                                    "HasChildren": false,
+                                    "Mask": {
+                                        "__metadata": {
+                                            "type": "PS.LookupMask"
+                                        },
+                                        "Length": 0,
+                                        "MaskType": 3,
+                                        "Separator": "."
+                                    },
+                                    "Value": "BPG Group 1"
+                                },
+                                {
+                                    "__metadata": {
+                                        "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('ea971be3-f0b4-e711-80ce-00155dcd8a01')/Entries('ec971be3-f0b4-e711-80ce-00155dcd8a01')",
+                                        "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('ea971be3-f0b4-e711-80ce-00155dcd8a01')/Entries('ec971be3-f0b4-e711-80ce-00155dcd8a01')",
+                                        "type": "PS.LookupText"
+                                    },
+                                    "Parent": {
+                                        "__deferred": {
+                                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('ea971be3-f0b4-e711-80ce-00155dcd8a01')/Entries('ec971be3-f0b4-e711-80ce-00155dcd8a01')/Parent"
+                                        }
+                                    },
+                                    "AppAlternateId": "00000000-0000-0000-0000-000000000000",
+                                    "Description": "",
+                                    "FullValue": "BPG Group 2",
+                                    "Id": "ec971be3-f0b4-e711-80ce-00155dcd8a01",
+                                    "InternalName": "Entry_ec971be3f0b4e71180ce00155dcd8a01",
+                                    "SortIndex": "2.0000000000",
+                                    "HasChildren": false,
+                                    "Mask": {
+                                        "__metadata": {
+                                            "type": "PS.LookupMask"
+                                        },
+                                        "Length": 0,
+                                        "MaskType": 3,
+                                        "Separator": "."
+                                    },
+                                    "Value": "BPG Group 2"
+                                },
+                                {
+                                    "__metadata": {
+                                        "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('ea971be3-f0b4-e711-80ce-00155dcd8a01')/Entries('ed971be3-f0b4-e711-80ce-00155dcd8a01')",
+                                        "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('ea971be3-f0b4-e711-80ce-00155dcd8a01')/Entries('ed971be3-f0b4-e711-80ce-00155dcd8a01')",
+                                        "type": "PS.LookupText"
+                                    },
+                                    "Parent": {
+                                        "__deferred": {
+                                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('ea971be3-f0b4-e711-80ce-00155dcd8a01')/Entries('ed971be3-f0b4-e711-80ce-00155dcd8a01')/Parent"
+                                        }
+                                    },
+                                    "AppAlternateId": "00000000-0000-0000-0000-000000000000",
+                                    "Description": "",
+                                    "FullValue": "Credentialling",
+                                    "Id": "ed971be3-f0b4-e711-80ce-00155dcd8a01",
+                                    "InternalName": "Entry_ed971be3f0b4e71180ce00155dcd8a01",
+                                    "SortIndex": "3.0000000000",
+                                    "HasChildren": false,
+                                    "Mask": {
+                                        "__metadata": {
+                                            "type": "PS.LookupMask"
+                                        },
+                                        "Length": 0,
+                                        "MaskType": 3,
+                                        "Separator": "."
+                                    },
+                                    "Value": "Credentialling"
+                                }
+                            ]
+                        },
+                        "AppAlternateId": "00000000-0000-0000-0000-000000000000",
+                        "FieldType": 21,
+                        "Id": "ea971be3-f0b4-e711-80ce-00155dcd8a01",
+                        "Masks": {
+                            "__metadata": {
+                                "type": "Collection(PS.LookupMask)"
+                            },
+                            "results": [
+                                {
+                                    "Length": 0,
+                                    "MaskType": 3,
+                                    "Separator": "."
+                                }
+                            ]
+                        },
+                        "Name": "Project Chargeback Category",
+                        "SortOrder": 0
+                    },
+                    "AppAlternateId": "4836fff0-f0b4-e711-80ce-00155dcd8a01",
+                    "Description": "",
+                    "FieldType": 21,
+                    "Formula": null,
+                    "Id": "4836fff0-f0b4-e711-80ce-00155dcd8a01",
+                    "InternalName": "Custom_4836fff0f0b4e71180ce00155dcd8a01",
+                    "IsEditableInVisibility": false,
+                    "IsMultilineText": false,
+                    "IsRequired": false,
+                    "IsWorkflowControlled": false,
+                    "LookupAllowMultiSelect": false,
+                    "LookupDefaultValue": "00000000-0000-0000-0000-000000000000",
+                    "Name": "Project ChargeBack Category",
+                    "RollsDownToAssignments": false,
+                    "RollupType": 11
+                },
+                {
+                    "__metadata": {
+                        "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('9d77d62a-a92e-4d40-adc8-446c90eb7456')",
+                        "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('9d77d62a-a92e-4d40-adc8-446c90eb7456')",
+                        "type": "PS.CustomField"
+                    },
+                    "EntityType": {
+                        "__deferred": {
+                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('9d77d62a-a92e-4d40-adc8-446c90eb7456')/EntityType"
+                        }
+                    },
+                    "LookupEntries": {
+                        "__deferred": {
+                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('9d77d62a-a92e-4d40-adc8-446c90eb7456')/LookupEntries"
+                        }
+                    },
+                    "LookupTable": {
+                        "__metadata": {
+                            "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('9d77d62a-a92e-4d40-adc8-446c90eb7456')/LookupTable",
+                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/CustomFields('9d77d62a-a92e-4d40-adc8-446c90eb7456')/LookupTable",
+                            "type": "PS.LookupTable"
+                        },
+                        "Entries": {
+                            "results": [
+                                {
+                                    "__metadata": {
+                                        "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('e7397277-1ab0-4096-b2dd-57029a055ba4')/Entries('f81aefce-d393-e711-80cc-00155d005a03')",
+                                        "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('e7397277-1ab0-4096-b2dd-57029a055ba4')/Entries('f81aefce-d393-e711-80cc-00155d005a03')",
+                                        "type": "PS.LookupText"
+                                    },
+                                    "Parent": {
+                                        "__deferred": {
+                                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('e7397277-1ab0-4096-b2dd-57029a055ba4')/Entries('f81aefce-d393-e711-80cc-00155d005a03')/Parent"
+                                        }
+                                    },
+                                    "AppAlternateId": "00000000-0000-0000-0000-000000000000",
+                                    "Description": "",
+                                    "FullValue": "ITS",
+                                    "Id": "f81aefce-d393-e711-80cc-00155d005a03",
+                                    "InternalName": "Entry_f81aefced393e71180cc00155d005a03",
+                                    "SortIndex": "1.0000000000",
+                                    "HasChildren": false,
+                                    "Mask": {
+                                        "__metadata": {
+                                            "type": "PS.LookupMask"
+                                        },
+                                        "Length": 0,
+                                        "MaskType": 3,
+                                        "Separator": "."
+                                    },
+                                    "Value": "ITS"
+                                },
+                                {
+                                    "__metadata": {
+                                        "id": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('e7397277-1ab0-4096-b2dd-57029a055ba4')/Entries('f91aefce-d393-e711-80cc-00155d005a03')",
+                                        "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('e7397277-1ab0-4096-b2dd-57029a055ba4')/Entries('f91aefce-d393-e711-80cc-00155d005a03')",
+                                        "type": "PS.LookupText"
+                                    },
+                                    "Parent": {
+                                        "__deferred": {
+                                            "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/LookupTables('e7397277-1ab0-4096-b2dd-57029a055ba4')/Entries('f91aefce-d393-e711-80cc-00155d005a03')/Parent"
+                                        }
+                                    },
+                                    "AppAlternateId": "00000000-0000-0000-0000-000000000000",
+                                    "Description": "",
+                                    "FullValue": "ProjSvcs",
+                                    "Id": "f91aefce-d393-e711-80cc-00155d005a03",
+                                    "InternalName": "Entry_f91aefced393e71180cc00155d005a03",
+                                    "SortIndex": "2.0000000000",
+                                    "HasChildren": false,
+                                    "Mask": {
+                                        "__metadata": {
+                                            "type": "PS.LookupMask"
+                                        },
+                                        "Length": 0,
+                                        "MaskType": 3,
+                                        "Separator": "."
+                                    },
+                                    "Value": "ProjSvcs"
+                                }
+                            ]
+                        },
+                        "AppAlternateId": "00000000-0000-0000-0000-000000000000",
+                        "FieldType": 21,
+                        "Id": "e7397277-1ab0-4096-b2dd-57029a055ba4",
+                        "Masks": {
+                            "__metadata": {
+                                "type": "Collection(PS.LookupMask)"
+                            },
+                            "results": [
+                                {
+                                    "Length": 0,
+                                    "MaskType": 3,
+                                    "Separator": "."
+                                }
+                            ]
+                        },
+                        "Name": "Department",
+                        "SortOrder": 0
+                    },
+                    "AppAlternateId": "9d77d62a-a92e-4d40-adc8-446c90eb7456",
+                    "Description": null,
+                    "FieldType": 21,
+                    "Formula": null,
+                    "Id": "9d77d62a-a92e-4d40-adc8-446c90eb7456",
+                    "InternalName": "Custom_9d77d62aa92e4d40adc8446c90eb7456",
+                    "IsEditableInVisibility": true,
+                    "IsMultilineText": false,
+                    "IsRequired": false,
+                    "IsWorkflowControlled": false,
+                    "LookupAllowMultiSelect": false,
+                    "LookupDefaultValue": "00000000-0000-0000-0000-000000000000",
+                    "Name": "Project Departments",
+                    "RollsDownToAssignments": false,
+                    "RollupType": 11
+                }
             ]
         },
-         {
-            "id": "2",
-            "name": "Windows Upgrade",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "80.5"
+        "EnterpriseProjectType": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('ba42bbfe-e361-e711-80cc-00155d005a03')/EnterpriseProjectType"
             }
-            ]
         },
-         {
-            "id": "3",
-            "name": "Server Upgrades",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "45.5"
+        "Phase": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('ba42bbfe-e361-e711-80cc-00155d005a03')/Phase"
             }
-            ]
-        }
-    ]
-},
-{
-    "id": "3",
-    "name": "Joe Colstad",
-    "org": {
-        "location": "Nashville",
-        "title": "PS Admin",
-        "manager": "Ronnie"
-    },
-    "projects": [
-        {
-            "id": "1",
-            "name": "Project XYZ for Joe Colstad",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "80"
-            }
-            ]
         },
-        {
-            "id": "2",
-            "name": "Project 123 - Joe Colstad",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "80"
+        "QueueJobs": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('ba42bbfe-e361-e711-80cc-00155d005a03')/QueueJobs"
             }
-            ]
-        }
-
-    ]
-}
+        },
+        "Stage": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('ba42bbfe-e361-e711-80cc-00155d005a03')/Stage"
+            }
+        },
+        "Assignments": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('ba42bbfe-e361-e711-80cc-00155d005a03')/Assignments"
+            }
+        },
+        "Calendar": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('ba42bbfe-e361-e711-80cc-00155d005a03')/Calendar"
+            }
+        },
+        "Draft": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('ba42bbfe-e361-e711-80cc-00155d005a03')/Draft"
+            }
+        },
+        "IncludeCustomFields": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('ba42bbfe-e361-e711-80cc-00155d005a03')/IncludeCustomFields"
+            }
+        },
+        "Owner": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('ba42bbfe-e361-e711-80cc-00155d005a03')/Owner"
+            }
+        },
+        "ProjectResources": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('ba42bbfe-e361-e711-80cc-00155d005a03')/ProjectResources"
+            }
+        },
+        "TaskLinks": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('ba42bbfe-e361-e711-80cc-00155d005a03')/TaskLinks"
+            }
+        },
+        "Tasks": {
+            "__deferred": {
+                "uri": "http://foo.wingtip.com/PWA/_api/ProjectServer/Projects('ba42bbfe-e361-e711-80cc-00155d005a03')/Tasks"
+            }
+        },
+        "ApprovedEnd": "0001-01-01T00:00:00",
+        "ApprovedStart": "0001-01-01T00:00:00",
+        "CheckedOutDate": "2017-11-02T16:44:53.89",
+        "CheckOutDescription": "PWA PDP Edit",
+        "CheckOutId": "00000000-0000-0000-0000-000000000000",
+        "CreatedDate": "2017-07-05T17:42:33.307",
+        "Id": "ba42bbfe-e361-e711-80cc-00155d005a03",
+        "IsCheckedOut": false,
+        "LastPublishedDate": "2017-10-31T16:44:13.533",
+        "LastSavedDate": "2017-11-02T16:45:03.82",
+        "OptimizerDecision": 0,
+        "PlannerDecision": 0,
+        "ProjectType": 0,
+        "Name": "project2",
+        "WinprojVersion": "14.0000000000"
+    }
 ]
