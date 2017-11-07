@@ -174,12 +174,13 @@ export class ResourcePlanUserStateService {
 
 
         // var readOnlyProjects = allProjectsWithReadOnlyFlags.map(t => { ; return t.filter(project => project.readOnly == true) })
-        return this.getResPlansFromProjects(resMgrUid, resources, projectsThatUserHasAccessOn, fromDate, toDate, timescale, workunits).filter((r: IResPlan[]) => {
-                ;
-                return r.find(x => {
-                    return resources.map(p => p.resUid.toUpperCase()).indexOf(x.resource.resUid.toUpperCase()) > -1
-                }) != null
-            })
+        return this.getResPlansFromProjects(resMgrUid, resources, projectsThatUserHasAccessOn, fromDate, toDate, timescale, workunits)
+        // .filter((r: IResPlan[]) => {
+        //         ;
+        //         return r.find(x => {
+        //             return resources.map(p => p.resUid.toUpperCase()).indexOf(x.resource.resUid.toUpperCase()) > -1
+        //         }) != null
+        //     })
 
         
         // .do(resPlans => {
@@ -224,7 +225,7 @@ export class ResourcePlanUserStateService {
     }
     public AddResourceToManager(resMgrUid: string, resourcePlans: IResPlan[]): Observable<Result> {
         let headers = new Headers();
-        let existingResources :[IResPlan] ;
+        let existingResources :IResource[];
         
         headers.append('accept', 'application/json;odata=verbose')
         let options = new RequestOptions({
@@ -237,13 +238,16 @@ export class ResourcePlanUserStateService {
         return this.http.get(url + filter, options)
                     .flatMap((data: Response) => {
                         let resources = [];
+                        resources = resources.concat(resourcePlans.map(r=>r.resource));
                         if(data.json().d.results.length > 0){
                         existingResources = JSON.parse(data.json().d.results[0]["ResourceUID0"]).map(resource => { return new Resource(resource.resUid, resource.resName) })
+                        existingResources = existingResources
+                        .filter(e=>resources.map(r=>r.resUid.toUpperCase()).indexOf(e.resUid.toUpperCase()) < 0)
                         }
                         else{
                             isNewEntry = true;
                         }
-                        resources = resources.concat(resourcePlans.map(r=>r.resource));
+                        
         return this.getRequestDigestToken().flatMap(digest => {
             
                 let url = `${this.config.ResPlanUserStateUrl}/Items`
@@ -338,15 +342,16 @@ export class ResourcePlanUserStateService {
            .toArray()
            .do(t => console.log("RES PLANS READ =====" + JSON.stringify(t)))
            .map(rps=>{
-            // rps.forEach(rp => {
-            //     var allReadOnlyProjects = rps.find(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000") && rps.find(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000").projects.filter(p => p.readOnly == true)
-            //     if (allReadOnlyProjects) {
-            //         var readOnlyProjectsInRP = rp.projects.filter(p => allReadOnlyProjects.map(r => r.projUid.toUpperCase()).indexOf(p.projUid.toUpperCase()) > -1)
-            //         readOnlyProjectsInRP.forEach(project => {
-            //             project.readOnly = true;
-            //         });
-            //     }
-            // })
+            rps.forEach(rp => {
+                var allReadOnlyProjects = rps.find(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000") && rps.find(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000").projects.filter(p => p.readOnly == true)
+                if (allReadOnlyProjects) {
+                    var readOnlyProjectsInRP = rp.projects.filter(p => allReadOnlyProjects.map(r => r.projUid.toUpperCase()).indexOf(p.projUid.toUpperCase()) > -1)
+                    readOnlyProjectsInRP.forEach(project => {
+                        project.readOnly = true;
+                    });
+                }
+            })
+            rps.findIndex(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000") > -1 &&
              rps.splice(rps.findIndex(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000"), 1)
             return rps;
            })
@@ -503,7 +508,9 @@ export class ResourcePlanUserStateService {
 
     deleteResPlans(resPlan: IResPlan[], fromDate: Date, toDate: Date, timeScale: Timescale, workScale: WorkUnits): Observable<Result[]> {
         var success;
-        //TODO
+        resPlan.forEach(r=>{
+            r.projects = r.projects.filter(p=>p.readOnly == false)
+        }) 
         let pwaPath = `${this.config.projectServerUrl}/`
         let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
         let body = {
@@ -535,17 +542,7 @@ export class ResourcePlanUserStateService {
         //         return Observable.of(project);
         //     })
     }
-    HideResPlans(resMgrUid: string, resPlans: IResPlan[]): Observable<IResPlan[]> {
-        return Observable.from(resPlans)
-            .flatMap(resPlan => {
-                ;
-                return this.HideResPlan(resMgrUid, resPlan)
-
-            })
-            .toArray();
-    }
-
-    HideResPlan(resMgrUid: string, resPlan: IResPlan): Observable<IResPlan> {
+    HideResPlans(resMgrUid: string, resPlans: IResPlan[]): Observable<Result> {
         let headers = new Headers();
         headers.append('accept', 'application/json;odata=verbose')
         let options = new RequestOptions({
@@ -554,6 +551,7 @@ export class ResourcePlanUserStateService {
         })
         let url = `${this.config.ResPlanUserStateUrl}/Items`
         let filter = `?$filter=ResourceManagerUID eq '${resMgrUid}'`
+        resPlans = resPlans.filter(r=>r["selected"] == true)
         //1. get data from SP List UserState  
         return this.http.get(url + filter, options)
 
@@ -561,7 +559,7 @@ export class ResourcePlanUserStateService {
                 ;
                 let resources = <IResource[]>JSON.parse(data.json().d.results[0]["ResourceUID0"])
                 .map(resource => { return new Resource(resource.resUid, resource.resName) })
-                resources = resources.filter(r => resPlan.resource.resUid.toUpperCase() != r.resUid.toUpperCase())
+                resources = resources.filter(r => resPlans.map(d=>d.resource.resUid.toUpperCase()).indexOf(r.resUid.toUpperCase()) < 0)
                 return this.getRequestDigestToken().flatMap(digest => {
 
                     let headers = new Headers();
@@ -574,7 +572,7 @@ export class ResourcePlanUserStateService {
                         withCredentials: true,
                         headers: headers
                     })
-                    if (resPlan["selected"] == true) {
+                    
                         let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName + '"}').join(",")}]'`
                         headers.append('IF-MATCH', '*')
                         headers.append('X-HTTP-Method', 'MERGE')
@@ -582,18 +580,23 @@ export class ResourcePlanUserStateService {
                         return this.http.post(data.json().d.results[0].__metadata.uri, body, options)
                             .map((response: Response) => {
                                 if (Math.floor(response.status / 100) == 2) {
-                                    return resPlan
+                                    var result=  new Result();
+                                    result.success = true;
+                                    return result;
+                                }
+                                else{
+                                    var result=  new Result();
+                                    result.success = false;
+                                    return result;
                                 }
                             })
-                    }
-                    else {
-                        //do nothing
-                        return Observable.of(resPlan);
-                    }
+                    
                 })
             })
 
     }
+
+    
 
 
 

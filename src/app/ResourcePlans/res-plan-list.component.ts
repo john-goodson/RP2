@@ -508,25 +508,31 @@ export class ResPlanListComponent implements OnInit {
             console.log("dirty resPlans" + JSON.stringify(resourceplans))
             this._appSvc.loading(true);
             if (hideOnly == true) {
-                this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr => {
-                    return this._resPlanUserStateSvc.HideResPlans(resMgr, resourceplans as IResPlan[]).map(r => {
-                        this.deleteResourcePlans(r)
+                // this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr => {
+                //     return this._resPlanUserStateSvc.HideResPlans(resMgr, resourceplans as IResPlan[]).map(r => {
+                        // if(r.success == true){
+                        this._appSvc.loading(true); 
+                        this.deleteResourcePlans(resourceplans)
                         this._appSvc.loading(false);
-                    },
-                        (error: any) => {
-                            this.errorMessage = <any>error
-                            this._appSvc.loading(false);
-                        }
-                    )
-                },
-                    (error: any) => {
-                        this.errorMessage = <any>error;
-                        this._appSvc.loading(false);
-                    }
-                ).subscribe((r) => { 
-                    this._appSvc.loading(false) 
+                        // }
+                        // else{
+                        //     this._appSvc.loading(false);  
+                        // }
+                //     },
+                //         (error: any) => {
+                //             this.errorMessage = <any>error
+                //             this._appSvc.loading(false);
+                //         }
+                //     )
+                // },
+                //     (error: any) => {
+                //         this.errorMessage = <any>error;
+                //         this._appSvc.loading(false);
+                //     }
+                // ).subscribe((r) => { 
+                //     this._appSvc.loading(false) 
                     
-                }, () => { this._appSvc.loading(false) })
+                // }, () => { this._appSvc.loading(false) })
             }
             else {
                 this._resPlanUserStateSvc.deleteResPlans(resourceplans, fromDate, toDate, timescale, workunits)
@@ -547,8 +553,13 @@ export class ResPlanListComponent implements OnInit {
                             
                             
                             return this._resPlanUserStateSvc.HideResPlans(resMgr, resourceplans as IResPlan[]).map(r => {
+                                if(r.success == true){
                                 this.deleteResourcePlans(resourceplans)
                                 this._appSvc.loading(false);
+                                }
+                                else{
+                                    this._appSvc.loading(false); 
+                                }
                             },
                                 (error: any) => {
                                     this.errorMessage = <any>error
