@@ -348,6 +348,8 @@ export class ResourcePlanUserStateService {
                     var readOnlyProjectsInRP = rp.projects.filter(p => allReadOnlyProjects.map(r => r.projUid.toUpperCase()).indexOf(p.projUid.toUpperCase()) > -1)
                     readOnlyProjectsInRP.forEach(project => {
                         project.readOnly = true;
+                        project.readOnlyReason = 'You are not authorized to modify this project'
+                        project.intervals = this.buildIntervals(fromDate,toDate,timescale);
                     });
                 }
             })
@@ -361,6 +363,128 @@ export class ResourcePlanUserStateService {
         var NowMoment = moment(date)
         return NowMoment.format('YYYY-MM-DD');
     }
+
+    buildIntervals(_startDate: Date, _endDate: Date , _timeScale: Timescale ): IInterval[] {
+        
+            let intervals: Interval[] = []
+            let firstInterval = new Interval()
+        if(_timeScale == Timescale.weeks){
+            if (moment(_startDate).day() === 0 ) {  //sunday
+              firstInterval.start = moment(_startDate).toDate()
+              firstInterval.end = moment(_startDate).toDate()
+            }
+            else {
+              firstInterval.start = moment(_startDate).toDate()
+              firstInterval.end = new Date(moment(_startDate).add(1, 'day').isoWeekday(7).format('MM-DD-YYYY'))
+              console.log(firstInterval)
+            }
+            
+            
+            let lastInterval = new Interval()
+            if (moment(_endDate).day() === 1)   {   //monday
+              lastInterval.start = moment(_endDate).toDate()
+              lastInterval.end = moment(_endDate).toDate()
+            }
+            else {
+              lastInterval.start = moment(_endDate).subtract(1, 'day').isoWeekday(1).toDate()
+              lastInterval.end = moment(_endDate).toDate()
+            }
+            
+            intervals.push(firstInterval)
+             
+            let weeksToGenerate = moment(lastInterval.end).diff(moment(firstInterval.start),'weeks')
+        
+            for (var i = 0; i < weeksToGenerate; i++)  {
+              let interval = new Interval()
+              interval.start = moment(intervals[i].end).add(1,'days').toDate()
+              interval.end = moment(intervals[i].end).add(1,'weeks').toDate()
+              intervals.push(interval)
+            }
+            
+            if (lastInterval.start > intervals[weeksToGenerate].end) {
+              intervals.push(lastInterval)
+            } 
+        }
+
+        if(_timeScale == Timescale.calendarMonths){
+            debugger;
+            if (moment(_startDate).endOf('month').date() === moment(_startDate).date()) {  //end of month
+              firstInterval.start = moment(_startDate).toDate()
+              firstInterval.end = moment(_startDate).toDate()
+            }
+            else {
+              firstInterval.start = moment(_startDate).toDate()
+              firstInterval.end = new Date(moment(_startDate).endOf('month').add(1,'days').format('MM-DD-YYYY'))
+              console.log(firstInterval)
+            }
+            
+            
+            let lastInterval = new Interval()
+            if (moment(_endDate).date() === 1)   {   //beginning of the month
+              lastInterval.start = moment(_endDate).toDate()
+              lastInterval.end = moment(_endDate).toDate()
+            }
+            else {
+              lastInterval.start = moment(_endDate).startOf('month')
+              lastInterval.end = moment(_endDate).toDate()
+            }
+            
+            intervals.push(firstInterval)
+             
+            let monthsToGenerate = moment(lastInterval.end).diff(moment(firstInterval.start),'month')
+        
+            for (var i = 0; i < monthsToGenerate; i++)  {
+              let interval = new Interval()
+              interval.start = moment(intervals[i].end).add(1,'days').toDate()
+              interval.end = moment(interval.start).endOf('month').add(1,'days').toDate()
+              intervals.push(interval)
+            }
+            
+            if (lastInterval.start > intervals[monthsToGenerate].end) {
+              intervals.push(lastInterval)
+            } 
+        }
+
+        if(_timeScale == Timescale.years){
+            debugger;
+            if (moment(_startDate).endOf('year').month() === moment(_startDate).month()) {  //end of month
+              firstInterval.start = moment(_startDate).toDate()
+              firstInterval.end = moment(_startDate).toDate()
+            }
+            else {
+              firstInterval.start = moment(_startDate).toDate()
+              firstInterval.end = new Date(moment(_startDate).endOf('year').format('MM-DD-YYYY'))
+              console.log(firstInterval)
+            }
+            
+            
+            let lastInterval = new Interval()
+            if (moment(_endDate).month() === 0)   {   //beginning of the month
+              lastInterval.start = moment(_endDate).toDate()
+              lastInterval.end = moment(_endDate).toDate()
+            }
+            else {
+              lastInterval.start = moment(_endDate).startOf('year')
+              lastInterval.end = moment(_endDate).toDate()
+            }
+            
+            intervals.push(firstInterval)
+             
+            let yearsToGenerate = moment(lastInterval.end).diff(moment(firstInterval.start),'year')
+        
+            for (var i = 0; i < yearsToGenerate; i++)  {
+              let interval = new Interval()
+              interval.start = moment(intervals[i].end).add(1,'days').toDate()
+              interval.end = moment(intervals[i].end).add(1,'years').toDate()
+              intervals.push(interval)
+            }
+            
+            if (lastInterval.start > intervals[yearsToGenerate].end) {
+              intervals.push(lastInterval)
+            } 
+        }
+            return intervals;
+          }
     getResPlan(resources: IResource[], projectUrl: string = `${this.config.projectServerUrl}/`, project: IProject, start: Date, end: Date,
         timescale: Timescale, workunits: WorkUnits)
         : Observable<IResPlan> {

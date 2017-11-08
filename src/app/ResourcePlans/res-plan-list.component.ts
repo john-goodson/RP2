@@ -230,6 +230,7 @@ export class ResPlanListComponent implements OnInit {
             projUid: _project.projUid,
             projName: _project.projName,
             readOnly: _project.readOnly,
+            readOnlyReason: this.fb.control(_project.readOnlyReason),
             intervals: this.fb.array([]),
             selected: this.fb.control(false)
         });
@@ -276,10 +277,8 @@ export class ResPlanListComponent implements OnInit {
 
         if (this._intervalCount < 1) {
             for (var j = 0; j < projects.length; j++) {
-                if (projects[j].readOnly == false) {
                     this._intervalCount = projects[j].intervals.length;
                     return;
-                }
             }
         }
 
