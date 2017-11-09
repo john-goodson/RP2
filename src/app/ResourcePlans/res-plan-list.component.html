@@ -22,15 +22,21 @@
                                 <div well-title>
                                     <tr>
                                         <td class="body-cell" style="padding-left:5px">
-                                            <input type="checkbox" formControlName="selected" (click)="toggleResPlanSelection(plan,$event.target.checked)"/>
+                                            <input type="checkbox" formControlName="selected" (click)="toggleResPlanSelection(plan,$event.target.checked)" />
                                         </td>
+                                        <td >
+                                            <message [message] = "issues"></message>
+                                            
+                                        </td>
+
+
                                         <td class="body-cell col1">
                                             <input formControlName="resName" placeholder="First name" style="width:100%">
                                         </td>
                                         <div formArrayName="totals">
                                             <td class="body-cell col" *ngFor="let total of plan.get('totals').controls;index as l">
                                                 <div [formGroupName]="l">
-                                                    <input formControlName="intervalValue" placeholder="intervalValue" style="width:100%" />
+                                                    <input ng-disabled="true" formControlName="intervalValue" placeholder="intervalValue" style="width:100%" />
 
                                                 </div>
                                             </td>
@@ -44,15 +50,21 @@
                                         <div *ngFor="let proj of plan.get('projects').controls;index as j">
                                             <tr [formGroupName]="j">
                                                 <td class="body-cell" style="padding-left:5px">
-                                                    <input type="checkbox" formControlName="selected" (click)="DeselectGroupOnUncheck(plan,$event.target.checked)"/>
+                                                    <input ng-disabled="proj.get('readOnly').value == true" type="checkbox" formControlName="selected" (click)="DeselectGroupOnUncheck(plan,$event.target.checked)"
+                                                    />
                                                 </td>
+                                                <td *ngIf="proj.get('readOnly').value">
+                                                    <message [message] = "proj.get('readOnlyReason').value"></message>
+                                                    
+                                                </td>
+
                                                 <td class="body-cell col1">
-                                                    <input formControlName="projName" placeholder="project" style="width:100%" />
+                                                    <input formControlName="projName" placeholder="project" style="width:100%" /> 
                                                 </td>
-                                                <div formArrayName="intervals" *ngIf="proj.get('readOnly').value == false">
+                                                <div formArrayName="intervals">
                                                     <td class="body-cell col" *ngFor="let intrvl of proj.get('intervals').controls; index as k">
                                                         <div [formGroupName]="k">
-                                                            <input formControlName="intervalValue" type="text" style="width:100%">
+                                                            <input ng-disabled="proj.get('readOnly').value == true" formControlName="intervalValue" type="text" style="width:100%">
                                                         </div>
                                                     </td>
                                                 </div>
@@ -75,7 +87,7 @@
 
                     </tbody>
                 </table>
-                
+
             </div>
         </div>
         <simple-modal #modalProjects closeOnBodyClick="true" elementId="1" title="Add Projects" primaryBtnText="Add Selected Projects">

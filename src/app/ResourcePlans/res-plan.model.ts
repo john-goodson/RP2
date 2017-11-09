@@ -18,6 +18,7 @@ export interface IProject {
   projUid: string;
   projName: string;
   readOnly: boolean;
+  readOnlyReason? : string;
   owner?:string,
   projectChargeBackCategory?:string,
   projProperties?: {
@@ -106,6 +107,6 @@ export class Result
   success:boolean;
   error:string;
   debugError:string;
-  projUid:string;
+  resUid:string;
 }
 

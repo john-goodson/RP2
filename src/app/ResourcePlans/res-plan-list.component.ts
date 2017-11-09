@@ -230,6 +230,7 @@ export class ResPlanListComponent implements OnInit {
             projUid: _project.projUid,
             projName: _project.projName,
             readOnly: _project.readOnly,
+            readOnlyReason: this.fb.control(_project.readOnlyReason),
             intervals: this.fb.array([]),
             selected: this.fb.control(false)
         });
@@ -276,10 +277,8 @@ export class ResPlanListComponent implements OnInit {
 
         if (this._intervalCount < 1) {
             for (var j = 0; j < projects.length; j++) {
-                if (projects[j].readOnly == false) {
                     this._intervalCount = projects[j].intervals.length;
                     return;
-                }
             }
         }
 
@@ -343,6 +342,7 @@ export class ResPlanListComponent implements OnInit {
                         if (r.success == true) {
                             console.log('added resplans=' + JSON.stringify(plans))
                             this.setIntervalLength((<IResPlan[]>plans).map(t => t.projects).reduce((a, b) => a.concat(b)))
+                            //filter resplan on the resource who got updated in SP list successfully
                             this.buildResPlans(plans)
                             this._resModalSvc.selectedResources = [];
                             this._appSvc.loading(false);
@@ -374,9 +374,8 @@ export class ResPlanListComponent implements OnInit {
                     //projects.filter(p => results.findIndex(r => r.success == true && r.project.projUid.toUpperCase() == p.projUid.toUpperCase()) > -1)
                     console.log("===added projects" + JSON.stringify(successfullProjects))
 
-                    this._resPlanUserStateSvc.addProjectToResMgr(resMgr, successfullProjects, resource).subscribe(result => {
-                        if (result.success == true) {
-                            this.buildSelectedProjects(successfullProjects)
+                        if (successfullProjects.length > 0) {
+                            this.buildSelectedProjects(successfullProjects)//.filter(r=>r.projUid.toUpperCase))
                             debugger;
                             this.header.setIntervals([new ResPlan(resource,successfullProjects)]);
                             this._appSvc.loading(false);
@@ -384,7 +383,7 @@ export class ResPlanListComponent implements OnInit {
                         else {
                             this._appSvc.loading(false);
                         }
-                    }, (error) => { console.log(error); this._appSvc.loading(false); });
+                    
                 })
         }, (error) => { console.log(error); this._appSvc.loading(false); })
     }
@@ -508,25 +507,31 @@ export class ResPlanListComponent implements OnInit {
             console.log("dirty resPlans" + JSON.stringify(resourceplans))
             this._appSvc.loading(true);
             if (hideOnly == true) {
-                this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr => {
-                    return this._resPlanUserStateSvc.HideResPlans(resMgr, resourceplans as IResPlan[]).map(r => {
-                        this.deleteResourcePlans(r)
+                // this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr => {
+                //     return this._resPlanUserStateSvc.HideResPlans(resMgr, resourceplans as IResPlan[]).map(r => {
+                        // if(r.success == true){
+                        this._appSvc.loading(true); 
+                        this.deleteResourcePlans(resourceplans)
                         this._appSvc.loading(false);
-                    },
-                        (error: any) => {
-                            this.errorMessage = <any>error
-                            this._appSvc.loading(false);
-                        }
-                    )
-                },
-                    (error: any) => {
-                        this.errorMessage = <any>error;
-                        this._appSvc.loading(false);
-                    }
-                ).subscribe((r) => { 
-                    this._appSvc.loading(false) 
+                        // }
+                        // else{
+                        //     this._appSvc.loading(false);  
+                        // }
+                //     },
+                //         (error: any) => {
+                //             this.errorMessage = <any>error
+                //             this._appSvc.loading(false);
+                //         }
+                //     )
+                // },
+                //     (error: any) => {
+                //         this.errorMessage = <any>error;
+                //         this._appSvc.loading(false);
+                //     }
+                // ).subscribe((r) => { 
+                //     this._appSvc.loading(false) 
                     
-                }, () => { this._appSvc.loading(false) })
+                // }, () => { this._appSvc.loading(false) })
             }
             else {
                 this._resPlanUserStateSvc.deleteResPlans(resourceplans, fromDate, toDate, timescale, workunits)
@@ -539,16 +544,21 @@ export class ResPlanListComponent implements OnInit {
                                 let projectsMarkedForDeleteCount = resPlan.projects.length;
                                 
                                 resPlan.projects = resPlan.projects.filter(function (p) { return results.findIndex(function (r) { return r.success == true && r.project.projUid.toUpperCase() == p.projUid.toUpperCase(); }) > -1; });
-                                if(resPlan["selected"] == true)
-                                {
-                                   resPlan["selected"] = (projectsMarkedForDeleteCount == resPlan.projects.length);
-                                }
+                                // if(resPlan["selected"] == true)
+                                // {
+                                //    resPlan["selected"] = (projectsMarkedForDeleteCount == resPlan.projects.length);
+                                // }
                             });
                             
                             
                             return this._resPlanUserStateSvc.HideResPlans(resMgr, resourceplans as IResPlan[]).map(r => {
+                                if(r.success == true){
                                 this.deleteResourcePlans(resourceplans)
                                 this._appSvc.loading(false);
+                                }
+                                else{
+                                    this._appSvc.loading(false); 
+                                }
                             },
                                 (error: any) => {
                                     this.errorMessage = <any>error

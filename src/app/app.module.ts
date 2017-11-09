@@ -9,7 +9,7 @@ import { HttpModule } from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { Daterangepicker, DaterangepickerConfig } from 'ng2-daterangepicker'
-
+import {NewRangePickerComponent} from './resourcePlans/datepicker2/datepicker2.component'
 
 import {Config} from './resourcePlans/res-plan.model'
 import { ModalCommunicator } from  './resourcePlans/modal-communicator.service'
@@ -47,6 +47,8 @@ import { ResPlanTimescaleComponent } from './res-plan-timescale/res-plan-timesca
 import { DateRangePickerComponent } from './resourcePlans/date-range-picker/date-range-picker.component';
 import { ResPlanWorkunitsComponent } from './resourcePlans/res-plan-workunits/res-plan-workunits.component';
 import { IntervalPipe } from './common/interval.pipe'
+import { MessageComponent} from './resourcePlans/messageComponent/message.component'
+
 //let jQuery : Object;// Add this function
 export function initConfig(configSvc: ConfigService){
   return () => configSvc.ReadConfig() 
@@ -69,7 +71,9 @@ export function initConfig(configSvc: ConfigService){
     ResPlanTimescaleComponent,
     DateRangePickerComponent,
     ResPlanWorkunitsComponent,
-    IntervalPipe,
+    NewRangePickerComponent,
+    MessageComponent,
+    IntervalPipe
   ],
 
   imports: [

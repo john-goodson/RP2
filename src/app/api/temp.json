@@ -1,198 +1,1557 @@
-[
-    {
-    "id": "1",
-    "name": "Carey Gower",
-    "org": {
-        "location": "Nashville",
-        "title": "Director",
-        "manager": "Brady"
-    },
-    "projects": [
-        {
-            "id": "1",
-            "name": "Data Center Consolidation",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "80"
-            }
-            ]
-        },
-         {
-            "id": "2",
-            "name": "Windows Upgrade",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "80.5"
-            }
-            ]
-        },
-         {
-            "id": "3",
-            "name": "Server Upgrades",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "45.5"
-            }
-            ]
-        },
-        {
-            "id": "4",
-            "name": "Payment Processing Upgrade",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "80"
-            }
-            ]
-        }
-    ]
-},
-   {
-    "id": "2",
-    "name": "John Goodson",
-    "org": {
-        "location": "Nashville",
-        "title": "Cons Engr",
-        "manager": "Ronnie"
-    },
-    "projects": [
-        {
-            "id": "1",
-            "name": "Data Center",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "80"
-            }
-            ]
-        },
-         {
-            "id": "2",
-            "name": "Windows Upgrade",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "80.5"
-            }
-            ]
-        },
-         {
-            "id": "3",
-            "name": "Server Upgrades",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "45.5"
-            }
-            ]
-        }
-    ]
-},
 {
-    "id": "3",
-    "name": "Joe Colstad",
-    "org": {
-        "location": "Nashville",
-        "title": "PS Admin",
-        "manager": "Ronnie"
-    },
-    "projects": [
-        {
-            "id": "1",
-            "name": "Project XYZ for Joe Colstad",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
+    "AutoFilterEntries": {
+        "PROJ_NAME": [
+            {
+                "displayString": 1,
+                "dataValue": "Centennial Hospital Urology Credentialing"
             },
             {
-                "intervalName": "feb",
-                "intervalValue": "80"
+                "displayString": 1,
+                "dataValue": "Generated_Project_11"
             },
             {
-                "intervalName": "mar",
-                "intervalValue": "80"
+                "displayString": 1,
+                "dataValue": "Generated_Project_12"
+            },
+            {
+                "displayString": 1,
+                "dataValue": "Generated_Project_13"
+            },
+            {
+                "displayString": 1,
+                "dataValue": "Nashville SSC Data Center Virtualization"
+            },
+            {
+                "displayString": 1,
+                "dataValue": "Patient Experience ER"
+            },
+            {
+                "displayString": 1,
+                "dataValue": "Projec Created From Sp Executor"
+            },
+            {
+                "displayString": 1,
+                "dataValue": "project 1"
+            },
+            {
+                "displayString": 1,
+                "dataValue": "Project 3"
+            },
+            {
+                "displayString": 1,
+                "dataValue": "Project_32975da8-a7bf-4be6-b7f2-1944543ce14d497"
+            },
+            {
+                "displayString": 1,
+                "dataValue": "project2"
             }
+        ],
+        "TASK_START_DATE": [
+            {
+                "displayString": "7\/5\/2017 12:00 AM",
+                "dataValue": "\/Date(1499212800000)\/"
+            },
+            {
+                "displayString": "7\/5\/2017 8:00 AM",
+                "dataValue": "\/Date(1499241600000)\/"
+            },
+            {
+                "displayString": "7\/26\/2017 8:00 AM",
+                "dataValue": "\/Date(1501056000000)\/"
+            },
+            {
+                "displayString": "8\/9\/2017 8:00 AM",
+                "dataValue": "\/Date(1502265600000)\/"
+            },
+            {
+                "displayString": "8\/26\/2017 12:00 AM",
+                "dataValue": "\/Date(1503705600000)\/"
+            },
+            {
+                "displayString": "10\/2\/2017 8:00 AM",
+                "dataValue": "\/Date(1506931200000)\/"
+            },
+            {
+                "displayString": "10\/6\/2017 8:00 AM",
+                "dataValue": "\/Date(1507276800000)\/"
+            }
+        ],
+        "TASK_FINISH_DATE": [
+            {
+                "displayString": "7\/5\/2017 8:00 AM",
+                "dataValue": "\/Date(1499241600000)\/"
+            },
+            {
+                "displayString": "7\/24\/2017 5:00 PM",
+                "dataValue": "\/Date(1500915600000)\/"
+            },
+            {
+                "displayString": "8\/26\/2017 8:00 AM",
+                "dataValue": "\/Date(1503734400000)\/"
+            },
+            {
+                "displayString": "9\/12\/2017 5:00 PM",
+                "dataValue": "\/Date(1505235600000)\/"
+            },
+            {
+                "displayString": "10\/2\/2017 8:00 AM",
+                "dataValue": "\/Date(1506931200000)\/"
+            },
+            {
+                "displayString": "10\/17\/2017 5:00 PM",
+                "dataValue": "\/Date(1508259600000)\/"
+            },
+            {
+                "displayString": "10\/23\/2017 5:00 PM",
+                "dataValue": "\/Date(1508778000000)\/"
+            },
+            {
+                "displayString": "10\/24\/2017 5:00 PM",
+                "dataValue": "\/Date(1508864400000)\/"
+            },
+            {
+                "displayString": "1\/9\/2018 5:00 PM",
+                "dataValue": "\/Date(1515517200000)\/"
+            }
+        ],
+        "TASK_PCT_COMP": [
+            {
+                "displayString": "0%",
+                "dataValue": 0
+            },
+            {
+                "displayString": "65%",
+                "dataValue": 65
+            }
+        ],
+        "TASK_WORK": [
+            {
+                "displayString": "0h",
+                "dataValue": 0
+            },
+            {
+                "displayString": "200h",
+                "dataValue": 12000000
+            },
+            {
+                "displayString": "960h",
+                "dataValue": 57600000
+            }
+        ],
+        "TASK_DUR": [
+            {
+                "displayString": "0d",
+                "dataValue": 0
+            },
+            {
+                "displayString": "8d",
+                "dataValue": 38400
+            },
+            {
+                "displayString": "12d",
+                "dataValue": 57600
+            },
+            {
+                "displayString": "13d",
+                "dataValue": 62400
+            },
+            {
+                "displayString": "14d",
+                "dataValue": 67200
+            },
+            {
+                "displayString": "25d",
+                "dataValue": 120000
+            },
+            {
+                "displayString": "120d",
+                "dataValue": 576000
+            }
+        ],
+        "RES_NAME": [
+            {
+                "displayString": 1,
+                "dataValue": "John Goodson"
+            },
+            {
+                "displayString": 1,
+                "dataValue": "Nishant"
+            }
+        ],
+        "WPROJ_LAST_PUB": [
+            {
+                "displayString": "10\/31\/2017 4:44 PM",
+                "dataValue": "\/Date(1509468253533)\/"
+            },
+            {
+                "displayString": "10\/31\/2017 4:44 PM",
+                "dataValue": "\/Date(1509468254427)\/"
+            },
+            {
+                "displayString": "10\/31\/2017 4:44 PM",
+                "dataValue": "\/Date(1509468255503)\/"
+            },
+            {
+                "displayString": "10\/31\/2017 4:44 PM",
+                "dataValue": "\/Date(1509468256730)\/"
+            },
+            {
+                "displayString": "10\/31\/2017 4:44 PM",
+                "dataValue": "\/Date(1509468258007)\/"
+            },
+            {
+                "displayString": "10\/31\/2017 4:44 PM",
+                "dataValue": "\/Date(1509468260417)\/"
+            },
+            {
+                "displayString": "10\/31\/2017 4:44 PM",
+                "dataValue": "\/Date(1509468260560)\/"
+            },
+            {
+                "displayString": "10\/31\/2017 4:44 PM",
+                "dataValue": "\/Date(1509468260623)\/"
+            },
+            {
+                "displayString": "10\/31\/2017 4:44 PM",
+                "dataValue": "\/Date(1509468260940)\/"
+            },
+            {
+                "displayString": "10\/31\/2017 4:44 PM",
+                "dataValue": "\/Date(1509468262413)\/"
+            }
+        ]
+    },
+    "MetaData": {
+        "GridOperationalConstantsFieldKeyMap": {
+            "0": "PROJ_NAME",
+            "1": "_HIERLEVEL",
+            "2": "_GRPLVL",
+            "3": "_HIERDESC",
+            "4": "_GRPDESC",
+            "6": "_GANTTBARSTYLEIDS",
+            "7": "_GRIDROWSTYLEID",
+            "8": "_EDITMODE"
+        },
+        "KeyColumnName": "PROJ_UID",
+        "IsGanttEnabled": true,
+        "IsSorted": true,
+        "GroupingLevel": 0,
+        "IsHierarchyEnabled": false,
+        "GroupingPrefix": "grp_",
+        "RecordKeyHash": 2574273559,
+        "RecordKeyOrderChanged": false
+    },
+    "LocalizedTable": [
+        {
+            "TASK_IS_MILESTONE": "No",
+            "TASK_PCT_COMP": "0%",
+            "TASK_START_DATE": "8\/26\/2017 12:00 AM",
+            "TASK_FINISH_DATE": "8\/26\/2017 8:00 AM",
+            "TASK_DUR": "0d",
+            "PROJ_NAME": "Centennial Hospital Urology Credentialing",
+            "TASK_WORK": "0h",
+            "RES_NAME": "John Goodson",
+            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress"
+        },
+        {
+            "TASK_IS_MILESTONE": "No",
+            "TASK_PCT_COMP": "0%",
+            "TASK_START_DATE": "10\/6\/2017 8:00 AM",
+            "TASK_FINISH_DATE": "10\/24\/2017 5:00 PM",
+            "TASK_DUR": "13d",
+            "PROJ_NAME": "Generated_Project_11",
+            "TASK_WORK": "0h",
+            "RES_NAME": "John Goodson",
+            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress"
+        },
+        {
+            "TASK_IS_MILESTONE": "No",
+            "TASK_PCT_COMP": "0%",
+            "TASK_START_DATE": "10\/6\/2017 8:00 AM",
+            "TASK_FINISH_DATE": "10\/17\/2017 5:00 PM",
+            "TASK_DUR": "8d",
+            "PROJ_NAME": "Generated_Project_12",
+            "TASK_WORK": "0h",
+            "RES_NAME": "John Goodson",
+            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress"
+        },
+        {
+            "TASK_IS_MILESTONE": "No",
+            "TASK_PCT_COMP": "0%",
+            "TASK_START_DATE": "10\/6\/2017 8:00 AM",
+            "TASK_FINISH_DATE": "10\/23\/2017 5:00 PM",
+            "TASK_DUR": "12d",
+            "PROJ_NAME": "Generated_Project_13",
+            "TASK_WORK": "0h",
+            "RES_NAME": "John Goodson",
+            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM"
+        },
+        {
+            "TASK_SUMMARY_PROGRESS_DATE": "11\/10\/2017 5:00 PM",
+            "TASK_IS_MILESTONE": "No",
+            "TASK_PCT_COMP": "65%",
+            "TASK_START_DATE": "7\/26\/2017 8:00 AM",
+            "TASK_FINISH_DATE": "1\/9\/2018 5:00 PM",
+            "TASK_DUR": "120d",
+            "PROJ_NAME": "Nashville SSC Data Center Virtualization",
+            "TASK_WORK": "960h",
+            "RES_NAME": "John Goodson",
+            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress"
+        },
+        {
+            "TASK_IS_MILESTONE": "No",
+            "TASK_PCT_COMP": "0%",
+            "TASK_START_DATE": "8\/26\/2017 12:00 AM",
+            "TASK_FINISH_DATE": "8\/26\/2017 8:00 AM",
+            "TASK_DUR": "0d",
+            "PROJ_NAME": "Patient Experience ER",
+            "TASK_WORK": "0h",
+            "RES_NAME": "John Goodson",
+            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress"
+        },
+        {
+            "TASK_IS_MILESTONE": "No",
+            "TASK_PCT_COMP": "0%",
+            "TASK_START_DATE": "10\/2\/2017 8:00 AM",
+            "TASK_FINISH_DATE": "10\/2\/2017 8:00 AM",
+            "TASK_DUR": "0d",
+            "PROJ_NAME": "Projec Created From Sp Executor",
+            "TASK_WORK": "0h",
+            "RES_NAME": "Nishant",
+            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM"
+        },
+        {
+            "TASK_IS_MILESTONE": "No",
+            "TASK_PCT_COMP": "0%",
+            "TASK_START_DATE": "7\/5\/2017 12:00 AM",
+            "TASK_FINISH_DATE": "7\/24\/2017 5:00 PM",
+            "TASK_DUR": "14d",
+            "PROJ_NAME": "project 1",
+            "TASK_WORK": "0h",
+            "RES_NAME": "John Goodson",
+            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress"
+        },
+        {
+            "TASK_IS_MILESTONE": "No",
+            "TASK_PCT_COMP": "0%",
+            "TASK_START_DATE": "8\/9\/2017 8:00 AM",
+            "TASK_FINISH_DATE": "9\/12\/2017 5:00 PM",
+            "TASK_DUR": "25d",
+            "PROJ_NAME": "Project 3",
+            "TASK_WORK": "200h",
+            "RES_NAME": "John Goodson",
+            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "Cancelled"
+        },
+        {
+            "TASK_IS_MILESTONE": "No",
+            "TASK_PCT_COMP": "0%",
+            "TASK_START_DATE": "10\/2\/2017 8:00 AM",
+            "TASK_FINISH_DATE": "10\/2\/2017 8:00 AM",
+            "TASK_DUR": "0d",
+            "PROJ_NAME": "Project_32975da8-a7bf-4be6-b7f2-1944543ce14d497",
+            "TASK_WORK": "0h",
+            "RES_NAME": "Nishant",
+            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM"
+        },
+        {
+            "TASK_IS_MILESTONE": "No",
+            "TASK_PCT_COMP": "0%",
+            "TASK_START_DATE": "7\/5\/2017 8:00 AM",
+            "TASK_FINISH_DATE": "7\/5\/2017 8:00 AM",
+            "TASK_DUR": "0d",
+            "PROJ_NAME": "project2",
+            "TASK_WORK": "0h",
+            "RES_NAME": "John Goodson",
+            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress"
+        }
+    ],
+    "UnlocalizedTable": [
+        {
+            "PROJ_UID": "e7808e36-588a-e711-80cc-00155d005a03",
+            "TASK_IS_MILESTONE": false,
+            "TASK_OUTLINE_LEVEL": 0,
+            "TASK_DUR": 0,
+            "TASK_START_DATE": "\/Date(1503705600000)\/",
+            "TASK_FINISH_DATE": "\/Date(1503734400000)\/",
+            "TASK_WORK": 0,
+            "RES_NAME": "John Goodson",
+            "PROJ_NAME": "Centennial Hospital Urology Credentialing",
+            "WPROJ_LAST_PUB": "\/Date(1509468256730)\/",
+            "PROJ_TYPE": 0,
+            "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
+            "PROJ_OPT_CURRENCY_CODE": "USD",
+            "PROJ_IS_VISIBILITY_MODE": false,
+            "TASK_IS_MANUAL": false,
+            "TASK_COMPLETE_THROUGH": "\/Date(1503705600000)\/",
+            "TASK_IS_PROJECT_SUMMARY": true,
+            "TASK_PCT_COMP": 0,
+            "PROJ_TOTAL_DOC_COUNT": 0,
+            "PROJ_ACTIVE_ISSUE_COUNT": 0,
+            "PROJ_ACTIVE_RISK_COUNT": 0,
+            "Indicators": [
+                2
+            ],
+            "6ad2a918-8586-e711-80cc-00155d005a03": "85e20208-8586-e711-80cc-00155d005a03"
+        },
+        {
+            "PROJ_UID": "2176500f-84aa-e711-80ce-00155dcd8a01",
+            "TASK_IS_MILESTONE": false,
+            "TASK_OUTLINE_LEVEL": 0,
+            "TASK_DUR": 62400,
+            "TASK_START_DATE": "\/Date(1507276800000)\/",
+            "TASK_FINISH_DATE": "\/Date(1508864400000)\/",
+            "TASK_WORK": 0,
+            "RES_NAME": "John Goodson",
+            "PROJ_NAME": "Generated_Project_11",
+            "WPROJ_LAST_PUB": "\/Date(1509468260417)\/",
+            "PROJ_TYPE": 0,
+            "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
+            "PROJ_OPT_CURRENCY_CODE": "USD",
+            "PROJ_IS_VISIBILITY_MODE": false,
+            "TASK_IS_MANUAL": false,
+            "TASK_COMPLETE_THROUGH": "\/Date(1507276800000)\/",
+            "TASK_IS_PROJECT_SUMMARY": true,
+            "TASK_PCT_COMP": 0,
+            "PROJ_TOTAL_DOC_COUNT": 0,
+            "PROJ_ACTIVE_ISSUE_COUNT": 0,
+            "PROJ_ACTIVE_RISK_COUNT": 0,
+            "Indicators": [
+                2
+            ],
+            "6ad2a918-8586-e711-80cc-00155d005a03": "85e20208-8586-e711-80cc-00155d005a03"
+        },
+        {
+            "PROJ_UID": "8e76500f-84aa-e711-80ce-00155dcd8a01",
+            "TASK_IS_MILESTONE": false,
+            "TASK_OUTLINE_LEVEL": 0,
+            "TASK_DUR": 38400,
+            "TASK_START_DATE": "\/Date(1507276800000)\/",
+            "TASK_FINISH_DATE": "\/Date(1508259600000)\/",
+            "TASK_WORK": 0,
+            "RES_NAME": "John Goodson",
+            "PROJ_NAME": "Generated_Project_12",
+            "WPROJ_LAST_PUB": "\/Date(1509468260560)\/",
+            "PROJ_TYPE": 0,
+            "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
+            "PROJ_OPT_CURRENCY_CODE": "USD",
+            "PROJ_IS_VISIBILITY_MODE": false,
+            "TASK_IS_MANUAL": false,
+            "TASK_COMPLETE_THROUGH": "\/Date(1507276800000)\/",
+            "TASK_IS_PROJECT_SUMMARY": true,
+            "TASK_PCT_COMP": 0,
+            "PROJ_TOTAL_DOC_COUNT": 0,
+            "PROJ_ACTIVE_ISSUE_COUNT": 0,
+            "PROJ_ACTIVE_RISK_COUNT": 0,
+            "Indicators": [
+                2
+            ],
+            "6ad2a918-8586-e711-80cc-00155d005a03": "85e20208-8586-e711-80cc-00155d005a03"
+        },
+        {
+            "PROJ_UID": "e776500f-84aa-e711-80ce-00155dcd8a01",
+            "TASK_IS_MILESTONE": false,
+            "TASK_OUTLINE_LEVEL": 0,
+            "TASK_DUR": 57600,
+            "TASK_START_DATE": "\/Date(1507276800000)\/",
+            "TASK_FINISH_DATE": "\/Date(1508778000000)\/",
+            "TASK_WORK": 0,
+            "RES_NAME": "John Goodson",
+            "PROJ_NAME": "Generated_Project_13",
+            "WPROJ_LAST_PUB": "\/Date(1509468260623)\/",
+            "PROJ_TYPE": 0,
+            "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
+            "PROJ_OPT_CURRENCY_CODE": "USD",
+            "PROJ_IS_VISIBILITY_MODE": false,
+            "TASK_IS_MANUAL": false,
+            "TASK_COMPLETE_THROUGH": "\/Date(1507276800000)\/",
+            "TASK_IS_PROJECT_SUMMARY": true,
+            "TASK_PCT_COMP": 0,
+            "PROJ_TOTAL_DOC_COUNT": 0,
+            "PROJ_ACTIVE_ISSUE_COUNT": 0,
+            "PROJ_ACTIVE_RISK_COUNT": 0,
+            "Indicators": [
+                2
             ]
         },
         {
-            "id": "2",
-            "name": "Project 123 - Joe Colstad",
-            "intervals": [
-                {
-                "intervalName": "jan",
-                "intervalValue": "40"
-            },
-            {
-                "intervalName": "feb",
-                "intervalValue": "80"
-            },
-            {
-                "intervalName": "mar",
-                "intervalValue": "80"
-            }
+            "PROJ_UID": "1d399fb8-578a-e711-80cc-00155d005a03",
+            "TASK_IS_MILESTONE": false,
+            "TASK_OUTLINE_LEVEL": 0,
+            "TASK_DUR": 576000,
+            "TASK_START_DATE": "\/Date(1501056000000)\/",
+            "TASK_FINISH_DATE": "\/Date(1515517200000)\/",
+            "TASK_WORK": 57600000,
+            "TASK_SUMMARY_PROGRESS_DATE": "\/Date(1510333200000)\/",
+            "RES_NAME": "John Goodson",
+            "PROJ_NAME": "Nashville SSC Data Center Virtualization",
+            "WPROJ_LAST_PUB": "\/Date(1509468255503)\/",
+            "PROJ_TYPE": 0,
+            "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
+            "PROJ_OPT_CURRENCY_CODE": "USD",
+            "PROJ_IS_VISIBILITY_MODE": false,
+            "TASK_IS_MANUAL": false,
+            "TASK_COMPLETE_THROUGH": "\/Date(1510333200000)\/",
+            "TASK_IS_PROJECT_SUMMARY": true,
+            "TASK_PCT_COMP": 65,
+            "PROJ_TOTAL_DOC_COUNT": 0,
+            "PROJ_ACTIVE_ISSUE_COUNT": 0,
+            "PROJ_ACTIVE_RISK_COUNT": 0,
+            "Indicators": [
+                2
+            ],
+            "6ad2a918-8586-e711-80cc-00155d005a03": "85e20208-8586-e711-80cc-00155d005a03"
+        },
+        {
+            "PROJ_UID": "426102da-588a-e711-80cc-00155d005a03",
+            "TASK_IS_MILESTONE": false,
+            "TASK_OUTLINE_LEVEL": 0,
+            "TASK_DUR": 0,
+            "TASK_START_DATE": "\/Date(1503705600000)\/",
+            "TASK_FINISH_DATE": "\/Date(1503734400000)\/",
+            "TASK_WORK": 0,
+            "RES_NAME": "John Goodson",
+            "PROJ_NAME": "Patient Experience ER",
+            "WPROJ_LAST_PUB": "\/Date(1509468258007)\/",
+            "PROJ_TYPE": 0,
+            "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
+            "PROJ_OPT_CURRENCY_CODE": "USD",
+            "PROJ_IS_VISIBILITY_MODE": false,
+            "TASK_IS_MANUAL": false,
+            "TASK_COMPLETE_THROUGH": "\/Date(1503705600000)\/",
+            "TASK_IS_PROJECT_SUMMARY": true,
+            "TASK_PCT_COMP": 0,
+            "PROJ_TOTAL_DOC_COUNT": 0,
+            "PROJ_ACTIVE_ISSUE_COUNT": 0,
+            "PROJ_ACTIVE_RISK_COUNT": 0,
+            "Indicators": [
+                2
+            ],
+            "6ad2a918-8586-e711-80cc-00155d005a03": "85e20208-8586-e711-80cc-00155d005a03"
+        },
+        {
+            "PROJ_UID": "32975da8-a7bf-4be6-b7f2-1943ce14d594",
+            "TASK_IS_MILESTONE": false,
+            "TASK_OUTLINE_LEVEL": 0,
+            "TASK_DUR": 0,
+            "TASK_START_DATE": "\/Date(1506931200000)\/",
+            "TASK_FINISH_DATE": "\/Date(1506931200000)\/",
+            "TASK_WORK": 0,
+            "RES_NAME": "Nishant",
+            "PROJ_NAME": "Projec Created From Sp Executor",
+            "WPROJ_LAST_PUB": "\/Date(1509468260940)\/",
+            "PROJ_TYPE": 0,
+            "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
+            "PROJ_OPT_CURRENCY_CODE": "USD",
+            "PROJ_IS_VISIBILITY_MODE": false,
+            "TASK_IS_MANUAL": false,
+            "TASK_COMPLETE_THROUGH": "\/Date(1506931200000)\/",
+            "TASK_IS_PROJECT_SUMMARY": true,
+            "TASK_PCT_COMP": 0,
+            "PROJ_TOTAL_DOC_COUNT": 0,
+            "PROJ_ACTIVE_ISSUE_COUNT": 0,
+            "PROJ_ACTIVE_RISK_COUNT": 0,
+            "Indicators": [
+                2
             ]
+        },
+        {
+            "PROJ_UID": "afa7fbbe-e361-e711-80cc-00155d005a03",
+            "TASK_IS_MILESTONE": false,
+            "TASK_OUTLINE_LEVEL": 0,
+            "TASK_DUR": 67200,
+            "TASK_START_DATE": "\/Date(1499212800000)\/",
+            "TASK_FINISH_DATE": "\/Date(1500915600000)\/",
+            "TASK_WORK": 0,
+            "RES_NAME": "John Goodson",
+            "PROJ_NAME": "project 1",
+            "WPROJ_LAST_PUB": "\/Date(1509468253533)\/",
+            "PROJ_TYPE": 0,
+            "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
+            "PROJ_OPT_CURRENCY_CODE": "USD",
+            "PROJ_IS_VISIBILITY_MODE": false,
+            "TASK_IS_MANUAL": false,
+            "TASK_COMPLETE_THROUGH": "\/Date(1499212800000)\/",
+            "TASK_IS_PROJECT_SUMMARY": true,
+            "TASK_PCT_COMP": 0,
+            "PROJ_TOTAL_DOC_COUNT": 0,
+            "PROJ_ACTIVE_ISSUE_COUNT": 0,
+            "PROJ_ACTIVE_RISK_COUNT": 0,
+            "Indicators": [
+                2
+            ],
+            "6ad2a918-8586-e711-80cc-00155d005a03": "85e20208-8586-e711-80cc-00155d005a03"
+        },
+        {
+            "PROJ_UID": "bef04de1-0e7d-e711-80cc-00155d005a03",
+            "TASK_IS_MILESTONE": false,
+            "TASK_OUTLINE_LEVEL": 0,
+            "TASK_DUR": 120000,
+            "TASK_START_DATE": "\/Date(1502265600000)\/",
+            "TASK_FINISH_DATE": "\/Date(1505235600000)\/",
+            "TASK_WORK": 12000000,
+            "RES_NAME": "John Goodson",
+            "PROJ_NAME": "Project 3",
+            "WPROJ_LAST_PUB": "\/Date(1509468254427)\/",
+            "PROJ_TYPE": 0,
+            "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
+            "PROJ_OPT_CURRENCY_CODE": "USD",
+            "PROJ_IS_VISIBILITY_MODE": false,
+            "TASK_IS_MANUAL": false,
+            "TASK_COMPLETE_THROUGH": "\/Date(1502265600000)\/",
+            "TASK_IS_PROJECT_SUMMARY": true,
+            "TASK_PCT_COMP": 0,
+            "PROJ_TOTAL_DOC_COUNT": 0,
+            "PROJ_ACTIVE_ISSUE_COUNT": 0,
+            "PROJ_ACTIVE_RISK_COUNT": 0,
+            "Indicators": [
+                2
+            ],
+            "6ad2a918-8586-e711-80cc-00155d005a03": "86e20208-8586-e711-80cc-00155d005a03"
+        },
+        {
+            "PROJ_UID": "32975da8-a7bf-4be6-b7f2-1943ce14d597",
+            "TASK_IS_MILESTONE": false,
+            "TASK_OUTLINE_LEVEL": 0,
+            "TASK_DUR": 0,
+            "TASK_START_DATE": "\/Date(1506931200000)\/",
+            "TASK_FINISH_DATE": "\/Date(1506931200000)\/",
+            "TASK_WORK": 0,
+            "RES_NAME": "Nishant",
+            "PROJ_NAME": "Project_32975da8-a7bf-4be6-b7f2-1944543ce14d497",
+            "WPROJ_LAST_PUB": "\/Date(1509468262413)\/",
+            "PROJ_TYPE": 0,
+            "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
+            "PROJ_OPT_CURRENCY_CODE": "USD",
+            "PROJ_IS_VISIBILITY_MODE": false,
+            "TASK_IS_MANUAL": false,
+            "TASK_COMPLETE_THROUGH": "\/Date(1506931200000)\/",
+            "TASK_IS_PROJECT_SUMMARY": true,
+            "TASK_PCT_COMP": 0,
+            "PROJ_TOTAL_DOC_COUNT": 0,
+            "PROJ_ACTIVE_ISSUE_COUNT": 0,
+            "PROJ_ACTIVE_RISK_COUNT": 0,
+            "Indicators": [
+                2
+            ]
+        },
+        {
+            "PROJ_UID": "ba42bbfe-e361-e711-80cc-00155d005a03",
+            "TASK_IS_MILESTONE": false,
+            "TASK_OUTLINE_LEVEL": 0,
+            "TASK_DUR": 0,
+            "TASK_START_DATE": "\/Date(1499241600000)\/",
+            "TASK_FINISH_DATE": "\/Date(1499241600000)\/",
+            "TASK_WORK": 0,
+            "RES_NAME": "John Goodson",
+            "PROJ_NAME": "project2",
+            "WPROJ_LAST_PUB": "\/Date(1509468253533)\/",
+            "PROJ_TYPE": 0,
+            "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
+            "PROJ_OPT_CURRENCY_CODE": "USD",
+            "PROJ_IS_VISIBILITY_MODE": false,
+            "TASK_IS_MANUAL": false,
+            "TASK_COMPLETE_THROUGH": "\/Date(1499241600000)\/",
+            "TASK_IS_PROJECT_SUMMARY": true,
+            "TASK_PCT_COMP": 0,
+            "PROJ_TOTAL_DOC_COUNT": 0,
+            "PROJ_ACTIVE_ISSUE_COUNT": 0,
+            "PROJ_ACTIVE_RISK_COUNT": 0,
+            "Indicators": [
+                2
+            ],
+            "6ad2a918-8586-e711-80cc-00155d005a03": "85e20208-8586-e711-80cc-00155d005a03"
         }
-
+    ],
+    "AdditionalParams": {
+        "PJGridSerializer": {
+            "GanttInfo": {
+                "BarStyleConditionsMap": {
+                    "15": 1065024,
+                    "16": 524288,
+                    "17": 1065024
+                },
+                "RequiredConditions": 540736
+            },
+            "GraphicalIndicatorInfo": {},
+            "PresenceFieldsInfo": {
+                "RES_NAME": "WRES_EMAIL"
+            }
+        },
+        "PropertyManager": {
+            "persistenceKey": "63d3499e-df27-401c-af58-ebb9607beae8",
+            "properties": {
+                "ZoomLevel": {
+                    "value": 3,
+                    "persistenceType": 1
+                },
+                "DividerPosition": {
+                    "value": 430,
+                    "persistenceType": 1
+                },
+                "GroupBy0": {
+                    "value": "",
+                    "persistenceType": 1
+                },
+                "GroupBy1": {
+                    "value": "",
+                    "persistenceType": 1
+                },
+                "GroupBy2": {
+                    "value": "",
+                    "persistenceType": 1
+                },
+                "SortBy": {
+                    "value": "",
+                    "persistenceType": 1
+                },
+                "SortByOrder": {
+                    "value": 0,
+                    "persistenceType": 1
+                },
+                "TimeStampUID": {
+                    "value": "f730b571-8e86-e711-80cc-00155d005a03",
+                    "persistenceType": 1
+                },
+                "Fields": {
+                    "value": [
+                        {
+                            "name": "Project Name",
+                            "sQLName": "PROJ_NAME",
+                            "convType": 21,
+                            "width": 100,
+                            "autoSize": 1,
+                            "order": 0,
+                            "isCustomField": 0,
+                            "isFormula": 0,
+                            "fieldUID": "8452f6a8-bc6c-4367-8836-a6ae55bbdda4",
+                            "tableUID": "ebad93e7-2149-410d-9a39-a8680738329d",
+                            "group": 0,
+                            "editable": false,
+                            "superEditable": false,
+                            "isReadOnly": false,
+                            "isHidden": false
+                        },
+                        {
+                            "name": "Project Active Status",
+                            "sQLName": "6ad2a918-8586-e711-80cc-00155d005a03",
+                            "convType": 21,
+                            "width": 100,
+                            "autoSize": 1,
+                            "order": 1,
+                            "isCustomField": 1,
+                            "isFormula": 0,
+                            "fieldUID": "6ad2a918-8586-e711-80cc-00155d005a03",
+                            "tableUID": "cecfe271-6660-4abe-97ed-208d3c71fc18",
+                            "group": 0,
+                            "editable": false,
+                            "superEditable": false,
+                            "isReadOnly": false,
+                            "isHidden": false
+                        },
+                        {
+                            "name": "Start",
+                            "sQLName": "TASK_START_DATE",
+                            "convType": 4,
+                            "width": 100,
+                            "autoSize": 1,
+                            "order": 2,
+                            "isCustomField": 0,
+                            "isFormula": 0,
+                            "fieldUID": "3317c796-5fa1-4231-9212-a4c90a2ce05f",
+                            "tableUID": "ebad93e7-2149-410d-9a39-a8680738329d",
+                            "group": 0,
+                            "editable": false,
+                            "superEditable": false,
+                            "isReadOnly": false,
+                            "isHidden": false
+                        },
+                        {
+                            "name": "Finish",
+                            "sQLName": "TASK_FINISH_DATE",
+                            "convType": 27,
+                            "width": 100,
+                            "autoSize": 1,
+                            "order": 3,
+                            "isCustomField": 0,
+                            "isFormula": 0,
+                            "fieldUID": "39bbff4f-b576-4e78-a3f2-a1c03f9c9ac9",
+                            "tableUID": "ebad93e7-2149-410d-9a39-a8680738329d",
+                            "group": 0,
+                            "editable": false,
+                            "superEditable": false,
+                            "isReadOnly": false,
+                            "isHidden": false
+                        },
+                        {
+                            "name": "% Complete",
+                            "sQLName": "TASK_PCT_COMP",
+                            "convType": 5,
+                            "width": 100,
+                            "autoSize": 1,
+                            "order": 4,
+                            "isCustomField": 0,
+                            "isFormula": 0,
+                            "fieldUID": "60b758f8-62e7-42cc-ab66-5eca80642f35",
+                            "tableUID": "ebad93e7-2149-410d-9a39-a8680738329d",
+                            "group": 0,
+                            "editable": false,
+                            "superEditable": false,
+                            "isReadOnly": false,
+                            "isHidden": false
+                        },
+                        {
+                            "name": "Work",
+                            "sQLName": "TASK_WORK",
+                            "convType": 8,
+                            "width": 100,
+                            "autoSize": 1,
+                            "order": 5,
+                            "isCustomField": 0,
+                            "isFormula": 0,
+                            "fieldUID": "10344672-9c8f-4a86-8a14-f6bb130ecd5b",
+                            "tableUID": "ebad93e7-2149-410d-9a39-a8680738329d",
+                            "group": 0,
+                            "editable": false,
+                            "superEditable": false,
+                            "isReadOnly": false,
+                            "isHidden": false
+                        },
+                        {
+                            "name": "Duration",
+                            "sQLName": "TASK_DUR",
+                            "convType": 6,
+                            "width": 100,
+                            "autoSize": 1,
+                            "order": 6,
+                            "isCustomField": 0,
+                            "isFormula": 0,
+                            "fieldUID": "4d230089-f03d-415d-90c1-de82cdf3d138",
+                            "tableUID": "ebad93e7-2149-410d-9a39-a8680738329d",
+                            "group": 0,
+                            "editable": false,
+                            "superEditable": false,
+                            "isReadOnly": false,
+                            "isHidden": false
+                        },
+                        {
+                            "name": "Owner",
+                            "sQLName": "RES_NAME",
+                            "convType": 21,
+                            "width": 100,
+                            "autoSize": 1,
+                            "order": 7,
+                            "isCustomField": 0,
+                            "isFormula": 0,
+                            "fieldUID": "759c6ad4-aaa3-4b50-9522-548229854cd8",
+                            "tableUID": "ebad93e7-2149-410d-9a39-a8680738329d",
+                            "group": 0,
+                            "editable": false,
+                            "superEditable": false,
+                            "isReadOnly": false,
+                            "isHidden": false
+                        },
+                        {
+                            "name": "Last Published",
+                            "sQLName": "WPROJ_LAST_PUB",
+                            "convType": 4,
+                            "width": 100,
+                            "autoSize": 1,
+                            "order": 8,
+                            "isCustomField": 0,
+                            "isFormula": 0,
+                            "fieldUID": "99995479-ca5d-456f-a0d6-f13668b62dc9",
+                            "tableUID": "ebad93e7-2149-410d-9a39-a8680738329d",
+                            "group": 0,
+                            "editable": false,
+                            "superEditable": false,
+                            "isReadOnly": false,
+                            "isHidden": false
+                        }
+                    ],
+                    "persistenceType": 2
+                },
+                "FilterXml": {
+                    "value": "<![CDATA[<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<Filter xmlns:xsd=\"http:\/\/www.w3.org\/2001\/XMLSchema\" xmlns:xsi=\"http:\/\/www.w3.org\/2001\/XMLSchema-instance\" filterTableName=\"ProjectSummaries\" filterViewUID=\"63d3499e-df27-401c-af58-ebb9607beae8\" xmlns=\"http:\/\/microsoft.com\/ProjectServer\/FilterSchema.xsd\">\r\n  <Fields>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"PROJ_NAME\" \/>\r\n    <CustomField tableName=\"ProjectSummaryCustomFields\" fieldName=\"6ad2a918-8586-e711-80cc-00155d005a03\" customFieldType=\"TextValue\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_START_DATE\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_FINISH_DATE\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_PCT_COMP\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_WORK\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_DUR\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"RES_NAME\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"WPROJ_LAST_PUB\" \/>\r\n  <\/Fields>\r\n  <Criteria \/>\r\n<\/Filter>]]>",
+                    "persistenceType": 2
+                },
+                "GroupSchemeUID": {
+                    "value": "b238a652-8a0d-4fbd-a5a9-52af6102c5a1",
+                    "persistenceType": 2
+                },
+                "GanttSchemeUID": {
+                    "value": "585fa5ea-6810-4e34-aaba-90aaa23894d2",
+                    "persistenceType": 2
+                },
+                "ViewOutlineLevel": {
+                    "value": -1,
+                    "persistenceType": 1
+                },
+                "FilterBy": {
+                    "persistenceType": 1
+                },
+                "SelectedFilterId": {
+                    "persistenceType": 1
+                },
+                "FilterByRBS": {
+                    "value": false,
+                    "persistenceType": 2
+                },
+                "JsGridFields": {
+                    "value": "",
+                    "bDirty": true,
+                    "persistenceType": 1
+                },
+                "ViewName": {
+                    "value": "Summary",
+                    "persistenceType": 2
+                },
+                "ViewUID": {
+                    "value": "63d3499e-df27-401c-af58-ebb9607beae8",
+                    "persistenceType": 2
+                }
+            }
+        },
+        "workDayStart": 480,
+        "workDayEnd": 1020
+    },
+    "LookupTableInfo": [
+        {
+            "id": "YesNo",
+            "lookup": [
+                {
+                    "value": false,
+                    "localString": "No"
+                },
+                {
+                    "value": true,
+                    "localString": "Yes"
+                }
+            ],
+            "showImage": false,
+            "showText": true,
+            "limitToList": true
+        },
+        {
+            "id": "ProjectType",
+            "lookup": [
+                {
+                    "value": 0,
+                    "localString": "Project"
+                },
+                {
+                    "value": 0,
+                    "localString": "Project"
+                },
+                {
+                    "value": 1,
+                    "localString": "Template"
+                },
+                {
+                    "value": 2,
+                    "localString": "Global"
+                },
+                {
+                    "value": 3,
+                    "localString": "ResGlobal"
+                },
+                {
+                    "value": 4,
+                    "localString": "Lightweight Project"
+                },
+                {
+                    "value": 5,
+                    "localString": "Sub Project"
+                },
+                {
+                    "value": 6,
+                    "localString": "Master Project"
+                }
+            ],
+            "showImage": false,
+            "showText": true,
+            "limitToList": true
+        },
+        {
+            "id": "TaskMode",
+            "lookup": [
+                {
+                    "value": false,
+                    "localString": "Auto scheduled",
+                    "imageUrl": "\/_layouts\/15\/inc\/pwa\/images\/AutoTask.png"
+                },
+                {
+                    "value": true,
+                    "localString": "Manually scheduled",
+                    "imageUrl": "\/_layouts\/15\/inc\/pwa\/images\/ManualTask.png"
+                }
+            ],
+            "showImage": true,
+            "showText": false,
+            "limitToList": true
+        },
+        {
+            "id": "IndicatorLookupType",
+            "lookup": [
+                {
+                    "value": 1,
+                    "localString": "This is a SharePoint Tasks list project. Click this icon to open up the project for editing in Project Professional.",
+                    "imageUrl": "\/_layouts\/15\/inc\/pwa\/images\/CenterSPProject.png"
+                },
+                {
+                    "value": 2,
+                    "localString": "This is an enterprise project. Click this icon to open up the project for editing in Project Professional.",
+                    "imageUrl": "\/_layouts\/15\/inc\/pwa\/images\/CenterNormalProject.png"
+                },
+                {
+                    "value": 3,
+                    "localString": "This is a master project. Click this icon to open up the project for editing in Project Professional.",
+                    "imageUrl": "\/_layouts\/15\/inc\/pwa\/images\/CenterMasterProject.png"
+                },
+                {
+                    "value": 4,
+                    "localString": "Click this icon to see the issues associated with this project.",
+                    "imageUrl": "\/_layouts\/15\/inc\/pwa\/images\/PWAIssue.gif"
+                },
+                {
+                    "value": 5,
+                    "localString": "Click this icon to see the risks associated with this project.",
+                    "imageUrl": "\/_layouts\/15\/inc\/pwa\/images\/PWARisks.gif"
+                },
+                {
+                    "value": 6,
+                    "localString": "Click this icon to see the documents associated with this project.",
+                    "imageUrl": "\/_layouts\/15\/inc\/pwa\/images\/PWADocuments.gif"
+                }
+            ],
+            "showImage": true,
+            "showText": false,
+            "limitToList": true
+        }
+    ],
+    "Fields": [
+        {
+            "fieldKey": "Indicators",
+            "hasDataValue": true,
+            "hasLocalizedValue": false,
+            "textDirection": 0,
+            "propertyTypeId": "IndicatorLookupType",
+            "editMode": 0,
+            "multiValue": true,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "PROJ_UID",
+            "hasDataValue": true,
+            "hasLocalizedValue": false,
+            "textDirection": 0,
+            "propertyTypeId": "Guid",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "TASK_SUMMARY_PROGRESS_DATE",
+            "hasDataValue": true,
+            "hasLocalizedValue": true,
+            "textDirection": 0,
+            "propertyTypeId": "Date",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "TASK_IS_MILESTONE",
+            "hasDataValue": true,
+            "hasLocalizedValue": true,
+            "textDirection": 0,
+            "propertyTypeId": "YesNo",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "TASK_HYPERLINK_HREF",
+            "hasDataValue": true,
+            "hasLocalizedValue": true,
+            "textDirection": 0,
+            "propertyTypeId": "HyperlinkHRef",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "TASK_PCT_COMP",
+            "hasDataValue": true,
+            "hasLocalizedValue": true,
+            "textDirection": 0,
+            "propertyTypeId": "Percent",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "TASK_OUTLINE_LEVEL",
+            "hasDataValue": true,
+            "hasLocalizedValue": false,
+            "textDirection": 0,
+            "propertyTypeId": "Long",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "PROJ_TYPE",
+            "hasDataValue": true,
+            "hasLocalizedValue": false,
+            "textDirection": 0,
+            "propertyTypeId": "ProjectType",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "TASK_START_DATE",
+            "hasDataValue": true,
+            "hasLocalizedValue": true,
+            "textDirection": 0,
+            "propertyTypeId": "StartDate_(manual)",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "TASK_FINISH_DATE",
+            "hasDataValue": true,
+            "hasLocalizedValue": true,
+            "textDirection": 0,
+            "propertyTypeId": "FinishDate_(manual)",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "WSTS_SERVER_UID",
+            "hasDataValue": true,
+            "hasLocalizedValue": false,
+            "textDirection": 0,
+            "propertyTypeId": "Guid",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "PROJ_OPT_CURRENCY_CODE",
+            "hasDataValue": true,
+            "hasLocalizedValue": false,
+            "textDirection": 0,
+            "propertyTypeId": "String",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "PROJ_ACTIVE_RISK_COUNT",
+            "hasDataValue": true,
+            "hasLocalizedValue": false,
+            "textDirection": 0,
+            "propertyTypeId": "Long",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "PROJ_ACTIVE_ISSUE_COUNT",
+            "hasDataValue": true,
+            "hasLocalizedValue": false,
+            "textDirection": 0,
+            "propertyTypeId": "Long",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "PROJ_TOTAL_DOC_COUNT",
+            "hasDataValue": true,
+            "hasLocalizedValue": false,
+            "textDirection": 0,
+            "propertyTypeId": "Long",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "PROJ_IS_VISIBILITY_MODE",
+            "hasDataValue": true,
+            "hasLocalizedValue": false,
+            "textDirection": 0,
+            "propertyTypeId": "BOOL",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "TASK_IS_MANUAL",
+            "hasDataValue": true,
+            "hasLocalizedValue": false,
+            "textDirection": 0,
+            "propertyTypeId": "TaskMode",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "TASK_COMPLETE_THROUGH",
+            "hasDataValue": true,
+            "hasLocalizedValue": false,
+            "textDirection": 0,
+            "propertyTypeId": "Date",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "TASK_IS_PROJECT_SUMMARY",
+            "hasDataValue": true,
+            "hasLocalizedValue": false,
+            "textDirection": 0,
+            "propertyTypeId": "BOOL",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "TASK_DUR",
+            "hasDataValue": true,
+            "hasLocalizedValue": true,
+            "textDirection": 0,
+            "propertyTypeId": "Duration_(manual)",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "PROJ_NAME",
+            "hasDataValue": true,
+            "hasLocalizedValue": true,
+            "textDirection": 0,
+            "propertyTypeId": "String",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "TASK_WORK",
+            "hasDataValue": true,
+            "hasLocalizedValue": true,
+            "textDirection": 0,
+            "propertyTypeId": "Work",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "RES_NAME",
+            "hasDataValue": true,
+            "hasLocalizedValue": true,
+            "textDirection": 0,
+            "propertyTypeId": "String",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "WPROJ_LAST_PUB",
+            "hasDataValue": true,
+            "hasLocalizedValue": true,
+            "textDirection": 0,
+            "propertyTypeId": "Date",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "WRES_EMAIL",
+            "hasDataValue": true,
+            "hasLocalizedValue": false,
+            "textDirection": 0,
+            "propertyTypeId": "String",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "6ad2a918-8586-e711-80cc-00155d005a03",
+            "hasDataValue": true,
+            "hasLocalizedValue": true,
+            "textDirection": 0,
+            "propertyTypeId": "String[Guid]",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        }
+    ],
+    "Columns": [
+        {
+            "fieldKey": "Indicators",
+            "isVisible": true,
+            "isHidable": true,
+            "isResizable": true,
+            "isSortable": true,
+            "isAutoFilterable": false,
+            "fieldKeys": [
+                "Indicators"
+            ],
+            "columnKey": "Indicators",
+            "name": "Indicators",
+            "imgSrc": "\/_layouts\/15\/images\/info16by16.gif",
+            "width": 30
+        },
+        {
+            "fieldKey": "PROJ_NAME",
+            "isVisible": true,
+            "isHidable": true,
+            "isResizable": true,
+            "isSortable": true,
+            "isAutoFilterable": true,
+            "fieldKeys": [
+                "PROJ_NAME"
+            ],
+            "columnKey": "PROJ_NAME",
+            "name": "Project Name",
+            "width": 100
+        },
+        {
+            "fieldKey": "6ad2a918-8586-e711-80cc-00155d005a03",
+            "isVisible": true,
+            "isHidable": true,
+            "isResizable": true,
+            "isSortable": true,
+            "isAutoFilterable": false,
+            "fieldKeys": [
+                "6ad2a918-8586-e711-80cc-00155d005a03"
+            ],
+            "columnKey": "6ad2a918-8586-e711-80cc-00155d005a03",
+            "name": "Project Active Status",
+            "width": 100
+        },
+        {
+            "fieldKey": "TASK_START_DATE",
+            "isVisible": true,
+            "isHidable": true,
+            "isResizable": true,
+            "isSortable": true,
+            "isAutoFilterable": true,
+            "fieldKeys": [
+                "TASK_START_DATE"
+            ],
+            "columnKey": "TASK_START_DATE",
+            "name": "Start",
+            "width": 100
+        },
+        {
+            "fieldKey": "TASK_FINISH_DATE",
+            "isVisible": true,
+            "isHidable": true,
+            "isResizable": true,
+            "isSortable": true,
+            "isAutoFilterable": true,
+            "fieldKeys": [
+                "TASK_FINISH_DATE"
+            ],
+            "columnKey": "TASK_FINISH_DATE",
+            "name": "Finish",
+            "width": 100
+        },
+        {
+            "fieldKey": "TASK_PCT_COMP",
+            "isVisible": true,
+            "isHidable": true,
+            "isResizable": true,
+            "isSortable": true,
+            "isAutoFilterable": true,
+            "fieldKeys": [
+                "TASK_PCT_COMP"
+            ],
+            "columnKey": "TASK_PCT_COMP",
+            "name": "% Complete",
+            "width": 100
+        },
+        {
+            "fieldKey": "TASK_WORK",
+            "isVisible": true,
+            "isHidable": true,
+            "isResizable": true,
+            "isSortable": true,
+            "isAutoFilterable": true,
+            "fieldKeys": [
+                "TASK_WORK"
+            ],
+            "columnKey": "TASK_WORK",
+            "name": "Work",
+            "width": 100
+        },
+        {
+            "fieldKey": "TASK_DUR",
+            "isVisible": true,
+            "isHidable": true,
+            "isResizable": true,
+            "isSortable": true,
+            "isAutoFilterable": true,
+            "fieldKeys": [
+                "TASK_DUR"
+            ],
+            "columnKey": "TASK_DUR",
+            "name": "Duration",
+            "width": 100
+        },
+        {
+            "fieldKey": "RES_NAME",
+            "isVisible": true,
+            "isHidable": true,
+            "isResizable": true,
+            "isSortable": true,
+            "isAutoFilterable": true,
+            "fieldKeys": [
+                "RES_NAME"
+            ],
+            "columnKey": "RES_NAME",
+            "name": "Owner",
+            "width": 100
+        },
+        {
+            "fieldKey": "WPROJ_LAST_PUB",
+            "isVisible": true,
+            "isHidable": true,
+            "isResizable": true,
+            "isSortable": true,
+            "isAutoFilterable": true,
+            "fieldKeys": [
+                "WPROJ_LAST_PUB"
+            ],
+            "columnKey": "WPROJ_LAST_PUB",
+            "name": "Last Published",
+            "width": 100
+        }
+    ],
+    "MultiValueSeparator": ",",
+    "CellStyles": {
+        "Grp0": {
+            "fontWeight": "bold",
+            "textColor": "#000000",
+            "backgroundColor": "#FFF6C1"
+        },
+        "Grp1": {
+            "fontWeight": "bold",
+            "textColor": "#000000",
+            "backgroundColor": "#D2EEFF"
+        },
+        "Grp2": {
+            "fontWeight": "bold",
+            "textColor": "#000000",
+            "backgroundColor": "#D3F5CC"
+        },
+        "Grp3": {
+            "fontWeight": "bold",
+            "textColor": "#000000",
+            "backgroundColor": "#E1E3FA"
+        }
+    },
+    "GanttInfo": {
+        "StartDate": "\/Date(1499212800000)\/",
+        "FinishDate": "\/Date(1515517200000)\/",
+        "Styles": {
+            "fieldKeyRedrawFilter": [
+                "TASK_START_DATE",
+                "TASK_FINISH_DATE",
+                "TASK_COMPLETE_THROUGH",
+                "TASK_IS_PROJECT_SUMMARY",
+                "TASK_DUR"
+            ],
+            "barStyles": {
+                "15": {
+                    "startField": "TASK_START_DATE",
+                    "endField": "TASK_FINISH_DATE",
+                    "linkPriority": 100,
+                    "shape": 1,
+                    "color": "#3B87D4",
+                    "pattern": 1,
+                    "start": {
+                        "shape": 0,
+                        "color": "#000000",
+                        "pattern": 0
+                    },
+                    "end": {
+                        "shape": 0,
+                        "color": "#000000",
+                        "pattern": 0
+                    }
+                },
+                "16": {
+                    "startField": "TASK_START_DATE",
+                    "endField": "TASK_FINISH_DATE",
+                    "linkPriority": 100,
+                    "shape": 5,
+                    "color": "#000000",
+                    "pattern": 1,
+                    "start": {
+                        "shape": 11,
+                        "color": "#000000",
+                        "pattern": 0
+                    },
+                    "end": {
+                        "shape": 11,
+                        "color": "#000000",
+                        "pattern": 0
+                    }
+                },
+                "17": {
+                    "startField": "TASK_START_DATE",
+                    "endField": "TASK_COMPLETE_THROUGH",
+                    "linkPriority": 0,
+                    "shape": 3,
+                    "color": "#424542",
+                    "pattern": 1,
+                    "start": {
+                        "shape": 0,
+                        "color": "#000000",
+                        "pattern": 0
+                    },
+                    "end": {
+                        "shape": 0,
+                        "color": "#000000",
+                        "pattern": 0
+                    }
+                }
+            }
+        }
+    },
+    "PaneLayout": 1,
+    "AutoFilterableColumns": true,
+    "ViewInfo": [
+        "e7808e36-588a-e711-80cc-00155d005a03",
+        "2176500f-84aa-e711-80ce-00155dcd8a01",
+        "8e76500f-84aa-e711-80ce-00155dcd8a01",
+        "e776500f-84aa-e711-80ce-00155dcd8a01",
+        "1d399fb8-578a-e711-80cc-00155d005a03",
+        "426102da-588a-e711-80cc-00155d005a03",
+        "32975da8-a7bf-4be6-b7f2-1943ce14d594",
+        "afa7fbbe-e361-e711-80cc-00155d005a03",
+        "bef04de1-0e7d-e711-80cc-00155d005a03",
+        "32975da8-a7bf-4be6-b7f2-1943ce14d597",
+        "ba42bbfe-e361-e711-80cc-00155d005a03"
+    ],
+    "SortState": [
+        {
+            "fieldKey": "PROJ_NAME",
+            "isDescending": false
+        }
     ]
 }
-]
