@@ -90,6 +90,10 @@
                 "dataValue": "\/Date(1503734400000)\/"
             },
             {
+                "displayString": "9\/6\/2017 5:00 PM",
+                "dataValue": "\/Date(1504717200000)\/"
+            },
+            {
                 "displayString": "9\/12\/2017 5:00 PM",
                 "dataValue": "\/Date(1505235600000)\/"
             },
@@ -180,44 +184,48 @@
         ],
         "WPROJ_LAST_PUB": [
             {
-                "displayString": "10\/31\/2017 4:44 PM",
-                "dataValue": "\/Date(1509468253533)\/"
+                "displayString": "11\/8\/2017 5:58 PM",
+                "dataValue": "\/Date(1510163891697)\/"
             },
             {
-                "displayString": "10\/31\/2017 4:44 PM",
-                "dataValue": "\/Date(1509468254427)\/"
+                "displayString": "11\/8\/2017 5:58 PM",
+                "dataValue": "\/Date(1510163892217)\/"
             },
             {
-                "displayString": "10\/31\/2017 4:44 PM",
-                "dataValue": "\/Date(1509468255503)\/"
+                "displayString": "11\/8\/2017 5:58 PM",
+                "dataValue": "\/Date(1510163893220)\/"
             },
             {
-                "displayString": "10\/31\/2017 4:44 PM",
-                "dataValue": "\/Date(1509468256730)\/"
+                "displayString": "11\/8\/2017 5:58 PM",
+                "dataValue": "\/Date(1510163893967)\/"
             },
             {
-                "displayString": "10\/31\/2017 4:44 PM",
-                "dataValue": "\/Date(1509468258007)\/"
+                "displayString": "11\/8\/2017 5:58 PM",
+                "dataValue": "\/Date(1510163894027)\/"
             },
             {
-                "displayString": "10\/31\/2017 4:44 PM",
-                "dataValue": "\/Date(1509468260417)\/"
+                "displayString": "11\/8\/2017 5:58 PM",
+                "dataValue": "\/Date(1510163894607)\/"
             },
             {
-                "displayString": "10\/31\/2017 4:44 PM",
-                "dataValue": "\/Date(1509468260560)\/"
+                "displayString": "11\/8\/2017 5:58 PM",
+                "dataValue": "\/Date(1510163895370)\/"
             },
             {
-                "displayString": "10\/31\/2017 4:44 PM",
-                "dataValue": "\/Date(1509468260623)\/"
+                "displayString": "11\/8\/2017 5:58 PM",
+                "dataValue": "\/Date(1510163895910)\/"
             },
             {
-                "displayString": "10\/31\/2017 4:44 PM",
-                "dataValue": "\/Date(1509468260940)\/"
+                "displayString": "11\/8\/2017 5:58 PM",
+                "dataValue": "\/Date(1510163896010)\/"
             },
             {
-                "displayString": "10\/31\/2017 4:44 PM",
-                "dataValue": "\/Date(1509468262413)\/"
+                "displayString": "11\/8\/2017 5:58 PM",
+                "dataValue": "\/Date(1510163895730)\/"
+            },
+            {
+                "displayString": "11\/8\/2017 5:58 PM",
+                "dataValue": "\/Date(1510163896233)\/"
             }
         ]
     },
@@ -251,8 +259,10 @@
             "PROJ_NAME": "Centennial Hospital Urology Credentialing",
             "TASK_WORK": "0h",
             "RES_NAME": "John Goodson",
-            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
-            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress"
+            "WPROJ_LAST_PUB": "11\/8\/2017 5:58 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "Credentialling",
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "ProjSvcs"
         },
         {
             "TASK_IS_MILESTONE": "No",
@@ -263,8 +273,9 @@
             "PROJ_NAME": "Generated_Project_11",
             "TASK_WORK": "0h",
             "RES_NAME": "John Goodson",
-            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
-            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress"
+            "WPROJ_LAST_PUB": "11\/8\/2017 5:58 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "Credentialling"
         },
         {
             "TASK_IS_MILESTONE": "No",
@@ -275,8 +286,10 @@
             "PROJ_NAME": "Generated_Project_12",
             "TASK_WORK": "0h",
             "RES_NAME": "John Goodson",
-            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
-            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress"
+            "WPROJ_LAST_PUB": "11\/8\/2017 5:58 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "Credentialling",
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "ProjSvcs"
         },
         {
             "TASK_IS_MILESTONE": "No",
@@ -287,7 +300,10 @@
             "PROJ_NAME": "Generated_Project_13",
             "TASK_WORK": "0h",
             "RES_NAME": "John Goodson",
-            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM"
+            "WPROJ_LAST_PUB": "11\/8\/2017 5:58 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "BPG Group 2",
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "ITS"
         },
         {
             "TASK_SUMMARY_PROGRESS_DATE": "11\/10\/2017 5:00 PM",
@@ -299,20 +315,24 @@
             "PROJ_NAME": "Nashville SSC Data Center Virtualization",
             "TASK_WORK": "960h",
             "RES_NAME": "John Goodson",
-            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
-            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress"
+            "WPROJ_LAST_PUB": "11\/8\/2017 5:58 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "BPG Group 1",
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "ProjSvcs"
         },
         {
             "TASK_IS_MILESTONE": "No",
             "TASK_PCT_COMP": "0%",
             "TASK_START_DATE": "8\/26\/2017 12:00 AM",
-            "TASK_FINISH_DATE": "8\/26\/2017 8:00 AM",
-            "TASK_DUR": "0d",
+            "TASK_FINISH_DATE": "9\/6\/2017 5:00 PM",
+            "TASK_DUR": "8d",
             "PROJ_NAME": "Patient Experience ER",
             "TASK_WORK": "0h",
             "RES_NAME": "John Goodson",
-            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
-            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress"
+            "WPROJ_LAST_PUB": "11\/8\/2017 5:58 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "BPG Group 1",
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "ProjSvcs"
         },
         {
             "TASK_IS_MILESTONE": "No",
@@ -323,7 +343,9 @@
             "PROJ_NAME": "Projec Created From Sp Executor",
             "TASK_WORK": "0h",
             "RES_NAME": "Nishant",
-            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM"
+            "WPROJ_LAST_PUB": "11\/8\/2017 5:58 PM",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "BPG Group 1",
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "ITS"
         },
         {
             "TASK_IS_MILESTONE": "No",
@@ -334,8 +356,10 @@
             "PROJ_NAME": "project 1",
             "TASK_WORK": "0h",
             "RES_NAME": "John Goodson",
-            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
-            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress"
+            "WPROJ_LAST_PUB": "11\/8\/2017 5:58 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "Credentialling",
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "ITS"
         },
         {
             "TASK_IS_MILESTONE": "No",
@@ -346,8 +370,10 @@
             "PROJ_NAME": "Project 3",
             "TASK_WORK": "200h",
             "RES_NAME": "John Goodson",
-            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
-            "6ad2a918-8586-e711-80cc-00155d005a03": "Cancelled"
+            "WPROJ_LAST_PUB": "11\/8\/2017 5:58 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "Cancelled",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "Credentialling",
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "ITS"
         },
         {
             "TASK_IS_MILESTONE": "No",
@@ -358,7 +384,7 @@
             "PROJ_NAME": "Project_32975da8-a7bf-4be6-b7f2-1944543ce14d497",
             "TASK_WORK": "0h",
             "RES_NAME": "Nishant",
-            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM"
+            "WPROJ_LAST_PUB": "11\/8\/2017 5:58 PM"
         },
         {
             "TASK_IS_MILESTONE": "No",
@@ -369,8 +395,10 @@
             "PROJ_NAME": "project2",
             "TASK_WORK": "0h",
             "RES_NAME": "John Goodson",
-            "WPROJ_LAST_PUB": "10\/31\/2017 4:44 PM",
-            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress"
+            "WPROJ_LAST_PUB": "11\/8\/2017 5:58 PM",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "In-Progress",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "Credentialling",
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "ITS"
         }
     ],
     "UnlocalizedTable": [
@@ -384,7 +412,7 @@
             "TASK_WORK": 0,
             "RES_NAME": "John Goodson",
             "PROJ_NAME": "Centennial Hospital Urology Credentialing",
-            "WPROJ_LAST_PUB": "\/Date(1509468256730)\/",
+            "WPROJ_LAST_PUB": "\/Date(1510163894027)\/",
             "PROJ_TYPE": 0,
             "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
             "PROJ_OPT_CURRENCY_CODE": "USD",
@@ -399,6 +427,8 @@
             "Indicators": [
                 2
             ],
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "f91aefce-d393-e711-80cc-00155d005a03",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "ed971be3-f0b4-e711-80ce-00155dcd8a01",
             "6ad2a918-8586-e711-80cc-00155d005a03": "85e20208-8586-e711-80cc-00155d005a03"
         },
         {
@@ -411,7 +441,7 @@
             "TASK_WORK": 0,
             "RES_NAME": "John Goodson",
             "PROJ_NAME": "Generated_Project_11",
-            "WPROJ_LAST_PUB": "\/Date(1509468260417)\/",
+            "WPROJ_LAST_PUB": "\/Date(1510163895370)\/",
             "PROJ_TYPE": 0,
             "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
             "PROJ_OPT_CURRENCY_CODE": "USD",
@@ -426,6 +456,7 @@
             "Indicators": [
                 2
             ],
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "ed971be3-f0b4-e711-80ce-00155dcd8a01",
             "6ad2a918-8586-e711-80cc-00155d005a03": "85e20208-8586-e711-80cc-00155d005a03"
         },
         {
@@ -438,7 +469,7 @@
             "TASK_WORK": 0,
             "RES_NAME": "John Goodson",
             "PROJ_NAME": "Generated_Project_12",
-            "WPROJ_LAST_PUB": "\/Date(1509468260560)\/",
+            "WPROJ_LAST_PUB": "\/Date(1510163895910)\/",
             "PROJ_TYPE": 0,
             "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
             "PROJ_OPT_CURRENCY_CODE": "USD",
@@ -453,6 +484,8 @@
             "Indicators": [
                 2
             ],
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "f91aefce-d393-e711-80cc-00155d005a03",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "ed971be3-f0b4-e711-80ce-00155dcd8a01",
             "6ad2a918-8586-e711-80cc-00155d005a03": "85e20208-8586-e711-80cc-00155d005a03"
         },
         {
@@ -465,7 +498,7 @@
             "TASK_WORK": 0,
             "RES_NAME": "John Goodson",
             "PROJ_NAME": "Generated_Project_13",
-            "WPROJ_LAST_PUB": "\/Date(1509468260623)\/",
+            "WPROJ_LAST_PUB": "\/Date(1510163896010)\/",
             "PROJ_TYPE": 0,
             "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
             "PROJ_OPT_CURRENCY_CODE": "USD",
@@ -479,7 +512,10 @@
             "PROJ_ACTIVE_RISK_COUNT": 0,
             "Indicators": [
                 2
-            ]
+            ],
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "f81aefce-d393-e711-80cc-00155d005a03",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "ec971be3-f0b4-e711-80ce-00155dcd8a01",
+            "6ad2a918-8586-e711-80cc-00155d005a03": "85e20208-8586-e711-80cc-00155d005a03"
         },
         {
             "PROJ_UID": "1d399fb8-578a-e711-80cc-00155d005a03",
@@ -492,7 +528,7 @@
             "TASK_SUMMARY_PROGRESS_DATE": "\/Date(1510333200000)\/",
             "RES_NAME": "John Goodson",
             "PROJ_NAME": "Nashville SSC Data Center Virtualization",
-            "WPROJ_LAST_PUB": "\/Date(1509468255503)\/",
+            "WPROJ_LAST_PUB": "\/Date(1510163893967)\/",
             "PROJ_TYPE": 0,
             "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
             "PROJ_OPT_CURRENCY_CODE": "USD",
@@ -507,19 +543,21 @@
             "Indicators": [
                 2
             ],
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "f91aefce-d393-e711-80cc-00155d005a03",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "eb971be3-f0b4-e711-80ce-00155dcd8a01",
             "6ad2a918-8586-e711-80cc-00155d005a03": "85e20208-8586-e711-80cc-00155d005a03"
         },
         {
             "PROJ_UID": "426102da-588a-e711-80cc-00155d005a03",
             "TASK_IS_MILESTONE": false,
             "TASK_OUTLINE_LEVEL": 0,
-            "TASK_DUR": 0,
+            "TASK_DUR": 38400,
             "TASK_START_DATE": "\/Date(1503705600000)\/",
-            "TASK_FINISH_DATE": "\/Date(1503734400000)\/",
+            "TASK_FINISH_DATE": "\/Date(1504717200000)\/",
             "TASK_WORK": 0,
             "RES_NAME": "John Goodson",
             "PROJ_NAME": "Patient Experience ER",
-            "WPROJ_LAST_PUB": "\/Date(1509468258007)\/",
+            "WPROJ_LAST_PUB": "\/Date(1510163894607)\/",
             "PROJ_TYPE": 0,
             "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
             "PROJ_OPT_CURRENCY_CODE": "USD",
@@ -534,6 +572,8 @@
             "Indicators": [
                 2
             ],
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "f91aefce-d393-e711-80cc-00155d005a03",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "eb971be3-f0b4-e711-80ce-00155dcd8a01",
             "6ad2a918-8586-e711-80cc-00155d005a03": "85e20208-8586-e711-80cc-00155d005a03"
         },
         {
@@ -546,7 +586,7 @@
             "TASK_WORK": 0,
             "RES_NAME": "Nishant",
             "PROJ_NAME": "Projec Created From Sp Executor",
-            "WPROJ_LAST_PUB": "\/Date(1509468260940)\/",
+            "WPROJ_LAST_PUB": "\/Date(1510163895730)\/",
             "PROJ_TYPE": 0,
             "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
             "PROJ_OPT_CURRENCY_CODE": "USD",
@@ -560,7 +600,9 @@
             "PROJ_ACTIVE_RISK_COUNT": 0,
             "Indicators": [
                 2
-            ]
+            ],
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "f81aefce-d393-e711-80cc-00155d005a03",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "eb971be3-f0b4-e711-80ce-00155dcd8a01"
         },
         {
             "PROJ_UID": "afa7fbbe-e361-e711-80cc-00155d005a03",
@@ -572,7 +614,7 @@
             "TASK_WORK": 0,
             "RES_NAME": "John Goodson",
             "PROJ_NAME": "project 1",
-            "WPROJ_LAST_PUB": "\/Date(1509468253533)\/",
+            "WPROJ_LAST_PUB": "\/Date(1510163891697)\/",
             "PROJ_TYPE": 0,
             "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
             "PROJ_OPT_CURRENCY_CODE": "USD",
@@ -587,6 +629,8 @@
             "Indicators": [
                 2
             ],
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "f81aefce-d393-e711-80cc-00155d005a03",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "ed971be3-f0b4-e711-80ce-00155dcd8a01",
             "6ad2a918-8586-e711-80cc-00155d005a03": "85e20208-8586-e711-80cc-00155d005a03"
         },
         {
@@ -599,7 +643,7 @@
             "TASK_WORK": 12000000,
             "RES_NAME": "John Goodson",
             "PROJ_NAME": "Project 3",
-            "WPROJ_LAST_PUB": "\/Date(1509468254427)\/",
+            "WPROJ_LAST_PUB": "\/Date(1510163893220)\/",
             "PROJ_TYPE": 0,
             "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
             "PROJ_OPT_CURRENCY_CODE": "USD",
@@ -614,6 +658,8 @@
             "Indicators": [
                 2
             ],
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "f81aefce-d393-e711-80cc-00155d005a03",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "ed971be3-f0b4-e711-80ce-00155dcd8a01",
             "6ad2a918-8586-e711-80cc-00155d005a03": "86e20208-8586-e711-80cc-00155d005a03"
         },
         {
@@ -626,7 +672,7 @@
             "TASK_WORK": 0,
             "RES_NAME": "Nishant",
             "PROJ_NAME": "Project_32975da8-a7bf-4be6-b7f2-1944543ce14d497",
-            "WPROJ_LAST_PUB": "\/Date(1509468262413)\/",
+            "WPROJ_LAST_PUB": "\/Date(1510163896233)\/",
             "PROJ_TYPE": 0,
             "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
             "PROJ_OPT_CURRENCY_CODE": "USD",
@@ -652,7 +698,7 @@
             "TASK_WORK": 0,
             "RES_NAME": "John Goodson",
             "PROJ_NAME": "project2",
-            "WPROJ_LAST_PUB": "\/Date(1509468253533)\/",
+            "WPROJ_LAST_PUB": "\/Date(1510163892217)\/",
             "PROJ_TYPE": 0,
             "WSTS_SERVER_UID": "1554e6a6-2ccb-4e0c-a4d1-4d894705d6e0",
             "PROJ_OPT_CURRENCY_CODE": "USD",
@@ -667,6 +713,8 @@
             "Indicators": [
                 2
             ],
+            "9d77d62a-a92e-4d40-adc8-446c90eb7456": "f81aefce-d393-e711-80cc-00155d005a03",
+            "4836fff0-f0b4-e711-80ce-00155dcd8a01": "ed971be3-f0b4-e711-80ce-00155dcd8a01",
             "6ad2a918-8586-e711-80cc-00155d005a03": "85e20208-8586-e711-80cc-00155d005a03"
         }
     ],
@@ -717,7 +765,8 @@
                     "persistenceType": 1
                 },
                 "TimeStampUID": {
-                    "value": "f730b571-8e86-e711-80cc-00155d005a03",
+                    "value": "c421c5d1-5ac5-e711-80d1-00155dcd8a01",
+                    "bDirty": true,
                     "persistenceType": 1
                 },
                 "Fields": {
@@ -874,12 +923,46 @@
                             "superEditable": false,
                             "isReadOnly": false,
                             "isHidden": false
+                        },
+                        {
+                            "name": "Project ChargeBack Category",
+                            "sQLName": "4836fff0-f0b4-e711-80ce-00155dcd8a01",
+                            "convType": 21,
+                            "width": 100,
+                            "autoSize": 1,
+                            "order": 9,
+                            "isCustomField": 1,
+                            "isFormula": 0,
+                            "fieldUID": "4836fff0-f0b4-e711-80ce-00155dcd8a01",
+                            "tableUID": "cecfe271-6660-4abe-97ed-208d3c71fc18",
+                            "group": 0,
+                            "editable": false,
+                            "superEditable": false,
+                            "isReadOnly": false,
+                            "isHidden": false
+                        },
+                        {
+                            "name": "Project Departments",
+                            "sQLName": "9d77d62a-a92e-4d40-adc8-446c90eb7456",
+                            "convType": 21,
+                            "width": 100,
+                            "autoSize": 1,
+                            "order": 10,
+                            "isCustomField": 1,
+                            "isFormula": 0,
+                            "fieldUID": "9d77d62a-a92e-4d40-adc8-446c90eb7456",
+                            "tableUID": "cecfe271-6660-4abe-97ed-208d3c71fc18",
+                            "group": 0,
+                            "editable": false,
+                            "superEditable": false,
+                            "isReadOnly": false,
+                            "isHidden": false
                         }
                     ],
                     "persistenceType": 2
                 },
                 "FilterXml": {
-                    "value": "<![CDATA[<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<Filter xmlns:xsd=\"http:\/\/www.w3.org\/2001\/XMLSchema\" xmlns:xsi=\"http:\/\/www.w3.org\/2001\/XMLSchema-instance\" filterTableName=\"ProjectSummaries\" filterViewUID=\"63d3499e-df27-401c-af58-ebb9607beae8\" xmlns=\"http:\/\/microsoft.com\/ProjectServer\/FilterSchema.xsd\">\r\n  <Fields>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"PROJ_NAME\" \/>\r\n    <CustomField tableName=\"ProjectSummaryCustomFields\" fieldName=\"6ad2a918-8586-e711-80cc-00155d005a03\" customFieldType=\"TextValue\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_START_DATE\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_FINISH_DATE\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_PCT_COMP\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_WORK\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_DUR\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"RES_NAME\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"WPROJ_LAST_PUB\" \/>\r\n  <\/Fields>\r\n  <Criteria \/>\r\n<\/Filter>]]>",
+                    "value": "<![CDATA[<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<Filter xmlns:xsd=\"http:\/\/www.w3.org\/2001\/XMLSchema\" xmlns:xsi=\"http:\/\/www.w3.org\/2001\/XMLSchema-instance\" filterTableName=\"ProjectSummaries\" filterViewUID=\"63d3499e-df27-401c-af58-ebb9607beae8\" xmlns=\"http:\/\/microsoft.com\/ProjectServer\/FilterSchema.xsd\">\r\n  <Fields>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"PROJ_NAME\" \/>\r\n    <CustomField tableName=\"ProjectSummaryCustomFields\" fieldName=\"6ad2a918-8586-e711-80cc-00155d005a03\" customFieldType=\"TextValue\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_START_DATE\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_FINISH_DATE\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_PCT_COMP\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_WORK\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_DUR\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"RES_NAME\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"WPROJ_LAST_PUB\" \/>\r\n    <CustomField tableName=\"ProjectSummaryCustomFields\" fieldName=\"4836fff0-f0b4-e711-80ce-00155dcd8a01\" customFieldType=\"TextValue\" \/>\r\n    <CustomField tableName=\"ProjectSummaryCustomFields\" fieldName=\"9d77d62a-a92e-4d40-adc8-446c90eb7456\" customFieldType=\"TextValue\" \/>\r\n  <\/Fields>\r\n  <Criteria \/>\r\n<\/Filter>]]>",
                     "persistenceType": 2
                 },
                 "GroupSchemeUID": {
@@ -906,7 +989,6 @@
                 },
                 "JsGridFields": {
                     "value": "",
-                    "bDirty": true,
                     "persistenceType": 1
                 },
                 "ViewName": {
@@ -1296,6 +1378,26 @@
             "editMode": 0,
             "multiValue": false,
             "dateOnly": false
+        },
+        {
+            "fieldKey": "4836fff0-f0b4-e711-80ce-00155dcd8a01",
+            "hasDataValue": true,
+            "hasLocalizedValue": true,
+            "textDirection": 0,
+            "propertyTypeId": "String[Guid]",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
+        },
+        {
+            "fieldKey": "9d77d62a-a92e-4d40-adc8-446c90eb7456",
+            "hasDataValue": true,
+            "hasLocalizedValue": true,
+            "textDirection": 0,
+            "propertyTypeId": "String[Guid]",
+            "editMode": 0,
+            "multiValue": false,
+            "dateOnly": false
         }
     ],
     "Columns": [
@@ -1438,6 +1540,34 @@
             ],
             "columnKey": "WPROJ_LAST_PUB",
             "name": "Last Published",
+            "width": 100
+        },
+        {
+            "fieldKey": "4836fff0-f0b4-e711-80ce-00155dcd8a01",
+            "isVisible": true,
+            "isHidable": true,
+            "isResizable": true,
+            "isSortable": true,
+            "isAutoFilterable": false,
+            "fieldKeys": [
+                "4836fff0-f0b4-e711-80ce-00155dcd8a01"
+            ],
+            "columnKey": "4836fff0-f0b4-e711-80ce-00155dcd8a01",
+            "name": "Project ChargeBack Category",
+            "width": 100
+        },
+        {
+            "fieldKey": "9d77d62a-a92e-4d40-adc8-446c90eb7456",
+            "isVisible": true,
+            "isHidable": true,
+            "isResizable": true,
+            "isSortable": true,
+            "isAutoFilterable": false,
+            "fieldKeys": [
+                "9d77d62a-a92e-4d40-adc8-446c90eb7456"
+            ],
+            "columnKey": "9d77d62a-a92e-4d40-adc8-446c90eb7456",
+            "name": "Project Departments",
             "width": 100
         }
     ],
