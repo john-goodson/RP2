@@ -1,35 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IResource, Resource } from '../resourcePlans/res-plan.model'
+import { IResource, Resource,Config } from '../resourcePlans/res-plan.model'
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import {ConfigService} from "./config-service.service"
+declare var $: any;
 @Injectable()
 export class ResourceService {
-
-  constructor(private http: Http,private _configSvc:ConfigService) { }
-
+ 
+  constructor(private http: Http,private _configSvc:ConfigService) {
+      this.config = _configSvc.config;
+   }
+  config: Config;
   getResources() : Observable<IResource[]>
   {
-    let baseUrl = `${this._configSvc.config.projectServerUrl}/_api/ProjectData/Resources`
-
-        //remember to change UID0 to UID
-        let select = '$select=ResourceId,ResourceName,RBS'
-        let filter = '$filter=ResourceIsActive eq true';
-        //1. get data from SP List UserState 
-        let url =  baseUrl + '?' + filter + '&' + select;
-         let headers = new Headers();
-        headers.append('accept', 'application/json;odata=verbose')
-        let options = new RequestOptions({
-            withCredentials: true,
-            headers
-        })
-
-//1. get data from project server Resource REST api  
-        return this.http.get(url, options)
-            .switchMap((data: Response) => data.json().d.results)
-            .map((resource: Object) => {
-                 return new Resource(resource["ResourceId"],resource["ResourceName"],resource['RBS'])
-            }).toArray()
+    let headers = new Headers();
+    headers.append('accept', 'application/json;odata=verbose')
+    let options = new RequestOptions({
+        withCredentials: true,
+        headers
+    })
+    let pwaPath = `${this.config.projectServerUrl}/`
+    let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
+    let body = {
+        method: 'PwaGetResourcesCommand'
+    }
+    console.log("====================================Hitting Adapter get projects = ")
+    return Observable.fromPromise($.ajax({
+        url: adapterPath,
+        type: 'POST',
+        dataType: "json",
+        data: body
+    })) .map((result: Object[]) => {
+        var resources: IResource[] = [];
+        for (var i = 0; i < result.length; i++) {
+            var newResource = new Resource(result[i]["resUid"], result[i]["resName"]);
+            newResource.rbs = result[i]["CustomFields"] && result[i]["CustomFields"].find(p=>p.Name == "RBS").Value;
+            resources.push(newResource);
+        }
+        return resources;
+    })
+    
             
   }
 

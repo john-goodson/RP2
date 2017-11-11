@@ -1,7 +1,7 @@
 import { Component, OnInit,Input,Output,EventEmitter, } from '@angular/core';
 import {IResPlan,Timescale,WorkUnits,IInterval} from '../../resourcePlans/res-plan.model';
 import { ActivatedRoute, Router } from '@angular/router';
-declare var moment:any;
+import * as moment from 'moment'
 
 @Component({
   selector: 'res-plan-header-row',
