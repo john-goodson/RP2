@@ -34,7 +34,7 @@ export class ResourceService {
         var resources: IResource[] = [];
         for (var i = 0; i < result.length; i++) {
             var newResource = new Resource(result[i]["resUid"], result[i]["resName"]);
-            newResource.rbs = result[i]["CustomFields"].find(p=>p.Name == "RBS").Value;
+            newResource.rbs = result[i]["CustomFields"] && result[i]["CustomFields"].find(p=>p.Name == "RBS").Value;
             resources.push(newResource);
         }
         return resources;
