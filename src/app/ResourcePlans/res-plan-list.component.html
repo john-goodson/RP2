@@ -24,10 +24,7 @@
                                         <td class="body-cell" style="padding-left:5px">
                                             <input type="checkbox" formControlName="selected" (click)="toggleResPlanSelection(plan,$event.target.checked)" />
                                         </td>
-                                        <td >
-                                            <message [message] = "issues"></message>
-                                            
-                                        </td>
+                                       
 
 
                                         <td class="body-cell col1">
@@ -53,13 +50,13 @@
                                                     <input ng-disabled="proj.get('readOnly').value == true" type="checkbox" formControlName="selected" (click)="DeselectGroupOnUncheck(plan,$event.target.checked)"
                                                     />
                                                 </td>
-                                                <td *ngIf="proj.get('readOnly').value">
-                                                    <message [message] = "proj.get('readOnlyReason').value"></message>
+                                             
                                                     
-                                                </td>
+                                              
 
                                                 <td class="body-cell col1">
                                                     <input formControlName="projName" placeholder="project" style="width:100%" /> 
+                                                    <message [message] = "proj.get('readOnlyReason').value" *ngIf="proj.get('readOnly').value"></message>
                                                 </td>
                                                 <div formArrayName="intervals">
                                                     <td class="body-cell col" *ngFor="let intrvl of proj.get('intervals').controls; index as k">
