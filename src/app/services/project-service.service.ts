@@ -51,8 +51,10 @@ export class ProjectService {
                 var projects: IProject[] = [];
                 for (var i = 0; i < project.length; i++) {
                     var newProject = new Project(project[i]["projUid"], project[i]["projName"]);
-                    newProject.owner = project[i]["CustomFields"] && project[i]["CustomFields"].find(p=>p.Name == "Owner").Value;
-                    newProject.projectChargeBackCategory =  project[i]["CustomFields"] && project[i]["CustomFields"].find(p=>p.Name == "Project ChargeBack Category").Value
+                    newProject.owner = project[i]["CustomFields"] && project[i]["CustomFields"].find(p=>p.Name == "Owner")
+                    && project[i]["CustomFields"].find(p=>p.Name == "Owner").Value;
+                    newProject.projectChargeBackCategory =  project[i]["CustomFields"] && project[i]["CustomFields"].find(p=>p.Name == "Project Chargeback Category") && project[i]["CustomFields"] && project[i]["CustomFields"]
+                    .find(p=>p.Name == "Project Chargeback Category").Value
                     projects.push(newProject);
                 }
 
