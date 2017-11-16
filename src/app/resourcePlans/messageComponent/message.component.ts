@@ -21,7 +21,7 @@ export class MessageComponent implements OnChanges {
 
     ngOnChanges(): void {
    
-        this.message = this.message + "placeholder text";
+        this.message = this.message;
     }
 
     onClick(): void {

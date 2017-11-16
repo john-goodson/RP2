@@ -33,7 +33,7 @@
                                         <div formArrayName="totals">
                                             <td class="body-cell col" *ngFor="let total of plan.get('totals').controls;index as l">
                                                 <div [formGroupName]="l">
-                                                    <input ng-disabled="true" formControlName="intervalValue" placeholder="intervalValue" style="width:100%" />
+                                                    <input  formControlName="intervalValue" placeholder="intervalValue" style="width:100%" />
 
                                                 </div>
                                             </td>
@@ -47,7 +47,7 @@
                                         <div *ngFor="let proj of plan.get('projects').controls;index as j">
                                             <tr [formGroupName]="j">
                                                 <td class="body-cell" style="padding-left:5px">
-                                                    <input ng-disabled="proj.get('readOnly').value == true" type="checkbox" formControlName="selected" (click)="DeselectGroupOnUncheck(plan,$event.target.checked)"
+                                                    <input type="checkbox" formControlName="selected" (click)="DeselectGroupOnUncheck(plan,$event.target.checked)"
                                                     />
                                                 </td>
                                              
@@ -57,11 +57,12 @@
                                                 <td class="body-cell col1">
                                                     <input formControlName="projName" placeholder="project" style="width:100%" /> 
                                                     <message [message] = "proj.get('readOnlyReason').value" *ngIf="proj.get('readOnly').value"></message>
+                                                    <error [error] = "proj.get('error').value" *ngIf="proj.get('error').value != null"></error>
                                                 </td>
                                                 <div formArrayName="intervals">
                                                     <td class="body-cell col" *ngFor="let intrvl of proj.get('intervals').controls; index as k">
                                                         <div [formGroupName]="k">
-                                                            <input ng-disabled="proj.get('readOnly').value == true" formControlName="intervalValue" type="text" style="width:100%">
+                                                            <input  formControlName="intervalValue" type="text" style="width:100%">
                                                         </div>
                                                     </td>
                                                 </div>

@@ -354,7 +354,7 @@ export class ResourcePlanUserStateService {
                     var readOnlyProjectsInRP = rp.projects.filter(p => allReadOnlyProjects.map(r => r.projUid.toUpperCase()).indexOf(p.projUid.toUpperCase()) > -1)
                     readOnlyProjectsInRP.forEach(project => {
                         project.readOnly = true;
-                        project.readOnlyReason = 'You are not authorized to modify this project'
+                        project.readOnlyReason = allReadOnlyProjects.find(x=>x.projUid.toUpperCase() == project.projUid.toUpperCase()).readOnlyReason
                         project.intervals = this.buildIntervals(fromDate,toDate,timescale);
                     });
                 }

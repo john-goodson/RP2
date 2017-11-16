@@ -48,6 +48,7 @@ import { DateRangePickerComponent } from './resourcePlans/date-range-picker/date
 import { ResPlanWorkunitsComponent } from './resourcePlans/res-plan-workunits/res-plan-workunits.component';
 import { IntervalPipe } from './common/interval.pipe'
 import { MessageComponent} from './resourcePlans/messageComponent/message.component'
+import { ErrorComponent} from './resourcePlans/errorComponent/error.component'
 
 //let jQuery : Object;// Add this function
 export function initConfig(configSvc: ConfigService){
@@ -73,6 +74,7 @@ export function initConfig(configSvc: ConfigService){
     ResPlanWorkunitsComponent,
     NewRangePickerComponent,
     MessageComponent,
+    ErrorComponent,
     IntervalPipe
   ],
 
