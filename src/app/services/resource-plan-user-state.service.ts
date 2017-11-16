@@ -280,7 +280,7 @@ export class ResourcePlanUserStateService {
                 }
                 let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName + '"}').join(",")}]'`
                 let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceManagerUID": "${resMgrUid}"
-                ,"ResourceUID":${resourcesJSON}}`;
+                ,"ResourceUID0":${resourcesJSON}}`;
                 return this.http.post(url, body, options)
                     .map(r => {
                         let result = new Result();
