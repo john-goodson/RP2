@@ -22,7 +22,7 @@ export enum Timescale {
   selector: 'new-range-picker',
   template: `From: <input #startDate type="date" >
   To: <input #endDate type="date" >
-  <button class="btn btn-primary" (click) = "buildIntervals(startDate.value, endDate.value)">OK</button>`
+`
   
 })
 

@@ -721,8 +721,7 @@ export class ResourcePlanUserStateService {
                                     result.success = false;
                                     return result;
                                 }
-                            })
-                    
+                            })      
                 })
             })
 
@@ -733,4 +732,3 @@ export class ResourcePlanUserStateService {
 
 
 }
-
