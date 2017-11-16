@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-declare var moment : any 
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-date-range-picker',
