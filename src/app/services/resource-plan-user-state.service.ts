@@ -280,7 +280,7 @@ export class ResourcePlanUserStateService {
                 }
                 let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName + '"}').join(",")}]'`
                 let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceManagerUID": "${resMgrUid}"
-                ,"ResourceUID":${resourcesJSON}}`;
+                ,"ResourceUID0":${resourcesJSON}}`;
                 return this.http.post(url, body, options)
                     .map(r => {
                         let result = new Result();
@@ -354,7 +354,7 @@ export class ResourcePlanUserStateService {
                     var readOnlyProjectsInRP = rp.projects.filter(p => allReadOnlyProjects.map(r => r.projUid.toUpperCase()).indexOf(p.projUid.toUpperCase()) > -1)
                     readOnlyProjectsInRP.forEach(project => {
                         project.readOnly = true;
-                        project.readOnlyReason = 'You are not authorized to modify this project'
+                        project.readOnlyReason = allReadOnlyProjects.find(x=>x.projUid.toUpperCase() == project.projUid.toUpperCase()).readOnlyReason
                         project.intervals = this.buildIntervals(fromDate,toDate,timescale);
                     });
                 }
@@ -721,8 +721,7 @@ export class ResourcePlanUserStateService {
                                     result.success = false;
                                     return result;
                                 }
-                            })
-                    
+                            })      
                 })
             })
 
@@ -733,4 +732,3 @@ export class ResourcePlanUserStateService {
 
 
 }
-

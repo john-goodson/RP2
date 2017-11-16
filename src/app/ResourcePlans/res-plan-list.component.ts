@@ -2,7 +2,7 @@ import {
     Component, OnInit, Inject, DoCheck, AfterViewInit, ViewChild,
     AfterViewChecked, Output, EventEmitter
 } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName, } from '@angular/forms';
 import { IntervalPipe } from "../common/interval.pipe"
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/mergeMap';
@@ -226,18 +226,23 @@ export class ResPlanListComponent implements OnInit {
     }
 
     buildProject(_project: IProject) {
-        var project = this.fb.group({
+        var project = this.fb.group(
+            {
             projUid: _project.projUid,
             projName: _project.projName,
             readOnly: _project.readOnly,
+            error:null,
             readOnlyReason: this.fb.control(_project.readOnlyReason),
             intervals: this.fb.array([]),
-            selected: this.fb.control(false)
+            selected: this.fb.control(false),
+            
         });
         for (var i = 0; i < _project.intervals.length; i++) {
             var interval = this.buildInterval(_project.intervals[i]);
             (project.get('intervals') as FormArray).push(interval);
         }
+        
+        //_project.readOnly && project.disable({emitEvent:false})
         return project;
     }
 
@@ -368,6 +373,7 @@ export class ResPlanListComponent implements OnInit {
                 fromDate, toDate, timescale, workunits)
                 .subscribe(results => {
                     //let projects = this._modalSvc.selectedProjects;
+                    this.updateErrors(results);
                     this._modalSvc.selectedProjects = [];
                     debugger;
                     let successfullProjects = results.filter(r=>r.success == true).map(t=>t.project);
@@ -538,6 +544,7 @@ export class ResPlanListComponent implements OnInit {
                     .flatMap(
                     (results: Result[]) => {
                         debugger;
+                        this.updateErrors(results);
                         return this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr => {
                             resourceplans.forEach(resPlan => {
                                 //if resource marked for selection check if all projects were successful by comparing count of projects prior to upadte and after
@@ -583,6 +590,7 @@ export class ResPlanListComponent implements OnInit {
     onSaveComplete(results: Result[]): void {
         // Reset the form to clear the flags
         //this.mainForm.reset();
+        this.updateErrors(results);
         this._appSvc.loading(false);
 
     }
@@ -609,4 +617,19 @@ export class ResPlanListComponent implements OnInit {
             }
         });
     }
+    updateErrors(errors:Result[])
+    {
+     let resultsWithError = errors.filter(e=>e.success == false);
+     let resPlanValues = this.resPlans.value;
+     resPlanValues.forEach(resPlan => {
+        resPlan['projects'].forEach(project => {
+            if(resultsWithError.findIndex(e=>e.project.projUid.toUpperCase() == project.projUid.toUpperCase()) > -1)
+            {
+                project["error"] = resultsWithError.find(e=>e.project.projUid.toUpperCase() == project.projUid.toUpperCase()).error;
+            }
+        });
+     });
+     this.resPlans.setValue(resPlanValues, { emitEvent: false });
+    }
 }
+ 
