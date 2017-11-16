@@ -50,7 +50,8 @@ export class ResourcePlanUserStateService {
         let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
 
         //remember to change UID0 to UID
-        let select = '$select=ResourceUID'  //different in QA
+        let select = '$select=ResourceUID0'  //dev
+        //let select = '$select=ResourceUID'  //qa
         let filter = `$filter=ResourceManagerUID eq '${resUid}'`;
         //1. get data from SP List UserState 
         let url = baseUrl + '?' + filter + '&' + select;
@@ -65,7 +66,9 @@ export class ResourcePlanUserStateService {
             .map((data: Response) => 
             {
                 if(data.json().d.results.length > 0)
-                return JSON.parse(data.json().d.results.map(r=>r["ResourceUID"])) as IResource[]
+                return JSON.parse(data.json().d.results
+                .map(r=>r["ResourceUID0"])) as IResource[] //dev
+                //.map(r=>r["ResourceUID"])) as IResource[] //qa
                 else{
                     return []
                 }
@@ -242,7 +245,8 @@ export class ResourcePlanUserStateService {
                         let resources = [];
                         resources = resources.concat(resourcePlans.map(r=>r.resource));
                         if(data.json().d.results.length > 0){
-                        existingResources = JSON.parse(data.json().d.results[0]["ResourceUID"]).map(resource => { return new Resource(resource.resUid, resource.resName) })
+                        existingResources = JSON.parse(data.json().d.results[0]["ResourceUID0"]).map(resource => { return new Resource(resource.resUid, resource.resName) }) //dev
+                        //existingResources = JSON.parse(data.json().d.results[0]["ResourceUID"]).map(resource => { return new Resource(resource.resUid, resource.resName) }) //qa
                         existingResources = existingResources
                         .filter(e=>resources.map(r=>r.resUid.toUpperCase()).indexOf(e.resUid.toUpperCase()) < 0)
                         }
@@ -683,7 +687,8 @@ export class ResourcePlanUserStateService {
 
             .flatMap((data: Response) => {
                 ;
-                let resources = <IResource[]>JSON.parse(data.json().d.results[0]["ResourceUID"])
+                let resources = <IResource[]>JSON.parse(data.json().d.results[0]["ResourceUID0"]) //dev
+                //let resources = <IResource[]>JSON.parse(data.json().d.results[0]["ResourceUID"]) //qa
                 .map(resource => { return new Resource(resource.resUid, resource.resName) })
                 resources = resources.filter(r => resPlans.map(d=>d.resource.resUid.toUpperCase()).indexOf(r.resUid.toUpperCase()) < 0)
                 return this.getRequestDigestToken().flatMap(digest => {
@@ -702,7 +707,8 @@ export class ResourcePlanUserStateService {
                         let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName + '"}').join(",")}]'`
                         headers.append('IF-MATCH', '*')
                         headers.append('X-HTTP-Method', 'MERGE')
-                        let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID":${resourcesJSON}}"}`
+                        let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID0":${resourcesJSON}}"}` //dev
+                        //let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID":${resourcesJSON}}"}` //qa
                         return this.http.post(data.json().d.results[0].__metadata.uri, body, options)
                             .map((response: Response) => {
                                 if (Math.floor(response.status / 100) == 2) {

@@ -766,7 +766,6 @@
                 },
                 "TimeStampUID": {
                     "value": "c421c5d1-5ac5-e711-80d1-00155dcd8a01",
-                    "bDirty": true,
                     "persistenceType": 1
                 },
                 "Fields": {
@@ -962,7 +961,7 @@
                     "persistenceType": 2
                 },
                 "FilterXml": {
-                    "value": "<![CDATA[<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<Filter xmlns:xsd=\"http:\/\/www.w3.org\/2001\/XMLSchema\" xmlns:xsi=\"http:\/\/www.w3.org\/2001\/XMLSchema-instance\" filterTableName=\"ProjectSummaries\" filterViewUID=\"63d3499e-df27-401c-af58-ebb9607beae8\" xmlns=\"http:\/\/microsoft.com\/ProjectServer\/FilterSchema.xsd\">\r\n  <Fields>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"PROJ_NAME\" \/>\r\n    <CustomField tableName=\"ProjectSummaryCustomFields\" fieldName=\"6ad2a918-8586-e711-80cc-00155d005a03\" customFieldType=\"TextValue\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_START_DATE\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_FINISH_DATE\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_PCT_COMP\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_WORK\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"TASK_DUR\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"RES_NAME\" \/>\r\n    <Field tableName=\"ProjectSummaries\" fieldName=\"WPROJ_LAST_PUB\" \/>\r\n    <CustomField tableName=\"ProjectSummaryCustomFields\" fieldName=\"4836fff0-f0b4-e711-80ce-00155dcd8a01\" customFieldType=\"TextValue\" \/>\r\n    <CustomField tableName=\"ProjectSummaryCustomFields\" fieldName=\"9d77d62a-a92e-4d40-adc8-446c90eb7456\" customFieldType=\"TextValue\" \/>\r\n  <\/Fields>\r\n  <Criteria \/>\r\n<\/Filter>]]>",
+                    "value": "\r\n\r\n \r\n \r\n \r\n \r\n \r\n \r\n \r\n \r\n \r\n \r\n \r\n \r\n <\/Fields>\r\n \r\n<\/Filter>]]>",
                     "persistenceType": 2
                 },
                 "GroupSchemeUID": {
@@ -989,6 +988,7 @@
                 },
                 "JsGridFields": {
                     "value": "",
+                    "bDirty": true,
                     "persistenceType": 1
                 },
                 "ViewName": {
