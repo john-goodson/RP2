@@ -621,9 +621,18 @@ export class ResPlanListComponent implements OnInit {
     {
      let resultsWithError = errors.filter(e=>e.success == false);
      let resPlanValues = this.resPlans.value;
+     //reset errors to null before update
      resPlanValues.forEach(resPlan => {
         resPlan['projects'].forEach(project => {
-            if(resultsWithError.findIndex(e=>e.project.projUid.toUpperCase() == project.projUid.toUpperCase()) > -1)
+                project["error"] = null;
+            
+        });
+     });
+     this.resPlans.setValue(resPlanValues, { emitEvent: false });
+     resPlanValues = this.resPlans.value;
+     resPlanValues.forEach(resPlan => {
+        resPlan['projects'].forEach(project => {
+            if(resultsWithError && resultsWithError.length > 0 && resultsWithError.findIndex(e=>e.project.projUid.toUpperCase() == project.projUid.toUpperCase()) > -1)
             {
                 project["error"] = resultsWithError.find(e=>e.project.projUid.toUpperCase() == project.projUid.toUpperCase()).error;
             }

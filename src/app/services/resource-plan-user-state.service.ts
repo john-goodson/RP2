@@ -358,6 +358,16 @@ export class ResourcePlanUserStateService {
                         project.intervals = this.buildIntervals(fromDate,toDate,timescale);
                     });
                 }
+                var projectsWithNoIntervals =  rp.projects.filter(p=>p.intervals && p.intervals.length ==0);
+                if(projectsWithNoIntervals.length > 0)
+                {
+                if(projectsWithNoIntervals.length > 0)
+                projectsWithNoIntervals.forEach(project=>{
+                    project.readOnly = true;
+                    project.readOnlyReason = 'Unable to retrieve data. Possible reason:Resource Plan requires publishing';
+                    project.intervals = this.buildIntervals(fromDate,toDate,timescale);
+                })
+                }
             })
             rps.findIndex(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000") > -1 &&
              rps.splice(rps.findIndex(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000"), 1)
