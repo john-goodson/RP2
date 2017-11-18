@@ -363,9 +363,11 @@ export class ResourcePlanUserStateService {
                 {
                 if(projectsWithNoIntervals.length > 0)
                 projectsWithNoIntervals.forEach(project=>{
+                    if(project.readOnly == false){
                     project.readOnly = true;
                     project.readOnlyReason = 'Unable to retrieve data. Possible reason:Resource Plan requires publishing';
                     project.intervals = this.buildIntervals(fromDate,toDate,timescale);
+                    }
                 })
                 }
             })
