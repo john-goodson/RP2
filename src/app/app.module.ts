@@ -36,6 +36,10 @@ import { ResourcePlanService } from './services/resource-plan.service'
 import {ResourcePlanUserStateService} from './services/resource-plan-user-state.service';
 import {ResourceService} from './services/resource.service'
 import {ConfigService} from './services/config-service.service'
+import { HttpCache } from './services/httpCache'
+import { CachingInterceptorService } from './services/caching-interceptor.service'
+import { HTTP_INTERCEPTORS } from '@angular/common/http'
+
 import { ProjectListFilterPipe } from './common/project-list-filter.pipe'
 
 import { ResourcePlansResolverService } from './services/resource-plans-resolver.service';
@@ -95,7 +99,12 @@ export function initConfig(configSvc: ConfigService){
     , ResourcePlanUserStateService
     , ResourcePlansResolverService
     ,ResourceService, SPListService
-    ,AppStateService
+    ,AppStateService 
+    , {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CachingInterceptorService,
+      multi: true
+    }
   ,ConfigService , 
   { provide: APP_INITIALIZER,
      useFactory: initConfig, // And use it here
