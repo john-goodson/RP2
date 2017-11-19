@@ -1,36 +1,41 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IResource, Resource,Config } from '../resourcePlans/res-plan.model'
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+//import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpInterceptor } from '@angular/common/http'
 import {ConfigService} from "./config-service.service"
 declare var $: any;
 @Injectable()
 export class ResourceService {
  
-  constructor(private http: Http,private _configSvc:ConfigService) {
+  constructor(private http: HttpClient,private _configSvc:ConfigService) {
       this.config = _configSvc.config;
    }
   config: Config;
   getResources() : Observable<IResource[]>
   {
-    let headers = new Headers();
-    headers.append('accept', 'application/json;odata=verbose')
-    let options = new RequestOptions({
-        withCredentials: true,
-        headers
-    })
+    let headers = new HttpHeaders();
+    //headers.append('accept', 'application/json;odata=verbose')
+    //Accept: application/json, text/javascript,
+    //Content-Type: application/x-www-form-urlencoded;
+    headers = headers.set('Accept', 'application/json;odata=verbose').set('Content-Type','application/x-www-form-urlencoded')
+
     let pwaPath = `${this.config.projectServerUrl}/`
     let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
-    let body = {
-        method: 'PwaGetResourcesCommand'
-    }
-    console.log("====================================Hitting Adapter get projects = ")
-    return Observable.fromPromise($.ajax({
-        url: adapterPath,
-        type: 'POST',
-        dataType: "json",
-        data: body
-    })) .map((result: Object[]) => {
+    // let body = new URLSearchParams();
+    
+    const body =  "method=PwaGetResourcesCommand" 
+
+    // body.set("method","PwaGetResourcesCommand");
+    let options = {
+        headers 
+        ,cache:true
+    };
+    console.log("====================================Hitting Adapter get resources = ")
+    return this.http.post(
+         adapterPath,body,options
+        
+    ) .map((result: Object[]) => {
         var resources: IResource[] = [];
         for (var i = 0; i < result.length; i++) {
             var newResource = new Resource(result[i]["resUid"], result[i]["resName"]);
