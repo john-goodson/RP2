@@ -23,7 +23,7 @@ export class CachingInterceptorService implements HttpInterceptor {
     // }
  
     // First, check the cache to see if this request exists.
-    const cachedResponse = this.cache[req.urlWithParams] || null;
+    const cachedResponse = this.cache[req.urlWithParams + req.body] || null;
     if (cachedResponse) {
       // A cached response exists. Serve it instead of forwarding
       // the request to the next handler.
@@ -44,7 +44,7 @@ export class CachingInterceptorService implements HttpInterceptor {
       console.log('******************************* ' )
       if (event instanceof HttpResponse) {
       	// Update the cache.
-        this.cache[req.urlWithParams] = event;
+        this.cache[req.urlWithParams + req.body] = event;
       }
     });
   }

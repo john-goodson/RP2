@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpInterceptor } from '@angular/common/http'
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -16,7 +16,7 @@ export class ProjectService {
     private url: string = 'api/dataservice/';
     public projects: IProject[];
     config: Config;
-    constructor(private http: Http,private _configSvc:ConfigService) {
+    constructor(private http: HttpClient,private _configSvc:ConfigService) {
         //let observer = this.getProjects().subscribe(values => this.projects = values);
         this.config = this._configSvc.config;
     }
@@ -29,25 +29,23 @@ export class ProjectService {
 
     getProjects(): Observable<IProject[]> {
         console.log('getProjects method called')
-        let headers = new Headers();
-        headers.append('accept', 'application/json;odata=verbose')
-        let options = new RequestOptions({
-            withCredentials: true,
-            headers
-        })
-        let pwaPath = `${this.config.projectServerUrl}/`
-        let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
-        let body = {
-            method: 'PwaGetProjectsForEditCommand'
-        }
+        let headers = new HttpHeaders();
+        headers = headers.set('Accept', 'application/json;odata=verbose').set('Content-Type','application/x-www-form-urlencoded')
+        
+            let pwaPath = `${this.config.projectServerUrl}/`
+            let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
+            // let body = new URLSearchParams();
+            
+            const body =  "method=PwaGetProjectsForEditCommand" 
+            let options = {
+                headers 
+                ,cache:true
+            };
         console.log("====================================Hitting Adapter get projects = ")
-        return Observable.fromPromise($.ajax({
-            url: adapterPath,
-            type: 'POST',
-            dataType: "json",
-            data: body
-        }))
-            .map((project: Object[]) => {
+        return this.http.post(
+            adapterPath,body,options
+           
+       ) .map((project: Object[]) => {
                 var projects: IProject[] = [];
                 for (var i = 0; i < project.length; i++) {
                     var newProject = new Project(project[i]["projUid"], project[i]["projName"]);
