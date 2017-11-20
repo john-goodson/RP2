@@ -18,6 +18,7 @@ export interface IProject {
   projUid: string;
   projName: string;
   readOnly: boolean;
+  stalePublish?:boolean;
   readOnlyReason? : string;
   owner?:string,
   projectChargeBackCategory?:string,
