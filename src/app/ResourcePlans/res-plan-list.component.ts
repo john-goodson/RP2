@@ -620,25 +620,26 @@ export class ResPlanListComponent implements OnInit {
     updateErrors(errors:Result[])
     {
      let resultsWithError = errors.filter(e=>e.success == false);
-     let resPlanValues = this.resPlans.value;
+     
      //reset errors to null before update
-     resPlanValues.forEach(resPlan => {
-        resPlan['projects'].forEach(project => {
-                project["error"] = null;
+     this.resPlans.controls.forEach(resPlan => {
+        (resPlan.get('projects') as FormArray).controls.forEach(project => {
+                project.patchValue({error:null})
             
         });
      });
-     this.resPlans.setValue(resPlanValues, { emitEvent: false });
-     resPlanValues = this.resPlans.value;
-     resPlanValues.forEach(resPlan => {
-        resPlan['projects'].forEach(project => {
-            if(resultsWithError && resultsWithError.length > 0 && resultsWithError.findIndex(e=>e.project.projUid.toUpperCase() == project.projUid.toUpperCase()) > -1)
+     
+     this.resPlans.controls.forEach(resPlan => {
+        (resPlan.get('projects') as FormArray).controls.forEach(project => {
+            if(resultsWithError && resultsWithError.length > 0 && resultsWithError.findIndex(e=>e.project.projUid.toUpperCase() == project.get('projUid').value.toUpperCase()) > -1)
             {
-                project["error"] = resultsWithError.find(e=>e.project.projUid.toUpperCase() == project.projUid.toUpperCase()).error;
+                project.patchValue({error:resultsWithError.find(e=>e.project.projUid.toUpperCase() == project.get('projUid').value.toUpperCase()).error})
             }
+            
         });
      });
-     this.resPlans.setValue(resPlanValues, { emitEvent: false });
+    
+     
     }
 }
  
