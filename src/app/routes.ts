@@ -9,21 +9,18 @@ import { ResourcePlansResolverService } from './services/resource-plans-resolver
 export const appRoutes: Routes = [
 
   {
-    path: 'resPlans'
-    , component: ResPlanHomeComponent
-    //npm start
-    , resolve: {resPlans: ResourcePlansResolverService }
-  },
-  // {
-  //   path: 'resPlansWithQuery'
-  //   , component: ResPlanHomeComponent
-  //   //npm start
-  //   , resolve: {resPlans: ResourcePlansResolverService }
-  // },
-  
+    path: '',
+    component: ResPlanHomeComponent,
+    children: [
+      { path: '', component: ResPlanListComponent }
+      // { path: 'resPlans', component: ResPlanListComponent },
+    ],
+    resolve: {resPlans: ResourcePlansResolverService }
+  }
 
   
-  
-  { path: '', redirectTo: '/resPlans', pathMatch: 'full' }
+  // { path: '', component: ResPlanHomeComponent },
+  // { path: '**', component: ResPlanHomeComponent }
+
 
 ]
