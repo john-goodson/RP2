@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router'
 import { ResPlanListComponent } from './resourcePlans/res-plan-list.component'
 import {ResPlanHomeComponent} from './resourcePlans/res-plan-home/res-plan-home.component'
+import { JumbotronComponent  } from './jumbotron/jumbotron.component'
 
 
 
@@ -12,7 +13,8 @@ export const appRoutes: Routes = [
     path: '',
     component: ResPlanHomeComponent,
     children: [
-      { path: '', component: ResPlanListComponent }
+      { path: '', component: ResPlanListComponent },
+      { path: 'jumbotron', component: JumbotronComponent}
       // { path: 'resPlans', component: ResPlanListComponent },
     ],
     resolve: {resPlans: ResourcePlansResolverService }

@@ -54,6 +54,7 @@ import { IntervalPipe } from './common/interval.pipe'
 import { MessageComponent} from './resourcePlans/messageComponent/message.component'
 import { ErrorComponent} from './resourcePlans/errorComponent/error.component'
 import { FwModule} from '../fw/fw.module'
+import { JumbotronComponent} from './jumbotron/jumbotron.component'
 
 //let jQuery : Object;// Add this function
 export function initConfig(configSvc: ConfigService){
@@ -80,6 +81,7 @@ export function initConfig(configSvc: ConfigService){
     NewRangePickerComponent,
     MessageComponent,
     ErrorComponent,
+    JumbotronComponent,
     IntervalPipe
   ],
 

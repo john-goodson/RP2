@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+//services
 import { FrameworkConfigService } from './services/framework-config.service'
 import { MenuService } from './services/menu.service' 
 import {  ScreenService  }  from './services/screen.service' 

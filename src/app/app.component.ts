@@ -27,6 +27,18 @@ export class AppComponent {
       this.checkRouterEvent(routerEvent);
     }, (error) => console.log(error));
 
+    let config:FrameworkConfigSettings = {
+    
+      showLanguageSelector: true,
+      showUserControls: true,
+      showStatusBar: true,
+      showStatusBarBreakpoint: 800
+    };
+
+    _frameworkConfigService.configure(config);
+
+    _menuService.items = initialMenuItems;
+
   }
 
   checkRouterEvent(routerEvent: Event): void {
