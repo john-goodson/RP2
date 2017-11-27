@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError, NavigationCancel } from '@angular/router';
+import { FrameworkConfigService, FrameworkConfigSettings  } from '../fw/services/framework-config.service'  
+import  { MenuService } from '../fw/services/menu.service'
+import { initialMenuItems  } from './app.menu'
+
 import { AppStateService } from './services/app-state.service'
 
 @Component({
@@ -14,11 +18,27 @@ export class AppComponent {
 
   constructor(
 
-    private router: Router,private _appSvc:AppStateService) {
-      _appSvc.loading$.subscribe( val => this.loading = val)
+    private router: Router,
+    private _appSvc: AppStateService,
+    private _frameworkConfigService: FrameworkConfigService,
+    private _menuService: MenuService) {
+    _appSvc.loading$.subscribe(val => this.loading = val)
     router.events.subscribe((routerEvent: Event) => {
       this.checkRouterEvent(routerEvent);
-    },(error)=>console.log(error));
+    }, (error) => console.log(error));
+
+    let config:FrameworkConfigSettings = {
+    
+      showLanguageSelector: true,
+      showUserControls: true,
+      showStatusBar: true,
+      showStatusBarBreakpoint: 800
+    };
+
+    _frameworkConfigService.configure(config);
+
+    _menuService.items = initialMenuItems;
+
   }
 
   checkRouterEvent(routerEvent: Event): void {

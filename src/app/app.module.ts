@@ -53,6 +53,8 @@ import { ResPlanWorkunitsComponent } from './resourcePlans/res-plan-workunits/re
 import { IntervalPipe } from './common/interval.pipe'
 import { MessageComponent} from './resourcePlans/messageComponent/message.component'
 import { ErrorComponent} from './resourcePlans/errorComponent/error.component'
+import { FwModule} from '../fw/fw.module'
+import { JumbotronComponent} from './jumbotron/jumbotron.component'
 
 //let jQuery : Object;// Add this function
 export function initConfig(configSvc: ConfigService){
@@ -79,6 +81,7 @@ export function initConfig(configSvc: ConfigService){
     NewRangePickerComponent,
     MessageComponent,
     ErrorComponent,
+    JumbotronComponent,
     IntervalPipe
   ],
 
@@ -89,9 +92,10 @@ export function initConfig(configSvc: ConfigService){
           ReactiveFormsModule ,
           Daterangepicker,
           HttpClientModule,
-          Ng2SmartTableModule
+          Ng2SmartTableModule,
+          FwModule
          // InMemoryWebApiModule.forRoot(ResPlanData),
-         
+       
           
   ],
   
