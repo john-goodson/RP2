@@ -418,6 +418,7 @@ export class ResPlanListComponent implements OnInit {
         this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
         this.router.isActive = function () { return false; }
         //this.router.navigate(['/products/2', {name: randomNum}])
+        console.log('ROUTER STATE BEFORE' +  this.router.routerState)
         this.router.navigate(['/resPlans',
             {
                 fromDate: this.fromDate,
@@ -428,6 +429,7 @@ export class ResPlanListComponent implements OnInit {
             }]
         ).then(function () {
             //this.router.routeReuseStrategy.shouldReuseRoute = oldConfig;
+            console.log('ROUTER STATE AFTER' +  this.router.routerState)
         });
     }
     populateTestData(): void {
