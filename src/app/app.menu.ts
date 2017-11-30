@@ -8,25 +8,31 @@ export let initialMenuItems: Array<MenuItem> = [
         submenu: null
     },
     {
-        text: 'JumboTron',
+        text: 'Date Range',
         icon: 'glyphicon-dashboard',
-        route: 'authenticated/jumbotron',
+        route: 'jumbotron',
+        submenu: null
+    },
+    {
+        text: 'Work Scale',
+        icon: 'glyphicon-dashboard',
+        route: 'jumbotron',
         submenu: null
     },
 
     {
-        text: 'Countries',
+        text: 'Placeholder',
         icon: 'glyphicon-flag',
         route: null,
         submenu: [
             {
-                text: 'Top 3',
+                text: 'Item 1',
                 icon: 'glyphicon-flag',
                 route: 'authenticated/country-list/3',
                 submenu: null
             },
             {
-                text: 'Top 5',
+                text: 'Item 2',
                 icon: 'glyphicon-flag',
                 route: 'authenticated/country-list/5',
                 submenu: null

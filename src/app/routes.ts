@@ -14,7 +14,11 @@ export const appRoutes: Routes = [
     component: ResPlanHomeComponent,
     children: [
       { path: '', component: ResPlanListComponent },
-      { path: 'jumbotron', component: JumbotronComponent}
+    
+      { path: 'resPlans/:**', component: ResPlanListComponent }, 
+      { path: 'resPlans/:*', component: ResPlanListComponent }, 
+      { path: 'jumbotron', component: JumbotronComponent},
+      { path: '**', component: ResPlanListComponent }
       // { path: 'resPlans', component: ResPlanListComponent },
     ],
     resolve: {resPlans: ResourcePlansResolverService }
