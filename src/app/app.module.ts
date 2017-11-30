@@ -87,7 +87,7 @@ export function initConfig(configSvc: ConfigService){
 
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes) ,
+    RouterModule.forRoot(appRoutes ,  { enableTracing: true } )  ,
           HttpModule, 
           ReactiveFormsModule ,
           Daterangepicker,

@@ -53,6 +53,13 @@ export class ProjectService {
                     && project[i]["CustomFields"].find(p=>p.Name == "Owner").Value;
                     newProject.projectChargeBackCategory =  project[i]["CustomFields"] && project[i]["CustomFields"].find(p=>p.Name == "Project Chargeback Category") && project[i]["CustomFields"] && project[i]["CustomFields"]
                     .find(p=>p.Name == "Project Chargeback Category").Value
+                    newProject.departments =  project[i]["CustomFields"] && project[i]["CustomFields"].find(p=>p.Name == "Project Departments") && project[i]["CustomFields"] && project[i]["CustomFields"]
+                    .find(p=>p.Name == "Project Departments").Value
+                    newProject.startDate = new Date(project[i]["CustomFields"] && project[i]["CustomFields"].find(p=>p.Name == "Start") && project[i]["CustomFields"] && project[i]["CustomFields"]
+                    .find(p=>p.Name == "Start").Value).toDateString();
+                    newProject.finishDate =  new Date(project[i]["CustomFields"] && project[i]["CustomFields"].find(p=>p.Name == "Finish") && project[i]["CustomFields"] && project[i]["CustomFields"]
+                    .find(p=>p.Name == "Finish").Value).toDateString();
+                    
                     projects.push(newProject);
                 }
 

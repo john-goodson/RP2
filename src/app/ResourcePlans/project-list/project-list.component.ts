@@ -50,11 +50,24 @@ export class ProjectListComponent implements OnInit {
     {
        title:'Owner'
     }
+    ,startDate:
+    {
+      title:'Start Date'
+    }
+    ,finishDate:
+    {
+      title:'Finish Date'
+    }
     ,
     projectChargeBackCategory :
     {
       title:'Project Chargeback'
     }
+    ,departments:
+    {
+      title:'Departments'
+    }
+    
     
   }
   
