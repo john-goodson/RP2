@@ -384,6 +384,8 @@ export class ResPlanListComponent implements OnInit {
                             this.buildSelectedProjects(successfullProjects)//.filter(r=>r.projUid.toUpperCase))
                             debugger;
                             this.header.setIntervals([new ResPlan(resource,successfullProjects)]);
+                            this.initTotals(this.currentFormGroup.get('totals') as FormArray, successfullProjects)
+                            this.calculateTotals(this.currentFormGroup);
                             this._appSvc.loading(false);
                         }
                         else {
@@ -593,6 +595,9 @@ export class ResPlanListComponent implements OnInit {
         // Reset the form to clear the flags
         //this.mainForm.reset();
         this.updateErrors(results);
+        let frmState = this.mainForm.value;
+        this.mainForm.reset();
+        this.mainForm.setValue(frmState);
         this._appSvc.loading(false);
 
     }
