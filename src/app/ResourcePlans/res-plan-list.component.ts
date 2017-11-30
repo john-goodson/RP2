@@ -254,6 +254,8 @@ export class ResPlanListComponent implements OnInit {
     }
 
     initTotals(totals: FormArray, _projects: IProject[]): FormArray {
+        if(totals.controls.length < 1){
+            
         var intervalLen = this.getIntervalLength();
         for (var i = 0; i < intervalLen; i++) {
 
@@ -263,6 +265,7 @@ export class ResPlanListComponent implements OnInit {
             });
             totals.push(total);
         }
+    }
         return totals;
     }
 
