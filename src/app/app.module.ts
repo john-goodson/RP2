@@ -54,7 +54,8 @@ import { IntervalPipe } from './common/interval.pipe'
 import { MessageComponent} from './resourcePlans/messageComponent/message.component'
 import { ErrorComponent} from './resourcePlans/errorComponent/error.component'
 import { FwModule} from '../fw/fw.module'
-import { JumbotronComponent} from './jumbotron/jumbotron.component'
+import { JumbotronComponent} from './jumbotron/jumbotron.component';
+import { ResPlanListTesterComponent } from './resourcePlans/res-plan-list-tester/res-plan-list-tester.component'
 
 //let jQuery : Object;// Add this function
 export function initConfig(configSvc: ConfigService){
@@ -82,7 +83,8 @@ export function initConfig(configSvc: ConfigService){
     MessageComponent,
     ErrorComponent,
     JumbotronComponent,
-    IntervalPipe
+    IntervalPipe,
+    ResPlanListTesterComponent
   ],
 
   imports: [
