@@ -6,7 +6,7 @@ export interface IResPlan {
 export interface IResource {
   resUid: string;
   resName?: string;
-  rbs? : string
+  rbs?: string
   org?: {
     location: string;
     title: string;
@@ -18,41 +18,38 @@ export interface IProject {
   projUid: string;
   projName: string;
   readOnly: boolean;
-  stalePublish?:boolean;
-  readOnlyReason? : string;
-  owner?:string,
-  projectChargeBackCategory?:string,
-  projProperties?: {
-    owner: string;
-    startDate: Date;
-    finishDate: Date;
-    projActiveStatus: ProjectActiveStatus;
-    departments?: IDept[];
-  };
+  stalePublish?: boolean;
+  readOnlyReason?: string;
+  owner?: string,
+  projectChargeBackCategory?: string,
+  startDate?: Date;
+  finishDate?: Date;
+  projActiveStatus?: ProjectActiveStatus;
+  departments?: string;
+
   intervals?: IInterval[];
 }
 export interface IInterval {
 
   intervalName: string;
   intervalValue: string;
-  start:Date
-  end:Date
+  start: Date
+  end: Date
 }
 
 
 export class ResPlan implements IResPlan {
 
-  constructor(public resource:IResource =new Resource('0',''),
+  constructor(public resource: IResource = new Resource('0', ''),
 
-    public projects:IProject[] = [])
-  { }
+    public projects: IProject[] = []) { }
 }
 
 
 export class Project implements IProject {
 
-  constructor(public projUid = '', public projName = 'boo', public readOnly = false, public intervals:IInterval[] = []
-  ,public owner='',public projectChargeBackCategory=''
+  constructor(public projUid = '', public projName = 'boo', public readOnly = false, public intervals: IInterval[] = []
+    , public owner = '', public projectChargeBackCategory = '',public departments='',public startDate = null,public finishDate =null
 
   ) { }
 }
@@ -60,29 +57,28 @@ export class Project implements IProject {
 export class Interval implements IInterval {
 
   constructor(public intervalName = '',
-    public intervalValue = '',public start= new Date(),public end= new Date()
+    public intervalValue = '', public start = new Date(), public end = new Date()
   ) { }
 
 }
 
 export class Resource implements IResource {
-  constructor(public resUid = '0', public resName = '',public rbs='')
-  { }
+  constructor(public resUid = '0', public resName = '', public rbs = '') { }
 }
 
 
 export enum ProjectActiveStatus {
-  inProgress=1,
-  completed=2,
-  cancelled=3
+  inProgress = 1,
+  completed = 2,
+  cancelled = 3
 }
 export enum Timescale {
-    days = 3, 
-    weeks = 4, 
-    calendarMonths = 5, 
-    quarters = 6,
-    years = 7,
-    financialMonths =8
+  days = 3,
+  weeks = 4,
+  calendarMonths = 5,
+  quarters = 6,
+  years = 7,
+  financialMonths = 8
 }
 export enum WorkUnits {
   hours = 1,
@@ -96,18 +92,19 @@ export interface IDept {
 
 
 
-export class Config
-{
-  projectServerUrl:string;
-  ResPlanUserStateUrl:string;
+export class Config {
+  projectServerUrl: string;
+  ResPlanUserStateUrl: string;
+  adapterUrl:string;
+  projectPickerViewGuid:string;
+  resourcePickerViewGuid:string;
 }
 
-export class Result
-{
- project:IProject;
-  success:boolean;
-  error:string;
-  debugError:string;
-  resUid:string;
+export class Result {
+  project: IProject;
+  success: boolean;
+  error: string;
+  debugError: string;
+  resUid: string;
 }
 

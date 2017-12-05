@@ -9,8 +9,9 @@ import { ResourcePlansResolverService } from './services/resource-plans-resolver
 
 export const appRoutes: Routes = [
 
+ 
   {
-    path: '',
+    path: 'resPlans',
     component: ResPlanHomeComponent,
     children: [
       { path: '', component: ResPlanListComponent },
@@ -18,7 +19,8 @@ export const appRoutes: Routes = [
       // { path: 'resPlans', component: ResPlanListComponent },
     ],
     resolve: {resPlans: ResourcePlansResolverService }
-  }
+  },
+  {path:'',redirectTo:'resPlans',pathMatch:'full'}
 
   
   // { path: '', component: ResPlanHomeComponent },
