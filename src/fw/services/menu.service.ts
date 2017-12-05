@@ -4,6 +4,7 @@ export interface MenuItem {
     text: string,
     icon: string,
     route: string,
+    params?: object,
     submenu: Array<MenuItem>
 }
 

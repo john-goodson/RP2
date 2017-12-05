@@ -1,16 +1,27 @@
 import { MenuItem } from '../fw/services/menu.service';
+// import { AppStateService } from './services/app-state.service'
+
+// export let foo: AppStateService
+import { CurrentCalendarYear } from './common/utilities'
+
+export let _currentCalYear = new CurrentCalendarYear()
+
 
 export let initialMenuItems: Array<MenuItem> = [
     {
         text: 'Dashboard',
         icon: 'glyphicon-dashboard',
-        route: 'jumbotron',
+        route: 'home/jumbotron',
         submenu: null
     },
     {
-        text: 'JumboTron',
+        text: 'This Year',
         icon: 'glyphicon-dashboard',
-        route: 'jumbotron',
+        route: 'home/jumbotron',
+        params: { fromDate: _currentCalYear.startDate,
+                    toDate: _currentCalYear.endDate,
+                    timescale: 5,
+                    workunits: 3 },
         submenu: null
     },
 
@@ -22,7 +33,11 @@ export let initialMenuItems: Array<MenuItem> = [
             {
                 text: 'This Year',
                 icon: 'glyphicon-calendar',
-                route: 'jumbotron',
+                route: 'home/resPlans',
+                params: { fromDate: _currentCalYear.startDate,
+                            toDate: _currentCalYear.endDate,
+                            timescale: 5,
+                            workunits: 3 },
                 submenu: null
             },
             {
