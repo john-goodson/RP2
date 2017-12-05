@@ -10,31 +10,37 @@ export let initialMenuItems: Array<MenuItem> = [
     {
         text: 'JumboTron',
         icon: 'glyphicon-dashboard',
-        route: 'authenticated/jumbotron',
+        route: 'jumbotron',
         submenu: null
     },
 
     {
-        text: 'Countries',
-        icon: 'glyphicon-flag',
+        text: 'Date Range',
+        icon: '	glyphicon-calendar',
         route: null,
         submenu: [
             {
-                text: 'Top 3',
-                icon: 'glyphicon-flag',
-                route: 'authenticated/country-list/3',
+                text: 'This Year',
+                icon: 'glyphicon-calendar',
+                route: 'jumbotron',
                 submenu: null
             },
             {
-                text: 'Top 5',
-                icon: 'glyphicon-flag',
-                route: 'authenticated/country-list/5',
+                text: 'Next 13 Months',
+                icon: 'glyphicon-calendar',
+                route: 'jumbotron',
                 submenu: null
             },
             {
-                text: 'All',
-                icon: 'glyphicon-flag',
-                route: 'authenticated/country-list/0',
+                text: 'Next Year',
+                icon: 'glyphicon-calendar',
+                route: 'jumbotron',
+                submenu: null
+            },
+            {
+                text: 'Custom Date',
+                icon: 'glyphicon-calendar',
+                route: 'customDate',
                 submenu: null
             }
         ],
