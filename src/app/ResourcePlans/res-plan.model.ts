@@ -95,6 +95,9 @@ export interface IDept {
 export class Config {
   projectServerUrl: string;
   ResPlanUserStateUrl: string;
+  adapterUrl:string;
+  projectPickerViewGuid:string;
+  resourcePickerViewGuid:string;
 }
 
 export class Result {

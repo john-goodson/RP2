@@ -504,8 +504,7 @@ export class ResourcePlanUserStateService {
             withCredentials: true,
             headers
         })
-        let pwaPath = `${this.config.projectServerUrl}/`
-        let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
+        let adapterPath = `${this.config.adapterUrl}`
         let body = {
             method: 'PwaGetResourcePlansCommand',
             'puid': project.projUid,
@@ -560,8 +559,7 @@ export class ResourcePlanUserStateService {
     addProject(resMgrUid: string, project: IProject, resource: IResource, fromDate: string, toDate: string, timeScale: Timescale, workScale: WorkUnits): Observable<Result> {
         var success;
         //TODO
-        let pwaPath = `${this.config.projectServerUrl}/`
-        let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
+        let adapterPath = `${this.config.adapterUrl}`
         let body = {
             method: 'PwaAddResourcePlanCommand',
             'puid': project.projUid,
@@ -612,8 +610,7 @@ export class ResourcePlanUserStateService {
     saveResPlans(resPlan: IResPlan[], fromDate: Date, toDate: Date, timeScale: Timescale, workScale: WorkUnits): Observable<Result[]> {
         var success;
         //TODO
-        let pwaPath = `${this.config.projectServerUrl}/`
-        let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
+        let adapterPath = `${this.config.adapterUrl}`;
         let body = {
             method: 'PwaupdateResourcePlanCommand',
             'resourceplan': JSON.stringify(resPlan),
@@ -645,7 +642,7 @@ export class ResourcePlanUserStateService {
             r.projects = r.projects.filter(p=>p.readOnly == false)
         }) 
         let pwaPath = `${this.config.projectServerUrl}/`
-        let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
+        let adapterPath = `${this.config.adapterUrl}`;
         let body = {
             method: 'PwaDeleteResourcePlanCommand',
             'resourceplan': JSON.stringify(resPlan),

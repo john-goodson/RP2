@@ -20,11 +20,10 @@ export class ResourceService {
     //Content-Type: application/x-www-form-urlencoded;
     headers = headers.set('Accept', 'application/json;odata=verbose').set('Content-Type','application/x-www-form-urlencoded')
 
-    let pwaPath = `${this.config.projectServerUrl}/`
-    let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
+    let adapterPath = `${this.config.adapterUrl}`;
     // let body = new URLSearchParams();
     
-    const body =  "method=PwaGetResourcesCommand" 
+    const body =  `method=PwaGetResourcesCommand&viewguid=${this.config.resourcePickerViewGuid}` 
 
     // body.set("method","PwaGetResourcesCommand");
     let options = {
