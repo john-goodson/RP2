@@ -2,9 +2,12 @@ import { MenuItem } from '../fw/services/menu.service';
 // import { AppStateService } from './services/app-state.service'
 
 // export let foo: AppStateService
-import { CurrentCalendarYear } from './common/utilities'
+import { CurrentCalendarYear, CurrentFiscalYear, Next12Months, NextYear } from './common/utilities'
 
 export let _currentCalYear = new CurrentCalendarYear()
+export let _CurrentFiscalYer = new CurrentFiscalYear() 
+export let _next12Months = new Next12Months()
+export let _nextYear = new NextYear()
 
 
 export let initialMenuItems: Array<MenuItem> = [
@@ -15,7 +18,7 @@ export let initialMenuItems: Array<MenuItem> = [
         submenu: null
     },
     {
-        text: 'This Year',
+        text: 'Work Scale',
         icon: 'glyphicon-dashboard',
         route: 'home/jumbotron',
         params: { fromDate: _currentCalYear.startDate,
@@ -41,15 +44,23 @@ export let initialMenuItems: Array<MenuItem> = [
                 submenu: null
             },
             {
-                text: 'Next 13 Months',
+                text: 'Next 12 Months',
                 icon: 'glyphicon-calendar',
-                route: 'jumbotron',
+                route: 'home/resPlans',
+                params: { fromDate: _next12Months.startDate,
+                            toDate: _next12Months.endDate,
+                            timescale: 5,
+                            workunits: 3 },
                 submenu: null
             },
             {
                 text: 'Next Year',
                 icon: 'glyphicon-calendar',
-                route: 'jumbotron',
+                route: 'home/resPlans',
+                params: { fromDate: _nextYear.startDate,
+                            toDate: _nextYear.endDate,
+                            timescale: 5,
+                            workunits: 3 },
                 submenu: null
             },
             {
