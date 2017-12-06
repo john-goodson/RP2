@@ -140,6 +140,7 @@ export class ResPlanListComponent implements OnInit {
         let today = new Date();
         let todayDate = new Date(2017, 11, 31);
         let lastYearDate = new Date(2017, 0, 1);
+        debugger;
         this.fromDate = this._route.snapshot.params["fromDate"] && new Date(this._route.snapshot.params["fromDate"]) || lastYearDate;
         this.toDate = this._route.snapshot.params["toDate"] && new Date(this._route.snapshot.params["toDate"]) || todayDate;
         this.timescale = this._route.snapshot.params["timescale"] || Timescale.calendarMonths;
