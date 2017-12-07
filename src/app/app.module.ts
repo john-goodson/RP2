@@ -20,8 +20,6 @@ import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component
 
 
 
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-
 import { CollapsibleWellComponent} from './common/collapsible-well.component'
 import { HeaderRowComponent} from './common/header-row.component'
 //import { JQ_TOKEN }    from './common/jquery.service'

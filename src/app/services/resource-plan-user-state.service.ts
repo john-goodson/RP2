@@ -88,7 +88,7 @@ export class ResourcePlanUserStateService {
         resources.forEach(resource => {
             resourceProjectsMap.push(new ResPlan(resource))
         })
-        debugger;
+        //
         //console.log('=======================hitting project server for assigments')
         return Observable.from(resources).flatMap(t => {
             let filter = `$filter=ResourceName eq '${t.resName}' and AssignmentType eq 101`
@@ -323,7 +323,7 @@ export class ResourcePlanUserStateService {
        
             .concat(emptyResPlans)
             .concat(resPlans)
-            .flatMap(t => { debugger; return t; }).
+            .flatMap(t => { // return t; }).
             groupBy(t => { return t.resource.resUid.toUpperCase() }).flatMap(group => {
                 return group.reduce(function (a, b) {
                     // if(group.key === "00000000-0000-0000-0000-000000000000")
@@ -416,7 +416,7 @@ export class ResourcePlanUserStateService {
         }
 
         if(_timeScale == Timescale.calendarMonths){
-            debugger;
+            //
             if (moment(_startDate).endOf('month').date() === moment(_startDate).date()) {  //end of month
               firstInterval.start = moment(_startDate).toDate()
               firstInterval.end = moment(_startDate).toDate()
@@ -455,7 +455,7 @@ export class ResourcePlanUserStateService {
         }
 
         if(_timeScale == Timescale.years){
-            debugger;
+            //
             if (moment(_startDate).endOf('year').month() === moment(_startDate).month()) {  //end of month
               firstInterval.start = moment(_startDate).toDate()
               firstInterval.end = moment(_startDate).toDate()
