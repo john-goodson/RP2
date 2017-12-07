@@ -48,7 +48,6 @@ import { SPListService } from './services/sp-list.service';
 import { ResPlanHomeComponent } from './resourcePlans/res-plan-home/res-plan-home.component';
 import { ResPlanHeaderRowComponent } from './resourcePlans/res-plan-header-row/res-plan-header-row.component';
 import { ResPlanTimescaleComponent } from './res-plan-timescale/res-plan-timescale.component';
-import { DateRangePickerComponent } from './resourcePlans/date-range-picker/date-range-picker.component';
 import { ResPlanWorkunitsComponent } from './resourcePlans/res-plan-workunits/res-plan-workunits.component';
 import { IntervalPipe } from './common/interval.pipe'
 import { MessageComponent} from './resourcePlans/messageComponent/message.component'
@@ -77,7 +76,6 @@ export function initConfig(configSvc: ConfigService){
     ResPlanHomeComponent,
     ResPlanHeaderRowComponent,
     ResPlanTimescaleComponent,
-    DateRangePickerComponent,
     ResPlanWorkunitsComponent,
     NewRangePickerComponent,
     MessageComponent,

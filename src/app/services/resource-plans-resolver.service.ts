@@ -10,7 +10,7 @@ import 'rxjs/add/observable/of';
 import { IResPlan, IProject, IInterval, ResPlan, Interval, Project, Timescale, WorkUnits } from '../resourcePlans/res-plan.model';
 import { ResourcePlanService } from '../services/resource-plan.service'
 import { ResourcePlanUserStateService } from '../services/resource-plan-user-state.service'
-
+import { CurrentCalendarYear}  from '../common/utilities'
 @Injectable()
 export class ResourcePlansResolverService implements Resolve<IResPlan[]> {
   boo: any[]
@@ -21,11 +21,9 @@ export class ResourcePlansResolverService implements Resolve<IResPlan[]> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IResPlan[]> {
    console.log("resolver fired with route = " + JSON.stringify(route.params))
-    let today = new Date();
-    let todayDate = new Date(2017,11, 31);
-    let lastYearDate = new Date(2017, 0, 1);
-    let fromDate = route.params["fromDate"] && new Date(route.params["fromDate"]) || lastYearDate;
-    let toDate = route.params["toDate"] && new Date(route.params["toDate"]) || todayDate;
+    let currentYear = new CurrentCalendarYear()
+    let fromDate = route.params["fromDate"] && new Date(route.params["fromDate"]) || currentYear.startDate;
+    let toDate = route.params["toDate"] && new Date(route.params["toDate"]) || currentYear.endDate;
     let timescale = route.params["timescale"] || Timescale.calendarMonths;
     let workunits = route.params["workunits"] || WorkUnits.FTE;
 

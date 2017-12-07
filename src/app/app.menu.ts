@@ -5,7 +5,7 @@ import { MenuItem } from '../fw/services/menu.service';
 import { CurrentCalendarYear, CurrentFiscalYear, Next12Months, NextYear } from './common/utilities'
 
 export let _currentCalYear = new CurrentCalendarYear()
-export let _CurrentFiscalYer = new CurrentFiscalYear() 
+export let _CurrentFiscalYer = new CurrentFiscalYear()
 export let _next12Months = new Next12Months()
 export let _nextYear = new NextYear()
 
@@ -15,17 +15,43 @@ export let initialMenuItems: Array<MenuItem> = [
         text: 'Dashboard',
         icon: 'glyphicon-dashboard',
         route: 'home/jumbotron',
-        submenu: null
+        submenu: null,
+        params: null
     },
     {
         text: 'Work Scale',
         icon: 'glyphicon-dashboard',
-        route: 'home/jumbotron',
-        params: { fromDate: _currentCalYear.startDate,
-                    toDate: _currentCalYear.endDate,
-                    timescale: 5,
-                    workunits: 3 },
-        submenu: null
+        route: null,
+        submenu: [
+            {
+                text: 'FTE',
+                icon: '',
+                route: 'home/resPlans',
+                params: {
+                    workunits: '3'
+                },
+                submenu: null
+            }
+            , {
+                text: 'Days',
+                icon: '',
+                route: 'home/resPlans',
+                params: {
+                    workunits: '2'
+                },
+                submenu: null
+            },
+            {
+                text: 'Hours',
+                icon: '',
+                route: 'home/resPlans',
+                params: {
+                    workunits: '1'
+                },
+                submenu: null
+            }
+            
+        ]
     },
 
     {
@@ -37,30 +63,30 @@ export let initialMenuItems: Array<MenuItem> = [
                 text: 'This Year',
                 icon: 'glyphicon-calendar',
                 route: 'home/resPlans',
-                params: { fromDate: _currentCalYear.startDate,
-                            toDate: _currentCalYear.endDate,
-                            timescale: 5,
-                            workunits: 3 },
+                params: {
+                    fromDate: _currentCalYear.startDate,
+                    toDate: _currentCalYear.endDate
+                },
                 submenu: null
             },
             {
                 text: 'Next 12 Months',
                 icon: 'glyphicon-calendar',
                 route: 'home/resPlans',
-                params: { fromDate: _next12Months.startDate,
-                            toDate: _next12Months.endDate,
-                            timescale: 5,
-                            workunits: 3 },
+                params: {
+                    fromDate: _next12Months.startDate,
+                    toDate: _next12Months.endDate
+                },
                 submenu: null
             },
             {
                 text: 'Next Year',
                 icon: 'glyphicon-calendar',
                 route: 'home/resPlans',
-                params: { fromDate: _nextYear.startDate,
-                            toDate: _nextYear.endDate,
-                            timescale: 5,
-                            workunits: 3 },
+                params: {
+                    fromDate: _nextYear.startDate,
+                    toDate: _nextYear.endDate
+                },
                 submenu: null
             },
             {

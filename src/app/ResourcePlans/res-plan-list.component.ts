@@ -132,7 +132,7 @@ export class ResPlanListComponent implements OnInit {
         , private _route: ActivatedRoute) { }
 
     ngOnInit(): void {
-        ;
+        debugger;
 
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
@@ -140,7 +140,7 @@ export class ResPlanListComponent implements OnInit {
         let today = new Date();
         let todayDate = new Date(2017, 11, 31);
         let lastYearDate = new Date(2017, 0, 1);
-        ;
+        debugger;
         this.fromDate = this._route.snapshot.params["fromDate"] && new Date(this._route.snapshot.params["fromDate"]) || lastYearDate;
         this.toDate = this._route.snapshot.params["toDate"] && new Date(this._route.snapshot.params["toDate"]) || todayDate;
         this.timescale = this._route.snapshot.params["timescale"] || Timescale.calendarMonths;
@@ -197,7 +197,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     buildResPlans(plans: IResPlan[]) {
-        ;
+        debugger;
         //console.log('add resources ==========================================' + JSON.stringify(plans));
         for (var i = 0; i < plans.length; i++) {
             var resPlan = this.buildResPlan(plans[i]);
@@ -294,7 +294,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     toggleSelectAll(value: boolean) {
-        ;
+        debugger;
         this.resPlans.controls.forEach((_resPlan: FormGroup) => {
             _resPlan.controls['selected'].setValue(value, { emitEvent: false });
             (_resPlan.controls['projects'] as FormArray).controls.forEach(element => {
@@ -304,7 +304,7 @@ export class ResPlanListComponent implements OnInit {
     }
     toggleResPlanSelection(_resPlan: FormGroup, selected: boolean) {
 
-        ;
+        debugger;
         _resPlan.controls['selected'].setValue(selected, { emitEvent: false });
         (_resPlan.controls['projects'] as FormArray).controls.forEach(element => {
             (element as FormGroup).controls['selected'].setValue(selected, { emitEvent: false })
@@ -337,13 +337,13 @@ export class ResPlanListComponent implements OnInit {
     }
 
     addSelectedResources() {
-        ;
+        debugger;
         //console.log("add resource fired" + JSON.stringify(this._resModalSvc.selectedResources));
         ///EMIT HERE
         let selectedResources = this._resModalSvc.selectedResources;
         this._appSvc.loading(true);
         this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr => {
-            
+            debugger
             console.log('selected resources=' + JSON.stringify(this._resModalSvc.selectedResources))
             this._resPlanUserStateSvc.getResPlansFromResources(resMgr, this._resModalSvc.selectedResources, this.fromDate, this.toDate, this.timescale, this.workunits)
                 .subscribe(plans => {
@@ -379,14 +379,14 @@ export class ResPlanListComponent implements OnInit {
                     //let projects = this._modalSvc.selectedProjects;
                     this.updateErrors(results);
                     this._modalSvc.selectedProjects = [];
-                    ;
+                    debugger;
                     let successfullProjects = results.filter(r=>r.success == true).map(t=>t.project);
                     //projects.filter(p => results.findIndex(r => r.success == true && r.project.projUid.toUpperCase() == p.projUid.toUpperCase()) > -1)
                     console.log("===added projects" + JSON.stringify(successfullProjects))
 
                         if (successfullProjects.length > 0) {
                             this.buildSelectedProjects(successfullProjects)//.filter(r=>r.projUid.toUpperCase))
-                            ;
+                            debugger;
                             this.header.setIntervals([new ResPlan(resource,successfullProjects)]);
                             this.initTotals(this.currentFormGroup.get('totals') as FormArray, successfullProjects)
                             this.calculateTotals(this.currentFormGroup);
@@ -400,17 +400,17 @@ export class ResPlanListComponent implements OnInit {
         }, (error) => { console.log(error); this._appSvc.loading(false); })
     }
     worksunitsChanged(value: number) {
-        ;
+        debugger;
         this.workunits = value;
         this.ReloadPage();
     }
     timescaleChanged(value: number) {
-        ;
+        debugger;
         this.timescale = value;
         this.ReloadPage();
     }
     dateRangeChanged(value) {
-        
+        debugger
 
         this.fromDate = new Date(value.start._d)
         this.toDate = new Date(value.end._d)
@@ -444,7 +444,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     buildSelectedProjects(projects: IProject[]): void {
-        ;
+        debugger;
         this.setIntervalLength(projects)
         var intervalLength = this.getIntervalLength();
         for (var k = 0; k < projects.length; k++) {
@@ -459,7 +459,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     savePlans(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits): void {
-        ;
+        debugger;
         if (this.mainForm.dirty && this.mainForm.valid) {
 
 
@@ -495,7 +495,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     deleteResPlans(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, hideOnly: boolean): void {
-        ;
+        debugger;
         if (this.mainForm.valid) {
 
 
@@ -551,7 +551,7 @@ export class ResPlanListComponent implements OnInit {
                 this._resPlanUserStateSvc.deleteResPlans(resourceplans, fromDate, toDate, timescale, workunits)
                     .flatMap(
                     (results: Result[]) => {
-                        ;
+                        debugger;
                         this.updateErrors(results);
                         return this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr => {
                             resourceplans.forEach(resPlan => {
@@ -565,9 +565,8 @@ export class ResPlanListComponent implements OnInit {
                                 // }
                             });
                             
-                            debugger;
+                            
                             return this._resPlanUserStateSvc.HideResPlans(resMgr, resourceplans as IResPlan[]).map(r => {
-                                debugger;
                                 if(r.success == true){
                                 this.deleteResourcePlans(resourceplans)
                                 this._appSvc.loading(false);
@@ -608,7 +607,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     deleteResourcePlans(resPlans: IResPlan[]) {
-        ;
+        debugger;
         resPlans.forEach(resPlan => {
             //entire res plan selected for delete
             if (resPlan["selected"] == true) {
