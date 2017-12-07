@@ -1,10 +1,10 @@
 import { Component, ElementRef, HostBinding, HostListener,
          Input, OnInit, Renderer,
          trigger, state, style, transition, animate } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-
+import { NavigationEnd, Router,ActivatedRoute,Params } from '@angular/router';
+import {Timescale,WorkUnits} from '../../../app/resourcePlans/res-plan.model'
 import { MenuItem, MenuService } from '../../services/menu.service';
-
+import {CurrentCalendarYear} from '../../../app/common/utilities'
 @Component({
   selector: 'fw-menu-item',
   templateUrl: './menu-item.component.html',
@@ -32,7 +32,8 @@ export class MenuItemComponent implements OnInit {
   popupLeft = 0;
   popupTop = 34;
 
-  constructor(public router:Router, 
+  constructor(public router:Router,
+              public activatedRoute:ActivatedRoute, 
               public menuService: MenuService,
               public el: ElementRef,
               public renderer: Renderer) {
@@ -72,7 +73,30 @@ export class MenuItemComponent implements OnInit {
           let oldConfig = this.router.routeReuseStrategy.shouldReuseRoute;
           this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
           this.router.isActive = function () { return false; }
-      this.router.navigate(['/' + this.item.route, this.item.params] );
+          let currentYear = new CurrentCalendarYear()
+          debugger;
+        //   if(!this.item.params["timescale"])
+        //   {
+        //     this.item.params["timescale"] = this.activatedRoute.snapshot.queryParams["timescale"] || Timescale.calendarMonths;
+        //   }
+
+        //   if(!this.item.params["workunits"])
+        //   {
+        //     this.item.params["workunits"] = this.activatedRoute.snapshot.queryParams["workunits"] || WorkUnits.FTE;
+        //   }
+
+        //   if(!this.item.params["fromDate"])
+        //   {
+        //     this.item.params["fromDate"] = this.activatedRoute.snapshot.queryParams["fromDate"] || currentYear.startDate
+        //   }
+
+        //   if(!this.item.params["toDate"])
+        //   {
+        //     this.item.params["toDate"] = this.activatedRoute.snapshot.queryParams["toDate"] || currentYear.endDate
+        //   }
+
+          
+      this.router.navigate(['/' + this.item.route, this.item.params],{ preserveQueryParams:true} );
         
     }
   }
