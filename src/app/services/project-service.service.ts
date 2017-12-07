@@ -32,14 +32,13 @@ export class ProjectService {
         let headers = new HttpHeaders();
         headers = headers.set('Accept', 'application/json;odata=verbose').set('Content-Type','application/x-www-form-urlencoded')
         
-            let pwaPath = `${this.config.projectServerUrl}/`
-            let adapterPath = pwaPath + "_layouts/15/PwaPSIWrapper/PwaAdapter.aspx";
+            
+            let adapterPath = `${this.config.adapterUrl}`
             // let body = new URLSearchParams();
             
-            const body =  "method=PwaGetProjectsForEditCommand" 
+            const body =  `method=PwaGetProjectsForEditCommand&viewguid=${this.config.projectPickerViewGuid}` 
             let options = {
                 headers 
-                ,cache:true
             };
         console.log("====================================Hitting Adapter get projects = ")
         return this.http.post(

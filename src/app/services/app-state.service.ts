@@ -8,4 +8,7 @@ export class AppStateService {
   loading(value:boolean) {
     this.loadingSource.next(value);
   }
+  public getCurrentYear() { 
+    return 'hello world'
+  }
 }

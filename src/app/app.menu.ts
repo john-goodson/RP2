@@ -1,46 +1,72 @@
 import { MenuItem } from '../fw/services/menu.service';
+// import { AppStateService } from './services/app-state.service'
+
+// export let foo: AppStateService
+import { CurrentCalendarYear, CurrentFiscalYear, Next12Months, NextYear } from './common/utilities'
+
+export let _currentCalYear = new CurrentCalendarYear()
+export let _CurrentFiscalYer = new CurrentFiscalYear() 
+export let _next12Months = new Next12Months()
+export let _nextYear = new NextYear()
+
 
 export let initialMenuItems: Array<MenuItem> = [
     {
         text: 'Dashboard',
         icon: 'glyphicon-dashboard',
-        route: 'jumbotron',
-        submenu: null
-    },
-    {
-        text: 'Date Range',
-        icon: 'glyphicon-dashboard',
-        route: 'jumbotron',
+        route: 'home/jumbotron',
         submenu: null
     },
     {
         text: 'Work Scale',
         icon: 'glyphicon-dashboard',
-        route: 'jumbotron',
+        route: 'home/jumbotron',
+        params: { fromDate: _currentCalYear.startDate,
+                    toDate: _currentCalYear.endDate,
+                    timescale: 5,
+                    workunits: 3 },
         submenu: null
     },
 
     {
-        text: 'Placeholder',
-        icon: 'glyphicon-flag',
+        text: 'Date Range',
+        icon: '	glyphicon-calendar',
         route: null,
         submenu: [
             {
-                text: 'Item 1',
-                icon: 'glyphicon-flag',
-                route: 'authenticated/country-list/3',
+                text: 'This Year',
+                icon: 'glyphicon-calendar',
+                route: 'home/resPlans',
+                params: { fromDate: _currentCalYear.startDate,
+                            toDate: _currentCalYear.endDate,
+                            timescale: 5,
+                            workunits: 3 },
                 submenu: null
             },
             {
-                text: 'Item 2',
-                icon: 'glyphicon-flag',
-                route: 'authenticated/country-list/5',
+                text: 'Next 12 Months',
+                icon: 'glyphicon-calendar',
+                route: 'home/resPlans',
+                params: { fromDate: _next12Months.startDate,
+                            toDate: _next12Months.endDate,
+                            timescale: 5,
+                            workunits: 3 },
                 submenu: null
             },
             {
-                text: 'All',
-                icon: 'glyphicon-flag',
-                route: 'authenticated/country-list/0',
+                text: 'Next Year',
+                icon: 'glyphicon-calendar',
+                route: 'home/resPlans',
+                params: { fromDate: _nextYear.startDate,
+                            toDate: _nextYear.endDate,
+                            timescale: 5,
+                            workunits: 3 },
+                submenu: null
+            },
+            {
+                text: 'Custom Date',
+                icon: 'glyphicon-calendar',
+                route: 'customDate',
                 submenu: null
             }
         ],

@@ -10,25 +10,24 @@ import { ResourcePlansResolverService } from './services/resource-plans-resolver
 export const appRoutes: Routes = [
 
  
-  {
-    path: 'resPlans',
-    component: ResPlanHomeComponent,
-    children: [
-      { path: '', component: ResPlanListComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: ResPlanHomeComponent, 
+     children: [
+        { path: '', redirectTo: 'resPlans', pathMatch: 'full'},
+        { path: 'resPlans', component: ResPlanListComponent ,  resolve: {resPlans: ResourcePlansResolverService }
+     },
+        { path: 'jumbotron', component: JumbotronComponent},
+        { path: 'foo', component: JumbotronComponent  }
+        // { path: 'resPlans', component: ResPlanListComponent },
+      ]
+}
+]
     
-      { path: 'resPlans/:**', component: ResPlanListComponent }, 
-      { path: 'resPlans/:*', component: ResPlanListComponent }, 
-      { path: 'jumbotron', component: JumbotronComponent},
-      { path: '**', component: ResPlanListComponent }
-      // { path: 'resPlans', component: ResPlanListComponent },
-    ],
-    resolve: {resPlans: ResourcePlansResolverService }
-  },
-  {path:'',redirectTo:'resPlans',pathMatch:'full'}
+
+  //{path:'',redirectTo:'resPlans',pathMatch:'full'}
 
   
   // { path: '', component: ResPlanHomeComponent },
   // { path: '**', component: ResPlanHomeComponent }
 
 
-]

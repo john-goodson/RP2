@@ -25,7 +25,6 @@ export class FrameworkConfigService {
     socialIcons = new Array<IconFiles>();
 
     configure(settings: FrameworkConfigSettings) : void {
-        debugger
         Object.assign(this, settings);
     }
 

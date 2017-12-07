@@ -69,8 +69,10 @@ export class MenuItemComponent implements OnInit {
       let newEvent = new MouseEvent('mouseleave', {bubbles: true});
       this.renderer.invokeElementMethod(
           this.el.nativeElement, 'dispatchEvent', [newEvent]);
-
-      this.router.navigate(['/' + this.item.route]);
+          let oldConfig = this.router.routeReuseStrategy.shouldReuseRoute;
+          this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
+          this.router.isActive = function () { return false; }
+      this.router.navigate(['/' + this.item.route, this.item.params] );
         
     }
   }

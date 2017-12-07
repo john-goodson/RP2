@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 
 import { RouterModule } from '@angular/router'
 import { appRoutes } from './routes'
-import { HttpModule } from '@angular/http';
+
 import {HttpClientModule} from '@angular/common/http';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { Daterangepicker, DaterangepickerConfig } from 'ng2-daterangepicker'
@@ -54,7 +54,8 @@ import { IntervalPipe } from './common/interval.pipe'
 import { MessageComponent} from './resourcePlans/messageComponent/message.component'
 import { ErrorComponent} from './resourcePlans/errorComponent/error.component'
 import { FwModule} from '../fw/fw.module'
-import { JumbotronComponent} from './jumbotron/jumbotron.component'
+import { JumbotronComponent} from './jumbotron/jumbotron.component';
+import { ResPlanListTesterComponent } from './resourcePlans/res-plan-list-tester/res-plan-list-tester.component'
 
 //let jQuery : Object;// Add this function
 export function initConfig(configSvc: ConfigService){
@@ -82,13 +83,13 @@ export function initConfig(configSvc: ConfigService){
     MessageComponent,
     ErrorComponent,
     JumbotronComponent,
-    IntervalPipe
+    IntervalPipe,
+    ResPlanListTesterComponent
   ],
 
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes ,  { enableTracing: true } )  ,
-          HttpModule, 
           ReactiveFormsModule ,
           Daterangepicker,
           HttpClientModule,
