@@ -19,7 +19,7 @@ visible: boolean = true;
   ngOnInit() {
   this._route.data.subscribe(values =>{
     this._resPlans = values.resPlans; 
-    //
+    
     this.setIntervals(this._resPlans)
     //console.log('header component data=' + JSON.stringify(values.resPlans))
   },(error)=>console.log(error));
@@ -32,7 +32,7 @@ visible: boolean = true;
 
   public setIntervals(resPlans:IResPlan[]) 
   {
-    //
+    
    resPlans.forEach(resPlan=>{
      let projectWithIntervals = resPlan.projects.find(t=>t.intervals.length > 0);
      if(projectWithIntervals)

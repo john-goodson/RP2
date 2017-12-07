@@ -39,7 +39,6 @@ export class ProjectService {
             const body =  `method=PwaGetProjectsForEditCommand&viewguid=${this.config.projectPickerViewGuid}` 
             let options = {
                 headers 
-                ,cache:true
             };
         console.log("====================================Hitting Adapter get projects = ")
         return this.http.post(

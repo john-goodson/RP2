@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 
 import { RouterModule } from '@angular/router'
 import { appRoutes } from './routes'
-import { HttpModule } from '@angular/http';
+
 import {HttpClientModule} from '@angular/common/http';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { Daterangepicker, DaterangepickerConfig } from 'ng2-daterangepicker'
@@ -88,7 +88,6 @@ export function initConfig(configSvc: ConfigService){
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes ,  { enableTracing: true } )  ,
-          HttpModule, 
           ReactiveFormsModule ,
           Daterangepicker,
           HttpClientModule,

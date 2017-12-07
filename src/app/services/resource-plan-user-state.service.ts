@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { ConfigService, } from './config-service.service'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -16,7 +16,7 @@ declare var $: any;
 @Injectable()
 export class ResourcePlanUserStateService {
     config: Config;
-    constructor(private http: Http, private _configSvc: ConfigService) {
+    constructor(private http: HttpClient, private _configSvc: ConfigService) {
         this.config = _configSvc.config;
     }
 
@@ -27,21 +27,21 @@ export class ResourcePlanUserStateService {
         let baseUrl = `${this.config.projectServerUrl}/_api/SP.UserProfiles.PeopleManager/GetMyProperties/AccountName`
         //1. get data from SP List UserState 
         let url = baseUrl;
-        let headers = new Headers();
-        headers.append('accept', 'application/json;odata=verbose')
-        let options = new RequestOptions({
-            withCredentials: true,
-            headers
-        })
-
-        return this.http.get(url, options)
+        let headers = new HttpHeaders();
+        headers = headers.set('accept', 'application/json;odata=verbose')
+        ;
+        let options = {
+            headers 
+        };
+        return this.http.get(url,options)
             .flatMap((spData: Response) => {
-                var accountName = spData.json().d.AccountName
+                ;
+                var accountName = spData["d"].AccountName
                 url = `${this.config.projectServerUrl}/_api/ProjectData/Resources`
                 let filter = "?$filter=ResourceNTAccount eq '" + encodeURIComponent('i:0#.w|' + accountName) + "'"
-                return this.http.get(url + filter, options)
+                return this.http.get(url + filter,options)
                     .map((data: Response) => {
-                        return data.json().d.results[0].ResourceId.toUpperCase();
+                        return data["d"].results[0].ResourceId.toUpperCase();
                     })
             })
     }
@@ -55,18 +55,19 @@ export class ResourcePlanUserStateService {
         let filter = `$filter=ResourceManagerUID eq '${resUid}'`;
         //1. get data from SP List UserState 
         let url = baseUrl + '?' + filter + '&' + select;
-        let headers = new Headers();
-        headers.append('accept', 'application/json;odata=verbose')
-        let options = new RequestOptions({
-            withCredentials: true,
-            headers
-        })
-
-        return this.http.get(url, options)
+        let headers = new HttpHeaders();
+        headers = headers.set('accept', 'application/json;odata=verbose')
+       
+        ;
+        let options = {
+            headers 
+        };
+        return this.http.get(url,options)
             .map((data: Response) => 
             {
-                if(data.json().d.results.length > 0)
-                return JSON.parse(data.json().d.results
+                ;
+                if(data["d"].results.length > 0)
+                return JSON.parse(data["d"].results
                 .map(r=>r["ResourceUID0"])) as IResource[] //dev
                 //.map(r=>r["ResourceUID"])) as IResource[] //qa
                 else{
@@ -78,17 +79,16 @@ export class ResourcePlanUserStateService {
     getProjectIdsFromAssignmentsForResources(resources: IResource[]): Observable<IResPlan[]> {
         let baseUrl = `${this.config.projectServerUrl}/_api/ProjectData/Assignments`;
         let select = "$select=ProjectId,ProjectName";
-        let headers = new Headers();
-        headers.append('accept', 'application/json;odata=verbose')
-        let options = new RequestOptions({
-            withCredentials: true,
-            headers
-        })
+        let headers = new HttpHeaders();
+        headers = headers.set('accept', 'application/json;odata=verbose')
+        let options = {
+            headers 
+        };
         let resourceProjectsMap : IResPlan[] = []
         resources.forEach(resource => {
             resourceProjectsMap.push(new ResPlan(resource))
         })
-        //
+        ;
         //console.log('=======================hitting project server for assigments')
         return Observable.from(resources).flatMap(t => {
             let filter = `$filter=ResourceName eq '${t.resName}' and AssignmentType eq 101`
@@ -97,7 +97,7 @@ export class ResourcePlanUserStateService {
             //and project has resource plan assignments
 
             return this.http.get(url, options)
-                .switchMap((data: Response) => data.json().d.results)
+                .switchMap((data: Response) => data["d"].results)
                 .map(p => new Project(p["ProjectId"], p["ProjectName"], false, []))
                 .distinct(x => x.projUid)
                 .toArray()
@@ -220,23 +220,26 @@ export class ResourcePlanUserStateService {
 
     public getRequestDigestToken(): Observable<string> {
         let url = `${this.config.projectServerUrl}/_api/contextinfo`;
-        let headers = new Headers();
-        headers.append('Accept', 'application/json;odata=verbose')
-        let options = new RequestOptions({
-            withCredentials: true,
-            headers
-        })
-        return this.http.post(url, {}, options).map(response => JSON.parse(response["_body"]).d.GetContextWebInformation.FormDigestValue)
+        let headers = new HttpHeaders();
+        headers = headers.set('accept', 'application/json;odata=verbose')
+        let options = {
+            headers 
+        };
+
+        return this.http.post(url, {}, options).map(response => 
+            {
+                ;
+            return response["d"].GetContextWebInformation.FormDigestValue})
+            
     }
     public AddResourceToManager(resMgrUid: string, resourcePlans: IResPlan[]): Observable<Result> {
-        let headers = new Headers();
         let existingResources :IResource[];
         
-        headers.append('accept', 'application/json;odata=verbose')
-        let options = new RequestOptions({
-            withCredentials: true,
-            headers
-        })
+        let headers = new HttpHeaders();
+        headers = headers.set('accept', 'application/json;odata=verbose')
+        let options = {
+            headers 
+        };
         let url = `${this.config.ResPlanUserStateUrl}/Items`
         let filter = `?$filter=ResourceManagerUID eq '${resMgrUid}'`
         let isNewEntry = false;
@@ -244,8 +247,8 @@ export class ResourcePlanUserStateService {
                     .flatMap((data: Response) => {
                         let resources = [];
                         resources = resources.concat(resourcePlans.map(r=>r.resource));
-                        if(data.json().d.results.length > 0){
-                        existingResources = JSON.parse(data.json().d.results[0]["ResourceUID0"]).map(resource => { return new Resource(resource.resUid, resource.resName) }) //dev
+                        if(data["d"].results.length > 0){
+                        existingResources = JSON.parse(data["d"].results[0]["ResourceUID0"]).map(resource => { return new Resource(resource.resUid, resource.resName) }) //dev
                         //existingResources = JSON.parse(data.json().d.results[0]["ResourceUID"]).map(resource => { return new Resource(resource.resUid, resource.resName) }) //qa
                         existingResources = existingResources
                         .filter(e=>resources.map(r=>r.resUid.toUpperCase()).indexOf(e.resUid.toUpperCase()) < 0)
@@ -258,24 +261,23 @@ export class ResourcePlanUserStateService {
             
                 let url = `${this.config.ResPlanUserStateUrl}/Items`
 
-                let headers = new Headers();
-                headers.append('Accept', 'application/json;odata=verbose')
-                headers.append('Content-Type', 'application/json;odata=verbose')
-                headers.append('X-RequestDigest', digest)
+               let headers = new HttpHeaders();
+               headers = headers.set('Accept', 'application/json;odata=verbose')
+               headers = headers.set('Content-Type', 'application/json;odata=verbose')
+               headers = headers.set('X-RequestDigest', digest)
                 if(isNewEntry == false){
-                headers.append('X-HTTP-Method', 'MERGE')
-                headers.append('IF-MATCH', '*')
+                    headers = headers.set('X-HTTP-Method', 'MERGE')
+                    headers = headers.set('IF-MATCH', '*')
                 }
-                let options = new RequestOptions({
-                    withCredentials: true,
+                let options = {
                     headers: headers
-                })
+                }
                 //let resources = `'[${resourcePlans.map(t => 
                 
  
                 if(isNewEntry == false)
                 {
-                    url = data.json().d.results[0].__metadata.uri;
+                    url = data["d"].results[0].__metadata.uri;
                     resources = existingResources.concat(resources);
                 }
                 let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName + '"}').join(",")}]'`
@@ -284,30 +286,9 @@ export class ResourcePlanUserStateService {
                 return this.http.post(url, body, options)
                     .map(r => {
                         let result = new Result();
-                        switch (Math.floor(r.status / 100)) {
-                            case 4: result.debugError = r.statusText;
-                                result.error = "An error occured in update"
-                                result.success = false;
-                                result.resUid = resMgrUid
-                                return result;
-                            case 5: result.debugError = r.statusText;
-                                result.error = "An error occured in update";
-                                result.success = false;
-                                result.resUid =resMgrUid
-                                return result;
-                            case 2: result.debugError = "";
-                                result.error = "";
-                                result.success = true;
-                                result.resUid = resMgrUid
-                                return result;
-                            default:
-                                result.debugError = r.statusText;
-                                result.error = "An error occured in update"
-                                result.success = false;
-                                result.resUid = resMgrUid
-                                return result;
-                        }
-                    })
+                        result.success = true;
+                        return result;
+                    }) 
                 })
         })
     }
@@ -323,7 +304,7 @@ export class ResourcePlanUserStateService {
        
             .concat(emptyResPlans)
             .concat(resPlans)
-            .flatMap(t => { // return t; }).
+            .flatMap(t => { ; return t; }).
             groupBy(t => { return t.resource.resUid.toUpperCase() }).flatMap(group => {
                 return group.reduce(function (a, b) {
                     // if(group.key === "00000000-0000-0000-0000-000000000000")
@@ -416,7 +397,7 @@ export class ResourcePlanUserStateService {
         }
 
         if(_timeScale == Timescale.calendarMonths){
-            //
+            ;
             if (moment(_startDate).endOf('month').date() === moment(_startDate).date()) {  //end of month
               firstInterval.start = moment(_startDate).toDate()
               firstInterval.end = moment(_startDate).toDate()
@@ -455,7 +436,7 @@ export class ResourcePlanUserStateService {
         }
 
         if(_timeScale == Timescale.years){
-            //
+            ;
             if (moment(_startDate).endOf('year').month() === moment(_startDate).month()) {  //end of month
               firstInterval.start = moment(_startDate).toDate()
               firstInterval.end = moment(_startDate).toDate()
@@ -498,12 +479,11 @@ export class ResourcePlanUserStateService {
         timescale: Timescale, workunits: WorkUnits)
         : Observable<IResPlan> {
         console.log('entering getResPlans method');
-        let headers = new Headers();
-        headers.append('accept', 'application/json;odata=verbose')
-        let options = new RequestOptions({
-            withCredentials: true,
+        let headers = new HttpHeaders();
+        headers = headers.set('accept', 'application/json;odata=verbose')
+        let options = {
             headers
-        })
+        };
         let adapterPath = `${this.config.adapterUrl}`
         let body = {
             method: 'PwaGetResourcePlansCommand',
@@ -519,7 +499,10 @@ export class ResourcePlanUserStateService {
             url: adapterPath,
             type: 'POST',
             dataType: "json",
-            data: body
+            data: body,
+            xhrFields: {
+                withCredentials: true
+           }
         }))
             .flatMap((r: ResPlan[]) => {
                 // let resPlans : IResPlan
@@ -575,15 +558,17 @@ export class ResourcePlanUserStateService {
         let headers = new Headers();
         headers.append('accept', 'application/json;odata=verbose')
         headers.append('content-type', 'application/x-www-form-urlencoded')
-        let options = new RequestOptions({
-            withCredentials: true,
+        let options = {
             headers
-        })
+        }
         return Observable.fromPromise($.ajax({
             url: adapterPath,
             type: 'POST',
             dataType: "json",
-            data: body
+            data: body,
+            xhrFields: {
+                withCredentials: true
+           }
         })).map(r => {
             return r as Result
         })
@@ -619,18 +604,20 @@ export class ResourcePlanUserStateService {
             'timeScale': this.getTimeScaleString(timeScale),
             'workScale': WorkUnits[workScale]
         }
-        let headers = new Headers();
-        headers.append('accept', 'application/json;odata=verbose')
-        headers.append('content-type', 'application/x-www-form-urlencoded')
-        let options = new RequestOptions({
-            withCredentials: true,
+        let headers = new HttpHeaders();
+        headers = headers.set('accept', 'application/json;odata=verbose')
+        headers = headers.set('content-type', 'application/x-www-form-urlencoded')
+        let options =  {
             headers
-        })
+        }
         return Observable.fromPromise($.ajax({
             url: adapterPath,
             type: 'POST',
             dataType: "json",
-            data: body
+            data: body,
+            xhrFields: {
+                withCredentials: true
+           }
         })).map(r => {
             return r as Result[];
         })
@@ -651,18 +638,15 @@ export class ResourcePlanUserStateService {
             'timeScale': this.getTimeScaleString(timeScale),
             'workScale': WorkUnits[workScale]
         }
-        let headers = new Headers();
-        headers.append('accept', 'application/json;odata=verbose')
-        headers.append('content-type', 'application/x-www-form-urlencoded')
-        let options = new RequestOptions({
-            withCredentials: true,
-            headers
-        })
+        
         return Observable.fromPromise($.ajax({
             url: adapterPath,
             type: 'POST',
             dataType: "json",
-            data: body
+            data: body,
+            xhrFields: {
+                withCredentials: true
+           }
         })).map((r) => {
             return r as Result[];
         })
@@ -673,12 +657,12 @@ export class ResourcePlanUserStateService {
         //     })
     }
     HideResPlans(resMgrUid: string, resPlans: IResPlan[]): Observable<Result> {
-        let headers = new Headers();
-        headers.append('accept', 'application/json;odata=verbose')
-        let options = new RequestOptions({
+        let headers = new HttpHeaders();
+        headers = headers.set('accept', 'application/json;odata=verbose')
+        let options ={
             withCredentials: true,
             headers
-        })
+        }
         let url = `${this.config.ResPlanUserStateUrl}/Items`
         let filter = `?$filter=ResourceManagerUID eq '${resMgrUid}'`
         resPlans = resPlans.filter(r=>r["selected"] == true)
@@ -687,40 +671,34 @@ export class ResourcePlanUserStateService {
 
             .flatMap((data: Response) => {
                 ;
-                let resources = <IResource[]>JSON.parse(data.json().d.results[0]["ResourceUID0"]) //dev
+                let resources = <IResource[]>JSON.parse(data["d"].results[0]["ResourceUID0"]) //dev
                 //let resources = <IResource[]>JSON.parse(data.json().d.results[0]["ResourceUID"]) //qa
                 .map(resource => { return new Resource(resource.resUid, resource.resName) })
                 resources = resources.filter(r => resPlans.map(d=>d.resource.resUid.toUpperCase()).indexOf(r.resUid.toUpperCase()) < 0)
                 return this.getRequestDigestToken().flatMap(digest => {
 
-                    let headers = new Headers();
-                    headers.append('Accept', 'application/json;odata=verbose')
-                    headers.append('Content-Type', 'application/json;odata=verbose')
-                    headers.append('X-RequestDigest', digest)
+                    let headers = new HttpHeaders();
+                    headers = headers.set('Accept', 'application/json;odata=verbose')
+                    headers = headers.set('Content-Type', 'application/json;odata=verbose')
+                    headers = headers.set('X-RequestDigest', digest)
 
 
-                    let options = new RequestOptions({
-                        withCredentials: true,
-                        headers: headers
-                    })
                     
                         let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName + '"}').join(",")}]'`
-                        headers.append('IF-MATCH', '*')
-                        headers.append('X-HTTP-Method', 'MERGE')
+                        headers = headers.set('IF-MATCH', '*')
+                        headers = headers.set('X-HTTP-Method', 'MERGE')
+                        let options = {
+                            headers: headers
+                        }
+                        debugger;
                         let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID0":${resourcesJSON}}"}` //dev
                         //let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID":${resourcesJSON}}"}` //qa
-                        return this.http.post(data.json().d.results[0].__metadata.uri, body, options)
+                        return this.http.post(data["d"].results[0].__metadata.uri, body, options)
                             .map((response: Response) => {
-                                if (Math.floor(response.status / 100) == 2) {
+                               debugger;
                                     var result=  new Result();
                                     result.success = true;
                                     return result;
-                                }
-                                else{
-                                    var result=  new Result();
-                                    result.success = false;
-                                    return result;
-                                }
                             })      
                 })
             })
