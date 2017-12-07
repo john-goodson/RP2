@@ -24,7 +24,6 @@ export class ResourcePlansResolverService implements Resolve<IResPlan[]> {
     let today = new Date();
     let todayDate = new Date(2017,11, 31);
     let lastYearDate = new Date(2017, 0, 1);
-    debugger;
     let fromDate = route.params["fromDate"] && new Date(route.params["fromDate"]) || lastYearDate;
     let toDate = route.params["toDate"] && new Date(route.params["toDate"]) || todayDate;
     let timescale = route.params["timescale"] || Timescale.calendarMonths;
