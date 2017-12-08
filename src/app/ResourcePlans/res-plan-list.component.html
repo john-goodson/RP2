@@ -7,8 +7,7 @@
     <button type="button" class="btn btn-primary" (click)="savePlans(fromDate,toDate,timescale,workunits)"> Submit </button>
     <button type="button" class="btn btn-primary" (click)="deleteResPlans(fromDate,toDate,timescale,workunits,false)"> Delete </button>
     <button type="button" class="btn btn-primary" (click)="deleteResPlans(fromDate,toDate,timescale,workunits,true)"> Hide </button>
-    <res-plan-timescale (onTimescaleChanged)="timescaleChanged($event)"></res-plan-timescale>
-    <res-plan-workunits (onWorkUnitsChanged)="worksunitsChanged($event)"></res-plan-workunits>
+   
 
     <form class="form-horizontal" novalidate [formGroup]="mainForm">
 

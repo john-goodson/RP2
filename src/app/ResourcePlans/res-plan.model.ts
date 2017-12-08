@@ -37,6 +37,14 @@ export interface IInterval {
   end: Date
 }
 
+export interface IQueryParams {
+  fromDate: Date;
+  toDate: Date;
+  timescale: Timescale
+  workunits: WorkUnits
+
+}
+
 
 export class ResPlan implements IResPlan {
 

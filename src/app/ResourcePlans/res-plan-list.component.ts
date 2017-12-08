@@ -137,14 +137,12 @@ export class ResPlanListComponent implements OnInit {
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
         });
-        let today = new Date();
-        let todayDate = new Date(2017, 11, 31);
-        let lastYearDate = new Date(2017, 0, 1);
-        debugger;
-        this.fromDate = this._route.snapshot.params["fromDate"] && new Date(this._route.snapshot.params["fromDate"]) || lastYearDate;
-        this.toDate = this._route.snapshot.params["toDate"] && new Date(this._route.snapshot.params["toDate"]) || todayDate;
-        this.timescale = this._route.snapshot.params["timescale"] || Timescale.calendarMonths;
-        this.workunits = this._route.snapshot.params["workunits"] || WorkUnits.FTE;
+     
+       
+        this.fromDate = this._appSvc.queryParams.fromDate
+        this.toDate = this._appSvc.queryParams.toDate
+        this.timescale = this._appSvc.queryParams.timescale
+        this.workunits = this._appSvc.queryParams.workunits
 
         this._route.data.subscribe(values => {
             this.resPlanData = values.resPlans;
@@ -399,49 +397,49 @@ export class ResPlanListComponent implements OnInit {
                 })
         }, (error) => { console.log(error); this._appSvc.loading(false); })
     }
-    worksunitsChanged(value: number) {
-        debugger;
-        this.workunits = value;
-        this.ReloadPage();
-    }
-    timescaleChanged(value: number) {
-        debugger;
-        this.timescale = value;
-        this.ReloadPage();
-    }
-    dateRangeChanged(value) {
-        debugger
+    // worksunitsChanged(value: number) {
+    //     debugger;
+    //     this.workunits = value;
+    //     this.ReloadPage();
+    // }
+    // timescaleChanged(value: number) {
+    //     debugger;
+    //     this.timescale = value;
+    //     this.ReloadPage();
+    // }
+    // dateRangeChanged(value) {
+    //     debugger
 
-        this.fromDate = new Date(value.start._d)
-        this.toDate = new Date(value.end._d)
-        console.log(JSON.stringify(value))
-        this.ReloadPage()
-    }
-    ReloadPage() {
-        //console.log(this.fromDate.toDateString())
-        var url = '/resPlans'
-        let oldConfig = this.router.routeReuseStrategy.shouldReuseRoute;
-        this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
-        this.router.isActive = function () { return false; }
-        //this.router.navigate(['/products/2', {name: randomNum}])
-        console.log('ROUTER STATE BEFORE' +  this.router.routerState)
-        this.router.navigate(['/resPlans',
-            {
-                fromDate: this.fromDate,
-                toDate: this.toDate,
-                timescale: this.timescale,
-                workunits: this.workunits,
+    //     this.fromDate = new Date(value.start._d)
+    //     this.toDate = new Date(value.end._d)
+    //     console.log(JSON.stringify(value))
+    //     this.ReloadPage()
+    // }
+    // ReloadPage() {
+    //     //console.log(this.fromDate.toDateString())
+    //     var url = '/resPlans'
+    //     let oldConfig = this.router.routeReuseStrategy.shouldReuseRoute;
+    //     this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
+    //     this.router.isActive = function () { return false; }
+    //     //this.router.navigate(['/products/2', {name: randomNum}])
+    //     console.log('ROUTER STATE BEFORE' +  this.router.routerState)
+    //     this.router.navigate(['/resPlans',
+    //         {
+    //             fromDate: this.fromDate,
+    //             toDate: this.toDate,
+    //             timescale: this.timescale,
+    //             workunits: this.workunits,
 
-            }]
-        ).then(function () {
-            //this.router.routeReuseStrategy.shouldReuseRoute = oldConfig;
-            console.log('ROUTER STATE AFTER' +  this.router.routerState)
-        });
-    }
-    populateTestData(): void {
+    //         }]
+    //     ).then(function () {
+    //         //this.router.routeReuseStrategy.shouldReuseRoute = oldConfig;
+    //         console.log('ROUTER STATE AFTER' +  this.router.routerState)
+    //     });
+    // }
+    // populateTestData(): void {
 
 
-    }
+    // }
 
     buildSelectedProjects(projects: IProject[]): void {
         debugger;
