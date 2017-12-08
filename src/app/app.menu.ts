@@ -53,7 +53,41 @@ export let initialMenuItems: Array<MenuItem> = [
             
         ]
     },
-
+    {
+        text: 'Time Scale',
+        icon: 'glyphicon-dashboard',
+        route: null,
+        submenu: [
+            {
+                text: 'Months',
+                icon: '',
+                route: 'home/resPlans',
+                params: {
+                    timescale: '5'
+                },
+                submenu: null
+            }
+            , {
+                text: 'Years',
+                icon: '',
+                route: 'home/resPlans',
+                params: {
+                    timescale: '7'
+                },
+                submenu: null
+            },
+            {
+                text: 'Weeks',
+                icon: '',
+                route: 'home/resPlans',
+                params: {
+                    timescale: '4'
+                },
+                submenu: null
+            }
+            
+        ]
+    },
     {
         text: 'Date Range',
         icon: '	glyphicon-calendar',
