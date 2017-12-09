@@ -27,10 +27,9 @@ import { AppStateService } from '../services/app-state.service'
     selector: 'resplan-list',
     templateUrl: './res-plan-list.component.html',
     styles: [`*
-{
-    padding: 0;
-    margin: 0;
-}
+    .margin-left{
+        margin-left: 10px !important;
+    }
 body
 {
     height: 100%;
