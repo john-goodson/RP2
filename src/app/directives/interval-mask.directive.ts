@@ -1,26 +1,34 @@
-import { Directive , EventEmitter, Component , Output } from '@angular/core';
-import {   NgControl} from '@angular/forms';
+import { Directive, EventEmitter, Component, Output } from '@angular/core';
+import { NgControl } from '@angular/forms';
 
 
 @Directive({
   selector: '[IntervalMask]',
   host: {
-    //'(ngModelChange)': 'onInputChange($event)',
-    '(keydown)':'onInputChange($event.target.value, true)'
+    '(ngModelChange)': 'onInputChange($event)',
+    '(keydown)': 'onInputChange($event, true)'
   }
 })
 export class IntervalMaskDirective {
 
-  constructor(public model: NgControl) {}
-  @Output() rawChange:EventEmitter<string> = new EventEmitter<string>();
+  constructor(public model: NgControl) { }
+  @Output() rawChange: EventEmitter<string> = new EventEmitter<string>();
 
   onInputChange(event, backspace) {
+    var regex = /^\d+(\.\d+)?$/
+    var newVal;
+    debugger;
+    if (regex.test(event.target.value + String.fromCharCode(event.keyCode))) {
+      newVal = event.target.value;
+    }
+  
+    else {
+     //event.preventDefault();
+     newVal =  '';
+    }
+    var rawValue = newVal;
     // remove all mask characters (keep only numeric)
-    var newVal:any;
-    if(isNaN(event)){newVal =''}
-    else
-     newVal = parseInt(100 * Number(event),10);
-     var rawValue = newVal;
+
     // // special handling of backspace necessary otherwise
     // // deleting of non-numeric characters is not recognized
     // // this laves room for improvment for example if you delete in the 
@@ -42,7 +50,7 @@ export class IntervalMaskDirective {
     //   newVal = newVal.replace(/^(\d{0,3})(\d{0,3})(.*)/, '($1) ($2)-$3');
     // }
     // set the new value
-    this.model.valueAccessor.writeValue(newVal);      
+    this.model.valueAccessor.writeValue(newVal);
     this.rawChange.emit(rawValue)
   }
 

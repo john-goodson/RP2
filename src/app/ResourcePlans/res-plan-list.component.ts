@@ -208,7 +208,7 @@ export class ResPlanListComponent implements OnInit {
         return this.fb.group({
             intervalName: interval.intervalName,
             //intervalValue:  new PercentPipe(new IntervalPipe().transform(interval.intervalValue, this.workunits)  ).transform(interval.intervalValue)
-            intervalValue: [ new IntervalPipe().transform(interval.intervalValue, this.workunits) ,  Validators.minLength(5) ]
+            intervalValue: new IntervalPipe().transform(interval.intervalValue, this.workunits)
         });
     }
 
