@@ -20,7 +20,7 @@ import { ProjectService } from '../services/project-service.service'
 import { ResourcePlanService } from '../services/resource-plan.service'
 import { ResourcePlanUserStateService } from '../services/resource-plan-user-state.service'
 import { ResourcesModalCommunicatorService } from '../resourcePlans/resources-modal-communicator.service'
-import {ResPlanHeaderRowComponent} from "../resourcePlans/res-plan-header-row/res-plan-header-row.component"
+import { ResPlanHeaderRowComponent } from "../resourcePlans/res-plan-header-row/res-plan-header-row.component"
 import { AppStateService } from '../services/app-state.service'
 
 @Component({
@@ -91,7 +91,7 @@ export class ResPlanListComponent implements OnInit {
     @ViewChild('modalProjects') private modalProjects: SimpleModalComponent;
     @ViewChild('modalResources') private modalResources: SimpleModalComponent;
     @ViewChild('header') private header: ResPlanHeaderRowComponent;
-    
+
 
     mainForm: FormGroup;
     resPlanData: IResPlan[] = [];
@@ -137,8 +137,8 @@ export class ResPlanListComponent implements OnInit {
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
         });
-     
-       
+
+
         this.fromDate = this._appSvc.queryParams.fromDate
         this.toDate = this._appSvc.queryParams.toDate
         this.timescale = this._appSvc.queryParams.timescale
@@ -227,20 +227,20 @@ export class ResPlanListComponent implements OnInit {
     buildProject(_project: IProject) {
         var project = this.fb.group(
             {
-            projUid: _project.projUid,
-            projName: _project.projName,
-            readOnly: _project.readOnly,
-            error:null,
-            readOnlyReason: this.fb.control(_project.readOnlyReason),
-            intervals: this.fb.array([]),
-            selected: this.fb.control(false),
-            
-        });
+                projUid: _project.projUid,
+                projName: _project.projName,
+                readOnly: _project.readOnly,
+                error: null,
+                readOnlyReason: this.fb.control(_project.readOnlyReason),
+                intervals: this.fb.array([]),
+                selected: this.fb.control(false),
+
+            });
         for (var i = 0; i < _project.intervals.length; i++) {
             var interval = this.buildInterval(_project.intervals[i]);
             (project.get('intervals') as FormArray).push(interval);
         }
-        
+
         //_project.readOnly && project.disable({emitEvent:false})
         return project;
     }
@@ -253,18 +253,18 @@ export class ResPlanListComponent implements OnInit {
     }
 
     initTotals(totals: FormArray, _projects: IProject[]): FormArray {
-        if(totals.controls.length < 1){
-            
-        var intervalLen = this.getIntervalLength();
-        for (var i = 0; i < intervalLen; i++) {
+        if (totals.controls.length < 1) {
 
-            var total = this.fb.group({
-                intervalName: '',
-                intervalValue: new IntervalPipe().transform('0', this.workunits)
-            });
-            totals.push(total);
+            var intervalLen = this.getIntervalLength();
+            for (var i = 0; i < intervalLen; i++) {
+
+                var total = this.fb.group({
+                    intervalName: '',
+                    intervalValue: new IntervalPipe().transform('0', this.workunits)
+                });
+                totals.push(total);
+            }
         }
-    }
         return totals;
     }
 
@@ -284,8 +284,8 @@ export class ResPlanListComponent implements OnInit {
 
         if (this._intervalCount < 1) {
             for (var j = 0; j < projects.length; j++) {
-                    this._intervalCount = projects[j].intervals.length;
-                    return;
+                this._intervalCount = projects[j].intervals.length;
+                return;
             }
         }
 
@@ -378,22 +378,22 @@ export class ResPlanListComponent implements OnInit {
                     this.updateErrors(results);
                     this._modalSvc.selectedProjects = [];
                     debugger;
-                    let successfullProjects = results.filter(r=>r.success == true).map(t=>t.project);
+                    let successfullProjects = results.filter(r => r.success == true).map(t => t.project);
                     //projects.filter(p => results.findIndex(r => r.success == true && r.project.projUid.toUpperCase() == p.projUid.toUpperCase()) > -1)
                     console.log("===added projects" + JSON.stringify(successfullProjects))
 
-                        if (successfullProjects.length > 0) {
-                            this.buildSelectedProjects(successfullProjects)//.filter(r=>r.projUid.toUpperCase))
-                            debugger;
-                            this.header.setIntervals([new ResPlan(resource,successfullProjects)]);
-                            this.initTotals(this.currentFormGroup.get('totals') as FormArray, successfullProjects)
-                            this.calculateTotals(this.currentFormGroup);
-                            this._appSvc.loading(false);
-                        }
-                        else {
-                            this._appSvc.loading(false);
-                        }
-                    
+                    if (successfullProjects.length > 0) {
+                        this.buildSelectedProjects(successfullProjects)//.filter(r=>r.projUid.toUpperCase))
+                        debugger;
+                        this.header.setIntervals([new ResPlan(resource, successfullProjects)]);
+                        this.initTotals(this.currentFormGroup.get('totals') as FormArray, successfullProjects)
+                        this.calculateTotals(this.currentFormGroup);
+                        this._appSvc.loading(false);
+                    }
+                    else {
+                        this._appSvc.loading(false);
+                    }
+
                 })
         }, (error) => { console.log(error); this._appSvc.loading(false); })
     }
@@ -521,14 +521,14 @@ export class ResPlanListComponent implements OnInit {
             if (hideOnly == true) {
                 // this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr => {
                 //     return this._resPlanUserStateSvc.HideResPlans(resMgr, resourceplans as IResPlan[]).map(r => {
-                        // if(r.success == true){
-                        this._appSvc.loading(true); 
-                        this.deleteResourcePlans(resourceplans)
-                        this._appSvc.loading(false);
-                        // }
-                        // else{
-                        //     this._appSvc.loading(false);  
-                        // }
+                // if(r.success == true){
+                this._appSvc.loading(true);
+                this.deleteResourcePlans(resourceplans)
+                this._appSvc.loading(false);
+                // }
+                // else{
+                //     this._appSvc.loading(false);  
+                // }
                 //     },
                 //         (error: any) => {
                 //             this.errorMessage = <any>error
@@ -542,7 +542,7 @@ export class ResPlanListComponent implements OnInit {
                 //     }
                 // ).subscribe((r) => { 
                 //     this._appSvc.loading(false) 
-                    
+
                 // }, () => { this._appSvc.loading(false) })
             }
             else {
@@ -555,22 +555,22 @@ export class ResPlanListComponent implements OnInit {
                             resourceplans.forEach(resPlan => {
                                 //if resource marked for selection check if all projects were successful by comparing count of projects prior to upadte and after
                                 let projectsMarkedForDeleteCount = resPlan.projects.length;
-                                
+
                                 resPlan.projects = resPlan.projects.filter(function (p) { return results.findIndex(function (r) { return r.success == true && r.project.projUid.toUpperCase() == p.projUid.toUpperCase(); }) > -1; });
                                 // if(resPlan["selected"] == true)
                                 // {
                                 //    resPlan["selected"] = (projectsMarkedForDeleteCount == resPlan.projects.length);
                                 // }
                             });
-                            
-                            
+
+
                             return this._resPlanUserStateSvc.HideResPlans(resMgr, resourceplans as IResPlan[]).map(r => {
-                                if(r.success == true){
-                                this.deleteResourcePlans(resourceplans)
-                                this._appSvc.loading(false);
+                                if (r.success == true) {
+                                    this.deleteResourcePlans(resourceplans)
+                                    this._appSvc.loading(false);
                                 }
-                                else{
-                                    this._appSvc.loading(false); 
+                                else {
+                                    this._appSvc.loading(false);
                                 }
                             },
                                 (error: any) => {
@@ -603,7 +603,20 @@ export class ResPlanListComponent implements OnInit {
         this._appSvc.loading(false);
 
     }
-
+    AnyResPlanSelected(): boolean {
+        let selected: boolean = false;
+        this.resPlans.controls.forEach(resPlan => {
+            if ((resPlan as FormGroup).controls['selected'].value == true) {
+                selected = true;
+            }
+            ((resPlan as FormGroup).controls['projects'] as FormArray).controls.forEach(resPlan => {
+                if ((resPlan as FormGroup).controls['selected'].value == true) {
+                    selected = true;
+                }
+            });
+        });
+        return selected;
+    }
     deleteResourcePlans(resPlans: IResPlan[]) {
         debugger;
         resPlans.forEach(resPlan => {
@@ -626,29 +639,26 @@ export class ResPlanListComponent implements OnInit {
             }
         });
     }
-    updateErrors(errors:Result[])
-    {
-     let resultsWithError = errors.filter(e=>e.success == false);
-     
-     //reset errors to null before update
-     this.resPlans.controls.forEach(resPlan => {
-        (resPlan.get('projects') as FormArray).controls.forEach(project => {
-                project.patchValue({error:null})
-            
+    updateErrors(errors: Result[]) {
+        let resultsWithError = errors.filter(e => e.success == false);
+
+        //reset errors to null before update
+        this.resPlans.controls.forEach(resPlan => {
+            (resPlan.get('projects') as FormArray).controls.forEach(project => {
+                project.patchValue({ error: null })
+
+            });
         });
-     });
-     
-     this.resPlans.controls.forEach(resPlan => {
-        (resPlan.get('projects') as FormArray).controls.forEach(project => {
-            if(resultsWithError && resultsWithError.length > 0 && resultsWithError.findIndex(e=>e.project.projUid.toUpperCase() == project.get('projUid').value.toUpperCase()) > -1)
-            {
-                project.patchValue({error:resultsWithError.find(e=>e.project.projUid.toUpperCase() == project.get('projUid').value.toUpperCase()).error})
-            }
-            
+
+        this.resPlans.controls.forEach(resPlan => {
+            (resPlan.get('projects') as FormArray).controls.forEach(project => {
+                if (resultsWithError && resultsWithError.length > 0 && resultsWithError.findIndex(e => e.project.projUid.toUpperCase() == project.get('projUid').value.toUpperCase()) > -1) {
+                    project.patchValue({ error: resultsWithError.find(e => e.project.projUid.toUpperCase() == project.get('projUid').value.toUpperCase()).error })
+                }
+
+            });
         });
-     });
-    
-     
+
+
     }
 }
- 

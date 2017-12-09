@@ -341,12 +341,15 @@ export class ResourcePlanUserStateService {
                 }
                 //weed out stale publish projects
                 rp.projects =  rp.projects.filter(p=>p.stalePublish == false && p.intervals && p.intervals.length > 0);
-                
+                rp.projects = rp.projects.sort((a,b)=>{
+                    return a.projName.localeCompare(b.projName);
+                })
             })
             rps.findIndex(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000") > -1 &&
              rps.splice(rps.findIndex(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000"), 1)
             return rps;
            })
+           
     }
 
     getDateFormatString(date: Date): string {

@@ -4,9 +4,9 @@
     <!-- kk -->
 
     <button class="btn btn-primary" type="button" (click)="addResources()"> Add Resource </button>
-    <button type="button" class="btn btn-primary" (click)="savePlans(fromDate,toDate,timescale,workunits)"> Submit </button>
-    <button type="button" class="btn btn-primary" (click)="deleteResPlans(fromDate,toDate,timescale,workunits,false)"> Delete </button>
-    <button type="button" class="btn btn-primary" (click)="deleteResPlans(fromDate,toDate,timescale,workunits,true)"> Hide </button>
+    <button [disabled]="!this.mainForm.dirty" type="button" class="btn btn-primary" (click)="savePlans(fromDate,toDate,timescale,workunits)"> Submit </button>
+    <button [disabled]="!this.AnyResPlanSelected()" type="button" class="btn btn-primary" (click)="deleteResPlans(fromDate,toDate,timescale,workunits,false)"> Delete </button>
+    <button [disabled]="!this.AnyResPlanSelected()" type="button" class="btn btn-primary" (click)="deleteResPlans(fromDate,toDate,timescale,workunits,true)"> Hide </button>
    
 
     <form class="form-horizontal" novalidate [formGroup]="mainForm">
