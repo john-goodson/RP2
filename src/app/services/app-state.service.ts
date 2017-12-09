@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Subject} from "rxjs/Subject"
 import { IQueryParams , Timescale, WorkUnits } from '../resourcePlans/res-plan.model'
-import { CurrentCalendarYear, CurrentFiscalYear } from '../common/utilities'
+import { CurrentCalendarYear, CurrentFiscalYear , Next12Months } from '../common/utilities'
 
 
 
@@ -10,12 +10,13 @@ import { CurrentCalendarYear, CurrentFiscalYear } from '../common/utilities'
 export class AppStateService {
   private loadingSource = new Subject<boolean>();
   loading$ = this.loadingSource.asObservable();
-  public currentYear = new CurrentCalendarYear()
+
+  public next12Months = new Next12Months()  //default daterange
   
 
   public queryParams: IQueryParams =  {
-    fromDate: this.currentYear.startDate,
-    toDate: this.currentYear.endDate,
+    fromDate: this.next12Months.startDate,
+    toDate: this.next12Months.endDate,
     timescale: Timescale.calendarMonths,
     workunits: WorkUnits.FTE
   }

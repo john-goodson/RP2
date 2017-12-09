@@ -14,7 +14,7 @@ export class CurrentFiscalYear {
 }
 
 export class Next12Months {
-    constructor(public startDate = moment().startOf('month').add(-1,'month').toDate()
+    constructor(public startDate = moment().startOf('month').toDate()
         , public endDate = moment().endOf('month').add(12,'month').toDate()) {
     }
 }

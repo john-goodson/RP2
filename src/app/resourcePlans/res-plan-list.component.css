@@ -1,0 +1,66 @@
+.margin-left{
+    margin-left: 10px !important;
+}
+
+body
+{
+height: 100%;
+width: 100%;
+}
+table
+{
+border-collapse: collapse;
+}
+.totalGreen {
+background-color: rgb(191, 230, 191);
+}
+.totalRed {
+background-color: rgb(243, 162, 162);
+font-style: italic
+}
+.totalsRow {
+    font-weight: bold
+}
+.outer-container
+{
+background-color: #ccc;
+position: absolute;
+top:0;
+left: 0;
+right: 300px;
+bottom: 40px;
+}
+.inner-container
+{
+height: 100%;
+overflow: hidden;
+}
+.table-header
+{
+position: relative;
+}
+.table-body
+{
+overflow: auto;
+height:auto;
+width:auto;
+}
+.header-cell
+{
+text-align: left;
+height: 40px;
+}
+.body-cell 
+{
+text-align: left;
+}
+.col1
+{
+width:220px;
+min-width: 220px;
+}
+.col
+{
+width:100px;
+min-width: 100px;
+}

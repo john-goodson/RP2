@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormA
 import { IntervalPipe } from "../common/interval.pipe"
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/mergeMap';
+import { PercentPipe } from '@angular/common'
 
 import { IResPlan, IProject, IInterval, ProjectActiveStatus, IResource, Resource, Timescale, WorkUnits, Result } from './res-plan.model'
 
@@ -26,63 +27,7 @@ import { AppStateService } from '../services/app-state.service'
 @Component({
     selector: 'resplan-list',
     templateUrl: './res-plan-list.component.html',
-    styles: [`*
-    .margin-left{
-        margin-left: 10px !important;
-    }
-    
-body
-{
-    height: 100%;
-    width: 100%;
-}
-table
-{
-    border-collapse: collapse;
-}
-.outer-container
-{
-    background-color: #ccc;
-    position: absolute;
-    top:0;
-    left: 0;
-    right: 300px;
-    bottom: 40px;
-}
-.inner-container
-{
-    height: 100%;
-    overflow: hidden;
-}
-.table-header
-{
-    position: relative;
-}
-.table-body
-{
-    overflow: auto;
-    height:auto;
-    width:auto;
-}
-.header-cell
-{
-    text-align: left;
-    height: 40px;
-}
-.body-cell 
-{
-    text-align: left;
-}
-.col1
-{
-    width:220px;
-    min-width: 220px;
-}
-.col
-{
-    width:100px;
-    min-width: 100px;
-}`]
+    styleUrls: ['./res-plan-list.component.css'] 
 })
 
 
@@ -139,6 +84,8 @@ export class ResPlanListComponent implements OnInit {
         });
 
 
+
+
         this.fromDate = this._appSvc.queryParams.fromDate
         this.toDate = this._appSvc.queryParams.toDate
         this.timescale = this._appSvc.queryParams.timescale
@@ -192,6 +139,17 @@ export class ResPlanListComponent implements OnInit {
         fg.setValue(value, { emitEvent: false });
         //console.log('Totals... ' + JSON.stringify(value) + "      stop....")
 
+    }  
+
+    checkTotal(val: string) {
+        if (this._appSvc.queryParams.workunits == WorkUnits.FTE) {
+            if (Number(val) > 1) {
+                return "totalRed"
+            }
+            else return "totalGreen"
+        }
+        else return ""
+       
     }
 
     buildResPlans(plans: IResPlan[]) {
@@ -246,9 +204,11 @@ export class ResPlanListComponent implements OnInit {
     }
 
     buildInterval(interval: IInterval): FormGroup {
+       
         return this.fb.group({
             intervalName: interval.intervalName,
-            intervalValue: new IntervalPipe().transform(interval.intervalValue, this.workunits)
+            //intervalValue:  new PercentPipe(new IntervalPipe().transform(interval.intervalValue, this.workunits)  ).transform(interval.intervalValue)
+            intervalValue: [ new IntervalPipe().transform(interval.intervalValue, this.workunits) ,  Validators.minLength(5) ]
         });
     }
 
@@ -260,7 +220,7 @@ export class ResPlanListComponent implements OnInit {
 
                 var total = this.fb.group({
                     intervalName: '',
-                    intervalValue: new IntervalPipe().transform('0', this.workunits)
+                    intervalValue:  new IntervalPipe().transform('0', this.workunits)
                 });
                 totals.push(total);
             }

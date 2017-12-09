@@ -4,12 +4,16 @@
         <!-- kk -->
         
             <div style="display:flex;flex-grow: 1;position:fixed;z-index:100;top:3%;left:30%;right:0px;">
-                <button class="btn btn-primary margin-left" type="button" (click)="addResources()"> Add Resource </button>
-                <button [disabled]="!this.mainForm.dirty" type="button" class="btn btn-primary margin-left" (click)="savePlans(fromDate,toDate,timescale,workunits)">
+                <button class="btn btn-primary margin-left" type="button" (click)="addResources()" 
+                title="Add resource to your workspace. Resource will appear at top of list"> Add Resource </button>
+                <button [disabled]="!this.mainForm.dirty" type="button" class="btn btn-primary margin-left"  (click)="savePlans(fromDate,toDate,timescale,workunits)" 
+                title="Save and Publish your changes">
                 Submit </button>
-                <button [disabled]="!this.AnyResPlanSelected()" type="button" class="btn btn-primary margin-left" (click)="deleteResPlans(fromDate,toDate,timescale,workunits,false)">
+                <button [disabled]="!this.AnyResPlanSelected()" type="button" class="btn btn-primary margin-left" (click)="deleteResPlans(fromDate,toDate,timescale,workunits,false)" 
+                title="Permanently delete resource plan assignments from selected project(s)">
                 Delete </button>
-                <button [disabled]="!this.AnyResPlanSelected()" type="button" class="btn btn-primary margin-left" (click)="deleteResPlans(fromDate,toDate,timescale,workunits,true)">
+                <button [disabled]="!this.AnyResPlanSelected()" type="button" class="btn btn-primary margin-left" (click)="deleteResPlans(fromDate,toDate,timescale,workunits,true)" 
+                title="Remove resource from your workspace without deleting assignment">
                 Hide </button>
             </div>
         
@@ -20,7 +24,7 @@
                 <res-plan-header-row #header (onselectAllChanged)="toggleSelectAll($event)"></res-plan-header-row>
                 <div class="table-body">
                     <table class="table">
-                        <tbody *ngFor="let plan of resPlans.controls;index as i">
+                        <tbody *ngFor="let plan of resPlans.controls;index as i" >
 
                             <div [formGroupName]="i">
                                 <collapsible-well>
@@ -33,12 +37,14 @@
 
 
                                             <td class="body-cell col1">
-                                                <input formControlName="resName" placeholder="First name" style="width:100%">
+                                                <input class = "totalsRow" formControlName="resName" placeholder="First name" style="width:100%">
                                             </td>
                                             <div formArrayName="totals">
-                                                <td class="body-cell col" *ngFor="let total of plan.get('totals').controls;index as l">
+                                                <td class="body-cell col" *ngFor="let total of plan.get('totals').controls;index as l"  >
                                                     <div [formGroupName]="l">
-                                                        <input formControlName="intervalValue" placeholder="intervalValue" style="width:100%" />
+                                                        <input #totalVal class ="totalsRow" [ngClass] = "checkTotal(totalVal.value)"  formControlName="intervalValue" placeholder="intervalValue" style="width:100%" /> 
+                                                        
+
 
                                                     </div>
                                                 </td>
@@ -66,7 +72,7 @@
                                                     <div formArrayName="intervals">
                                                         <td class="body-cell col" *ngFor="let intrvl of proj.get('intervals').controls; index as k">
                                                             <div [formGroupName]="k">
-                                                                <input formControlName="intervalValue" type="text" style="width:100%">
+                                                                <input IntervalMask  formControlName="intervalValue" type="text" style="width:100%">
                                                             </div>
                                                         </td>
                                                     </div>
