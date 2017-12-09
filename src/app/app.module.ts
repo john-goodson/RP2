@@ -8,8 +8,7 @@ import { appRoutes } from './routes'
 
 import {HttpClientModule} from '@angular/common/http';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { Daterangepicker, DaterangepickerConfig } from 'ng2-daterangepicker'
-import {NewRangePickerComponent} from './resourcePlans/datepicker2/datepicker2.component'
+
 
 import {Config} from './resourcePlans/res-plan.model'
 import { ModalCommunicator } from  './resourcePlans/modal-communicator.service'
@@ -75,7 +74,7 @@ export function initConfig(configSvc: ConfigService){
     ResPlanHeaderRowComponent,
     ResPlanTimescaleComponent,
     ResPlanWorkunitsComponent,
-    NewRangePickerComponent,
+
     MessageComponent,
     ErrorComponent,
     JumbotronComponent,
@@ -87,7 +86,7 @@ export function initConfig(configSvc: ConfigService){
     BrowserModule,
     RouterModule.forRoot(appRoutes ,  { enableTracing: true } )  ,
           ReactiveFormsModule ,
-          Daterangepicker,
+     
           HttpClientModule,
           Ng2SmartTableModule,
           FwModule
