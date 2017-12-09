@@ -30,6 +30,7 @@ import { AppStateService } from '../services/app-state.service'
     .margin-left{
         margin-left: 10px !important;
     }
+    
 body
 {
     height: 100%;
