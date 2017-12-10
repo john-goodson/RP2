@@ -133,13 +133,14 @@ export class ResPlanListComponent implements OnInit {
                 if (!val) {
                     val = 0;
                 }
-                if(this._appSvc.queryParams.workunits == WorkUnits.FTE)
-                {
-                    val = val /100;
-                }
-                sum += parseInt(val.toFixed(0))
+               
+                sum += val;
+               
             }
-
+            if(this._appSvc.queryParams.workunits == WorkUnits.FTE)
+            {
+                sum = sum /100;
+            }
             value["totals"][i]['intervalValue'] = new IntervalPipe().transform(sum.toString(), this.workunits);
 
         }
@@ -149,8 +150,9 @@ export class ResPlanListComponent implements OnInit {
     }
 
     checkTotal(val: string) {
+        debugger;
         if (this._appSvc.queryParams.workunits == WorkUnits.FTE) {
-            if (Number(val) > 1) {
+            if (parseInt(val) > 100) {
                 return "totalRed"
             }
             else return "totalGreen"
