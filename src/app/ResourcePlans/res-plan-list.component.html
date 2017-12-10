@@ -72,7 +72,8 @@
                                                     <div formArrayName="intervals">
                                                         <td class="body-cell col" *ngFor="let intrvl of proj.get('intervals').controls; index as k">
                                                             <div [formGroupName]="k">
-                                                                <input [ngClass]="intrvl.get('intervalValue').dirty && 'dirtyCell'" type="number" onClick="this.select()" autofocus formControlName="intervalValue" type="text" style="width:100%">
+                                                                <input [ngClass]="intrvl.get('intervalValue').dirty && 'dirtyCell'" type="number" onClick="this.select()" autofocus 
+                                                                formControlName="intervalValue" style="width:100%" [value]="intrvl.get('intervalValue').value">
                                                             </div>
                                                         </td>
                                                     </div>

@@ -6,25 +6,16 @@ import {WorkUnits} from "../resourcePlans/res-plan.model"
 export class IntervalPipe  {
 
   transform(value: string, workUnits: WorkUnits): string {
-    return this.getValue(value,workUnits) + this.getWorkUnitChar(workUnits);
+    return this.getValue(value,workUnits);
   }
 
-  getValue(value: string, workUnits: WorkUnits)
+  getValue(value: string, workUnits: WorkUnits) : string
   {
     if(workUnits == WorkUnits.FTE)
     {
-      return +(value) * 100;
+      return (+(value) * 100).toFixed(0);
     }
-    return value;
+    return (+(value)).toFixed(0);
   }
-  getWorkUnitChar(workUnits:WorkUnits) : string
-  {
-    switch(+(workUnits))
-    {
-      case WorkUnits.days: return 'd';
-      case WorkUnits.hours: return 'h';
-      case WorkUnits.FTE: return '%';
-      default : return '';
-    }
-  }
+  
 }

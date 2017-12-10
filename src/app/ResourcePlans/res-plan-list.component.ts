@@ -141,14 +141,23 @@ export class ResPlanListComponent implements OnInit {
             {
                 sum = sum /100;
             }
-            value["totals"][i]['intervalValue'] = new IntervalPipe().transform(sum.toString(), this.workunits);
+            value["totals"][i]['intervalValue'] = new IntervalPipe().transform(sum.toString(), this.workunits) +  this.getWorkUnitChar(this._appSvc.queryParams.workunits);
 
         }
         fg.setValue(value, { emitEvent: false });
         //console.log('Totals... ' + JSON.stringify(value) + "      stop....")
 
     }
-
+    getWorkUnitChar(workUnits:WorkUnits) : string
+    {
+      switch(+(workUnits))
+      {
+        case WorkUnits.days: return 'd';
+        case WorkUnits.hours: return 'h';
+        case WorkUnits.FTE: return '%';
+        default : return '';
+      }
+    }
     checkTotal(val: string) {
         debugger;
         if (this._appSvc.queryParams.workunits == WorkUnits.FTE) {
