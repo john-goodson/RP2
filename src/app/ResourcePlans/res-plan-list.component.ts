@@ -27,7 +27,7 @@ import { AppStateService } from '../services/app-state.service'
 @Component({
     selector: 'resplan-list',
     templateUrl: './res-plan-list.component.html',
-    styleUrls: ['./res-plan-list.component.css'] 
+    styleUrls: ['./res-plan-list.component.css']
 })
 
 
@@ -128,18 +128,25 @@ export class ResPlanListComponent implements OnInit {
             for (var j = 0; j < value["projects"].length; j++) {
                 if (value["projects"][j]["intervals"].length < 1)
                     continue;
-                var val = parseFloat(value["projects"][j]["intervals"][i]["intervalValue"]);
+                var val = parseInt(value["projects"][j]["intervals"][i]["intervalValue"]);
+                
                 if (!val) {
-                    val = 0.0;
+                    val = 0;
                 }
-                sum += val;
+                if(this._appSvc.queryParams.workunits == WorkUnits.FTE)
+                {
+                    val = val /100;
+                }
+                sum += parseInt(val.toFixed(0))
             }
+
             value["totals"][i]['intervalValue'] = new IntervalPipe().transform(sum.toString(), this.workunits);
+
         }
         fg.setValue(value, { emitEvent: false });
         //console.log('Totals... ' + JSON.stringify(value) + "      stop....")
 
-    }  
+    }
 
     checkTotal(val: string) {
         if (this._appSvc.queryParams.workunits == WorkUnits.FTE) {
@@ -149,7 +156,7 @@ export class ResPlanListComponent implements OnInit {
             else return "totalGreen"
         }
         else return ""
-       
+
     }
 
     buildResPlans(plans: IResPlan[]) {
@@ -204,7 +211,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     buildInterval(interval: IInterval): FormGroup {
-       
+
         return this.fb.group({
             intervalName: interval.intervalName,
             //intervalValue:  new PercentPipe(new IntervalPipe().transform(interval.intervalValue, this.workunits)  ).transform(interval.intervalValue)
@@ -220,7 +227,7 @@ export class ResPlanListComponent implements OnInit {
 
                 var total = this.fb.group({
                     intervalName: '',
-                    intervalValue:  new IntervalPipe().transform('0', this.workunits)
+                    intervalValue: new IntervalPipe().transform('0', this.workunits)
                 });
                 totals.push(total);
             }
