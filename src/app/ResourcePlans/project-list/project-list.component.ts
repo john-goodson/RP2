@@ -43,7 +43,8 @@ export class ProjectListComponent implements OnInit {
     //   title:'id'
     // },
     projName: {
-      title: 'Project Name'
+      title: 'Project Name',
+      width: '300'
     }
     ,
     owner :

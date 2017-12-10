@@ -17,7 +17,7 @@ export const appRoutes: Routes = [
         { path: 'resPlans', component: ResPlanListComponent ,  resolve: {resPlans: ResourcePlansResolverService }
      },
         { path: 'jumbotron', component: JumbotronComponent},
-        { path: 'foo', component: JumbotronComponent  }
+        { path: 'perview', component: JumbotronComponent  }
         // { path: 'resPlans', component: ResPlanListComponent },
       ]
 }
