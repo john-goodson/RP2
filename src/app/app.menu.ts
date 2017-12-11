@@ -5,29 +5,13 @@ import { MenuItem } from '../fw/services/menu.service';
 import { CurrentCalendarYear, CurrentFiscalYear, Next12Months, NextYear } from './common/utilities'
 
 export let _currentCalYear = new CurrentCalendarYear()
-export let _CurrentFiscalYer = new CurrentFiscalYear() 
+export let _CurrentFiscalYer = new CurrentFiscalYear()
 export let _next12Months = new Next12Months()
 export let _nextYear = new NextYear()
 
 
 export let initialMenuItems: Array<MenuItem> = [
-    {
-        text: 'Dashboard',
-        icon: 'glyphicon-dashboard',
-        route: 'home/jumbotron',
-        submenu: null
-    },
-    {
-        text: 'Work Scale',
-        icon: 'glyphicon-dashboard',
-        route: 'home/jumbotron',
-        params: { fromDate: _currentCalYear.startDate,
-                    toDate: _currentCalYear.endDate,
-                    timescale: 5,
-                    workunits: 3 },
-        submenu: null
-    },
-
+  
     {
         text: 'Date Range',
         icon: '	glyphicon-calendar',
@@ -36,58 +20,118 @@ export let initialMenuItems: Array<MenuItem> = [
             {
                 text: 'This Year',
                 icon: 'glyphicon-calendar',
-                route: 'home/resPlans',
-                params: { fromDate: _currentCalYear.startDate,
-                            toDate: _currentCalYear.endDate,
-                            timescale: 5,
-                            workunits: 3 },
+                route: '/home/resPlans',
+                params: {
+                    fromDate: _currentCalYear.startDate,
+                    toDate: _currentCalYear.endDate
+                },
                 submenu: null
             },
             {
                 text: 'Next 12 Months',
                 icon: 'glyphicon-calendar',
-                route: 'home/resPlans',
-                params: { fromDate: _next12Months.startDate,
-                            toDate: _next12Months.endDate,
-                            timescale: 5,
-                            workunits: 3 },
+                route: '/home/resPlans',
+                params: {
+                    fromDate: _next12Months.startDate,
+                    toDate: _next12Months.endDate
+                },
                 submenu: null
             },
             {
                 text: 'Next Year',
                 icon: 'glyphicon-calendar',
-                route: 'home/resPlans',
-                params: { fromDate: _nextYear.startDate,
-                            toDate: _nextYear.endDate,
-                            timescale: 5,
-                            workunits: 3 },
-                submenu: null
-            },
-            {
-                text: 'Custom Date',
-                icon: 'glyphicon-calendar',
-                route: 'customDate',
+                route: '/home/resPlans',
+                params: {
+                    fromDate: _nextYear.startDate,
+                    toDate: _nextYear.endDate
+                },
                 submenu: null
             }
+            // {
+            //     text: 'Custom Date',
+            //     icon: 'glyphicon-calendar',
+            //     route: 'customDate',
+            //     submenu: null
+            // }
         ],
-    },
+    }
+    ,
     {
-        text: 'Maintenance',
-        icon: 'glyphicon-wrench',
+        text: 'Work Scale',
+        icon: 'glyphicon-dashboard',
         route: null,
         submenu: [
             {
-                text: 'Country Maint',
-                icon: 'glyphicon-th-list',
-                route: 'authenticated/country-maint',
+                text: 'FTE',
+                icon: '',
+                route: '/home/resPlans',
+                params: {
+                    workunits: '3'
+                },
+                submenu: null
+            }
+            , {
+                text: 'Days',
+                icon: '',
+                route: '/home/resPlans',
+                params: {
+                    workunits: '2'
+                },
                 submenu: null
             },
             {
-                text: 'Settings',
-                icon: 'glyphicon-cog',
-                route: 'authenticated/settings',
+                text: 'Hours',
+                icon: '',
+                route: '/home/resPlans',
+                params: {
+                    workunits: '1'
+                },
                 submenu: null
             }
+            
         ]
-    }
+    },
+    {
+        text: 'Time Scale',
+        icon: 'glyphicon-dashboard',
+        route: null,
+        submenu: [
+            {
+                text: 'Months',
+                icon: '',
+                route: '/home/resPlans',
+                params: {
+                    timescale: '5'
+                },
+                submenu: null
+            }
+            , {
+                text: 'Years',
+                icon: '',
+                route: '/home/resPlans',
+                params: {
+                    timescale: '7'
+                },
+                submenu: null
+            },
+            {
+                text: 'Weeks',
+                icon: '',
+                route: '/home/resPlans',
+                params: {
+                    timescale: '4'
+                },
+                submenu: null
+            }
+            
+        ]
+    },
+    
+    {
+        text: 'Exit to Perview',
+        icon: 'glyphicon-dashboard',
+        route: '/home/perview',
+        submenu: null,
+        params: {}
+    },
 ];

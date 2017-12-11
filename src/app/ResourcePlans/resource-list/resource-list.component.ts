@@ -15,7 +15,7 @@ import { Observable } from 'Rxjs'
 @Component({
   selector: 'resource-list',
   templateUrl: './resource-list.component.html',
-  styleUrls: ['./resource-list.component.css']
+  styleUrls: ['./resource-list.component.scss']
 })
 export class ResourceListComponent implements OnInit {
   resData: IResource[];
@@ -30,7 +30,7 @@ export class ResourceListComponent implements OnInit {
     },
     pager:{
       display:true,
-      perPage:8
+      perPage:12
     },
   columns: {
     

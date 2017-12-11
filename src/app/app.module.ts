@@ -8,8 +8,7 @@ import { appRoutes } from './routes'
 
 import {HttpClientModule} from '@angular/common/http';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { Daterangepicker, DaterangepickerConfig } from 'ng2-daterangepicker'
-import {NewRangePickerComponent} from './resourcePlans/datepicker2/datepicker2.component'
+
 
 import {Config} from './resourcePlans/res-plan.model'
 import { ModalCommunicator } from  './resourcePlans/modal-communicator.service'
@@ -19,8 +18,6 @@ import { AppStateService } from  './services/app-state.service'
 import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component';
 
 
-
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { CollapsibleWellComponent} from './common/collapsible-well.component'
 import { HeaderRowComponent} from './common/header-row.component'
@@ -48,14 +45,14 @@ import { SPListService } from './services/sp-list.service';
 import { ResPlanHomeComponent } from './resourcePlans/res-plan-home/res-plan-home.component';
 import { ResPlanHeaderRowComponent } from './resourcePlans/res-plan-header-row/res-plan-header-row.component';
 import { ResPlanTimescaleComponent } from './res-plan-timescale/res-plan-timescale.component';
-import { DateRangePickerComponent } from './resourcePlans/date-range-picker/date-range-picker.component';
 import { ResPlanWorkunitsComponent } from './resourcePlans/res-plan-workunits/res-plan-workunits.component';
 import { IntervalPipe } from './common/interval.pipe'
 import { MessageComponent} from './resourcePlans/messageComponent/message.component'
 import { ErrorComponent} from './resourcePlans/errorComponent/error.component'
 import { FwModule} from '../fw/fw.module'
 import { JumbotronComponent} from './jumbotron/jumbotron.component';
-import { ResPlanListTesterComponent } from './resourcePlans/res-plan-list-tester/res-plan-list-tester.component'
+import { ResPlanListTesterComponent } from './resourcePlans/res-plan-list-tester/res-plan-list-tester.component';
+import { IntervalMaskDirective } from './directives/interval-mask.directive'
 
 //let jQuery : Object;// Add this function
 export function initConfig(configSvc: ConfigService){
@@ -77,21 +74,21 @@ export function initConfig(configSvc: ConfigService){
     ResPlanHomeComponent,
     ResPlanHeaderRowComponent,
     ResPlanTimescaleComponent,
-    DateRangePickerComponent,
     ResPlanWorkunitsComponent,
-    NewRangePickerComponent,
+
     MessageComponent,
     ErrorComponent,
     JumbotronComponent,
     IntervalPipe,
-    ResPlanListTesterComponent
+    ResPlanListTesterComponent,
+    IntervalMaskDirective
   ],
 
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes ,  { enableTracing: true } )  ,
           ReactiveFormsModule ,
-          Daterangepicker,
+     
           HttpClientModule,
           Ng2SmartTableModule,
           FwModule

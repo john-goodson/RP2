@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //services
 import { FrameworkConfigService } from './services/framework-config.service'
 import { MenuService } from './services/menu.service' 
@@ -26,7 +26,8 @@ import { ScreenLarge } from './directives/screen-large.directive'
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    BrowserAnimationsModule
   ],
   declarations: [
     FrameworkBodyComponent,

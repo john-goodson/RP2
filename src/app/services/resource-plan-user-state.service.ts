@@ -342,12 +342,15 @@ export class ResourcePlanUserStateService {
                 }
                 //weed out stale publish projects
                 rp.projects =  rp.projects.filter(p=>p.stalePublish == false && p.intervals && p.intervals.length > 0);
-                
+                rp.projects = rp.projects.sort((a,b)=>{
+                    return a.projName.localeCompare(b.projName);
+                })
             })
             rps.findIndex(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000") > -1 &&
              rps.splice(rps.findIndex(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000"), 1)
             return rps;
            })
+           
     }
 
     getDateFormatString(date: Date): string {
@@ -691,12 +694,11 @@ export class ResourcePlanUserStateService {
                         let options = {
                             headers: headers
                         }
-                        debugger;
+                        
                         let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID0":${resourcesJSON}}"}` //dev
                         //let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID":${resourcesJSON}}"}` //qa
                         return this.http.post(data["d"].results[0].__metadata.uri, body, options)
                             .map((response: Response) => {
-                               debugger;
                                     var result=  new Result();
                                     result.success = true;
                                     return result;
