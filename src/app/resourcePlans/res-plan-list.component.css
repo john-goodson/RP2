@@ -43,12 +43,12 @@ overflow: hidden;
 {
 position: relative;
 }
-.table-body
+/* .table-body
 {
 overflow: auto;
 height:auto;
 width:auto;
-}
+} */
 .header-cell
 {
 text-align: left;

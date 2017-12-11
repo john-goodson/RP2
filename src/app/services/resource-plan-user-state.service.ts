@@ -52,7 +52,7 @@ export class ResourcePlanUserStateService {
 
         //remember to change UID0 to UID
         //let select = '$select=ResourceUID0'  //dev
-        let select = '$select=ResourceUID'  //qa
+        let select = '$select=ResourceUID0'  //qa
         let filter = `$filter=ResourceManagerUID eq '${resUid}'`;
         //1. get data from SP List UserState 
         let url = baseUrl + '?' + filter + '&' + select;
@@ -283,7 +283,7 @@ export class ResourcePlanUserStateService {
                 }
                 let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName + '"}').join(",")}]'`
                 let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceManagerUID": "${resMgrUid}"
-                ,"ResourceUID":${resourcesJSON}}`;
+                ,"ResourceUID0":${resourcesJSON}}`;
                 return this.http.post(url, body, options)
                     .map(r => {
                         let result = new Result();
