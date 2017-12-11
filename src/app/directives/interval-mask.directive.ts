@@ -17,7 +17,6 @@ export class IntervalMaskDirective {
   onInputChange(event, backspace) {
     var regex = /^\d+(\.\d+)?$/
     var newVal;
-    debugger;
     if (regex.test(event.target.value + String.fromCharCode(event.keyCode))) {
       newVal = event.target.value;
     }

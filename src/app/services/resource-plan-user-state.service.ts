@@ -693,12 +693,11 @@ export class ResourcePlanUserStateService {
                         let options = {
                             headers: headers
                         }
-                        debugger;
+                        
                         let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID0":${resourcesJSON}}"}` //dev
                         //let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID":${resourcesJSON}}"}` //qa
                         return this.http.post(data["d"].results[0].__metadata.uri, body, options)
                             .map((response: Response) => {
-                               debugger;
                                     var result=  new Result();
                                     result.success = true;
                                     return result;

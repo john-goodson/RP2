@@ -24,7 +24,7 @@ declare var $ :any;
       </div>
       <div class = "modal-footer">
       <button type="button" (click) = "submit()" class="btn btn-primary">{{primaryBtnText}} </button>
-      <button type="button" class="btn btn-cancel">Cancel</button>
+      <button type="button" class="btn btn-cancel" (click)="closeModal()">Cancel</button>
       </div>
     </div>
   </div>
@@ -32,8 +32,8 @@ declare var $ :any;
 
   `,
   styles: [`
-    .modal-body { height: auto; overflow-y: scroll; }, 
-    .modal-dialog { position: absolute; margin-left: 200px; height: 400px; width: 333}
+    .modal-body { height: auto; overflow-y: scroll;width:auto; }, 
+    .modal-dialog { position: absolute; margin-left: 200px; height: 400px; width: auto;}
 
   `]
 })

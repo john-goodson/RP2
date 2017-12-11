@@ -67,4 +67,8 @@
       justify-content: center;
     }
   }
+
+  th[ng2-st-checkbox-select-all]  input[type="checkbox"] {
+   display:none;
+  }
 }

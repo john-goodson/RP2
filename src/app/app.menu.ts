@@ -20,7 +20,7 @@ export let initialMenuItems: Array<MenuItem> = [
             {
                 text: 'This Year',
                 icon: 'glyphicon-calendar',
-                route: 'home/resPlans',
+                route: '/home/resPlans',
                 params: {
                     fromDate: _currentCalYear.startDate,
                     toDate: _currentCalYear.endDate
@@ -30,7 +30,7 @@ export let initialMenuItems: Array<MenuItem> = [
             {
                 text: 'Next 12 Months',
                 icon: 'glyphicon-calendar',
-                route: 'home/resPlans',
+                route: '/home/resPlans',
                 params: {
                     fromDate: _next12Months.startDate,
                     toDate: _next12Months.endDate
@@ -40,7 +40,7 @@ export let initialMenuItems: Array<MenuItem> = [
             {
                 text: 'Next Year',
                 icon: 'glyphicon-calendar',
-                route: 'home/resPlans',
+                route: '/home/resPlans',
                 params: {
                     fromDate: _nextYear.startDate,
                     toDate: _nextYear.endDate
@@ -64,7 +64,7 @@ export let initialMenuItems: Array<MenuItem> = [
             {
                 text: 'FTE',
                 icon: '',
-                route: 'home/resPlans',
+                route: '/home/resPlans',
                 params: {
                     workunits: '3'
                 },
@@ -73,7 +73,7 @@ export let initialMenuItems: Array<MenuItem> = [
             , {
                 text: 'Days',
                 icon: '',
-                route: 'home/resPlans',
+                route: '/home/resPlans',
                 params: {
                     workunits: '2'
                 },
@@ -82,7 +82,7 @@ export let initialMenuItems: Array<MenuItem> = [
             {
                 text: 'Hours',
                 icon: '',
-                route: 'home/resPlans',
+                route: '/home/resPlans',
                 params: {
                     workunits: '1'
                 },
@@ -99,7 +99,7 @@ export let initialMenuItems: Array<MenuItem> = [
             {
                 text: 'Months',
                 icon: '',
-                route: 'home/resPlans',
+                route: '/home/resPlans',
                 params: {
                     timescale: '5'
                 },
@@ -108,7 +108,7 @@ export let initialMenuItems: Array<MenuItem> = [
             , {
                 text: 'Years',
                 icon: '',
-                route: 'home/resPlans',
+                route: '/home/resPlans',
                 params: {
                     timescale: '7'
                 },
@@ -117,7 +117,7 @@ export let initialMenuItems: Array<MenuItem> = [
             {
                 text: 'Weeks',
                 icon: '',
-                route: 'home/resPlans',
+                route: '/home/resPlans',
                 params: {
                     timescale: '4'
                 },
@@ -130,8 +130,8 @@ export let initialMenuItems: Array<MenuItem> = [
     {
         text: 'Exit to Perview',
         icon: 'glyphicon-dashboard',
-        route: 'jumbotron',
+        route: '/home/perview',
         submenu: null,
-        params: null
+        params: {}
     },
 ];

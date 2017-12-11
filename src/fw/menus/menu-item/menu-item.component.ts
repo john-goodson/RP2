@@ -74,7 +74,6 @@ export class MenuItemComponent implements OnInit {
           this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
           this.router.isActive = function () { return false; }
           let currentYear = new CurrentCalendarYear()
-          debugger;
         //   if(!this.item.params["timescale"])
         //   {
         //     this.item.params["timescale"] = this.activatedRoute.snapshot.queryParams["timescale"] || Timescale.calendarMonths;
@@ -96,7 +95,7 @@ export class MenuItemComponent implements OnInit {
         //   }
 
           
-      this.router.navigate(['/' + this.item.route, this.item.params],{ preserveQueryParams:true} );
+      this.router.navigate([this.item.route, this.item.params],{ preserveQueryParams:true} );
         
     }
   }
