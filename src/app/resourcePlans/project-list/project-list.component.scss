@@ -24,7 +24,8 @@
 
     ng2-smart-table-cell {
       color:black;
-      line-height: 35px;
+      line-height: 10px;
+      height: 10px;
     }
 
     tbody {
@@ -66,9 +67,15 @@
       display: flex;
       justify-content: center;
     }
+    
   }
 
   th[ng2-st-checkbox-select-all]  input[type="checkbox"] {
    display:none;
   }
+  .ng2-smart-actions input[type="checkbox"] {
+    width:20px;
+    height:20px;
 }
+}
+  

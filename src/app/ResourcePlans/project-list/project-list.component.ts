@@ -35,7 +35,7 @@ export class ProjectListComponent implements OnInit {
     },
     pager:{
       display:true,
-      perPage:8
+      perPage:12
     },
   columns: {
     // id: {
@@ -44,30 +44,31 @@ export class ProjectListComponent implements OnInit {
     // },
     projName: {
       title: 'Project Name',
-      width: '300'
+      width: '250px'
     }
     ,
     owner :
     {
-       title:'Owner'
-    }
-    ,startDate:
-    {
-      title:'Start Date'
-    }
-    ,finishDate:
-    {
-      title:'Finish Date'
-    }
-    ,
+       title:'Owner',
+       width: '100px'
+    },
+    // ,startDate:
+    // {
+    //   title:'Start Date'
+    // }
+    // ,finishDate:
+    // {
+    //   title:'Finish Date'
+    // }
+    // ,
     projectChargeBackCategory :
     {
       title:'Project Chargeback'
     }
-    ,departments:
-    {
-      title:'Departments'
-    }
+    // ,departments:
+    // {
+    //   title:'Departments'
+    // }
     
     
   }
