@@ -52,6 +52,7 @@ data:IResource[];
   }
 
   ngOnInit() {
+    //
     this._modalResSvc.ResourcesSelected$.subscribe((resourcesPicked: IResource[]) => {
       this._appSvc.loading(true);
       this._resSvc.getResources().subscribe(resources => {
