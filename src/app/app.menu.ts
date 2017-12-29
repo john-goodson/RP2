@@ -46,13 +46,14 @@ export let initialMenuItems: Array<MenuItem> = [
                     toDate: _nextYear.endDate
                 },
                 submenu: null
+            },
+            {
+                text: 'Custom Dates',
+                icon: 'glyphicon-calendar',
+                route: '/home/customDates',
+                submenu: null,
+                params: {}
             }
-            // {
-            //     text: 'Custom Date',
-            //     icon: 'glyphicon-calendar',
-            //     route: 'customDate',
-            //     submenu: null
-            // }
         ],
     }
     ,

@@ -29,7 +29,7 @@ import { ResPlanListComponent} from './resourcePlans/res-plan-list.component'
 import { SimpleModalComponent} from './common/simple-modal.component';
 import { ProjectListComponent } from './resourcePlans/project-list/project-list.component';
 
-import {MatDatepickerModule,MatInputModule,MatNativeDateModule,MatTableModule} from '@angular/material';
+import {MatDatepickerModule,MatInputModule,MatNativeDateModule,MatTableModule,MatButtonModule} from '@angular/material';
 
 
 import {ProjectService} from './services/project-service.service'
@@ -100,7 +100,8 @@ export function initConfig(configSvc: ConfigService){
          MatDatepickerModule,
          MatInputModule,
          MatNativeDateModule,
-         MatTableModule
+         MatTableModule,
+         MatButtonModule,
           
   ],
   

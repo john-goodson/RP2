@@ -38,6 +38,10 @@ pm-app div.panel.panel-primary {
     transition: transform .5s ease;
 }
 
+ @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; 
+
+
+
 @keyframes slideIn {
   from {
     transform: translate(-200px);

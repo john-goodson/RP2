@@ -1,11 +1,17 @@
 <fw-panel>
     <div>
             <mat-form-field>
-                    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                    <input #start matInput [matDatepicker]="startPicker" placeholder="Start Date" [formControl]="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startPicker></mat-datepicker>
                   </mat-form-field>
 
+                  <mat-form-field>
+                        <input #end matInput [matDatepicker]="endPicker" placeholder="End Date" [formControl]="endDate">
+                        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #endPicker></mat-datepicker>
+                </mat-form-field>
+                <button mat-raised-button (click)="SelectDates(start.value,end.value)">Apply</button>
 
 
     </div>

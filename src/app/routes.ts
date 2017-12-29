@@ -17,7 +17,7 @@ export const appRoutes: Routes = [
         { path: '', redirectTo: 'resPlans', pathMatch: 'full'},
         { path: 'resPlans', component: ResPlanListComponent ,  resolve: {resPlans: ResourcePlansResolverService }
      },
-        { path: 'jumbotron', component: DateRangePicker},
+        { path: 'customDates', component: DateRangePicker},
         { path: 'perview', redirectTo: "http://foo.wingtip.com/pwa" ,pathMatch: 'full'}
         // { path: 'resPlans', component: ResPlanListComponent },
       ]
