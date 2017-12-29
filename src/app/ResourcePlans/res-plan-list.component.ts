@@ -210,7 +210,8 @@ export class ResPlanListComponent implements OnInit {
                 readOnlyReason: this.fb.control(_project.readOnlyReason),
                 intervals: this.fb.array([]),
                 selected: this.fb.control(false),
-
+                startDate:_project.startDate,
+                finishDate:_project.finishDate
             });
         for (var i = 0; i < _project.intervals.length; i++) {
             var interval = this.buildInterval(_project.intervals[i]);

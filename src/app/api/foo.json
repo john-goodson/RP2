@@ -1,717 +1,206 @@
 [
   {
-    "projUid": "e7808e36-588a-e711-80cc-00155d005a03",
-    "projName": "Centennial Hospital Urology Credentialing",
-    "selected": false,
-    "intervals": null,
-    "readOnly": false,
-    "stalePublish": false,
-    "readOnlyReason": null,
-    "CustomFields": [
+    "resource": {
+      "resUid": "fb31d63d-967c-e711-80cc-00155d005a03",
+      "resName": "Christina Wheeler",
+      "selected": false,
+      "CustomFields": null
+    },
+    "projects": [
       {
-        "Name": "Project Name",
-        "Value": "Centennial Hospital Urology Credentialing"
-      },
-      {
-        "Name": "Project Active Status",
-        "Value": "In-Progress"
-      },
-      {
-        "Name": "Start",
-        "Value": "8/26/2017 12:00 AM"
-      },
-      {
-        "Name": "Finish",
-        "Value": "8/26/2017 8:00 AM"
-      },
-      {
-        "Name": "% Complete",
-        "Value": "0%"
-      },
-      {
-        "Name": "Work",
-        "Value": "0h"
-      },
-      {
-        "Name": "Duration",
-        "Value": "0d"
-      },
-      {
-        "Name": "Owner",
-        "Value": "John Goodson"
-      },
-      {
-        "Name": "Last Published",
-        "Value": "11/24/2017 9:18 AM"
-      },
-      {
-        "Name": "Project Chargeback Category",
-        "Value": "Credentialling"
-      },
-      {
-        "Name": "Project Departments",
-        "Value": "ProjSvcs"
+        "projUid": "afa7fbbe-e361-e711-80cc-00155d005a03",
+        "projName": "project 1",
+        "selected": false,
+        "intervals": [
+          {
+            "intervalName": "Interval0",
+            "intervalValue": "1",
+            "start": "12/1/2017",
+            "end": "1/1/2018"
+          },
+          {
+            "intervalName": "Interval1",
+            "intervalValue": "0.56",
+            "start": "1/1/2018",
+            "end": "2/1/2018"
+          },
+          {
+            "intervalName": "Interval2",
+            "intervalValue": "0",
+            "start": "2/1/2018",
+            "end": "3/1/2018"
+          },
+          {
+            "intervalName": "Interval3",
+            "intervalValue": "0.22",
+            "start": "3/1/2018",
+            "end": "4/1/2018"
+          },
+          {
+            "intervalName": "Interval4",
+            "intervalValue": "0",
+            "start": "4/1/2018",
+            "end": "5/1/2018"
+          },
+          {
+            "intervalName": "Interval5",
+            "intervalValue": "0",
+            "start": "5/1/2018",
+            "end": "6/1/2018"
+          },
+          {
+            "intervalName": "Interval6",
+            "intervalValue": "0",
+            "start": "6/1/2018",
+            "end": "7/1/2018"
+          },
+          {
+            "intervalName": "Interval7",
+            "intervalValue": "0",
+            "start": "7/1/2018",
+            "end": "8/1/2018"
+          },
+          {
+            "intervalName": "Interval8",
+            "intervalValue": "0",
+            "start": "8/1/2018",
+            "end": "9/1/2018"
+          },
+          {
+            "intervalName": "Interval9",
+            "intervalValue": "0",
+            "start": "9/1/2018",
+            "end": "10/1/2018"
+          },
+          {
+            "intervalName": "Interval10",
+            "intervalValue": "0",
+            "start": "10/1/2018",
+            "end": "11/1/2018"
+          },
+          {
+            "intervalName": "Interval11",
+            "intervalValue": "0",
+            "start": "11/1/2018",
+            "end": "12/1/2018"
+          },
+          {
+            "intervalName": "Interval12",
+            "intervalValue": "0",
+            "start": "12/1/2018",
+            "end": "1/1/2019"
+          }
+        ],
+        "readOnly": false,
+        "stalePublish": false,
+        "readOnlyReason": null,
+        "startDate": null,
+        "finishDate": null,
+        "CustomFields": null
       }
-    ]
+    ],
+    "selected": false
   },
   {
-    "projUid": "afa7fbbe-e361-e711-80cc-00155d005a03",
-    "projName": "project 1",
-    "selected": false,
-    "intervals": null,
-    "readOnly": false,
-    "stalePublish": false,
-    "readOnlyReason": null,
-    "CustomFields": [
+    "resource": {
+      "resUid": "8181fe64-e261-e711-80cc-00155d005a03",
+      "resName": "John Goodson",
+      "selected": false,
+      "CustomFields": null
+    },
+    "projects": [
       {
-        "Name": "Project Name",
-        "Value": "project 1"
-      },
-      {
-        "Name": "Project Active Status",
-        "Value": "In-Progress"
-      },
-      {
-        "Name": "Start",
-        "Value": "7/5/2017 12:00 AM"
-      },
-      {
-        "Name": "Finish",
-        "Value": "7/24/2017 5:00 PM"
-      },
-      {
-        "Name": "% Complete",
-        "Value": "0%"
-      },
-      {
-        "Name": "Work",
-        "Value": "0h"
-      },
-      {
-        "Name": "Duration",
-        "Value": "14d"
-      },
-      {
-        "Name": "Owner",
-        "Value": "John Goodson"
-      },
-      {
-        "Name": "Last Published",
-        "Value": "11/24/2017 11:54 AM"
-      },
-      {
-        "Name": "Project Chargeback Category",
-        "Value": "Credentialling"
-      },
-      {
-        "Name": "Project Departments",
-        "Value": "ITS, ProjSvcs"
+        "projUid": "afa7fbbe-e361-e711-80cc-00155d005a03",
+        "projName": "project 1",
+        "selected": false,
+        "intervals": [
+          {
+            "intervalName": "Interval0",
+            "intervalValue": "0",
+            "start": "12/1/2017",
+            "end": "1/1/2018"
+          },
+          {
+            "intervalName": "Interval1",
+            "intervalValue": "0",
+            "start": "1/1/2018",
+            "end": "2/1/2018"
+          },
+          {
+            "intervalName": "Interval2",
+            "intervalValue": "0",
+            "start": "2/1/2018",
+            "end": "3/1/2018"
+          },
+          {
+            "intervalName": "Interval3",
+            "intervalValue": "0",
+            "start": "3/1/2018",
+            "end": "4/1/2018"
+          },
+          {
+            "intervalName": "Interval4",
+            "intervalValue": "0",
+            "start": "4/1/2018",
+            "end": "5/1/2018"
+          },
+          {
+            "intervalName": "Interval5",
+            "intervalValue": "0",
+            "start": "5/1/2018",
+            "end": "6/1/2018"
+          },
+          {
+            "intervalName": "Interval6",
+            "intervalValue": "0",
+            "start": "6/1/2018",
+            "end": "7/1/2018"
+          },
+          {
+            "intervalName": "Interval7",
+            "intervalValue": "0",
+            "start": "7/1/2018",
+            "end": "8/1/2018"
+          },
+          {
+            "intervalName": "Interval8",
+            "intervalValue": "0",
+            "start": "8/1/2018",
+            "end": "9/1/2018"
+          },
+          {
+            "intervalName": "Interval9",
+            "intervalValue": "0",
+            "start": "9/1/2018",
+            "end": "10/1/2018"
+          },
+          {
+            "intervalName": "Interval10",
+            "intervalValue": "0",
+            "start": "10/1/2018",
+            "end": "11/1/2018"
+          },
+          {
+            "intervalName": "Interval11",
+            "intervalValue": "0",
+            "start": "11/1/2018",
+            "end": "12/1/2018"
+          },
+          {
+            "intervalName": "Interval12",
+            "intervalValue": "0",
+            "start": "12/1/2018",
+            "end": "1/1/2019"
+          }
+        ],
+        "readOnly": false,
+        "stalePublish": false,
+        "readOnlyReason": null,
+        "startDate": null,
+        "finishDate": null,
+        "CustomFields": null
       }
-    ]
-  },
-  {
-    "projUid": "ba42bbfe-e361-e711-80cc-00155d005a03",
-    "projName": "project2",
-    "selected": false,
-    "intervals": null,
-    "readOnly": false,
-    "stalePublish": false,
-    "readOnlyReason": null,
-    "CustomFields": [
-      {
-        "Name": "Project Name",
-        "Value": "project2"
-      },
-      {
-        "Name": "Project Active Status",
-        "Value": "In-Progress"
-      },
-      {
-        "Name": "Start",
-        "Value": "7/5/2017 8:00 AM"
-      },
-      {
-        "Name": "Finish",
-        "Value": "7/5/2017 8:00 AM"
-      },
-      {
-        "Name": "% Complete",
-        "Value": "0%"
-      },
-      {
-        "Name": "Work",
-        "Value": "0h"
-      },
-      {
-        "Name": "Duration",
-        "Value": "0d"
-      },
-      {
-        "Name": "Owner",
-        "Value": "John Goodson"
-      },
-      {
-        "Name": "Last Published",
-        "Value": "11/8/2017 5:58 PM"
-      },
-      {
-        "Name": "Project Chargeback Category",
-        "Value": "Credentialling"
-      },
-      {
-        "Name": "Project Departments",
-        "Value": "ITS"
-      }
-    ]
-  },
-  {
-    "projUid": "5002ac33-39ce-e711-80d1-00155dcd8a01",
-    "projName": "Test New Project",
-    "selected": false,
-    "intervals": null,
-    "readOnly": false,
-    "stalePublish": false,
-    "readOnlyReason": null,
-    "CustomFields": [
-      {
-        "Name": "Project Name",
-        "Value": "Test New Project"
-      },
-      {
-        "Name": "Project Active Status",
-        "Value": "In-Progress"
-      },
-      {
-        "Name": "Start",
-        "Value": "11/20/2017 8:00 AM"
-      },
-      {
-        "Name": "Finish",
-        "Value": "11/20/2017 8:00 AM"
-      },
-      {
-        "Name": "% Complete",
-        "Value": "0%"
-      },
-      {
-        "Name": "Work",
-        "Value": "0h"
-      },
-      {
-        "Name": "Duration",
-        "Value": "0d"
-      },
-      {
-        "Name": "Owner",
-        "Value": "Ted Pattison"
-      },
-      {
-        "Name": "Last Published",
-        "Value": "11/20/2017 3:25 PM"
-      },
-      {
-        "Name": "Project Chargeback Category",
-        "Value": ""
-      },
-      {
-        "Name": "Project Departments",
-        "Value": ""
-      }
-    ]
-  },
-  {
-    "projUid": "65230235-3fce-e711-80d1-00155dcd8a01",
-    "projName": "Test New Project 2",
-    "selected": false,
-    "intervals": null,
-    "readOnly": false,
-    "stalePublish": false,
-    "readOnlyReason": null,
-    "CustomFields": [
-      {
-        "Name": "Project Name",
-        "Value": "Test New Project 2"
-      },
-      {
-        "Name": "Project Active Status",
-        "Value": "In-Progress"
-      },
-      {
-        "Name": "Start",
-        "Value": "11/20/2017 8:00 AM"
-      },
-      {
-        "Name": "Finish",
-        "Value": "11/20/2017 8:00 AM"
-      },
-      {
-        "Name": "% Complete",
-        "Value": "0%"
-      },
-      {
-        "Name": "Work",
-        "Value": "0h"
-      },
-      {
-        "Name": "Duration",
-        "Value": "0d"
-      },
-      {
-        "Name": "Owner",
-        "Value": "Ted Pattison"
-      },
-      {
-        "Name": "Last Published",
-        "Value": "11/20/2017 4:08 PM"
-      },
-      {
-        "Name": "Project Chargeback Category",
-        "Value": ""
-      },
-      {
-        "Name": "Project Departments",
-        "Value": ""
-      }
-    ]
-  },
-  {
-    "projUid": "106ff943-40ce-e711-80d1-00155dcd8a01",
-    "projName": "Test Project 3",
-    "selected": false,
-    "intervals": null,
-    "readOnly": false,
-    "stalePublish": false,
-    "readOnlyReason": null,
-    "CustomFields": [
-      {
-        "Name": "Project Name",
-        "Value": "Test Project 3"
-      },
-      {
-        "Name": "Project Active Status",
-        "Value": "In-Progress"
-      },
-      {
-        "Name": "Start",
-        "Value": "11/20/2017 8:00 AM"
-      },
-      {
-        "Name": "Finish",
-        "Value": "11/20/2017 8:00 AM"
-      },
-      {
-        "Name": "% Complete",
-        "Value": "0%"
-      },
-      {
-        "Name": "Work",
-        "Value": "0h"
-      },
-      {
-        "Name": "Duration",
-        "Value": "0d"
-      },
-      {
-        "Name": "Owner",
-        "Value": "Ted Pattison"
-      },
-      {
-        "Name": "Last Published",
-        "Value": "11/20/2017 4:15 PM"
-      },
-      {
-        "Name": "Project Chargeback Category",
-        "Value": ""
-      },
-      {
-        "Name": "Project Departments",
-        "Value": ""
-      }
-    ]
-  },
-  {
-    "projUid": "438f0002-41ce-e711-80d1-00155dcd8a01",
-    "projName": "Test project 4",
-    "selected": false,
-    "intervals": null,
-    "readOnly": false,
-    "stalePublish": false,
-    "readOnlyReason": null,
-    "CustomFields": [
-      {
-        "Name": "Project Name",
-        "Value": "Test project 4"
-      },
-      {
-        "Name": "Project Active Status",
-        "Value": "In-Progress"
-      },
-      {
-        "Name": "Start",
-        "Value": "11/20/2017 8:00 AM"
-      },
-      {
-        "Name": "Finish",
-        "Value": "11/20/2017 8:00 AM"
-      },
-      {
-        "Name": "% Complete",
-        "Value": "0%"
-      },
-      {
-        "Name": "Work",
-        "Value": "0h"
-      },
-      {
-        "Name": "Duration",
-        "Value": "0d"
-      },
-      {
-        "Name": "Owner",
-        "Value": "Ted Pattison"
-      },
-      {
-        "Name": "Last Published",
-        "Value": "11/20/2017 4:21 PM"
-      },
-      {
-        "Name": "Project Chargeback Category",
-        "Value": ""
-      },
-      {
-        "Name": "Project Departments",
-        "Value": ""
-      }
-    ]
-  },
-  {
-    "projUid": "a32ca508-bace-e711-80d1-00155dcd8a01",
-    "projName": "Test Project 5",
-    "selected": false,
-    "intervals": null,
-    "readOnly": false,
-    "stalePublish": false,
-    "readOnlyReason": null,
-    "CustomFields": [
-      {
-        "Name": "Project Name",
-        "Value": "Test Project 5"
-      },
-      {
-        "Name": "Project Active Status",
-        "Value": ""
-      },
-      {
-        "Name": "Start",
-        "Value": "11/21/2017 8:00 AM"
-      },
-      {
-        "Name": "Finish",
-        "Value": "11/21/2017 8:00 AM"
-      },
-      {
-        "Name": "% Complete",
-        "Value": "0%"
-      },
-      {
-        "Name": "Work",
-        "Value": "0h"
-      },
-      {
-        "Name": "Duration",
-        "Value": "0d"
-      },
-      {
-        "Name": "Owner",
-        "Value": "Ted Pattison"
-      },
-      {
-        "Name": "Last Published",
-        "Value": "11/21/2017 6:47 AM"
-      },
-      {
-        "Name": "Project Chargeback Category",
-        "Value": ""
-      },
-      {
-        "Name": "Project Departments",
-        "Value": ""
-      }
-    ]
-  },
-  {
-    "projUid": "e74efe60-bbce-e711-80d1-00155dcd8a01",
-    "projName": "Test Project 6",
-    "selected": false,
-    "intervals": null,
-    "readOnly": false,
-    "stalePublish": false,
-    "readOnlyReason": null,
-    "CustomFields": [
-      {
-        "Name": "Project Name",
-        "Value": "Test Project 6"
-      },
-      {
-        "Name": "Project Active Status",
-        "Value": ""
-      },
-      {
-        "Name": "Start",
-        "Value": "11/21/2017 8:00 AM"
-      },
-      {
-        "Name": "Finish",
-        "Value": "11/21/2017 8:00 AM"
-      },
-      {
-        "Name": "% Complete",
-        "Value": "0%"
-      },
-      {
-        "Name": "Work",
-        "Value": "0h"
-      },
-      {
-        "Name": "Duration",
-        "Value": "0d"
-      },
-      {
-        "Name": "Owner",
-        "Value": "Ted Pattison"
-      },
-      {
-        "Name": "Last Published",
-        "Value": "11/21/2017 6:56 AM"
-      },
-      {
-        "Name": "Project Chargeback Category",
-        "Value": ""
-      },
-      {
-        "Name": "Project Departments",
-        "Value": ""
-      }
-    ]
-  },
-  {
-    "projUid": "5caeeb51-bcce-e711-80d1-00155dcd8a01",
-    "projName": "Test Project 7",
-    "selected": false,
-    "intervals": null,
-    "readOnly": false,
-    "stalePublish": false,
-    "readOnlyReason": null,
-    "CustomFields": [
-      {
-        "Name": "Project Name",
-        "Value": "Test Project 7"
-      },
-      {
-        "Name": "Project Active Status",
-        "Value": ""
-      },
-      {
-        "Name": "Start",
-        "Value": "11/21/2017 8:00 AM"
-      },
-      {
-        "Name": "Finish",
-        "Value": "11/21/2017 8:00 AM"
-      },
-      {
-        "Name": "% Complete",
-        "Value": "0%"
-      },
-      {
-        "Name": "Work",
-        "Value": "0h"
-      },
-      {
-        "Name": "Duration",
-        "Value": "0d"
-      },
-      {
-        "Name": "Owner",
-        "Value": "Ted Pattison"
-      },
-      {
-        "Name": "Last Published",
-        "Value": "11/21/2017 7:03 AM"
-      },
-      {
-        "Name": "Project Chargeback Category",
-        "Value": ""
-      },
-      {
-        "Name": "Project Departments",
-        "Value": ""
-      }
-    ]
-  },
-  {
-    "projUid": "e2687179-bcce-e711-80d1-00155dcd8a01",
-    "projName": "Test Project 8",
-    "selected": false,
-    "intervals": null,
-    "readOnly": false,
-    "stalePublish": false,
-    "readOnlyReason": null,
-    "CustomFields": [
-      {
-        "Name": "Project Name",
-        "Value": "Test Project 8"
-      },
-      {
-        "Name": "Project Active Status",
-        "Value": ""
-      },
-      {
-        "Name": "Start",
-        "Value": "11/21/2017 8:00 AM"
-      },
-      {
-        "Name": "Finish",
-        "Value": "11/21/2017 8:00 AM"
-      },
-      {
-        "Name": "% Complete",
-        "Value": "0%"
-      },
-      {
-        "Name": "Work",
-        "Value": "0h"
-      },
-      {
-        "Name": "Duration",
-        "Value": "0d"
-      },
-      {
-        "Name": "Owner",
-        "Value": "Ted Pattison"
-      },
-      {
-        "Name": "Last Published",
-        "Value": "11/21/2017 7:38 AM"
-      },
-      {
-        "Name": "Project Chargeback Category",
-        "Value": ""
-      },
-      {
-        "Name": "Project Departments",
-        "Value": ""
-      }
-    ]
-  },
-  {
-    "projUid": "29a1165d-86cf-e711-80d1-00155dcd8a01",
-    "projName": "Test Project New  10",
-    "selected": false,
-    "intervals": null,
-    "readOnly": false,
-    "stalePublish": false,
-    "readOnlyReason": null,
-    "CustomFields": [
-      {
-        "Name": "Project Name",
-        "Value": "Test Project New  10"
-      },
-      {
-        "Name": "Project Active Status",
-        "Value": ""
-      },
-      {
-        "Name": "Start",
-        "Value": "11/22/2017 12:00 AM"
-      },
-      {
-        "Name": "Finish",
-        "Value": "11/22/2017 8:00 AM"
-      },
-      {
-        "Name": "% Complete",
-        "Value": "0%"
-      },
-      {
-        "Name": "Work",
-        "Value": "0h"
-      },
-      {
-        "Name": "Duration",
-        "Value": "0d"
-      },
-      {
-        "Name": "Owner",
-        "Value": "Ted Pattison"
-      },
-      {
-        "Name": "Last Published",
-        "Value": "11/22/2017 12:53 PM"
-      },
-      {
-        "Name": "Project Chargeback Category",
-        "Value": ""
-      },
-      {
-        "Name": "Project Departments",
-        "Value": ""
-      }
-    ]
-  },
-  {
-    "projUid": "a3b028f3-86cf-e711-80d1-00155dcd8a01",
-    "projName": "Test Project New 20",
-    "selected": false,
-    "intervals": null,
-    "readOnly": false,
-    "stalePublish": false,
-    "readOnlyReason": null,
-    "CustomFields": [
-      {
-        "Name": "Project Name",
-        "Value": "Test Project New 20"
-      },
-      {
-        "Name": "Project Active Status",
-        "Value": ""
-      },
-      {
-        "Name": "Start",
-        "Value": "11/22/2017 8:00 AM"
-      },
-      {
-        "Name": "Finish",
-        "Value": "11/22/2017 5:00 PM"
-      },
-      {
-        "Name": "% Complete",
-        "Value": "0%"
-      },
-      {
-        "Name": "Work",
-        "Value": "0h"
-      },
-      {
-        "Name": "Duration",
-        "Value": "1d"
-      },
-      {
-        "Name": "Owner",
-        "Value": "Ted Pattison"
-      },
-      {
-        "Name": "Last Published",
-        "Value": "11/22/2017 12:53 PM"
-      },
-      {
-        "Name": "Project Chargeback Category",
-        "Value": ""
-      },
-      {
-        "Name": "Project Departments",
-        "Value": ""
-      }
-    ]
+    ],
+    "selected": false
   }
 ]

@@ -66,6 +66,8 @@
 
                                                     <td class="body-cell col1">
                                                         <input formControlName="projName" placeholder="project" style="width:100%" />
+                                                        <input formControlName="startDate" placeholder="project" style="width:100%" />
+                                                        <input formControlName="finishDate" placeholder="project" style="width:100%" />
                                                         <message [message]="proj.get('readOnlyReason').value" *ngIf="proj.get('readOnly').value"></message>
                                                         <error [error]="proj.get('error').value" *ngIf="proj.get('error').value != null"></error>
                                                     </td>
