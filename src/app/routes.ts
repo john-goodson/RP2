@@ -2,6 +2,7 @@ import { Routes } from '@angular/router'
 import { ResPlanListComponent } from './resourcePlans/res-plan-list.component'
 import {ResPlanHomeComponent} from './resourcePlans/res-plan-home/res-plan-home.component'
 import { JumbotronComponent  } from './jumbotron/jumbotron.component'
+import { DateRangePicker } from './common/dateRangePicker/dateRangePicker.component'
 
 
 
@@ -16,7 +17,7 @@ export const appRoutes: Routes = [
         { path: '', redirectTo: 'resPlans', pathMatch: 'full'},
         { path: 'resPlans', component: ResPlanListComponent ,  resolve: {resPlans: ResourcePlansResolverService }
      },
-        { path: 'jumbotron', component: JumbotronComponent},
+        { path: 'jumbotron', component: DateRangePicker},
         { path: 'perview', redirectTo: "http://foo.wingtip.com/pwa" ,pathMatch: 'full'}
         // { path: 'resPlans', component: ResPlanListComponent },
       ]

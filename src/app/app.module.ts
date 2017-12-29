@@ -9,6 +9,8 @@ import { appRoutes } from './routes'
 import {HttpClientModule} from '@angular/common/http';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 
+import { DateRangePicker } from './common/dateRangePicker/dateRangePicker.component'
+
 
 import {Config} from './resourcePlans/res-plan.model'
 import { ModalCommunicator } from  './resourcePlans/modal-communicator.service'
@@ -26,6 +28,8 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { ResPlanListComponent} from './resourcePlans/res-plan-list.component'
 import { SimpleModalComponent} from './common/simple-modal.component';
 import { ProjectListComponent } from './resourcePlans/project-list/project-list.component';
+
+import {MatDatepickerModule,MatInputModule,MatNativeDateModule,MatTableModule} from '@angular/material';
 
 
 import {ProjectService} from './services/project-service.service'
@@ -75,7 +79,7 @@ export function initConfig(configSvc: ConfigService){
     ResPlanHeaderRowComponent,
     ResPlanTimescaleComponent,
     ResPlanWorkunitsComponent,
-
+    DateRangePicker,
     MessageComponent,
     ErrorComponent,
     JumbotronComponent,
@@ -91,9 +95,12 @@ export function initConfig(configSvc: ConfigService){
      
           HttpClientModule,
           Ng2SmartTableModule,
-          FwModule
+          FwModule,
          // InMemoryWebApiModule.forRoot(ResPlanData),
-       
+         MatDatepickerModule,
+         MatInputModule,
+         MatNativeDateModule,
+         MatTableModule
           
   ],
   
