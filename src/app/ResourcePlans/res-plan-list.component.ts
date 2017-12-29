@@ -444,12 +444,22 @@ export class ResPlanListComponent implements OnInit {
                 .map(t => {
                     var _resPlan: IResPlan;
                     var _projects: [IProject];
-                    //var projects = Object.assign([], _projects, this.fb.array(((t as FormGroup).controls['projects'] as FormArray).controls.filter(s => s.dirty == true)).value)
+                    var projects =
+                        ((t as FormGroup).controls['projects'] as FormArray).controls.filter(p=>p.dirty == true)
+                    .map(v=>JSON.parse(JSON.stringify(v.value)) as IProject)
+                
                     let resPlan = new ResPlan();
                     resPlan.resource = new Resource(t.value.resUid, t.value.resName);
-
-                    resPlan.projects = ((t as FormGroup).controls['projects'] as FormArray).controls.filter(p=>p.dirty == true)
-                                        .map(v=>v.value as IProject)
+                    
+                    resPlan.projects = projects
+                    if (this._appSvc.queryParams.workunits == WorkUnits.FTE)
+                    {
+                        resPlan.projects.forEach(p=>{
+                            p.intervals.forEach(i=>{
+                                i.intervalValue = (+(i.intervalValue) /100).toString()
+                            })
+                        })
+                    }
                     return resPlan;
                 })
 
