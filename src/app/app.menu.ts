@@ -130,7 +130,7 @@ export let initialMenuItems: Array<MenuItem> = [
     {
         text: 'Exit to Perview',
         icon: 'glyphicon-dashboard',
-        route: '/home/perview',
+        route: '/home/jumbotron',
         submenu: null,
         params: {}
     },
