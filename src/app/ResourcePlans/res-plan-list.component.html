@@ -66,8 +66,9 @@
 
                                                     <td class="body-cell col1">
                                                         <input formControlName="projName" placeholder="project" style="width:100%" />
-                                                        <input formControlName="startDate" placeholder="project" style="width:100%" />
-                                                        <input formControlName="finishDate" placeholder="project" style="width:100%" />
+                                                        <!-- <input formControlName="startDate" projectDateSpan [start]="proj.get('startDate').value" 
+                                                        [finish]="proj.get('finishDate').value"  placeholder="project" style="width:100%" /> -->
+                                                       
                                                         <message [message]="proj.get('readOnlyReason').value" *ngIf="proj.get('readOnly').value"></message>
                                                         <error [error]="proj.get('error').value" *ngIf="proj.get('error').value != null"></error>
                                                     </td>
@@ -75,7 +76,10 @@
                                                         <td class="body-cell col" *ngFor="let intrvl of proj.get('intervals').controls; index as k">
                                                             <div [formGroupName]="k">
                                                                 <input [ngClass]="intrvl.get('intervalValue').dirty && 'dirtyCell'" type="number" min="0" onClick="this.select()" autofocus 
-                                                                formControlName="intervalValue" style="width:100%" [value]="intrvl.get('intervalValue').value">
+                                                                formControlName="intervalValue" projectDateSpan [projStart]="proj.get('startDate').value" style="width:100%" 
+                                                                [projFinish]="proj.get('finishDate').value" [intervalStart] ="intrvl.get('intervalStart').value"  [intervalEnd] = "intrvl.get('intervalEnd').value"   
+                                                                 >                                                                                                            
+                                                                
                                                             </div>
                                                         </td>
                                                     </div>

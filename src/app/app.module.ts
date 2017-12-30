@@ -56,7 +56,8 @@ import { ErrorComponent} from './resourcePlans/errorComponent/error.component'
 import { FwModule} from '../fw/fw.module'
 import { JumbotronComponent} from './jumbotron/jumbotron.component';
 import { ResPlanListTesterComponent } from './resourcePlans/res-plan-list-tester/res-plan-list-tester.component';
-import { IntervalMaskDirective } from './directives/interval-mask.directive'
+import { IntervalMaskDirective } from './directives/interval-mask.directive';
+import { ProjectDateSpanDirective } from './directives/project-date-span.directive'
 
 //let jQuery : Object;// Add this function
 export function initConfig(configSvc: ConfigService){
@@ -85,7 +86,8 @@ export function initConfig(configSvc: ConfigService){
     JumbotronComponent,
     IntervalPipe,
     ResPlanListTesterComponent,
-    IntervalMaskDirective
+    IntervalMaskDirective,
+    ProjectDateSpanDirective
   ],
 
   imports: [
