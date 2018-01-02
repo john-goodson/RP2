@@ -7,9 +7,9 @@ import { IntervalPipe } from "../common/interval.pipe"
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/mergeMap';
 import { PercentPipe } from '@angular/common'
-
+import {MatDialog, MatDialogRef} from '@angular/material';
 import { IResPlan, IProject, IInterval, ProjectActiveStatus, IResource, Resource, Timescale, WorkUnits, Result } from './res-plan.model'
-
+import {ConfirmDialogComponent} from '../common/confirm-dialog/confirm-dialog.component'
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Rx';
@@ -49,7 +49,7 @@ export class ResPlanListComponent implements OnInit {
     toDate: Date;
     timescale: Timescale;
     workunits: WorkUnits;
-
+    confirmDialogResult:string
 
 
     get resPlans(): FormArray {  //this getter should return all instances.
@@ -74,7 +74,7 @@ export class ResPlanListComponent implements OnInit {
         , private _resPlanUserStateSvc: ResourcePlanUserStateService
         , private _resModalSvc: ResourcesModalCommunicatorService
         , private _appSvc: AppStateService
-        , private _route: ActivatedRoute) { }
+        , private _route: ActivatedRoute ,private dialog: MatDialog) { }
 
     ngOnInit(): void {
         ;
@@ -83,7 +83,7 @@ export class ResPlanListComponent implements OnInit {
             resPlans: this.fb.array([])
         });
 
-
+    
 
 
         this.fromDate = this._appSvc.queryParams.fromDate
@@ -249,6 +249,27 @@ export class ResPlanListComponent implements OnInit {
         }
         return totals;
     }
+
+    openDialog(data:any) // the second argument is a callback argument definition in typescript
+    : MatDialogRef<any> {
+        return this.dialog.open(ConfirmDialogComponent, {
+          width: '250px',
+          data: data
+        });
+    
+        
+      }
+
+      openDeleteResPlanDialog()
+      {
+          let dialogRef = this.openDialog({title:"Delete resource plans",content:"This action will delete all the selected projects. Are you sure you want to proceed.?"})
+          dialogRef.afterClosed().subscribe(result => {
+            this.confirmDialogResult = result;
+            if(result == "yes")
+            this.deleteResPlans(this.fromDate,this.toDate,this.timescale,this.workunits,false)
+          });
+
+      }
 
     addResPlan(): void {
         this.resPlans.push(this.buildResPlan(new ResPlan()));

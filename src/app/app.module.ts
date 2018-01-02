@@ -29,7 +29,7 @@ import { ResPlanListComponent} from './resourcePlans/res-plan-list.component'
 import { SimpleModalComponent} from './common/simple-modal.component';
 import { ProjectListComponent } from './resourcePlans/project-list/project-list.component';
 
-import {MatDatepickerModule,MatInputModule,MatNativeDateModule,MatTableModule,MatButtonModule} from '@angular/material';
+import {MatDatepickerModule,MatInputModule,MatNativeDateModule,MatTableModule,MatButtonModule,MatDialogModule} from '@angular/material';
 
 
 import {ProjectService} from './services/project-service.service'
@@ -57,7 +57,8 @@ import { FwModule} from '../fw/fw.module'
 import { JumbotronComponent} from './jumbotron/jumbotron.component';
 import { ResPlanListTesterComponent } from './resourcePlans/res-plan-list-tester/res-plan-list-tester.component';
 import { IntervalMaskDirective } from './directives/interval-mask.directive';
-import { ProjectDateSpanDirective } from './directives/project-date-span.directive'
+import { ProjectDateSpanDirective } from './directives/project-date-span.directive';
+import { ConfirmDialogComponent } from './common/confirm-dialog/confirm-dialog.component'
 
 //let jQuery : Object;// Add this function
 export function initConfig(configSvc: ConfigService){
@@ -87,7 +88,8 @@ export function initConfig(configSvc: ConfigService){
     IntervalPipe,
     ResPlanListTesterComponent,
     IntervalMaskDirective,
-    ProjectDateSpanDirective
+    ProjectDateSpanDirective,
+    ConfirmDialogComponent
   ],
 
   imports: [
@@ -104,9 +106,9 @@ export function initConfig(configSvc: ConfigService){
          MatNativeDateModule,
          MatTableModule,
          MatButtonModule,
-          
+         MatDialogModule
   ],
-  
+  entryComponents: [ConfirmDialogComponent],
   providers: [    ModalCommunicator, ResourcesModalCommunicatorService,ProjectService, ResourcePlanService
     , ResourcePlanUserStateService
     , ResourcePlansResolverService

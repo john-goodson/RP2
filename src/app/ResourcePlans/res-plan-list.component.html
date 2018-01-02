@@ -9,7 +9,7 @@
                 <button [disabled]="!this.mainForm.dirty" type="button" class="btn btn-primary margin-left"  (click)="savePlans(fromDate,toDate,timescale,workunits)" 
                 title="Save and Publish your changes">
                 Submit </button>
-                <button [disabled]="!this.AnyResPlanSelectedForDelete()" type="button" class="btn btn-primary margin-left" (click)="deleteResPlans(fromDate,toDate,timescale,workunits,false)" 
+                <button [disabled]="!this.AnyResPlanSelectedForDelete()" type="button" class="btn btn-primary margin-left" (click)="openDeleteResPlanDialog()" 
                 title="Permanently delete resource plan assignments from selected project(s)">
                 Delete </button>
                 <button [disabled]="!this.AnyResPlanSelectedForHide()" type="button" class="btn btn-primary margin-left" (click)="deleteResPlans(fromDate,toDate,timescale,workunits,true)" 
@@ -115,7 +115,9 @@
                     <resource-list></resource-list>
                 </div>
             </simple-modal>
+            <!-- <confirm-dialog>
 
+            </confirm-dialog> -->
 
         </form>
    
