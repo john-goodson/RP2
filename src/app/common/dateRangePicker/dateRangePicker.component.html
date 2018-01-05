@@ -24,7 +24,7 @@
                         <mat-error>{{displayError()}}</mat-error>
 
                 </mat-form-field>
-                <button mat-raised-button (click)="SelectDates(start.value,end.value)">Apply</button>
+                <button [disabled]="!this.isValid" mat-raised-button (click)="SelectDates(start.value,end.value)">Apply</button>
 
     </div>
  

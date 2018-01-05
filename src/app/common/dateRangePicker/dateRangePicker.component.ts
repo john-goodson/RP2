@@ -22,46 +22,63 @@ export class DateRangePicker  {
     maxDate;
     endMinDate;
     endMaxDate;
+    isValid: Boolean = true;
 
     //this function determines whether a start date is valid. All dates are valid by default
     //this function is a built-in directive from angular material datepicker
     startDateValid = (startingDate:Date, endingDate: Date, minDate:Date): boolean => {
         console.log(this.startingDate, "this is starting Date in startDateValid")
-        if(this.startingDate > this.endingDate) {
-         return this.minDate = this.endingDate;
-        //    return false;
-        }
+        // if(this.startingDate > this.endingDate) {
+        //  return this.minDate = this.endingDate;
+        // //    return false;
+        // }
         return true;
     }
 
-    endDateValid = (endMinDate: Date, startingDate:Date, endingDate:Date): boolean => {
+    endDateValid = (endMinDate: Date, startingDate:Date, endingDate:Date, minDate: Date): boolean => {
         console.log("these are the dates in endDateValid",startingDate, endingDate);
         if(this.startingDate > this.endingDate) {
             // return true;
+            this.isValid = false;
+            // return this.endMinDate = this.startingDate;
+            // return this.endMinDate = this.minDate;
+            // return this.endMinDate = this.minDate;
             return this.endMinDate = this.startingDate;
         }
-        
+        this.endMinDate = this.startingDate;
+        this.isValid = true;
         return true;
     }
 
      startingDateSelector(event: MatDatepickerInputEvent<Date>, startingDate:Date, endingDate:Date, minDate:Date) {
        console.log(event.value, "this is the event value from startingDateSelector");
-       startingDate = event.value;
+       this.startingDate = event.value;
        console.log('what is the starting date (within startingDateSelector)?', this.startingDate);
        this.startDateValid(this.startingDate, this.endingDate, this.startingDate);
+       return this.startingDate;
     }
 
       endingDateSelector(event: MatDatepickerInputEvent<Date>, startingDate:Date, endingDate:Date) {
         startingDate = this.startingDate;
         console.log("this is the event value from startingDateSelector")
-        endingDate = event.value;
+        this.endingDate = event.value;
         console.log('what is the ending date(within endingDateSelector)?', this.endingDate);
-        this.endDateValid(this.startingDate,this.startingDate, this.endingDate);
-
+        this.endDateValid(this.startingDate,this.startingDate, this.endingDate, this.startingDate);
+        return this.endingDate;
        }
 
-       displayError(){
+       displayError(startingDate, endingDate){
            return 'End Date must be after Start Date';
+       }
+
+       resetDates (startingDate, endingDate){
+        this.startingDate = '';
+        this.endingDate = '';
+       }
+
+       GetstartingDate(s){
+           s = this.startingDate;
+           return s;
        }
 
 
@@ -74,7 +91,7 @@ constructor(public router:Router,private _appStateSvc:AppStateService)
 
     SelectDates(start,end)
     {
-       this.endDateValid(this._appStateSvc.queryParams.fromDate, this._appStateSvc.queryParams.fromDate, this._appStateSvc.queryParams.toDate);
+       this.endDateValid(this._appStateSvc.queryParams.fromDate, this._appStateSvc.queryParams.fromDate, this._appStateSvc.queryParams.toDate,this._appStateSvc.queryParams.fromDate);
        this._appStateSvc.queryParams.fromDate = start;
        this._appStateSvc.queryParams.toDate = end;
        this.router.navigate(['home/resPlans',this._appStateSvc.queryParams],{ preserveQueryParams:true} );
