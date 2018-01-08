@@ -27,7 +27,6 @@ export class DateRangePicker  {
     //this function determines whether a start date is valid. All dates are valid by default
     //this function is a built-in directive from angular material datepicker
     startDateValid = (startingDate:Date, endingDate: Date, minDate:Date): boolean => {
-        console.log(this.startingDate, "this is starting Date in startDateValid")
         // if(this.startingDate > this.endingDate) {
         //  return this.minDate = this.endingDate;
         // //    return false;
@@ -36,8 +35,7 @@ export class DateRangePicker  {
     }
 
     endDateValid = (endMinDate: Date, startingDate:Date, endingDate:Date, minDate: Date): boolean => {
-        console.log("these are the dates in endDateValid",startingDate, endingDate);
-        if(this.startingDate > this.endingDate) {
+            if(this.startingDate > this.endingDate) {
             // return true;
             this.isValid = false;
             // return this.endMinDate = this.startingDate;
@@ -51,18 +49,14 @@ export class DateRangePicker  {
     }
 
      startingDateSelector(event: MatDatepickerInputEvent<Date>, startingDate:Date, endingDate:Date, minDate:Date) {
-       console.log(event.value, "this is the event value from startingDateSelector");
        this.startingDate = event.value;
-       console.log('what is the starting date (within startingDateSelector)?', this.startingDate);
        this.startDateValid(this.startingDate, this.endingDate, this.startingDate);
        return this.startingDate;
     }
 
       endingDateSelector(event: MatDatepickerInputEvent<Date>, startingDate:Date, endingDate:Date) {
         startingDate = this.startingDate;
-        console.log("this is the event value from startingDateSelector")
         this.endingDate = event.value;
-        console.log('what is the ending date(within endingDateSelector)?', this.endingDate);
         this.endDateValid(this.startingDate,this.startingDate, this.endingDate, this.startingDate);
         return this.endingDate;
        }
