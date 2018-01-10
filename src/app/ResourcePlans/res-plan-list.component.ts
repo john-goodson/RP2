@@ -22,7 +22,9 @@ import { ResourcePlanService } from '../services/resource-plan.service'
 import { ResourcePlanUserStateService } from '../services/resource-plan-user-state.service'
 import { ResourcesModalCommunicatorService } from '../resourcePlans/resources-modal-communicator.service'
 import { ResPlanHeaderRowComponent } from "../resourcePlans/res-plan-header-row/res-plan-header-row.component"
-import { AppStateService } from '../services/app-state.service'
+import { AppStateService } from '../services/app-state.service' 
+
+declare const $: any
 
 @Component({
     selector: 'resplan-list',
@@ -678,6 +680,28 @@ export class ResPlanListComponent implements OnInit {
             }
         });
     }
+
+    printFunction(): void {
+        let printContents, popupWin;
+        printContents = $("#printContent")[0];
+        printContents.remove('btn btn-primary margin-left');
+        printContents.remove('button');
+        printContents =  printContents.innerHTML;
+        popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+        popupWin.document.open();
+        popupWin.document.write(`
+          <html>
+            <head>
+              <title>Print tab</title>
+              <link href="./app/ResourcePlans/res-plan-list.component.css" rel="stylesheet" />
+            </head>
+        <body onload="window.print();window.close()">${printContents}</body>
+          </html>`
+        );
+      popupWin.document.close();
+    }
+
+    
     updateErrors(errors: Result[]) {
         let resultsWithError = errors.filter(e => e.success == false);
 
