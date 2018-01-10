@@ -37,7 +37,7 @@ export class ProjectDateSpanDirective {
 
     if ((_intervalStart <= _projStart && _intervalEnd <= _projStart) || (_intervalStart > _projFinish ) )   {
       debugger
-      this._elementRef.nativeElement.style.background = 'gray'
+      this._elementRef.nativeElement.style.background = '##F5F5F5'
     }
     else {
       this._elementRef.nativeElement.style.background = 'white'
