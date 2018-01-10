@@ -7,9 +7,9 @@ import { IntervalPipe } from "../common/interval.pipe"
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/mergeMap';
 import { PercentPipe } from '@angular/common'
-import {MatDialog, MatDialogRef} from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { IResPlan, IProject, IInterval, ProjectActiveStatus, IResource, Resource, Timescale, WorkUnits, Result } from './res-plan.model'
-import {ConfirmDialogComponent} from '../common/confirm-dialog/confirm-dialog.component'
+import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component'
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Rx';
@@ -49,7 +49,7 @@ export class ResPlanListComponent implements OnInit {
     toDate: Date;
     timescale: Timescale;
     workunits: WorkUnits;
-    confirmDialogResult:string
+    confirmDialogResult: string
 
 
     get resPlans(): FormArray {  //this getter should return all instances.
@@ -74,7 +74,7 @@ export class ResPlanListComponent implements OnInit {
         , private _resPlanUserStateSvc: ResourcePlanUserStateService
         , private _resModalSvc: ResourcesModalCommunicatorService
         , private _appSvc: AppStateService
-        , private _route: ActivatedRoute ,private dialog: MatDialog) { }
+        , private _route: ActivatedRoute, private dialog: MatDialog) { }
 
     ngOnInit(): void {
         ;
@@ -83,7 +83,7 @@ export class ResPlanListComponent implements OnInit {
             resPlans: this.fb.array([])
         });
 
-    
+
 
 
         this.fromDate = this._appSvc.queryParams.fromDate
@@ -117,6 +117,25 @@ export class ResPlanListComponent implements OnInit {
         //console.log('ng after view checke fired.')
     }
 
+    exitToPerView(mainFormIsDirty) {
+        if (mainFormIsDirty === true) {
+            let dialogRef = this.openDialog({ title: "Are You Sure?", content: "You have un-submitted changes" })
+            dialogRef.afterClosed().subscribe(result => {
+                this.confirmDialogResult = result;
+                if (result == "yes")
+                window.location.href = "https://perviewqa.app.parallon.com/pwa"
+            });
+        }
+        else {
+            // var win = window.open('www.google.com', '_blank');
+            // win.focus();
+            window.location.href = "https://perviewqa.app.parallon.com/pwa"
+        }
+
+    }
+
+
+
     calculateTotals(fg: FormGroup): void {
 
         var value = fg.value;
@@ -129,34 +148,31 @@ export class ResPlanListComponent implements OnInit {
                 if (value["projects"][j]["intervals"].length < 1)
                     continue;
                 var val = parseInt(value["projects"][j]["intervals"][i]["intervalValue"]);
-                
+
                 if (!val) {
                     val = 0;
                 }
-               
+
                 sum += val;
-               
+
             }
-            if(this._appSvc.queryParams.workunits == WorkUnits.FTE)
-            {
-                sum = sum /100;
+            if (this._appSvc.queryParams.workunits == WorkUnits.FTE) {
+                sum = sum / 100;
             }
-            value["totals"][i]['intervalValue'] = new IntervalPipe().transform(sum.toString(), this.workunits) +  this.getWorkUnitChar(this._appSvc.queryParams.workunits);
+            value["totals"][i]['intervalValue'] = new IntervalPipe().transform(sum.toString(), this.workunits) + this.getWorkUnitChar(this._appSvc.queryParams.workunits);
 
         }
         fg.setValue(value, { emitEvent: false });
         //console.log('Totals... ' + JSON.stringify(value) + "      stop....")
 
     }
-    getWorkUnitChar(workUnits:WorkUnits) : string
-    {
-      switch(+(workUnits))
-      {
-        case WorkUnits.days: return 'd';
-        case WorkUnits.hours: return 'h';
-        case WorkUnits.FTE: return '%';
-        default : return '';
-      }
+    getWorkUnitChar(workUnits: WorkUnits): string {
+        switch (+(workUnits)) {
+            case WorkUnits.days: return 'd';
+            case WorkUnits.hours: return 'h';
+            case WorkUnits.FTE: return '%';
+            default: return '';
+        }
     }
     checkTotal(val: string) {
         ;
@@ -210,8 +226,8 @@ export class ResPlanListComponent implements OnInit {
                 readOnlyReason: this.fb.control(_project.readOnlyReason),
                 intervals: this.fb.array([]),
                 selected: this.fb.control(false),
-                startDate:_project.startDate,
-                finishDate:_project.finishDate
+                startDate: _project.startDate,
+                finishDate: _project.finishDate
             });
         for (var i = 0; i < _project.intervals.length; i++) {
             var interval = this.buildInterval(_project.intervals[i]);
@@ -250,26 +266,25 @@ export class ResPlanListComponent implements OnInit {
         return totals;
     }
 
-    openDialog(data:any) // the second argument is a callback argument definition in typescript
-    : MatDialogRef<any> {
+    openDialog(data: any) // the second argument is a callback argument definition in typescript
+        : MatDialogRef<any> {
         return this.dialog.open(ConfirmDialogComponent, {
-          width: '250px',
-          data: data
+            width: '250px',
+            data: data
         });
-    
-        
-      }
 
-      openDeleteResPlanDialog()
-      {
-          let dialogRef = this.openDialog({title:"Delete resource plans",content:"This action will delete all the selected projects. Are you sure you want to proceed.?"})
-          dialogRef.afterClosed().subscribe(result => {
+
+    }
+
+    openDeleteResPlanDialog() {
+        let dialogRef = this.openDialog({ title: "Are You Sure?", content: "This action will permanently delete resource plan assignments from the selected project(s)." })
+        dialogRef.afterClosed().subscribe(result => {
             this.confirmDialogResult = result;
-            if(result == "yes")
-            this.deleteResPlans(this.fromDate,this.toDate,this.timescale,this.workunits,false)
-          });
+            if (result == "yes")
+                this.deleteResPlans(this.fromDate, this.toDate, this.timescale, this.workunits, false)
+        });
 
-      }
+    }
 
     addResPlan(): void {
         this.resPlans.push(this.buildResPlan(new ResPlan()));
@@ -344,7 +359,7 @@ export class ResPlanListComponent implements OnInit {
         let selectedResources = this._resModalSvc.selectedResources;
         this._appSvc.loading(true);
         this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr => {
-            
+
             console.log('selected resources=' + JSON.stringify(this._resModalSvc.selectedResources))
             this._resPlanUserStateSvc.getResPlansFromResources(resMgr, this._resModalSvc.selectedResources, this.fromDate, this.toDate, this.timescale, this.workunits)
                 .subscribe(plans => {
@@ -387,7 +402,7 @@ export class ResPlanListComponent implements OnInit {
 
                     if (successfullProjects.length > 0) {
                         this.buildSelectedProjects(successfullProjects)//.filter(r=>r.projUid.toUpperCase))
-                        ;
+                            ;
                         this.header.setIntervals([new ResPlan(resource, successfullProjects)]);
                         this.initTotals(this.currentFormGroup.get('totals') as FormArray, successfullProjects)
                         this.calculateTotals(this.currentFormGroup);
@@ -470,18 +485,17 @@ export class ResPlanListComponent implements OnInit {
                     var _resPlan: IResPlan;
                     var _projects: [IProject];
                     var projects =
-                        ((t as FormGroup).controls['projects'] as FormArray).controls.filter(p=>p.dirty == true)
-                    .map(v=>JSON.parse(JSON.stringify(v.value)) as IProject)
-                
+                        ((t as FormGroup).controls['projects'] as FormArray).controls.filter(p => p.dirty == true)
+                            .map(v => JSON.parse(JSON.stringify(v.value)) as IProject)
+
                     let resPlan = new ResPlan();
                     resPlan.resource = new Resource(t.value.resUid, t.value.resName);
-                    
+
                     resPlan.projects = projects
-                    if (this._appSvc.queryParams.workunits == WorkUnits.FTE)
-                    {
-                        resPlan.projects.forEach(p=>{
-                            p.intervals.forEach(i=>{
-                                i.intervalValue = (+(i.intervalValue) /100).toString()
+                    if (this._appSvc.queryParams.workunits == WorkUnits.FTE) {
+                        resPlan.projects.forEach(p => {
+                            p.intervals.forEach(i => {
+                                i.intervalValue = (+(i.intervalValue) / 100).toString()
                             })
                         })
                     }
@@ -536,14 +550,14 @@ export class ResPlanListComponent implements OnInit {
                 this._appSvc.loading(true);
                 this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr => {
                     return this._resPlanUserStateSvc.HideResPlans(resMgr, resourceplans as IResPlan[]).map(r => {
-                if(r.success == true){
-                
-                this.deleteResourcePlans(resourceplans)
-                this._appSvc.loading(false);
-                }
-                else{
-                    this._appSvc.loading(false);  
-                }
+                        if (r.success == true) {
+
+                            this.deleteResourcePlans(resourceplans)
+                            this._appSvc.loading(false);
+                        }
+                        else {
+                            this._appSvc.loading(false);
+                        }
                     },
                         (error: any) => {
                             this.errorMessage = <any>error
@@ -555,8 +569,8 @@ export class ResPlanListComponent implements OnInit {
                         this.errorMessage = <any>error;
                         this._appSvc.loading(false);
                     }
-                ).subscribe((r) => { 
-                    this._appSvc.loading(false) 
+                ).subscribe((r) => {
+                    this._appSvc.loading(false)
 
                 }, () => { this._appSvc.loading(false) })
             }
