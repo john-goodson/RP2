@@ -39,6 +39,7 @@ visible: boolean = true;
      {
        this._intervals = projectWithIntervals.intervals;
        this._intervals.forEach(interval=>{
+        interval.start = moment(interval.start).toDate()
         interval.end = moment(interval.end).add(-1,'days').toDate();
        })
        

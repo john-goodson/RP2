@@ -84,6 +84,29 @@
                                                         </td>
                                                     </div>
                                                 </tr>
+                                                <tr [formGroupName]="j">
+                                                    <td class="body-cell" style="padding-left:5px">
+                                                        
+                                                    </td>
+
+
+
+
+                                                    <td class="body-cell col1">
+                                                        <label style="width:100%">Timesheet data</label>
+                                                        
+                                                    </td>
+                                                    <div formArrayName="timesheetData">
+                                                        <td class="body-cell col" *ngFor="let intrvl of proj.get('timesheetData').controls; index as k">
+                                                            <div [formGroupName]="k">
+                                                                <input  readonly="readonly"
+                                                                formControlName="intervalValue"  style="width:100%" 
+                                                                 >                                                                                                            
+                                                                
+                                                            </div>
+                                                        </td>
+                                                    </div>
+                                                </tr>
                                             </div>
                                             <!-- i = index of resplan formgroup -->
 

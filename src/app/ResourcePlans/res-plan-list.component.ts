@@ -77,7 +77,7 @@ export class ResPlanListComponent implements OnInit {
         , private _route: ActivatedRoute ,private dialog: MatDialog) { }
 
     ngOnInit(): void {
-        ;
+        debugger;
 
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
@@ -209,6 +209,7 @@ export class ResPlanListComponent implements OnInit {
                 error: null,
                 readOnlyReason: this.fb.control(_project.readOnlyReason),
                 intervals: this.fb.array([]),
+                timesheetData:this.fb.array([]),
                 selected: this.fb.control(false),
                 startDate:_project.startDate,
                 finishDate:_project.finishDate
@@ -216,6 +217,11 @@ export class ResPlanListComponent implements OnInit {
         for (var i = 0; i < _project.intervals.length; i++) {
             var interval = this.buildInterval(_project.intervals[i]);
             (project.get('intervals') as FormArray).push(interval);
+        }
+        debugger;
+        for (var i = 0; i < _project.timesheetData.length; i++) {
+            var interval = this.buildtimesheetInterval(_project.timesheetData[i]);
+            (project.get('timesheetData') as FormArray).push(interval);
         }
 
         //_project.readOnly && project.disable({emitEvent:false})
@@ -234,6 +240,19 @@ export class ResPlanListComponent implements OnInit {
         });
     }
 
+
+    buildtimesheetInterval(interval: IInterval): FormGroup {
+        
+                return this.fb.group({
+                    intervalName: interval.intervalName,
+                    //intervalValue:  new PercentPipe(new IntervalPipe().transform(interval.intervalValue, this.workunits)  ).transform(interval.intervalValue)
+                    intervalValue: interval.intervalValue,
+                    intervalStart: interval.start,
+                    intervalEnd: interval.end
+        
+                });
+            }
+        
     initTotals(totals: FormArray, _projects: IProject[]): FormArray {
         if (totals.controls.length < 1) {
 
