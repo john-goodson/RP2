@@ -53,7 +53,7 @@ export class ResourcePlanUserStateService {
 
         //remember to change UID0 to UID
         //let select = '$select=ResourceUID0'  //dev
-        let select = '$select=ResourceUID0'  //qa
+        let select = '$select=ResourceUID'  //qa
         let filter = `$filter=ResourceManagerUID eq '${resUid}'`;
         //1. get data from SP List UserState 
         let url = baseUrl + '?' + filter + '&' + select;
