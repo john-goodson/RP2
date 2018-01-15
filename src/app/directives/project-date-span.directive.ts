@@ -29,15 +29,16 @@ export class ProjectDateSpanDirective {
   }
 
   formatCell() {
-    debugger
+    //debugger
     let _intervalStart = new Date(this.intervalStart)
     let _intervalEnd = new Date(this.intervalEnd) 
     let _projStart = new Date(this.projStart)
     let _projFinish = new Date(this.projFinish)
 
     if ((_intervalStart <= _projStart && _intervalEnd <= _projStart) || (_intervalStart > _projFinish ) )   {
-      debugger
-      this._elementRef.nativeElement.style.background = '##F5F5F5'
+      //debugger
+      this._elementRef.nativeElement.style.background = '#d6d7d8'
+      this._elementRef.nativeElement.style.color = 'gray'
     }
     else {
       this._elementRef.nativeElement.style.background = 'white'
