@@ -29,7 +29,6 @@ export class ProjectDateSpanDirective {
   }
 
   formatCell() {
-    //debugger
     let _intervalStart = new Date(this.intervalStart)
     let _intervalEnd = new Date(this.intervalEnd) 
     let _projStart = new Date(this.projStart)

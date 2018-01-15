@@ -28,6 +28,7 @@ export interface IProject {
   departments?: string;
 
   intervals?: IInterval[];
+  timesheetData?: IInterval[];
 }
 export interface IInterval {
 
