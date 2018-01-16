@@ -11,9 +11,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { IResPlan, IProject, IInterval, ProjectActiveStatus, IResource, Resource, Timescale, WorkUnits, Result } from './res-plan.model'
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component'
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { Observable } from 'rxjs/Rx';
-
 import { ResPlan, Project, Interval } from './res-plan.model';
 import { SimpleModalComponent } from '../common/simple-modal.component'
 import { ModalCommunicator } from '../resourcePlans/modal-communicator.service';
@@ -23,13 +21,18 @@ import { ResourcePlanUserStateService } from '../services/resource-plan-user-sta
 import { ResourcesModalCommunicatorService } from '../resourcePlans/resources-modal-communicator.service'
 import { ResPlanHeaderRowComponent } from "../resourcePlans/res-plan-header-row/res-plan-header-row.component"
 import { AppStateService } from '../services/app-state.service' 
+import { MenuService} from '../../fw/services/menu.service';
+import { elementAt } from 'rxjs/operators/elementAt';
+
 
 declare const $: any
+declare const window: Window;
+
 
 @Component({
     selector: 'resplan-list',
     templateUrl: './res-plan-list.component.html',
-    styleUrls: ['./res-plan-list.component.css']
+    styleUrls: ['./res-plan-list.component.scss']
 })
 
 
@@ -74,6 +77,7 @@ export class ResPlanListComponent implements OnInit {
         , private router: Router,
         private _resourcePlanSvc: ResourcePlanService
         , private _resPlanUserStateSvc: ResourcePlanUserStateService
+        , private menuService: MenuService,
         , private _resModalSvc: ResourcesModalCommunicatorService
         , private _appSvc: AppStateService
         , private _route: ActivatedRoute, private dialog: MatDialog) { }
@@ -480,7 +484,7 @@ export class ResPlanListComponent implements OnInit {
         ;
         if (this.mainForm.dirty && this.mainForm.valid) {
 
-            debugger
+           
             let resourceplans = this.resPlans.controls
                 .filter(item => item.dirty === true)
                 .map(t => {
@@ -680,28 +684,16 @@ export class ResPlanListComponent implements OnInit {
             }
         });
     }
-
-    printFunction(): void {
-        let printContents, popupWin;
-        printContents = $("#printContent")[0];
-        printContents.remove('btn btn-primary margin-left');
-        printContents.remove('button');
-        printContents =  printContents.innerHTML;
-        popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-        popupWin.document.open();
-        popupWin.document.write(`
-          <html>
-            <head>
-              <title>Print tab</title>
-              <link href="./app/ResourcePlans/res-plan-list.component.css" rel="stylesheet" />
-            </head>
-        <body onload="window.print();window.close()">${printContents}</body>
-          </html>`
-        );
-      popupWin.document.close();
+    
+    
+    //this function activates a print job by minimizing the
+    //side bar and printing the window after enough time has
+    //elapsed to reflect a full-screen.
+    printFunction(event: Event, window:Window): void {
+        $.when(this.menuService.printMode(event))          
+        .done(setTimeout(this.menuService.printerFunction,1000));
     }
 
-    
     updateErrors(errors: Result[]) {
         let resultsWithError = errors.filter(e => e.success == false);
 

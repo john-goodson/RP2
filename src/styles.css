@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 li {
     font-size: large;
 }
@@ -10,6 +11,8 @@ div.panel-heading {
 li { 
     cursor: pointer; 
 }
+
+
 
 /* Fade transition */
 /*pm-app div {
@@ -39,7 +42,8 @@ pm-app div.panel.panel-primary {
 }
 
  @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; 
-
+ @import '~/./ResourcePlans/res-plan-list.component.scss';
+ 
 
 
 @keyframes slideIn {
@@ -86,4 +90,51 @@ pm-app div.panel.panel-primary {
         -webkit-transform: rotate(359deg);
         transform: rotate(359deg);
     }
+}
+
+@media print and (color){
+    * {
+    -webkit-print-color-adjust: exact;
+    max-width: 100%;
+    }
+    @page{
+        size: 17in 11in;
+        page-break-after: always;
+        margin: 0;        
+    }
+    table.table{
+        margin-left: 0;
+        margin-right: 0;
+        position: left;
+    }
+
+    #title-bar{
+        display: none;
+    }
+    #status-bar{
+        display: none;
+    }
+    #navigation{
+        display:none;
+    }
+    .menu-item{
+        display:none;
+    }
+    div#button-header {
+        display: none;
+        visibility: hidden
+    }
+    button.btn.btn-primary{
+        display: none;
+    }
+    .table-body{
+        margin-left:0;
+    }
+
+    input.totalsRow[value="100%"] {
+        color: rgb(191, 230,191);
+    }
+  
+    
+    
 }
