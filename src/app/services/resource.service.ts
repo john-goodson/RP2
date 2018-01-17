@@ -43,7 +43,7 @@ export class ResourceService {
         for (var i = 0; i < result.length; i++) {
             var newResource = new Resource(result[i]["resUid"], result[i]["resName"]); 
 
-            newResource.rbs = result[i]["CustomFields"] && result[i]["CustomFields"].find(p=>p.Name == "Timesheet Manager").Value;
+            newResource.timesheetMgr = result[i]["CustomFields"] && result[i]["CustomFields"].find(p=>p.Name == "Timesheet Manager").Value;
             debugger
             resources.push(newResource);
         }
