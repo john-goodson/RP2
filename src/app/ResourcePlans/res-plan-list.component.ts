@@ -79,7 +79,7 @@ export class ResPlanListComponent implements OnInit {
         , private _route: ActivatedRoute, private dialog: MatDialog) { }
 
     ngOnInit(): void {
-        debugger;
+       //debugger;
 
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
@@ -236,7 +236,7 @@ export class ResPlanListComponent implements OnInit {
             var interval = this.buildInterval(_project.intervals[i]);
             (project.get('intervals') as FormArray).push(interval);
         }
-        debugger;
+        //debugger;
         for (var i = 0; i < _project.timesheetData.length; i++) {
             var interval = this.buildtimesheetInterval(_project.timesheetData[i]); 
             (project.get('timesheetData') as FormArray).push(interval);
@@ -503,7 +503,7 @@ export class ResPlanListComponent implements OnInit {
         ;
         if (this.mainForm.dirty && this.mainForm.valid) {
 
-            debugger
+            //debugger
             let resourceplans = this.resPlans.controls
                 .filter(item => item.dirty === true)
                 .map(t => {

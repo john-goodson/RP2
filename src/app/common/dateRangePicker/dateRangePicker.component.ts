@@ -42,7 +42,7 @@ export class DateRangePicker  {
             // return this.endMinDate = this.startingDate;
             // return this.endMinDate = this.minDate;
             // return this.endMinDate = this.minDate;
-            debugger
+           // debugger
             return this.endMinDate = this.startingDate;
         }
         this.endMinDate = this.startingDate;
