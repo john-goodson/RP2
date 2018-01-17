@@ -24,6 +24,10 @@ export class NextYear {
         , public endDate = moment().endOf('year').add(1,'year').toDate()) {
     }
 }
-
+export class LastYear {
+    constructor(public startDate = moment().startOf('year').add(-1,'year').toDate()
+        , public endDate = moment().endOf('year').add(-1,'year').toDate()) {
+    }
+}
 
 
