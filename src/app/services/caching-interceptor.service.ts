@@ -24,17 +24,22 @@ export class CachingInterceptorService implements HttpInterceptor {
     //   console.log('******************************* ' )
     //   return next.handle(req);
     // }
-
+    
     //If Request body has parameter method = PwaGetProjectsForEditCommand or PwaGetResourcesCommand
-    if (req && req.body && (typeof req.body == typeof "") && (req.body.indexOf('method=PwaGetProjectsForEditCommand') > -1 || req.body.indexOf('method=PwaGetResourcesCommand')) > -1) {
-      // First, check the cache to see if this request exists.
+    if (req && req.body && (typeof req.body == typeof "") && (req.body.indexOf('method=PwaGetProjectsForEditCommand') > -1 || req.body.indexOf('method=PwaGetResourcesCommand')
+    > -1 || req.body.indexOf('method=PwaGetTimsheetsCommand') > -1
+  ) 
+  
+  ) {
+    // First, check the cache to see if this request exists.
       const cachedResponse = this.cache[req.urlWithParams + req.body] || null;
       if (cachedResponse) {
         // A cached response exists. Serve it instead of forwarding
         // the request to the next handler.
         
         console.log('******************************* ')
-        console.log('YO....i\'m returning cached data ')
+        debugger;
+        console.log('YO....i\'m returning cached data for' + req.body)
         console.log('******************************* ')
         return Observable.of(cachedResponse);
       }
