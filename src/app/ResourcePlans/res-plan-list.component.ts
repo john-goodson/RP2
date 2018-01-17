@@ -752,10 +752,10 @@ export class ResPlanListComponent implements OnInit {
     }
     toggleTimesheetDisplay(button:any){
        debugger;
-        this._appSvc.queryParams.showTimesheetData = !this._appSvc.queryParams.showTimesheetData
+        this._appSvc.queryParams.showTimesheetData = !this._appSvc.queryParams.showTimesheetData;
         this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
         this.router.isActive = function () { return false; }
-        this.router.navigate(['/home/resPlans', this._appSvc.queryParams],{ preserveQueryParams:true} );
+        this.router.navigate(['/home/resPlans', this._appSvc.queryParams] );
     }
 
     getTimesheetButtonText()
