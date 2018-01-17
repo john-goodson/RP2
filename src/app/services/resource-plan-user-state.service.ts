@@ -733,9 +733,7 @@ export class ResourcePlanUserStateService {
                             
                             }
                         } 
-                        else{
-                            console.log('Capacity not found for date = ' + timesheetInterval)
-                        }
+                       
                         //incremment by 1 day until interval end is reached
                         timesheetInterval = moment(timesheetInterval).add(1, 'day').toDate();
                     }
@@ -773,7 +771,7 @@ export class ResourcePlanUserStateService {
     getTimesheetData(resPlan: IResPlan,workunits:WorkUnits): Observable<object> {
         let headers = new HttpHeaders();
         headers = headers.set('Accept', 'application/json;odata=verbose').set('Content-Type','application/x-www-form-urlencoded')
-        const body =  `method=PwaGetTimsheetsCommand&resuid=${resPlan.resource.resUid}&workScale=${WorkUnits[workunits]}` 
+        const body =  `method=PwaGetTimsheetsCommand&resuid=${resPlan.resource.resUid}` 
         let adapterPath = `${this.config.adapterUrl}`
         let options = {
             headers 
