@@ -44,6 +44,7 @@ export interface IQueryParams {
   toDate: Date;
   timescale: Timescale
   workunits: WorkUnits
+  showTimesheetData:Boolean
 
 }
 

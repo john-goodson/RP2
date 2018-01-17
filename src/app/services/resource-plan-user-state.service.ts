@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { ConfigService, } from './config-service.service'
-
+import { LastYear } from '../common/utilities'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
@@ -52,7 +52,7 @@ export class ResourcePlanUserStateService {
         let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
 
         //remember to change UID0 to UID
-        let select = '$select=ResourceUID'  //dev
+        let select = '$select=ResourceUID0'  //dev
         //let select = '$select=ResourceUID'  //qa
         let filter = `$filter=ResourceManagerUID eq '${resUid}'`;
         //1. get data from SP List UserState 
@@ -69,7 +69,7 @@ export class ResourcePlanUserStateService {
                 ;
                 if (data["d"].results.length > 0)
                     return JSON.parse(data["d"].results
-                        .map(r => r["ResourceUID"])) as IResource[] //dev
+                        .map(r => r["ResourceUID0"])) as IResource[] //dev
                 //.map(r=>r["ResourceUID"])) as IResource[] //qa
                 else {
                     return []
@@ -117,7 +117,7 @@ export class ResourcePlanUserStateService {
 
     }
 
-    getResPlans(resMgrUid: string, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits): Observable<IResPlan[]> {
+    getResPlans(resMgrUid: string, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:Boolean): Observable<IResPlan[]> {
         //let uniqueProjectsForResMgr = this.getUniqueProjectsForResManager(resMgrUid);
         let resourceForResMgr = this.getUniqueResourcesForResManager(resMgrUid);
 
@@ -146,7 +146,7 @@ export class ResourcePlanUserStateService {
         return resourceForResMgr.flatMap(resources => {
 
 
-            return this.getResPlansFromProjects(resMgrUid, resources, uniqueProjectsResMgrHasAccessOn, fromDate, toDate, timescale, workunits)
+            return this.getResPlansFromProjects(resMgrUid, resources, uniqueProjectsResMgrHasAccessOn, fromDate, toDate, timescale, workunits,showTimesheetData)
             // .do(t => {
             //     //console.log('resource plans read from add resource =' + JSON.stringify(t))
             // })
@@ -159,7 +159,7 @@ export class ResourcePlanUserStateService {
     }
 
     ///Add Resource Plan use case
-    getResPlansFromResources(resMgrUid: string, resources: IResource[], fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits): Observable<IResPlan[]> {
+    getResPlansFromResources(resMgrUid: string, resources: IResource[], fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:Boolean): Observable<IResPlan[]> {
         //let projectsForAllResources = this.getUniqueProjectsAcrossResMgrs(resMgrUid, resources);
         let projectsThatUserHasAccessOn = this.getProjectIdsFromAssignmentsForResources(resources);
         //let combinedProjects = projectsForAllResources.merge(projectsThatUserHasAccessOn);
@@ -179,7 +179,7 @@ export class ResourcePlanUserStateService {
 
 
         // var readOnlyProjects = allProjectsWithReadOnlyFlags.map(t => { ; return t.filter(project => project.readOnly == true) })
-        return this.getResPlansFromProjects(resMgrUid, resources, projectsThatUserHasAccessOn, fromDate, toDate, timescale, workunits)
+        return this.getResPlansFromProjects(resMgrUid, resources, projectsThatUserHasAccessOn, fromDate, toDate, timescale, workunits,showTimesheetData)
         // .filter((r: IResPlan[]) => {
         //         ;
         //         return r.find(x => {
@@ -248,7 +248,7 @@ export class ResourcePlanUserStateService {
                 let resources = [];
                 resources = resources.concat(resourcePlans.map(r => r.resource));
                 if (data["d"].results.length > 0) {
-                    existingResources = JSON.parse(data["d"].results[0]["ResourceUID"]).map(resource => { return new Resource(resource.resUid, resource.resName) }) //dev
+                    existingResources = JSON.parse(data["d"].results[0]["ResourceUID0"]).map(resource => { return new Resource(resource.resUid, resource.resName) }) //dev
                     //existingResources = JSON.parse(data.json().d.results[0]["ResourceUID"]).map(resource => { return new Resource(resource.resUid, resource.resName) }) //qa
                     existingResources = existingResources
                         .filter(e => resources.map(r => r.resUid.toUpperCase()).indexOf(e.resUid.toUpperCase()) < 0)
@@ -281,7 +281,7 @@ export class ResourcePlanUserStateService {
                     }
                     let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName + '"}').join(",")}]'`
                     let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceManagerUID": "${resMgrUid}"
-                ,"ResourceUID":${resourcesJSON}}`;
+                ,"ResourceUID0":${resourcesJSON}}`;
                     return this.http.post(url, body, options)
                         .map(r => {
                             let result = new Result();
@@ -292,7 +292,7 @@ export class ResourcePlanUserStateService {
             })
     }
 
-    getResPlansFromProjects(resUid: string, resources: IResource[], resPlans: Observable<IResPlan[]>, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits): Observable<IResPlan[]> {
+    getResPlansFromProjects(resUid: string, resources: IResource[], resPlans: Observable<IResPlan[]>, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, showTimesheetData: Boolean): Observable<IResPlan[]> {
         let emptyResPlans = Observable.of(resources.map(r => new ResPlan(r, [])))
         var uniqueProjects = resPlans.flatMap(r => Observable.from(r).flatMap(r => r.projects)).distinct(x => x.projUid);
         return uniqueProjects.flatMap((project: IProject) => {
@@ -349,10 +349,14 @@ export class ResourcePlanUserStateService {
                 return rps;
             })
             .flatMap(resPlans => {
-               return Observable.forkJoin(resPlans.map(r=>
-                {
-                    return this.getTimesheetDataFromResource(r,workunits)
-                }))
+                if (showTimesheetData == true) {
+                    return Observable.forkJoin(resPlans.map(r => {
+                        return this.getTimesheetDataFromResource(r, workunits)
+                    }))
+                }
+                else {
+                    return Observable.of(resPlans);
+                }
             })
 
     }
@@ -679,7 +683,7 @@ export class ResourcePlanUserStateService {
 
             .flatMap((data: Response) => {
                 ;
-                let resources = <IResource[]>JSON.parse(data["d"].results[0]["ResourceUID"]) //dev
+                let resources = <IResource[]>JSON.parse(data["d"].results[0]["ResourceUID0"]) //dev
                     //let resources = <IResource[]>JSON.parse(data.json().d.results[0]["ResourceUID"]) //qa
                     .map(resource => { return new Resource(resource.resUid, resource.resName) })
                 resources = resources.filter(r => resPlans.map(d => d.resource.resUid.toUpperCase()).indexOf(r.resUid.toUpperCase()) < 0)
@@ -699,7 +703,7 @@ export class ResourcePlanUserStateService {
                         headers: headers
                     }
 
-                    let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID":${resourcesJSON}}"}` //dev
+                    let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID0":${resourcesJSON}}"}` //dev
                     //let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID":${resourcesJSON}}"}` //qa
                     return this.http.post(data["d"].results[0].__metadata.uri, body, options)
                         .map((response: Response) => {
@@ -712,74 +716,71 @@ export class ResourcePlanUserStateService {
 
     }
 
-    getTimesheetDataFromResource(resPlan: IResPlan,workUnits:WorkUnits): Observable<IResPlan> {
-        
-        return this.getTimesheetData(resPlan,workUnits).map(timesheetData => {
-            
+    getTimesheetDataFromResource(resPlan: IResPlan, workUnits: WorkUnits): Observable<IResPlan> {
+
+        return this.getTimesheetData(resPlan, workUnits).map(timesheetData => {
+
             resPlan.projects.forEach(project => {
                 project.timesheetData = [];
-                
+
                 project.intervals.forEach(interval => {
                     let timesheetInterval = moment(interval.start).toDate();
-                    let actualTotal = 0,capacityTotal=0;
-                   
+                    let actualTotal = 0, capacityTotal = 0;
+
                     while (timesheetInterval < moment(interval.end).toDate()) {
                         //if project has timesheet data
                         if (timesheetData.hasOwnProperty(this.getDateFormatString(timesheetInterval))) {
                             //if interval date has timesheet data
-                            capacityTotal+= +(timesheetData[this.getDateFormatString(timesheetInterval)].Capacity);
-                            if (timesheetData[this.getDateFormatString(timesheetInterval)].TimesheetData.hasOwnProperty(project.projUid)){
-                            actualTotal += +(timesheetData[this.getDateFormatString(timesheetInterval)].TimesheetData[project.projUid])
-                            
+                            capacityTotal += +(timesheetData[this.getDateFormatString(timesheetInterval)].Capacity);
+                            if (timesheetData[this.getDateFormatString(timesheetInterval)].TimesheetData.hasOwnProperty(project.projUid)) {
+                                actualTotal += +(timesheetData[this.getDateFormatString(timesheetInterval)].TimesheetData[project.projUid])
+
                             }
-                        } 
-                       
+                        }
+
                         //incremment by 1 day until interval end is reached
                         timesheetInterval = moment(timesheetInterval).add(1, 'day').toDate();
                     }
-                    let timesheetTotal=0;
-                    if(workUnits == WorkUnits.hours)
-                    {
+                    let timesheetTotal = 0;
+                    if (workUnits == WorkUnits.hours) {
                         timesheetTotal = actualTotal;
                     }
-                    else if(workUnits == WorkUnits.days)
-                    {
-                        timesheetTotal = actualTotal /8;
+                    else if (workUnits == WorkUnits.days) {
+                        timesheetTotal = actualTotal / 8;
                     }
-                    else if(workUnits == WorkUnits.FTE)
-                    {
-                        if(capacityTotal < 1)
-                        {
-                            timesheetTotal =-100; 
+                    else if (workUnits == WorkUnits.FTE) {
+                        if (capacityTotal < 1) {
+                            timesheetTotal = -100;
                         }
-                        else{
-                        timesheetTotal = Math.round((actualTotal /capacityTotal * 100));
+                        else {
+                            timesheetTotal = Math.round((actualTotal / capacityTotal * 100));
                         }
                     }
-                    if(timesheetTotal < 0)
-                    {
+                    if (timesheetTotal < 0) {
                         project.timesheetData.push(new Interval(interval.intervalName, 'NA', interval.start, interval.end))
                     }
-                    else{
-                    project.timesheetData.push(new Interval(interval.intervalName, timesheetTotal.toString(), interval.start, interval.end))
+                    else {
+                        project.timesheetData.push(new Interval(interval.intervalName, timesheetTotal.toString(), interval.start, interval.end))
                     }
                 })
             })
             return resPlan
         })
     }
-    getTimesheetData(resPlan: IResPlan,workunits:WorkUnits): Observable<object> {
+    getTimesheetData(resPlan: IResPlan, workunits: WorkUnits): Observable<object> {
         let headers = new HttpHeaders();
-        headers = headers.set('Accept', 'application/json;odata=verbose').set('Content-Type','application/x-www-form-urlencoded')
-        const body =  `method=PwaGetTimsheetsCommand&resuid=${resPlan.resource.resUid}` 
+        let start: Date = new LastYear().startDate;
+        let end: Date = new Date();
+        headers = headers.set('Accept', 'application/json;odata=verbose').set('Content-Type', 'application/x-www-form-urlencoded')
+        const body = `method=PwaGetTimsheetsCommand&resuid=${resPlan.resource.resUid}&start=${start.toDateString()}&end=${end.toDateString()}`;
         let adapterPath = `${this.config.adapterUrl}`
         let options = {
-            headers 
+            headers
         };
         return this.http.post(
-            adapterPath,body,options
-           
-       ) .map((r) => {
+            adapterPath, body, options
+
+        ).map((r) => {
             return r;
         })
     }
