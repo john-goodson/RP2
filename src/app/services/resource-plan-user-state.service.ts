@@ -351,7 +351,7 @@ export class ResourcePlanUserStateService {
             .flatMap(resPlans => {
                return Observable.forkJoin(resPlans.map(r=>
                 {
-                    return this.getTimesheetDataFromResource(r)
+                    return this.getTimesheetDataFromResource(r,workunits)
                 }))
             })
 
@@ -712,38 +712,68 @@ export class ResourcePlanUserStateService {
 
     }
 
-    getTimesheetDataFromResource(resPlan: IResPlan): Observable<IResPlan> {
+    getTimesheetDataFromResource(resPlan: IResPlan,workUnits:WorkUnits): Observable<IResPlan> {
         
-        return this.getTimesheetData(resPlan).map(timesheetData => {
+        return this.getTimesheetData(resPlan,workUnits).map(timesheetData => {
             
             resPlan.projects.forEach(project => {
                 project.timesheetData = [];
                 
                 project.intervals.forEach(interval => {
                     let timesheetInterval = moment(interval.start).toDate();
-                    let timesheetTotal = 0;
+                    let actualTotal = 0,capacityTotal=0;
                    
                     while (timesheetInterval < moment(interval.end).toDate()) {
                         //if project has timesheet data
-                        if (timesheetData.hasOwnProperty(project.projUid)) {
+                        if (timesheetData.hasOwnProperty(this.getDateFormatString(timesheetInterval))) {
                             //if interval date has timesheet data
+                            capacityTotal+= +(timesheetData[this.getDateFormatString(timesheetInterval)].Capacity);
+                            if (timesheetData[this.getDateFormatString(timesheetInterval)].TimesheetData.hasOwnProperty(project.projUid)){
+                            actualTotal += +(timesheetData[this.getDateFormatString(timesheetInterval)].TimesheetData[project.projUid])
                             
-                            if (timesheetData[project.projUid].hasOwnProperty(this.getDateFormatString(timesheetInterval)))
-                                timesheetTotal += +(timesheetData[project.projUid][this.getDateFormatString(timesheetInterval)])
+                            }
+                        } 
+                        else{
+                            console.log('Capacity not found for date = ' + timesheetInterval)
                         }
                         //incremment by 1 day until interval end is reached
                         timesheetInterval = moment(timesheetInterval).add(1, 'day').toDate();
                     }
+                    let timesheetTotal=0;
+                    if(workUnits == WorkUnits.hours)
+                    {
+                        timesheetTotal = actualTotal;
+                    }
+                    else if(workUnits == WorkUnits.days)
+                    {
+                        timesheetTotal = actualTotal /8;
+                    }
+                    else if(workUnits == WorkUnits.FTE)
+                    {
+                        if(capacityTotal < 1)
+                        {
+                            timesheetTotal =-100; 
+                        }
+                        else{
+                        timesheetTotal = Math.round((actualTotal /capacityTotal * 100));
+                        }
+                    }
+                    if(timesheetTotal < 0)
+                    {
+                        project.timesheetData.push(new Interval(interval.intervalName, 'NA', interval.start, interval.end))
+                    }
+                    else{
                     project.timesheetData.push(new Interval(interval.intervalName, timesheetTotal.toString(), interval.start, interval.end))
+                    }
                 })
             })
             return resPlan
         })
     }
-    getTimesheetData(resPlan: IResPlan): Observable<object> {
+    getTimesheetData(resPlan: IResPlan,workunits:WorkUnits): Observable<object> {
         let headers = new HttpHeaders();
         headers = headers.set('Accept', 'application/json;odata=verbose').set('Content-Type','application/x-www-form-urlencoded')
-        const body =  `method=PwaGetTimsheetsCommand&resuid=${resPlan.resource.resUid}` 
+        const body =  `method=PwaGetTimsheetsCommand&resuid=${resPlan.resource.resUid}&workScale=${WorkUnits[workunits]}` 
         let adapterPath = `${this.config.adapterUrl}`
         let options = {
             headers 
