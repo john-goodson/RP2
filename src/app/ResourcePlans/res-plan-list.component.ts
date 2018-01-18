@@ -21,7 +21,7 @@ import { ResourcePlanUserStateService } from '../services/resource-plan-user-sta
 import { ResourcesModalCommunicatorService } from '../resourcePlans/resources-modal-communicator.service'
 import { ResPlanHeaderRowComponent } from "../resourcePlans/res-plan-header-row/res-plan-header-row.component"
 import { AppStateService } from '../services/app-state.service' 
-import { MenuService} from '../../fw/services/menu.service';
+import { MenuService } from '../../fw/services/menu.service';
 import { elementAt } from 'rxjs/operators/elementAt';
 
 
@@ -32,7 +32,7 @@ declare const window: Window;
 @Component({
     selector: 'resplan-list',
     templateUrl: './res-plan-list.component.html',
-    styleUrls: ['./res-plan-list.component.scss']
+    styleUrls: ['./res-plan-list.component.css']
 })
 
 
@@ -77,7 +77,7 @@ export class ResPlanListComponent implements OnInit {
         , private router: Router,
         private _resourcePlanSvc: ResourcePlanService
         , private _resPlanUserStateSvc: ResourcePlanUserStateService
-        , private menuService: MenuService,
+        , private menuService: MenuService
         , private _resModalSvc: ResourcesModalCommunicatorService
         , private _appSvc: AppStateService
         , private _route: ActivatedRoute, private dialog: MatDialog) { }
@@ -689,11 +689,11 @@ export class ResPlanListComponent implements OnInit {
     //this function activates a print job by minimizing the
     //side bar and printing the window after enough time has
     //elapsed to reflect a full-screen.
-    printFunction(event: Event, window:Window): void {
-        $.when(this.menuService.printMode(event))          
+    printFunction(event: Event): void {
+        $.when(this.menuService.printMode())          
         .done(setTimeout(this.menuService.printerFunction,1000));
     }
-
+ 
     updateErrors(errors: Result[]) {
         let resultsWithError = errors.filter(e => e.success == false);
 

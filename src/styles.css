@@ -44,8 +44,6 @@ pm-app div.panel.panel-primary {
  @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; 
  @import '~/./ResourcePlans/res-plan-list.component.scss';
  
-
-
 @keyframes slideIn {
   from {
     transform: translate(-200px);
@@ -92,20 +90,48 @@ pm-app div.panel.panel-primary {
     }
 }
 
-@media print and (color){
-    * {
-    -webkit-print-color-adjust: exact;
+@media print {
+    *,input,table,tr,th,button, body, .table-body {
+    -webkit-print-color-adjust: exact !important;
     max-width: 100%;
+    margin: 0;
     }
+    .totalGreen {
+        -webkit-print-color-adjust: exact !important;
+        background-color: rgb(191, 230,191) !important;
+    }
+
+    .totalRed {
+        -webkit-print-color-adjust: exact !important;
+        background-color: #f3a2a2 !important;
+    }
+    
+    div.well.pointable:first-of-type {
+        padding-top: 1em;
+    }
+
+    div.well.pointable {
+        margin:0;
+        padding: 0;
+    }
+    div[class="well"] {
+        margin:0
+    }
+    div[class="pointable"] {
+        margin:0
+    }
+
     @page{
-        size: 17in 11in;
-        page-break-after: always;
-        margin: 0;        
+    size: 17in 11in;
+    page-break-after: always;
+    margin: 0;     
     }
+
     table.table{
         margin-left: 0;
         margin-right: 0;
         position: left;
+        margin-bottom: 0;
     }
 
     #title-bar{
@@ -128,13 +154,6 @@ pm-app div.panel.panel-primary {
         display: none;
     }
     .table-body{
-        margin-left:0;
+        margin:0;
     }
-
-    input.totalsRow[value="100%"] {
-        color: rgb(191, 230,191);
-    }
-  
-    
-    
 }
