@@ -18,7 +18,8 @@ export class AppStateService {
     fromDate: this.next12Months.startDate,
     toDate: this.next12Months.endDate,
     timescale: Timescale.calendarMonths,
-    workunits: WorkUnits.FTE
+    workunits: WorkUnits.FTE,
+    showTimesheetData:false
   }
   
   

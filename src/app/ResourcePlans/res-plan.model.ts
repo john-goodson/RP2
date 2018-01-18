@@ -7,6 +7,7 @@ export interface IResource {
   resUid: string;
   resName?: string;
   rbs?: string
+  timeSheetMgr?: string
   org?: {
     location: string;
     title: string;
@@ -28,6 +29,7 @@ export interface IProject {
   departments?: string;
 
   intervals?: IInterval[];
+  timesheetData?: IInterval[];
 }
 export interface IInterval {
 
@@ -42,6 +44,7 @@ export interface IQueryParams {
   toDate: Date;
   timescale: Timescale
   workunits: WorkUnits
+  showTimesheetData:Boolean
 
 }
 
@@ -71,7 +74,7 @@ export class Interval implements IInterval {
 }
 
 export class Resource implements IResource {
-  constructor(public resUid = '0', public resName = '', public rbs = '') { }
+  constructor(public resUid = '0', public resName = '', public rbs = '' , public timesheetMgr = '' ) { }
 }
 
 

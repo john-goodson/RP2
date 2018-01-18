@@ -2,12 +2,13 @@ import { MenuItem } from '../fw/services/menu.service';
 // import { AppStateService } from './services/app-state.service'
 
 // export let foo: AppStateService
-import { CurrentCalendarYear, CurrentFiscalYear, Next12Months, NextYear } from './common/utilities'
+import { CurrentCalendarYear, CurrentFiscalYear, Next12Months, NextYear , LastYear } from './common/utilities'
 
 export let _currentCalYear = new CurrentCalendarYear()
 export let _CurrentFiscalYer = new CurrentFiscalYear()
 export let _next12Months = new Next12Months()
 export let _nextYear = new NextYear()
+export let _lastYear = new LastYear()
 
 
 export let initialMenuItems: Array<MenuItem> = [
@@ -47,6 +48,17 @@ export let initialMenuItems: Array<MenuItem> = [
                 },
                 submenu: null
             },
+            {
+                text: 'Last Year',
+                icon: 'glyphicon-calendar',
+                route: '/home/resPlans',
+                params: {
+                    fromDate: _lastYear.startDate,
+                    toDate: _lastYear.endDate
+                },
+                submenu: null
+            },
+
             {
                 text: 'Custom Dates',
                 icon: 'glyphicon-calendar',

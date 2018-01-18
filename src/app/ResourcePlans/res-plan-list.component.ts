@@ -54,7 +54,8 @@ export class ResPlanListComponent implements OnInit {
     toDate: Date;
     timescale: Timescale;
     workunits: WorkUnits;
-    confirmDialogResult: string
+    confirmDialogResult: string;
+    showTimesheetData:Boolean = false;
 
 
     get resPlans(): FormArray {  //this getter should return all instances.
@@ -83,7 +84,7 @@ export class ResPlanListComponent implements OnInit {
         , private _route: ActivatedRoute, private dialog: MatDialog) { }
 
     ngOnInit(): void {
-        ;
+       //debugger;
 
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
@@ -96,7 +97,7 @@ export class ResPlanListComponent implements OnInit {
         this.toDate = this._appSvc.queryParams.toDate
         this.timescale = this._appSvc.queryParams.timescale
         this.workunits = this._appSvc.queryParams.workunits
-
+        this.showTimesheetData = this._appSvc.queryParams.showTimesheetData;
         this._route.data.subscribe(values => {
             this.resPlanData = values.resPlans;
             //this.resPlans = values.resPlans;
@@ -106,7 +107,7 @@ export class ResPlanListComponent implements OnInit {
             //console.log(JSON.stringify(values.resPlans))
         }, (error) => console.log(error))
         this._modalSvc.modalSubmitted$.subscribe(() => {
-            this.addSelectedProjects(this.fromDate, this.toDate, this.timescale, this.workunits);
+            this.addSelectedProjects(this.fromDate, this.toDate, this.timescale, this.workunits,this.showTimesheetData);
         }, (error) => console.log(error))
         console.log("=========multi subscribe")
         this._resModalSvc.modalSubmitted$.subscribe(() => {
@@ -129,7 +130,7 @@ export class ResPlanListComponent implements OnInit {
             dialogRef.afterClosed().subscribe(result => {
                 this.confirmDialogResult = result;
                 if (result == "yes")
-                window.location.href = "https://perviewqa.app.parallon.com/pwa"
+                    window.location.href = "https://perviewqa.app.parallon.com/pwa"
             });
         }
         else {
@@ -231,6 +232,7 @@ export class ResPlanListComponent implements OnInit {
                 error: null,
                 readOnlyReason: this.fb.control(_project.readOnlyReason),
                 intervals: this.fb.array([]),
+                timesheetData: this.fb.array([]),
                 selected: this.fb.control(false),
                 startDate: _project.startDate,
                 finishDate: _project.finishDate
@@ -239,6 +241,13 @@ export class ResPlanListComponent implements OnInit {
             var interval = this.buildInterval(_project.intervals[i]);
             (project.get('intervals') as FormArray).push(interval);
         }
+        //debugger;
+        if(_project.timesheetData){
+        for (var i = 0; i < _project.timesheetData.length; i++) {
+            var interval = this.buildtimesheetInterval(_project.timesheetData[i]); 
+            (project.get('timesheetData') as FormArray).push(interval);
+        }
+    }
 
         //_project.readOnly && project.disable({emitEvent:false})
         return project;
@@ -250,6 +259,19 @@ export class ResPlanListComponent implements OnInit {
             intervalName: interval.intervalName,
             //intervalValue:  new PercentPipe(new IntervalPipe().transform(interval.intervalValue, this.workunits)  ).transform(interval.intervalValue)
             intervalValue: new IntervalPipe().transform(interval.intervalValue, this.workunits),
+            intervalStart: interval.start,
+            intervalEnd: interval.end
+
+        });
+    }
+
+
+    buildtimesheetInterval(interval: IInterval): FormGroup {
+
+        return this.fb.group({
+            intervalName: interval.intervalName,
+            //intervalValue:  new PercentPipe(new IntervalPipe().transform(interval.intervalValue, this.workunits)  ).transform(interval.intervalValue)
+            intervalValue: interval.intervalValue,
             intervalStart: interval.start,
             intervalEnd: interval.end
 
@@ -367,7 +389,7 @@ export class ResPlanListComponent implements OnInit {
         this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr => {
 
             console.log('selected resources=' + JSON.stringify(this._resModalSvc.selectedResources))
-            this._resPlanUserStateSvc.getResPlansFromResources(resMgr, this._resModalSvc.selectedResources, this.fromDate, this.toDate, this.timescale, this.workunits)
+            this._resPlanUserStateSvc.getResPlansFromResources(resMgr, this._resModalSvc.selectedResources, this.fromDate, this.toDate, this.timescale, this.workunits,this.showTimesheetData)
                 .subscribe(plans => {
                     this._resPlanUserStateSvc.AddResourceToManager(resMgr, plans).subscribe(r => {
                         if (r.success == true) {
@@ -390,7 +412,7 @@ export class ResPlanListComponent implements OnInit {
         }, (error) => { console.log(error); this._appSvc.loading(false); })
     }
 
-    addSelectedProjects(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits) {
+    addSelectedProjects(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:Boolean) {
         this._appSvc.loading(true);
         this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr => {
             let resource = new Resource(this.currentFormGroup.value["resUid"],
@@ -407,12 +429,16 @@ export class ResPlanListComponent implements OnInit {
                     console.log("===added projects" + JSON.stringify(successfullProjects))
 
                     if (successfullProjects.length > 0) {
-                        this.buildSelectedProjects(successfullProjects)//.filter(r=>r.projUid.toUpperCase))
-                            ;
-                        this.header.setIntervals([new ResPlan(resource, successfullProjects)]);
-                        this.initTotals(this.currentFormGroup.get('totals') as FormArray, successfullProjects)
-                        this.calculateTotals(this.currentFormGroup);
-                        this._appSvc.loading(false);
+                        this._resPlanUserStateSvc.getResPlansFromProjects(resource.resUid, [resource],
+                            Observable.of([new ResPlan(resource, successfullProjects)]), fromDate, toDate, timescale, workunits
+                        ,showTimesheetData).subscribe(resPlans => {
+                            this.buildSelectedProjects(resPlans[0].projects)//.filter(r=>r.projUid.toUpperCase))
+                            this.header.setIntervals(resPlans);
+                            this.initTotals(this.currentFormGroup.get('totals') as FormArray, resPlans[0].projects)
+                            this.calculateTotals(this.currentFormGroup);
+                            this._appSvc.loading(false);
+                        });
+
                     }
                     else {
                         this._appSvc.loading(false);
@@ -484,7 +510,7 @@ export class ResPlanListComponent implements OnInit {
         ;
         if (this.mainForm.dirty && this.mainForm.valid) {
 
-           
+            //debugger
             let resourceplans = this.resPlans.controls
                 .filter(item => item.dirty === true)
                 .map(t => {
@@ -716,4 +742,19 @@ export class ResPlanListComponent implements OnInit {
 
 
     }
+    toggleTimesheetDisplay(button:any){
+       debugger;
+        this._appSvc.queryParams.showTimesheetData = !this._appSvc.queryParams.showTimesheetData;
+        this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
+        this.router.isActive = function () { return false; }
+        this.router.navigate(['/home/resPlans', this._appSvc.queryParams] );
+    }
+
+    getTimesheetButtonText()
+    {
+        debugger;
+        if(this.showTimesheetData == true) return 'Hide Timesheet Data'; else return 'Show timesheet Data';
+    }
 }
+
+

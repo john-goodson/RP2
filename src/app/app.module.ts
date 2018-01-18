@@ -58,7 +58,8 @@ import { JumbotronComponent} from './jumbotron/jumbotron.component';
 import { ResPlanListTesterComponent } from './resourcePlans/res-plan-list-tester/res-plan-list-tester.component';
 import { IntervalMaskDirective } from './directives/interval-mask.directive';
 import { ProjectDateSpanDirective } from './directives/project-date-span.directive';
-import { ConfirmDialogComponent } from './common/confirm-dialog/confirm-dialog.component'
+import { ConfirmDialogComponent } from './common/confirm-dialog/confirm-dialog.component';
+import { CellWorkUnitsPipe } from './common/cell-work-units.pipe'
 
 //let jQuery : Object;// Add this function
 export function initConfig(configSvc: ConfigService){
@@ -89,7 +90,8 @@ export function initConfig(configSvc: ConfigService){
     ResPlanListTesterComponent,
     IntervalMaskDirective,
     ProjectDateSpanDirective,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    CellWorkUnitsPipe
   ],
 
   imports: [

@@ -38,6 +38,10 @@ export class DateRangePicker  {
     endDateValid = (endMinDate: Date, startingDate:Date, endingDate:Date, minDate: Date): boolean => {
             if(this.startingDate > this.endingDate) {
             this.isValid = false;
+            // return this.endMinDate = this.startingDate;
+            // return this.endMinDate = this.minDate;
+            // return this.endMinDate = this.minDate;
+           // debugger
             return this.endMinDate = this.startingDate;
         }
         this.endMinDate = this.startingDate;

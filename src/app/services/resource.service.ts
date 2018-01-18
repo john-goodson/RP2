@@ -23,7 +23,11 @@ export class ResourceService {
     let adapterPath = `${this.config.adapterUrl}`;
     // let body = new URLSearchParams();
     
-    const body =  `method=PwaGetResourcesCommand&viewguid=${this.config.resourcePickerViewGuid}` 
+    const body =  `method=PwaGetResourcesCommand&viewguid=${this.config.resourcePickerViewGuid}`  
+
+    console.log('body of resource picker request: ' + body)
+
+
 
     // body.set("method","PwaGetResourcesCommand");
     let options = {
@@ -37,8 +41,10 @@ export class ResourceService {
     ) .map((result: Object[]) => {
         var resources: IResource[] = [];
         for (var i = 0; i < result.length; i++) {
-            var newResource = new Resource(result[i]["resUid"], result[i]["resName"]);
-            newResource.rbs = result[i]["CustomFields"] && result[i]["CustomFields"].find(p=>p.Name == "RBS").Value;
+            var newResource = new Resource(result[i]["resUid"], result[i]["resName"]); 
+
+            newResource.timesheetMgr = result[i]["CustomFields"] && result[i]["CustomFields"].find(p=>p.Name == "Timesheet Manager").Value;
+            debugger
             resources.push(newResource);
         }
         return resources;

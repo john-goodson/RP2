@@ -1,206 +1,95 @@
-[
-  {
-    "resource": {
-      "resUid": "fb31d63d-967c-e711-80cc-00155d005a03",
-      "resName": "Christina Wheeler",
-      "selected": false,
-      "CustomFields": null
+{
+  "e7808e36-588a-e711-80cc-00155d005a03": {
+    "2017-12-30": {
+      "Actual": 8.000000,
+      "Capacity": 0.0
     },
-    "projects": [
-      {
-        "projUid": "afa7fbbe-e361-e711-80cc-00155d005a03",
-        "projName": "project 1",
-        "selected": false,
-        "intervals": [
-          {
-            "intervalName": "Interval0",
-            "intervalValue": "1",
-            "start": "12/1/2017",
-            "end": "1/1/2018"
-          },
-          {
-            "intervalName": "Interval1",
-            "intervalValue": "0.56",
-            "start": "1/1/2018",
-            "end": "2/1/2018"
-          },
-          {
-            "intervalName": "Interval2",
-            "intervalValue": "0",
-            "start": "2/1/2018",
-            "end": "3/1/2018"
-          },
-          {
-            "intervalName": "Interval3",
-            "intervalValue": "0.22",
-            "start": "3/1/2018",
-            "end": "4/1/2018"
-          },
-          {
-            "intervalName": "Interval4",
-            "intervalValue": "0",
-            "start": "4/1/2018",
-            "end": "5/1/2018"
-          },
-          {
-            "intervalName": "Interval5",
-            "intervalValue": "0",
-            "start": "5/1/2018",
-            "end": "6/1/2018"
-          },
-          {
-            "intervalName": "Interval6",
-            "intervalValue": "0",
-            "start": "6/1/2018",
-            "end": "7/1/2018"
-          },
-          {
-            "intervalName": "Interval7",
-            "intervalValue": "0",
-            "start": "7/1/2018",
-            "end": "8/1/2018"
-          },
-          {
-            "intervalName": "Interval8",
-            "intervalValue": "0",
-            "start": "8/1/2018",
-            "end": "9/1/2018"
-          },
-          {
-            "intervalName": "Interval9",
-            "intervalValue": "0",
-            "start": "9/1/2018",
-            "end": "10/1/2018"
-          },
-          {
-            "intervalName": "Interval10",
-            "intervalValue": "0",
-            "start": "10/1/2018",
-            "end": "11/1/2018"
-          },
-          {
-            "intervalName": "Interval11",
-            "intervalValue": "0",
-            "start": "11/1/2018",
-            "end": "12/1/2018"
-          },
-          {
-            "intervalName": "Interval12",
-            "intervalValue": "0",
-            "start": "12/1/2018",
-            "end": "1/1/2019"
-          }
-        ],
-        "readOnly": false,
-        "stalePublish": false,
-        "readOnlyReason": null,
-        "startDate": null,
-        "finishDate": null,
-        "CustomFields": null
-      }
-    ],
-    "selected": false
+    "2017-12-31": {
+      "Actual": 8.000000,
+      "Capacity": 0.0
+    },
+    "2018-01-01": {
+      "Actual": 8.000000,
+      "Capacity": 8.0
+    },
+    "2018-01-02": {
+      "Actual": 0.000000,
+      "Capacity": 8.0
+    },
+    "2018-01-03": {
+      "Actual": 0.000000,
+      "Capacity": 8.0
+    },
+    "2018-01-04": {
+      "Actual": 0.000000,
+      "Capacity": 8.0
+    },
+    "2018-01-05": {
+      "Actual": 0.000000,
+      "Capacity": 8.0
+    },
+    "2018-01-08": {
+      "Actual": 8.000000,
+      "Capacity": 8.0
+    },
+    "2018-01-09": {
+      "Actual": 8.000000,
+      "Capacity": 8.0
+    },
+    "2018-01-10": {
+      "Actual": 8.000000,
+      "Capacity": 8.0
+    },
+    "2018-01-11": {
+      "Actual": 8.000000,
+      "Capacity": 8.0
+    },
+    "2018-01-12": {
+      "Actual": 3.000000,
+      "Capacity": 5.0
+    },
+    "2018-01-06": {
+      "Actual": 0.000000,
+      "Capacity": 0.0
+    },
+    "2018-01-07": {
+      "Actual": 0.000000,
+      "Capacity": 0.0
+    },
+    "2018-01-15": {
+      "Actual": 8.000000,
+      "Capacity": 8.0
+    },
+    "2018-01-16": {
+      "Actual": 8.000000,
+      "Capacity": 8.0
+    },
+    "2018-01-17": {
+      "Actual": 8.000000,
+      "Capacity": 8.0
+    },
+    "2018-01-18": {
+      "Actual": 8.000000,
+      "Capacity": 8.0
+    },
+    "2018-01-19": {
+      "Actual": 8.000000,
+      "Capacity": 8.0
+    }
   },
-  {
-    "resource": {
-      "resUid": "8181fe64-e261-e711-80cc-00155d005a03",
-      "resName": "John Goodson",
-      "selected": false,
-      "CustomFields": null
+  "8e76500f-84aa-e711-80ce-00155dcd8a01": {
+    "2018-01-09": {
+      "Actual": 8.000000,
+      "Capacity": 8.0
     },
-    "projects": [
-      {
-        "projUid": "afa7fbbe-e361-e711-80cc-00155d005a03",
-        "projName": "project 1",
-        "selected": false,
-        "intervals": [
-          {
-            "intervalName": "Interval0",
-            "intervalValue": "0",
-            "start": "12/1/2017",
-            "end": "1/1/2018"
-          },
-          {
-            "intervalName": "Interval1",
-            "intervalValue": "0",
-            "start": "1/1/2018",
-            "end": "2/1/2018"
-          },
-          {
-            "intervalName": "Interval2",
-            "intervalValue": "0",
-            "start": "2/1/2018",
-            "end": "3/1/2018"
-          },
-          {
-            "intervalName": "Interval3",
-            "intervalValue": "0",
-            "start": "3/1/2018",
-            "end": "4/1/2018"
-          },
-          {
-            "intervalName": "Interval4",
-            "intervalValue": "0",
-            "start": "4/1/2018",
-            "end": "5/1/2018"
-          },
-          {
-            "intervalName": "Interval5",
-            "intervalValue": "0",
-            "start": "5/1/2018",
-            "end": "6/1/2018"
-          },
-          {
-            "intervalName": "Interval6",
-            "intervalValue": "0",
-            "start": "6/1/2018",
-            "end": "7/1/2018"
-          },
-          {
-            "intervalName": "Interval7",
-            "intervalValue": "0",
-            "start": "7/1/2018",
-            "end": "8/1/2018"
-          },
-          {
-            "intervalName": "Interval8",
-            "intervalValue": "0",
-            "start": "8/1/2018",
-            "end": "9/1/2018"
-          },
-          {
-            "intervalName": "Interval9",
-            "intervalValue": "0",
-            "start": "9/1/2018",
-            "end": "10/1/2018"
-          },
-          {
-            "intervalName": "Interval10",
-            "intervalValue": "0",
-            "start": "10/1/2018",
-            "end": "11/1/2018"
-          },
-          {
-            "intervalName": "Interval11",
-            "intervalValue": "0",
-            "start": "11/1/2018",
-            "end": "12/1/2018"
-          },
-          {
-            "intervalName": "Interval12",
-            "intervalValue": "0",
-            "start": "12/1/2018",
-            "end": "1/1/2019"
-          }
-        ],
-        "readOnly": false,
-        "stalePublish": false,
-        "readOnlyReason": null,
-        "startDate": null,
-        "finishDate": null,
-        "CustomFields": null
-      }
-    ],
-    "selected": false
-  }
-]
+    "2018-01-10": {
+      "Actual": 8.000000,
+      "Capacity": 8.0
+    },
+    "2018-01-11": {
+      "Actual": 8.000000,
+      "Capacity": 8.0
+    }
+  },
+  "afa7fbbe-e361-e711-80cc-00155d005a03": {}
+}

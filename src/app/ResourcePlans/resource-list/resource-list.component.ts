@@ -37,9 +37,9 @@ export class ResourceListComponent implements OnInit {
     resName: {
       title: 'Resource Name'
     },
-    rbs:
+    timesheetMgr:
     {
-     title:'RBS'
+     title:'Timsheet Mgr'
     }
   }
   

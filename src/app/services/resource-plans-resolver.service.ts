@@ -37,16 +37,25 @@ export class ResourcePlansResolverService implements Resolve<IResPlan[]> {
     let toDate = route.params["toDate"] && new Date(route.params["toDate"]) || this._appState.queryParams.toDate;
     let timescale = route.params["timescale"] || this._appState.queryParams.timescale;
     let workunits = route.params["workunits"] || this._appState.queryParams.workunits;
-
+    
+    let showTimesheetData:Boolean;
+    if(route.params["showTimesheetData"])
+    {
+      showTimesheetData =  route.params["showTimesheetData"] == "true";
+    }
+    else{
+      showTimesheetData = this._appState.queryParams.showTimesheetData
+    }
+    debugger;
     //update back 
     this._appState.queryParams.fromDate = fromDate
     this._appState.queryParams.toDate = toDate
     this._appState.queryParams.timescale = timescale
     this._appState.queryParams.workunits = workunits 
-
+    this._appState.queryParams.showTimesheetData = showTimesheetData
 
     return this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr=>{
-    return this._resPlanUserStateSvc.getResPlans(resMgr,fromDate, toDate, timescale, workunits)
+    return this._resPlanUserStateSvc.getResPlans(resMgr,fromDate, toDate, timescale, workunits,showTimesheetData)
       .map(resPlans => {
         if (resPlans) {
           console.log('Resplans from resolver: ')

@@ -13,7 +13,7 @@ export class IntervalPipe  {
   {
     if(workUnits == WorkUnits.FTE)
     {
-      return (+(value) * 100).toFixed(0);
+      return (+(value) * 100).toFixed(0)
     }
     return (+(value)).toFixed(0);
   }
