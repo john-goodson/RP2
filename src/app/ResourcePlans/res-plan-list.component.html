@@ -105,6 +105,7 @@
                                                             <div [formGroupName]="k">
                                                                 <input  readonly="readonly"
                                                                 formControlName="intervalValue"  style="width:100%" 
+                                                                [value] = "intrvl.get('intervalValue').value | cellWorkUnits : this.workunits"
                                                                  >                                                                                                            
                                                                 
                                                             </div>
