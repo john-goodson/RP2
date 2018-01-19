@@ -46,7 +46,7 @@ export class ResourcePlansResolverService implements Resolve<IResPlan[]> {
     else{
       showTimesheetData = this._appState.queryParams.showTimesheetData
     }
-    debugger;
+    //debugger;
     //update back 
     this._appState.queryParams.fromDate = fromDate
     this._appState.queryParams.toDate = toDate

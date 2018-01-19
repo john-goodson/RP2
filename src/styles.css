@@ -156,4 +156,7 @@ pm-app div.panel.panel-primary {
     .table-body{
         margin:0;
     }
+    .dateWindow{
+        position: fixed;
+    }
 }

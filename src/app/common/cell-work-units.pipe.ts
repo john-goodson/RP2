@@ -7,7 +7,7 @@ export class CellWorkUnitsPipe implements PipeTransform {
 
  
   transform(value: string, workUnits: WorkUnits): string {
-    debugger;
+   
     if(value == "NA")
     {
       return value;

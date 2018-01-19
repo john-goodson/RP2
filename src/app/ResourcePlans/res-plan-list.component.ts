@@ -743,7 +743,7 @@ export class ResPlanListComponent implements OnInit {
 
     }
     toggleTimesheetDisplay(button:any){
-       debugger;
+       //debugger;
         this._appSvc.queryParams.showTimesheetData = !this._appSvc.queryParams.showTimesheetData;
         this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
         this.router.isActive = function () { return false; }
@@ -752,7 +752,7 @@ export class ResPlanListComponent implements OnInit {
 
     getTimesheetButtonText()
     {
-        debugger;
+        //debugger;
         if(this.showTimesheetData == true) return 'Hide Timesheet Data'; else return 'Show timesheet Data';
     }
 }
