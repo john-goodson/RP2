@@ -754,7 +754,7 @@ export class ResPlanListComponent implements OnInit {
     test(input:any)
     {
       debugger;
-      (event.currentTarget as HTMLInputElement).value = new CellWorkUnitsPipe().transform(event.currentTarget.value,this.workunits);
+      //(event.currentTarget as HTMLInputElement).value = new CellWorkUnitsPipe().transform(event.currentTarget.value,this.workunits);
     }
 
     getTimesheetButtonText()
