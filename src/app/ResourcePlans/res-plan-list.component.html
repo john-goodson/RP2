@@ -80,10 +80,10 @@
                                                     <div formArrayName="intervals">
                                                         <td class="body-cell col" *ngFor="let intrvl of proj.get('intervals').controls; index as k">
                                                             <div [formGroupName]="k">
-                                                                <input [ngClass]="intrvl.get('intervalValue').dirty && 'dirtyCell'" type="number" min="0" onClick="this.select()" autofocus 
+                                                                <input [ngClass]="intrvl.get('intervalValue').dirty && 'dirtyCell'" type="number" step="0.01"  onClick="this.select()" autofocus 
                                                                 formControlName="intervalValue" projectDateSpan [projStart]="proj.get('startDate').value" style="width:100%" 
                                                                 [projFinish]="proj.get('finishDate').value" [intervalStart] ="intrvl.get('intervalStart').value"  [intervalEnd] = "intrvl.get('intervalEnd').value"   
-                                                                 >                                                                                                            
+                                                                 (change)="test(this)">                                                                                                            
                                                                 
                                                             </div>
                                                         </td>
