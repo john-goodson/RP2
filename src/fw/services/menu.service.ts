@@ -28,9 +28,9 @@ export class MenuService {
     this.isVertical = false;
   }
 
-  normalizeView(){
-    if (this.isVertical = false)
-  }
+  // normalizeView(){
+  //   if (this.isVertical = false)
+  // }
 
   printerFunction(){
     window.print();
