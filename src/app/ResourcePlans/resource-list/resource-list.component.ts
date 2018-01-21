@@ -89,7 +89,7 @@ data:IResource[];
     //;
     //uncheck use case
     if (this.selectedResources.map(t=>t.resUid).indexOf(id) > -1) {
-      this.selectedResources.splice(this.selectedResources.map(t=>t.resUid).indexOf(id))
+      this.selectedResources.splice(this.selectedResources.map(t=>t.resUid).indexOf(id),1)
    }
     else {
       this.selectedResources.push(this.resData.filter(t => t.resUid == id)[0]);
