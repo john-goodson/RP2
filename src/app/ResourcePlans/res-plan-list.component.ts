@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName, } from '@angular/forms';
 import { IntervalPipe } from "../common/interval.pipe"
+import { CellWorkUnitsPipe } from "../common/cell-work-units.pipe"
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/mergeMap';
 import { PercentPipe } from '@angular/common'
@@ -758,9 +759,15 @@ export class ResPlanListComponent implements OnInit {
         this.router.navigate(['/home/resPlans', this._appSvc.queryParams] );
     }
 
+    test(input:any)
+    {
+      debugger;
+      (event.currentTarget as HTMLInputElement).value = new CellWorkUnitsPipe().transform(event.currentTarget.value,this.workunits);
+    }
+
     getTimesheetButtonText()
     {
-        debugger;
+     
         if(this.showTimesheetData == true) return 'Hide Timesheet Data'; else return 'Show timesheet Data';
     }
 }

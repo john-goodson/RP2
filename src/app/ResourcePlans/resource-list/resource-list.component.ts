@@ -88,12 +88,9 @@ data:IResource[];
   selectResource(id: string) {
     //;
     //uncheck use case
-    if (this.selectedResources .length > 0 && this.selectedResources.filter(t => t.resUid == id).length > 0) {
-      this.selectedResources.reduce(function (r, v, i) {
-        if (v.resUid == id)
-          return i;
-      }, -1);
-    }
+    if (this.selectedResources.map(t=>t.resUid).indexOf(id) > -1) {
+      this.selectedResources.splice(this.selectedResources.map(t=>t.resUid).indexOf(id))
+   }
     else {
       this.selectedResources.push(this.resData.filter(t => t.resUid == id)[0]);
     }

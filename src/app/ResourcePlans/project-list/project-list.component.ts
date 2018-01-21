@@ -120,11 +120,9 @@ data:IProject[];
   selectProject(id: string) {
     //;
     //uncheck use case
-    if (this.selectedProjects.filter(t => t.projUid == id).length > 0) {
-      this.selectedProjects.reduce(function (r, v, i) {
-        if (v.projUid == id)
-          return i;
-      }, -1);
+    debugger;
+    if (this.selectedProjects.map(t=>t.projUid).indexOf(id) > -1) {
+       this.selectedProjects.splice(this.selectedProjects.map(t=>t.projUid).indexOf(id))
     }
     else {
       this.selectedProjects.push(this.projData.filter(t => t.projUid == id)[0]);
