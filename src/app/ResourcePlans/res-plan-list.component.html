@@ -3,7 +3,7 @@
     <div>
         <!-- kk -->
         
-            <div style="display:flex;flex-grow: 1;position:fixed;z-index:100;top:.5%;left:30%;right:0px;">
+            <div id="button-header" style="display:flex;flex-grow: 1;position:fixed;z-index:100;top:.5%;left:30%;right:0px;">
                 <button class="btn btn-primary margin-left" type="button" (click)="addResources()" 
                 title="Add resource to your workspace. Resource will appear at top of list"> Add Resource </button>
                 <button [disabled]="!this.mainForm.dirty" type="button" class="btn btn-primary margin-left"  (click)="savePlans(fromDate,toDate,timescale,workunits)" 
@@ -15,6 +15,7 @@
                 <button [disabled]="!this.AnyResPlanSelectedForHide()" type="button" class="btn btn-primary margin-left" (click)="deleteResPlans(fromDate,toDate,timescale,workunits,true)" 
                 title="Remove resource from your workspace without deleting assignment">
                 Hide </button>
+                <input type="button" class="btn btn-primary margin-left" (click)="printFunction($event);" value="Print to PDF" />
                 <input type="button" class="btn btn-primary margin-left" (click)="exitToPerView(this.mainForm.dirty);" value="Exit to PerView" />
                 <input type="button" (click)="toggleTimesheetDisplay(this)" class="btn btn-primary margin-left" 
                 [value]="getTimesheetButtonText()">
@@ -26,7 +27,7 @@
 
             <div formArrayName="resPlans" *ngIf="resPlans && resPlans.length">
                 <res-plan-header-row #header (onselectAllChanged)="toggleSelectAll($event)"></res-plan-header-row>
-                <div class="table-body">
+                <div id="printContent" class="table-body">
                     <table class="table">
                         <tbody *ngFor="let plan of resPlans.controls;index as i" >
 
@@ -117,7 +118,7 @@
 
                                         </div>
 
-                                        <!-- <button class="btn btn-primary" type="button" (click) = "addProject(plan)" > Add Project  </button> -->
+                                        <!-- <button btn btn-primary" type="button" (click) = "addProject(plan)" > Add Project  </button> -->
                                         <button class="btn btn-primary" type="button" (click)="addProject(plan)"> Add Project </button>
 
 

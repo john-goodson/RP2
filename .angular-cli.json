@@ -21,12 +21,12 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-         "../node_modules/bootstrap/dist/css/bootstrap.css"
+        "../node_modules/bootstrap/dist/css/bootstrap.css"
       ],
-      "scripts": ["../node_modules/jquery/dist/jquery.min.js",
-      "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-      "../node_modules/moment/min/moment.min.js"
-
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "../node_modules/moment/min/moment.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -57,7 +57,8 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
-    "component": {}
+    "styleExt": "scss",
+    "component": {
+    }
   }
 }

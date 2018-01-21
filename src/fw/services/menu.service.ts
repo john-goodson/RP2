@@ -23,5 +23,17 @@ export class MenuService {
   toggleMenuOrientation() {
     this.isVertical = !this.isVertical;
   }
+
+  printMode(){
+    this.isVertical = false;
+  }
+
+  normalizeView(){
+    if (this.isVertical = false)
+  }
+
+  printerFunction(){
+    window.print();
+}
   
 }

@@ -13,7 +13,6 @@ export class ProjectDateSpanDirective {
 
   constructor(private _elementRef: ElementRef ) { 
 
-
   }
 
   ngOnInit() {
