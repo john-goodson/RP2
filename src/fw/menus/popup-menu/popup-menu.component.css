@@ -4,6 +4,7 @@
     width: 162px;
     background-color: white;
     border: 1px solid black;
+    z-index:100;
     box-shadow: 1px 1px 5px #aaa;
 }
 
