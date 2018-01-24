@@ -19,16 +19,16 @@ export class CellWorkUnitsPipe implements PipeTransform {
   {
     if(workUnits == WorkUnits.FTE)
     {
-      return value + "%"
+      return value.replace("%","") + "%"
     }
     else if(workUnits == WorkUnits.hours)
     {
-      return value + "hrs"
+      return value.replace("hrs","").replace("hr","").replace("h","") + "hrs"
     }
 
     else if(workUnits == WorkUnits.days)
     {
-      return value + "d"
+      return value.replace("d","") + "d"
     }
     else{
       return value;

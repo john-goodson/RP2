@@ -30,12 +30,9 @@ export class MenuService {
     // this.isVertical == normalize;
   }
 
-  getCurrentView(){
-    console.log(this.isVertical, "status of window f is ");
-    this.currentView = this.isVertical;
-    console.log('currentView capture', this.currentView)
-    return this.currentView;
-  }
+  // normalizeView(){
+  //   if (this.isVertical = false)
+  // }
 
   normalizeView() {
     let cv = this.currentView;
@@ -59,6 +56,13 @@ export class MenuService {
     window.print();
     window.close();
     //this.normalizeView();
+  }
+
+  getCurrentView(){
+    console.log(this.isVertical, "status of window f is ");
+    this.currentView = this.isVertical;
+    console.log('currentView capture', this.currentView)
+    return this.currentView;
   }
   
 

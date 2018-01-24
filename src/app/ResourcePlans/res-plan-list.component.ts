@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName, } from '@angular/forms';
 import { IntervalPipe } from "../common/interval.pipe"
+import { CellWorkUnitsPipe } from "../common/cell-work-units.pipe"
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/mergeMap';
 import { PercentPipe } from '@angular/common'
@@ -176,7 +177,7 @@ export class ResPlanListComponent implements OnInit {
     getWorkUnitChar(workUnits: WorkUnits): string {
         switch (+(workUnits)) {
             case WorkUnits.days: return 'd';
-            case WorkUnits.hours: return 'h';
+            case WorkUnits.hours: return 'hrs';
             case WorkUnits.FTE: return '%';
             default: return '';
         }
@@ -254,15 +255,45 @@ export class ResPlanListComponent implements OnInit {
     }
 
     buildInterval(interval: IInterval): FormGroup {
-
+debugger;
         return this.fb.group({
             intervalName: interval.intervalName,
             //intervalValue:  new PercentPipe(new IntervalPipe().transform(interval.intervalValue, this.workunits)  ).transform(interval.intervalValue)
-            intervalValue: new IntervalPipe().transform(interval.intervalValue, this.workunits),
+            intervalValue: [new CellWorkUnitsPipe().transform(new IntervalPipe().transform(interval.intervalValue, this.workunits),this.workunits),
+                Validators.pattern(this.getIntervalValidationPattern())],
             intervalStart: interval.start,
             intervalEnd: interval.end
 
         });
+    }
+
+    getIntervalValidationPattern() :string
+    {
+        debugger;
+        switch(+(this.workunits))
+        {
+            case WorkUnits.FTE:
+            return "^[0-9]+(%)?";
+            case WorkUnits.hours:
+           
+            return "^[0-9]+(hrs)?";
+            case WorkUnits.days:
+            return "^[0-9]+([,.][0-9])?(d)?";
+        }
+        return "";
+    }
+
+    getIntervalValidationMessage():string
+    {
+        switch(+(this.workunits))
+        {
+            case WorkUnits.FTE:
+            case WorkUnits.hours:
+            return "'Please enter a numeric value'";
+            case WorkUnits.days:
+            return "'Please enter a numeric value or a decimal value with one decimal place'";
+        }
+        
     }
 
 
@@ -752,9 +783,18 @@ export class ResPlanListComponent implements OnInit {
         this.router.navigate(['/home/resPlans', this._appSvc.queryParams] );
     }
 
+    intervalChanged(input:any,ctrl:AbstractControl)
+    {
+      debugger;
+      if(!ctrl.errors){
+      if((event.currentTarget as HTMLInputElement).value && (event.currentTarget as HTMLInputElement).value.trim() != '')
+      (event.currentTarget as HTMLInputElement).value = new CellWorkUnitsPipe().transform((event.currentTarget as HTMLInputElement).value,this.workunits);
+      }
+    }
+
     getTimesheetButtonText()
     {
-        //debugger;
+     
         if(this.showTimesheetData == true) return 'Hide Timesheet Data'; else return 'Show timesheet Data';
     }
 }
