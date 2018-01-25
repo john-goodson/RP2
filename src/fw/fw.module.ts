@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FrameworkConfigService } from './services/framework-config.service'
 import { MenuService } from './services/menu.service' 
 import {  ScreenService  }  from './services/screen.service' 
-
+import { ActionsMenuComponent } from './actions-menu/actions-menu.component'
 //components
 import { MenuComponent } from './menus/menu/menu.component'
 import { MenuItemComponent } from './menus/menu-item/menu-item.component'
@@ -22,13 +22,16 @@ import { PanelComponent } from './panels/panel/panel.component'
 //directives
 import { ScreenBelowLarge } from './directives/screen-below-large.directive'
 import { ScreenLarge } from './directives/screen-large.directive'
-
+import {MatButtonModule,MatMenuModule} from '@angular/material';
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatMenuModule
   ],
+  
   declarations: [
     FrameworkBodyComponent,
     PanelComponent,
@@ -40,7 +43,8 @@ import { ScreenLarge } from './directives/screen-large.directive'
     StatusBarComponent,
     ContentComponent,
     ScreenBelowLarge,
-    ScreenLarge
+    ScreenLarge,
+    ActionsMenuComponent
   ],
 
   providers: [
@@ -52,8 +56,18 @@ import { ScreenLarge } from './directives/screen-large.directive'
     FrameworkBodyComponent,
     PanelComponent,
     ScreenLarge,
-    ScreenBelowLarge
+    ScreenBelowLarge,
+    ActionsMenuComponent,
+    MatButtonModule,
+    MatMenuModule
   ]
 
+})
+
+@NgModule({
+  exports: [
+    MatButtonModule,
+    MatMenuModule
+  ]
 })
 export class FwModule { }

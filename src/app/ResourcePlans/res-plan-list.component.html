@@ -3,8 +3,9 @@
     <div>
         <!-- kk -->
         
-            <div id="button-header" style="display:flex;flex-grow: 1;position:fixed;z-index:100;top:.5%;left:30%;right:0px;">
-                <button class="btn btn-primary margin-left" type="button" (click)="addResources()" 
+            <div id="button-header" style="display:flex;flex-grow: 1;position:fixed;z-index:100;top:10%;left:30%;right:0px;">
+                    <actions-menu (onSubmit) ="savePlans(fromDate,toDate,timescale,workunits)" ></actions-menu>
+                <!-- <button class="btn btn-primary margin-left" type="button" (click)="addResources()" 
                 title="Add resource to your workspace. Resource will appear at top of list"> Add Resource </button>
                 <button [disabled]="!this.mainForm.dirty" type="button" class="btn btn-primary margin-left"  (click)="savePlans(fromDate,toDate,timescale,workunits)" 
                 title="Save and Publish your changes">
@@ -18,7 +19,7 @@
                 <input type="button" class="btn btn-primary margin-left" (click)="printFunction($event);" value="Print to PDF" />
                 <input type="button" class="btn btn-primary margin-left" (click)="exitToPerView(this.mainForm.dirty);" value="Exit to PerView" />
                 <input type="button" (click)="toggleTimesheetDisplay(this)" class="btn btn-primary margin-left" 
-                [value]="getTimesheetButtonText()">
+                [value]="getTimesheetButtonText()"> -->
                 <!-- <input type="button" class="btn btn-primary margin-left" onclick="location.href='https://perviewqa.app.parallon.com/PWA';" value="Exit to PerView" /> -->
             </div>
         

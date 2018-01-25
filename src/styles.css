@@ -42,7 +42,7 @@ pm-app div.panel.panel-primary {
 }
 
  @import '~@angular/material/prebuilt-themes/deeppurple-amber.css'; 
- @import '~/./ResourcePlans/res-plan-list.component.scss';
+ 
  
 @keyframes slideIn {
   from {

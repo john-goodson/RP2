@@ -60,7 +60,7 @@ import { IntervalMaskDirective } from './directives/interval-mask.directive';
 import { ProjectDateSpanDirective } from './directives/project-date-span.directive';
 import { ConfirmDialogComponent } from './common/confirm-dialog/confirm-dialog.component';
 import { CellWorkUnitsPipe } from './common/cell-work-units.pipe';
-import { ActionsMenuComponent } from './resourcePlans/actions-menu/actions-menu.component'
+
 
 //let jQuery : Object;// Add this function
 export function initConfig(configSvc: ConfigService){
@@ -93,7 +93,6 @@ export function initConfig(configSvc: ConfigService){
     ProjectDateSpanDirective,
     ConfirmDialogComponent,
     CellWorkUnitsPipe,
-    ActionsMenuComponent
   ],
 
   imports: [
