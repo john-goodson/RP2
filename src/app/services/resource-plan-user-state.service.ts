@@ -117,7 +117,7 @@ export class ResourcePlanUserStateService {
 
     }
 
-    getResPlans(resMgrUid: string, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:Boolean): Observable<IResPlan[]> {
+    getResPlans(resMgrUid: string, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:boolean): Observable<IResPlan[]> {
         //let uniqueProjectsForResMgr = this.getUniqueProjectsForResManager(resMgrUid);
         let resourceForResMgr = this.getUniqueResourcesForResManager(resMgrUid);
 
@@ -159,7 +159,7 @@ export class ResourcePlanUserStateService {
     }
 
     ///Add Resource Plan use case
-    getResPlansFromResources(resMgrUid: string, resources: IResource[], fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:Boolean): Observable<IResPlan[]> {
+    getResPlansFromResources(resMgrUid: string, resources: IResource[], fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:boolean): Observable<IResPlan[]> {
         //let projectsForAllResources = this.getUniqueProjectsAcrossResMgrs(resMgrUid, resources);
         let projectsThatUserHasAccessOn = this.getProjectIdsFromAssignmentsForResources(resources);
         //let combinedProjects = projectsForAllResources.merge(projectsThatUserHasAccessOn);
@@ -292,7 +292,7 @@ export class ResourcePlanUserStateService {
             })
     }
 
-    getResPlansFromProjects(resUid: string, resources: IResource[], resPlans: Observable<IResPlan[]>, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, showTimesheetData: Boolean): Observable<IResPlan[]> {
+    getResPlansFromProjects(resUid: string, resources: IResource[], resPlans: Observable<IResPlan[]>, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, showTimesheetData: boolean): Observable<IResPlan[]> {
         let emptyResPlans = Observable.of(resources.map(r => new ResPlan(r, [])))
         var uniqueProjects = resPlans.flatMap(r => Observable.from(r).flatMap(r => r.projects)).distinct(x => x.projUid);
         return uniqueProjects.flatMap((project: IProject) => {

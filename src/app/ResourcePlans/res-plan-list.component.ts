@@ -56,7 +56,7 @@ export class ResPlanListComponent implements OnInit {
     timescale: Timescale;
     workunits: WorkUnits;
     confirmDialogResult: string;
-    showTimesheetData:Boolean = false;
+    showTimesheetData: boolean = false;
 
 
     get resPlans(): FormArray {  //this getter should return all instances.
@@ -454,7 +454,7 @@ export class ResPlanListComponent implements OnInit {
         }, (error) => { console.log(error); this._appSvc.loading(false); })
     }
 
-    addSelectedProjects(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:Boolean) {
+    addSelectedProjects(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:boolean) {
         this._appSvc.loading(true);
         this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr => {
             let resource = new Resource(this.currentFormGroup.value["resUid"],
