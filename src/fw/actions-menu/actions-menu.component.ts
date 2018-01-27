@@ -45,6 +45,11 @@ export class ActionsMenuComponent implements OnInit {
     this._appStateSvc.hideClick();
   }
 
+  exitToPerview()
+  {
+    this._appStateSvc.exitToPerviewClick()
+  }
+
   toggleText(event:Event)
   {
     debugger;

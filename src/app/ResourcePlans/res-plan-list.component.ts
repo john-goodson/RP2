@@ -98,6 +98,7 @@ export class ResPlanListComponent implements OnInit {
        this._appSvc.delete$.subscribe(()=>this.openDeleteResPlanDialog())
        this._appSvc.hide$.subscribe(()=>this.deleteResPlans(this.fromDate,this.toDate,this.timescale,this.workunits,true))
        this._appSvc.showActuals$.subscribe(()=>this.toggleTimesheetDisplay())
+       this._appSvc.exitToPerview$.subscribe(() => { console.log('')  ; this.exitToPerView(this.mainForm.dirty) } ) 
 
 
         this.fromDate = this._appSvc.queryParams.fromDate
@@ -137,13 +138,15 @@ export class ResPlanListComponent implements OnInit {
             dialogRef.afterClosed().subscribe(result => {
                 this.confirmDialogResult = result;
                 if (result == "yes")
-                    window.location.href = "https://perviewqa.app.parallon.com/pwa"
+                    //window.location.href = "https://perviewqa.app.parallon.com/pwa"
+                    window.location.href = "http://foo.wingtip.com/PWA"
             });
         }
         else {
             // var win = window.open('www.google.com', '_blank');
             // win.focus();
-            window.location.href = "https://perviewqa.app.parallon.com/pwa"
+           // window.location.href = "https://perviewqa.app.parallon.com/pwa"
+            window.location.href = "http://foo.wingtip.com/PWA"
         }
 
     }

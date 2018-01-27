@@ -1,11 +1,20 @@
 <button mat-button  (click)="addResources()">Add Resources</button>
 <button mat-button [disabled]="disableSave" (click)="submit()">Save</button>
 <button mat-button [matMenuTriggerFor]="delHide">Actions</button>
+<button mat-button [matMenuTriggerFor]="export">Export</button>
+<button mat-button style=""  (click)="exitToPerview()">Exit to PerView</button>
+
 
 <mat-menu #delHide="matMenu">
     <button [disabled]="disableDelete"  mat-menu-item (click)="delete()">Delete</button>
     <button  [disabled]="disableHide" mat-menu-item (click)="hide()">Hide</button>
     <button   mat-menu-item (click)="toggleText($event)">{{getShowActualsText()}}</button>
+  </mat-menu>
+
+  <mat-menu #export="matMenu">
+    <button [disabled]="false"  mat-menu-item (click)="delete()">to PDF</button>
+    <button  [disabled]="false" mat-menu-item (click)="hide()">to Excel</button>
+    
   </mat-menu>
 
 <mat-menu #animals="matMenu">
