@@ -23,6 +23,7 @@ import { PanelComponent } from './panels/panel/panel.component'
 import { ScreenBelowLarge } from './directives/screen-below-large.directive'
 import { ScreenLarge } from './directives/screen-large.directive'
 import {MatButtonModule,MatMenuModule} from '@angular/material';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -68,6 +69,9 @@ import {MatButtonModule,MatMenuModule} from '@angular/material';
   exports: [
     MatButtonModule,
     MatMenuModule
+    
+
+    
   ]
 })
 export class FwModule { }
