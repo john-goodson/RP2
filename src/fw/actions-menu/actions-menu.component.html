@@ -1,4 +1,12 @@
-<button mat-button (click)="submit()">Save</button>
+<button mat-button  (click)="addResources()">Add Resources</button>
+<button mat-button [disabled]="disableSave" (click)="submit()">Save</button>
+<button mat-button [matMenuTriggerFor]="delHide">Actions</button>
+
+<mat-menu #delHide #del="matMenu">
+    <button [disabled]="disableDelete"  mat-menu-item (click)="delete()">Delete</button>
+    <button  [disabled]="disableHide" mat-menu-item (click)="hide()">Hide</button>
+    <button   mat-menu-item (click)="toggleText($event)">{{getShowActualsText()}}</button>
+  </mat-menu>
 
 <mat-menu #animals="matMenu">
   <button mat-menu-item [matMenuTriggerFor]="vertebrates">Vertebrates</button>

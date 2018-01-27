@@ -67,7 +67,6 @@ export class ResPlanListComponent implements OnInit {
     loading = false
 
     load(val: boolean) {
-
         this.onLoading.emit(true)
         this.loading = true
     }
@@ -86,12 +85,19 @@ export class ResPlanListComponent implements OnInit {
 
     ngOnInit(): void {
        //debugger;
-
+        
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
         });
-
-
+        this.mainForm.valueChanges.subscribe(t=>{
+            //app state service emit this.mainForm.dirty
+          this._appSvc.setFormDirty(this.mainForm.dirty);
+        })
+       this._appSvc.save$.subscribe(()=>this.savePlans(this.fromDate,this.toDate,this.timescale,this.workunits))
+       this._appSvc.addResources$.subscribe(()=>this.addResources())
+       this._appSvc.delete$.subscribe(()=>this.openDeleteResPlanDialog())
+       this._appSvc.hide$.subscribe(()=>this.deleteResPlans(this.fromDate,this.toDate,this.timescale,this.workunits,true))
+       this._appSvc.showActuals$.subscribe(()=>this.toggleTimesheetDisplay())
 
 
         this.fromDate = this._appSvc.queryParams.fromDate
@@ -255,7 +261,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     buildInterval(interval: IInterval): FormGroup {
-debugger;
+
         return this.fb.group({
             intervalName: interval.intervalName,
             //intervalValue:  new PercentPipe(new IntervalPipe().transform(interval.intervalValue, this.workunits)  ).transform(interval.intervalValue)
@@ -269,7 +275,6 @@ debugger;
 
     getIntervalValidationPattern() :string
     {
-        debugger;
         switch(+(this.workunits))
         {
             case WorkUnits.FTE:
@@ -384,11 +389,17 @@ debugger;
         (_resPlan.controls['projects'] as FormArray).controls.forEach(element => {
             (element as FormGroup).controls['selected'].setValue(selected, { emitEvent: false })
         });
+        this._appSvc.resourceOrProjectsSelected(this.AnyResPlanSelectedForDelete());
+        this._appSvc.resourceSelected(this.AnyResPlanSelectedForHide());
     }
-    DeselectGroupOnUncheck(_resPlan: FormGroup, value: boolean) {
+    DeselectGroupOnUncheck(_resPlan: FormGroup,_proj:FormGroup, value: boolean) {
+        _proj.controls['selected'].setValue(value, { emitEvent: false });
         if (value == false) {
             _resPlan.controls['selected'].setValue(false, { emitEvent: false });
         }
+        debugger;
+        this._appSvc.resourceOrProjectsSelected(this.AnyResPlanSelectedForDelete());
+        this._appSvc.resourceSelected(this.AnyResPlanSelectedForHide());
     }
     addProject(_resPlan: FormGroup): void {
         //get IProjects[] array from current formgroup
@@ -783,9 +794,9 @@ debugger;
 
 
     }
-    toggleTimesheetDisplay(button:any){
+    toggleTimesheetDisplay(){
        //debugger;
-        this._appSvc.queryParams.showTimesheetData = !this._appSvc.queryParams.showTimesheetData;
+        
         this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
         this.router.isActive = function () { return false; }
         this.router.navigate(['/home/resPlans', this._appSvc.queryParams] );
@@ -793,7 +804,6 @@ debugger;
 
     intervalChanged(input:any,ctrl:AbstractControl)
     {
-      debugger;
       if(!ctrl.errors){
       if((event.currentTarget as HTMLInputElement).value && (event.currentTarget as HTMLInputElement).value.trim() != '')
       (event.currentTarget as HTMLInputElement).value = new CellWorkUnitsPipe().transform((event.currentTarget as HTMLInputElement).value,this.workunits);
