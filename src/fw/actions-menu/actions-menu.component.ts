@@ -55,6 +55,10 @@ export class ActionsMenuComponent implements OnInit {
     this._appStateSvc.printToPdfClick();
   }
 
+  toExcel() {
+    // this._appStateSvc.printToExcelClick();
+  }
+
 
   toggleText(event:Event)
   {

@@ -18,7 +18,8 @@ export class AppStateService {
   private hideSource = new Subject<void>();
   private showActualsSource = new Subject<boolean>();
   private exitToPerviewSource = new Subject<void>(); 
-  private printToPDFSource = new Subject<void>()
+  private printToPDFSource = new Subject<void>();
+  private toExcelSource = new Subject<void>();
 
   loading$ = this.loadingSource.asObservable();
   formDirtyState$ = this.formDirtyState.asObservable();
@@ -30,7 +31,8 @@ export class AppStateService {
   hide$ = this.hideSource.asObservable();
   showActuals$ = this.showActualsSource.asObservable();
   exitToPerview$ = this.exitToPerviewSource.asObservable(); 
-  printToPDF$ = this.printToPDFSource.asObservable()
+  printToPDF$ = this.printToPDFSource.asObservable();
+  exportToExcel$ = this.toExcelSource.asObservable();
 
   public next12Months = new Next12Months()  //default daterange
 
@@ -75,6 +77,10 @@ export class AppStateService {
 
   printToPdfClick() {
     this.printToPDFSource.next()
+  }
+
+  exportToExcelClick() {
+    this.toExcelSource.next();
   }
 
   resourceOrProjectsSelected(value:boolean)

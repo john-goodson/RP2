@@ -100,6 +100,8 @@ export class ResPlanListComponent implements OnInit {
        this._appSvc.showActuals$.subscribe(()=>this.toggleTimesheetDisplay())
        this._appSvc.exitToPerview$.subscribe(() => { console.log('')  ; this.exitToPerView(this.mainForm.dirty) } ) 
        this._appSvc.printToPDF$.subscribe(  () => this.printFunction())
+    //    this._appSvc.exportToExcel$.subscribe(  () => this.())
+       
 
 
         this.fromDate = this._appSvc.queryParams.fromDate
