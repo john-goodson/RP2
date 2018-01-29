@@ -99,6 +99,7 @@ export class ResPlanListComponent implements OnInit {
        this._appSvc.hide$.subscribe(()=>this.deleteResPlans(this.fromDate,this.toDate,this.timescale,this.workunits,true))
        this._appSvc.showActuals$.subscribe(()=>this.toggleTimesheetDisplay())
        this._appSvc.exitToPerview$.subscribe(() => { console.log('')  ; this.exitToPerView(this.mainForm.dirty) } ) 
+       this._appSvc.printToPDF$.subscribe(  () => this.printFunction())
 
 
         this.fromDate = this._appSvc.queryParams.fromDate
@@ -770,7 +771,7 @@ export class ResPlanListComponent implements OnInit {
     //this function activates a print job by minimizing the
     //side bar and printing the window after enough time has
     //elapsed to reflect a full-screen.
-    printFunction(event: Event): void {
+    printFunction(): void {
         $.when(this.menuService.printMode())          
         .done(setTimeout(this.menuService.printerFunction,1000));
     }

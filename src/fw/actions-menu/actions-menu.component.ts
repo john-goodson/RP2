@@ -51,6 +51,10 @@ export class ActionsMenuComponent implements OnInit {
     this._appStateSvc.exitToPerviewClick()
   }
 
+  printToPdf() {
+    
+  }
+
 
   toggleText(event:Event)
   {

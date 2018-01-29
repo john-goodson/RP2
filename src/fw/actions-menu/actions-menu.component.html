@@ -12,7 +12,7 @@
   </mat-menu>
 
   <mat-menu #export="matMenu">
-    <button [disabled]="true"  mat-menu-item (click)="delete()">to PDF</button>
+    <button [disabled]="false"  mat-menu-item (click)="printToPdf()">to PDF</button>
     <button  [disabled]="true" mat-menu-item (click)="hide()">to Excel</button>
     
   </mat-menu>
