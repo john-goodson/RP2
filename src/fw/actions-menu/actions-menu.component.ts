@@ -52,7 +52,7 @@ export class ActionsMenuComponent implements OnInit {
   }
 
   printToPdf() {
-    
+    this._appStateSvc.printToPdfClick();
   }
 
 
