@@ -1,6 +1,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { AppStateService} from '../../app/services/app-state.service'
 import { MatMenu} from '@angular/material'
+
 @Component({
   selector: 'actions-menu',
   templateUrl: './actions-menu.component.html',
@@ -49,6 +50,7 @@ export class ActionsMenuComponent implements OnInit {
   {
     this._appStateSvc.exitToPerviewClick()
   }
+
 
   toggleText(event:Event)
   {

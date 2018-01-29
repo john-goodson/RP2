@@ -138,15 +138,15 @@ export class ResPlanListComponent implements OnInit {
             dialogRef.afterClosed().subscribe(result => {
                 this.confirmDialogResult = result;
                 if (result == "yes")
-                    //window.location.href = "https://perviewqa.app.parallon.com/pwa"
-                    window.location.href = "http://foo.wingtip.com/PWA"
+                    window.location.href = "https://perviewqa.app.parallon.com/pwa"
+                    //window.location.href = "http://foo.wingtip.com/PWA"
             });
         }
         else {
             // var win = window.open('www.google.com', '_blank');
             // win.focus();
-           // window.location.href = "https://perviewqa.app.parallon.com/pwa"
-            window.location.href = "http://foo.wingtip.com/PWA"
+            window.location.href = "https://perviewqa.app.parallon.com/pwa"
+            //window.location.href = "http://foo.wingtip.com/PWA"
         }
 
     }

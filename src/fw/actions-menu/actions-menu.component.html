@@ -12,12 +12,12 @@
   </mat-menu>
 
   <mat-menu #export="matMenu">
-    <button [disabled]="false"  mat-menu-item (click)="delete()">to PDF</button>
-    <button  [disabled]="false" mat-menu-item (click)="hide()">to Excel</button>
+    <button [disabled]="true"  mat-menu-item (click)="delete()">to PDF</button>
+    <button  [disabled]="true" mat-menu-item (click)="hide()">to Excel</button>
     
   </mat-menu>
 
-<mat-menu #animals="matMenu">
+<!-- <mat-menu #animals="matMenu">
   <button mat-menu-item [matMenuTriggerFor]="vertebrates">Vertebrates</button>
   <button mat-menu-item [matMenuTriggerFor]="invertebrates">Invertebrates</button>
 </mat-menu>
@@ -61,7 +61,7 @@
   <button mat-menu-item>Black Tree Monitor</button>
   <button mat-menu-item>Blue Spiny Lizard</button>
   <button mat-menu-item disabled>Velociraptor</button>
-</mat-menu>
+</mat-menu> -->
 
 
 <!-- Copyright 2018 Google Inc. All Rights Reserved.

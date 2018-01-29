@@ -44,7 +44,6 @@ export class AppStateService {
 
   constructor() {
 
-
   }
   loading(value: boolean) {
     this.loadingSource.next(value);

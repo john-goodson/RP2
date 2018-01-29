@@ -281,7 +281,7 @@ export class ResourcePlanUserStateService {
                     }
                     let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName + '"}').join(",")}]'`
                     let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceManagerUID": "${resMgrUid}"
-                ,"":${resourcesJSON}}`;
+                ,"ResourceUID":${resourcesJSON}}`;
                     return this.http.post(url, body, options)
                         .map(r => {
                             let result = new Result();
@@ -771,7 +771,7 @@ export class ResourcePlanUserStateService {
         let headers = new HttpHeaders();
         //let start: Date = new LastYear().startDate;
         //let end: Date = moment(new LastYear().startDate).add(3,'month').toDate()
-        let start: Date = moment(new CurrentCalendarYear().startDate).toDate();
+        let start: Date = moment(new LastYear().startDate).toDate();
         let end: Date = new Date();
         headers = headers.set('Accept', 'application/json;odata=verbose').set('Content-Type', 'application/x-www-form-urlencoded')
 
