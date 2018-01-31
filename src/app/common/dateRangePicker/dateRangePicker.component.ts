@@ -23,7 +23,7 @@ export class DateRangePicker  {
     maxDate;
     endMinDate;
     endMaxDate;
-    isValid: Boolean = true;
+    isValid: boolean = true;
 
     //this function determines whether a start date is valid. All dates are valid by default
     //this function is a built-in directive from angular material datepicker

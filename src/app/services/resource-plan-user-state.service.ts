@@ -52,7 +52,7 @@ export class ResourcePlanUserStateService {
         let baseUrl = `${this.config.ResPlanUserStateUrl}/Items`
 
         //remember to change UID0 to UID
-        let select = '$select=ResourceUID0'  //dev
+        let select = '$select=ResourceUID'  //dev
         //let select = '$select=ResourceUID'  //qa
         let filter = `$filter=ResourceManagerUID eq '${resUid}'`;
         //1. get data from SP List UserState 
@@ -69,7 +69,7 @@ export class ResourcePlanUserStateService {
                 ;
                 if (data["d"].results.length > 0)
                     return JSON.parse(data["d"].results
-                        .map(r => r["ResourceUID0"])) as IResource[] //dev
+                        .map(r => r["ResourceUID"])) as IResource[] //dev
                 //.map(r=>r["ResourceUID"])) as IResource[] //qa
                 else {
                     return []
@@ -117,7 +117,7 @@ export class ResourcePlanUserStateService {
 
     }
 
-    getResPlans(resMgrUid: string, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:Boolean): Observable<IResPlan[]> {
+    getResPlans(resMgrUid: string, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:boolean): Observable<IResPlan[]> {
         //let uniqueProjectsForResMgr = this.getUniqueProjectsForResManager(resMgrUid);
         let resourceForResMgr = this.getUniqueResourcesForResManager(resMgrUid);
 
@@ -159,7 +159,7 @@ export class ResourcePlanUserStateService {
     }
 
     ///Add Resource Plan use case
-    getResPlansFromResources(resMgrUid: string, resources: IResource[], fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:Boolean): Observable<IResPlan[]> {
+    getResPlansFromResources(resMgrUid: string, resources: IResource[], fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:boolean): Observable<IResPlan[]> {
         //let projectsForAllResources = this.getUniqueProjectsAcrossResMgrs(resMgrUid, resources);
         let projectsThatUserHasAccessOn = this.getProjectIdsFromAssignmentsForResources(resources);
         //let combinedProjects = projectsForAllResources.merge(projectsThatUserHasAccessOn);
@@ -248,7 +248,7 @@ export class ResourcePlanUserStateService {
                 let resources = [];
                 resources = resources.concat(resourcePlans.map(r => r.resource));
                 if (data["d"].results.length > 0) {
-                    existingResources = JSON.parse(data["d"].results[0]["ResourceUID0"]).map(resource => { return new Resource(resource.resUid, resource.resName) }) //dev
+                    existingResources = JSON.parse(data["d"].results[0]["ResourceUID"]).map(resource => { return new Resource(resource.resUid, resource.resName) }) //dev
                     //existingResources = JSON.parse(data.json().d.results[0]["ResourceUID"]).map(resource => { return new Resource(resource.resUid, resource.resName) }) //qa
                     existingResources = existingResources
                         .filter(e => resources.map(r => r.resUid.toUpperCase()).indexOf(e.resUid.toUpperCase()) < 0)
@@ -281,7 +281,7 @@ export class ResourcePlanUserStateService {
                     }
                     let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName + '"}').join(",")}]'`
                     let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceManagerUID": "${resMgrUid}"
-                ,"ResourceUID0":${resourcesJSON}}`;
+                ,"ResourceUID":${resourcesJSON}}`;
                     return this.http.post(url, body, options)
                         .map(r => {
                             let result = new Result();
@@ -292,7 +292,7 @@ export class ResourcePlanUserStateService {
             })
     }
 
-    getResPlansFromProjects(resUid: string, resources: IResource[], resPlans: Observable<IResPlan[]>, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, showTimesheetData: Boolean): Observable<IResPlan[]> {
+    getResPlansFromProjects(resUid: string, resources: IResource[], resPlans: Observable<IResPlan[]>, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, showTimesheetData: boolean): Observable<IResPlan[]> {
         let emptyResPlans = Observable.of(resources.map(r => new ResPlan(r, [])))
         var uniqueProjects = resPlans.flatMap(r => Observable.from(r).flatMap(r => r.projects)).distinct(x => x.projUid);
         return uniqueProjects.flatMap((project: IProject) => {
@@ -683,7 +683,7 @@ export class ResourcePlanUserStateService {
 
             .flatMap((data: Response) => {
                 ;
-                let resources = <IResource[]>JSON.parse(data["d"].results[0]["ResourceUID0"]) //dev
+                let resources = <IResource[]>JSON.parse(data["d"].results[0]["ResourceUID"]) //dev
                     //let resources = <IResource[]>JSON.parse(data.json().d.results[0]["ResourceUID"]) //qa
                     .map(resource => { return new Resource(resource.resUid, resource.resName) })
                 resources = resources.filter(r => resPlans.map(d => d.resource.resUid.toUpperCase()).indexOf(r.resUid.toUpperCase()) < 0)
@@ -703,7 +703,7 @@ export class ResourcePlanUserStateService {
                         headers: headers
                     }
 
-                    let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID0":${resourcesJSON}}"}` //dev
+                    let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID":${resourcesJSON}}"}` //dev
                     //let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceUID":${resourcesJSON}}"}` //qa
                     return this.http.post(data["d"].results[0].__metadata.uri, body, options)
                         .map((response: Response) => {
@@ -771,7 +771,7 @@ export class ResourcePlanUserStateService {
         let headers = new HttpHeaders();
         //let start: Date = new LastYear().startDate;
         //let end: Date = moment(new LastYear().startDate).add(3,'month').toDate()
-        let start: Date = moment(new CurrentCalendarYear().startDate).toDate();
+        let start: Date = moment(new LastYear().startDate).toDate();
         let end: Date = new Date();
         headers = headers.set('Accept', 'application/json;odata=verbose').set('Content-Type', 'application/x-www-form-urlencoded')
 

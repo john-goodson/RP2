@@ -17,6 +17,8 @@ export class AppStateService {
   private deleteSource = new Subject<void>();
   private hideSource = new Subject<void>();
   private showActualsSource = new Subject<boolean>();
+  private exitToPerviewSource = new Subject<void>(); 
+  private printToPDFSource = new Subject<void>()
 
   loading$ = this.loadingSource.asObservable();
   formDirtyState$ = this.formDirtyState.asObservable();
@@ -27,6 +29,9 @@ export class AppStateService {
   delete$ = this.deleteSource.asObservable();
   hide$ = this.hideSource.asObservable();
   showActuals$ = this.showActualsSource.asObservable();
+  exitToPerview$ = this.exitToPerviewSource.asObservable(); 
+  printToPDF$ = this.printToPDFSource.asObservable()
+
   public next12Months = new Next12Months()  //default daterange
 
 
@@ -40,7 +45,6 @@ export class AppStateService {
 
 
   constructor() {
-
 
   }
   loading(value: boolean) {
@@ -65,6 +69,14 @@ export class AppStateService {
     this.hideSource.next();
   }
 
+  exitToPerviewClick() {
+    this.exitToPerviewSource.next()
+  }
+
+  printToPdfClick() {
+    this.printToPDFSource.next()
+  }
+
   resourceOrProjectsSelected(value:boolean)
   {
     this.deleteState.next(value);
@@ -86,6 +98,8 @@ export class AppStateService {
   // let toDate = route.params["toDate"] && new Date(route.params["toDate"]) || currentYear.endDate;
   // let timescale = route.params["timescale"] || Timescale.calendarMonths;
   // let workunits = route.params["workunits"] || WorkUnits.FTE;
+
+  
 
 
 

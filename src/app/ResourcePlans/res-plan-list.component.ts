@@ -56,7 +56,7 @@ export class ResPlanListComponent implements OnInit {
     timescale: Timescale;
     workunits: WorkUnits;
     confirmDialogResult: string;
-    showTimesheetData:Boolean = false;
+    showTimesheetData: boolean = false;
 
 
     get resPlans(): FormArray {  //this getter should return all instances.
@@ -98,6 +98,8 @@ export class ResPlanListComponent implements OnInit {
        this._appSvc.delete$.subscribe(()=>this.openDeleteResPlanDialog())
        this._appSvc.hide$.subscribe(()=>this.deleteResPlans(this.fromDate,this.toDate,this.timescale,this.workunits,true))
        this._appSvc.showActuals$.subscribe(()=>this.toggleTimesheetDisplay())
+       this._appSvc.exitToPerview$.subscribe(() => { console.log('')  ; this.exitToPerView(this.mainForm.dirty) } ) 
+       this._appSvc.printToPDF$.subscribe(  () => this.printFunction())
 
 
         this.fromDate = this._appSvc.queryParams.fromDate
@@ -138,12 +140,14 @@ export class ResPlanListComponent implements OnInit {
                 this.confirmDialogResult = result;
                 if (result == "yes")
                     window.location.href = "https://perviewqa.app.parallon.com/pwa"
+                    //window.location.href = "http://foo.wingtip.com/PWA"
             });
         }
         else {
             // var win = window.open('www.google.com', '_blank');
             // win.focus();
             window.location.href = "https://perviewqa.app.parallon.com/pwa"
+            //window.location.href = "http://foo.wingtip.com/PWA"
         }
 
     }
@@ -455,7 +459,7 @@ export class ResPlanListComponent implements OnInit {
         }, (error) => { console.log(error); this._appSvc.loading(false); })
     }
 
-    addSelectedProjects(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:Boolean) {
+    addSelectedProjects(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:boolean) {
         this._appSvc.loading(true);
         this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr => {
             let resource = new Resource(this.currentFormGroup.value["resUid"],
@@ -768,7 +772,7 @@ export class ResPlanListComponent implements OnInit {
     //this function activates a print job by minimizing the
     //side bar and printing the window after enough time has
     //elapsed to reflect a full-screen.
-    printFunction(event: Event): void {
+    printFunction(): void {
         $.when(this.menuService.printMode())          
         .done(setTimeout(this.menuService.printerFunction,1000));
     }

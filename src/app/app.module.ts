@@ -62,6 +62,7 @@ import { ConfirmDialogComponent } from './common/confirm-dialog/confirm-dialog.c
 import { CellWorkUnitsPipe } from './common/cell-work-units.pipe';
 
 
+
 //let jQuery : Object;// Add this function
 export function initConfig(configSvc: ConfigService){
   return () => configSvc.ReadConfig() 
@@ -93,6 +94,7 @@ export function initConfig(configSvc: ConfigService){
     ProjectDateSpanDirective,
     ConfirmDialogComponent,
     CellWorkUnitsPipe,
+
   ],
 
   imports: [
