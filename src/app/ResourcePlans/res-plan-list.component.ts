@@ -23,6 +23,7 @@ import { ResourcesModalCommunicatorService } from '../resourcePlans/resources-mo
 import { ResPlanHeaderRowComponent } from "../resourcePlans/res-plan-header-row/res-plan-header-row.component"
 import { AppStateService } from '../services/app-state.service' 
 import { MenuService } from '../../fw/services/menu.service';
+import { ExportExcelService } from '../services/export-excel.service';
 import { elementAt } from 'rxjs/operators/elementAt';
 
 
@@ -72,19 +73,18 @@ export class ResPlanListComponent implements OnInit {
     }
 
 
-
-
     constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator
         , private router: Router,
         private _resourcePlanSvc: ResourcePlanService
         , private _resPlanUserStateSvc: ResourcePlanUserStateService
         , private menuService: MenuService
+        , private _exportExcelService: ExportExcelService
         , private _resModalSvc: ResourcesModalCommunicatorService
         , private _appSvc: AppStateService
         , private _route: ActivatedRoute, private dialog: MatDialog) { }
 
     ngOnInit(): void {
-       //debugger;
+  
         
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
@@ -99,7 +99,7 @@ export class ResPlanListComponent implements OnInit {
        this._appSvc.hide$.subscribe(()=>this.deleteResPlans(this.fromDate,this.toDate,this.timescale,this.workunits,true))
        this._appSvc.showActuals$.subscribe(()=>this.toggleTimesheetDisplay())
        this._appSvc.exitToPerview$.subscribe(() => { console.log('')  ; this.exitToPerView(this.mainForm.dirty) } ) 
-       this._appSvc.printToPDF$.subscribe(  () => this.printFunction())
+       this._appSvc.printToPDF$.subscribe(  () => this.printFunction(event))
     //    this._appSvc.exportToExcel$.subscribe(  () => this.())
        
 
@@ -254,7 +254,7 @@ export class ResPlanListComponent implements OnInit {
             var interval = this.buildInterval(_project.intervals[i]);
             (project.get('intervals') as FormArray).push(interval);
         }
-        //debugger;
+       
         if(_project.timesheetData){
         for (var i = 0; i < _project.timesheetData.length; i++) {
             var interval = this.buildtimesheetInterval(_project.timesheetData[i]); 
@@ -403,7 +403,7 @@ export class ResPlanListComponent implements OnInit {
         if (value == false) {
             _resPlan.controls['selected'].setValue(false, { emitEvent: false });
         }
-        debugger;
+       
         this._appSvc.resourceOrProjectsSelected(this.AnyResPlanSelectedForDelete());
         this._appSvc.resourceSelected(this.AnyResPlanSelectedForHide());
     }
@@ -558,7 +558,7 @@ export class ResPlanListComponent implements OnInit {
         ;
         if (this.mainForm.dirty && this.mainForm.valid) {
 
-            //debugger
+            
             let resourceplans = this.resPlans.controls
                 .filter(item => item.dirty === true)
                 .map(t => {
@@ -780,7 +780,13 @@ export class ResPlanListComponent implements OnInit {
         .done(setTimeout(this.menuService.printerFunction,1000))
         // .done(setTimeout(this.menuService.normalizeView,500));
     }
- 
+
+    excelExportFunction() {
+        
+        console.log(this.resPlanData, "is resplanData");
+        this._exportExcelService.excelObject.toCSV(this.resPlanData,'RM2');
+    }
+
     updateErrors(errors: Result[]) {
         let resultsWithError = errors.filter(e => e.success == false);
 
@@ -804,8 +810,6 @@ export class ResPlanListComponent implements OnInit {
 
     }
     toggleTimesheetDisplay(){
-       //debugger;
-        
         this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
         this.router.isActive = function () { return false; }
         this.router.navigate(['/home/resPlans', this._appSvc.queryParams] );
@@ -824,6 +828,6 @@ export class ResPlanListComponent implements OnInit {
      
         if(this.showTimesheetData == true) return 'Hide Timesheet Data'; else return 'Show timesheet Data';
     }
+
+    console.log(resPlanData, "resPlan Data...", resplan, "resplan");
 }
-
-
