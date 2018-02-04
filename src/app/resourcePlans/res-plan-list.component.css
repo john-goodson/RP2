@@ -65,8 +65,8 @@ min-width: 220px;
 }
 .col
 {
-width:100px;
-min-width: 100px;
+width: 80px;
+min-width: 50px;
 }
 
 /* input[type="number"]::-webkit-outer-spin-button,

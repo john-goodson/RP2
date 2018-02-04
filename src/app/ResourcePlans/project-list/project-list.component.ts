@@ -120,7 +120,7 @@ data:IProject[];
   selectProject(id: string) {
     //;
     //uncheck use case
-    debugger;
+    //debugger;
     if (this.selectedProjects.map(t=>t.projUid).indexOf(id) > -1) {
        this.selectedProjects.splice(this.selectedProjects.map(t=>t.projUid).indexOf(id),1)
     }

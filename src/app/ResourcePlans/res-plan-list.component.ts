@@ -1,5 +1,5 @@
 import {
-    Component, OnInit, Inject, DoCheck, AfterViewInit, ViewChild,
+    Component, OnInit, OnDestroy, Inject, DoCheck, AfterViewInit, ViewChild,
     AfterViewChecked, Output, EventEmitter
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName, } from '@angular/forms';
@@ -21,9 +21,11 @@ import { ResourcePlanService } from '../services/resource-plan.service'
 import { ResourcePlanUserStateService } from '../services/resource-plan-user-state.service'
 import { ResourcesModalCommunicatorService } from '../resourcePlans/resources-modal-communicator.service'
 import { ResPlanHeaderRowComponent } from "../resourcePlans/res-plan-header-row/res-plan-header-row.component"
-import { AppStateService } from '../services/app-state.service' 
+import { AppStateService } from '../services/app-state.service'
 import { MenuService } from '../../fw/services/menu.service';
 import { elementAt } from 'rxjs/operators/elementAt';
+import { Subscription } from 'rxjs/Subscription'
+import { Subscriber } from 'rxjs/Subscriber'
 
 
 declare const $: any
@@ -58,6 +60,15 @@ export class ResPlanListComponent implements OnInit {
     confirmDialogResult: string;
     showTimesheetData: boolean = false;
 
+    formValueChangesSub: Subscription;
+    valuesSavedSub:  Subscription;
+    resourceAddedSub: Subscription;
+    resourceDeletedSub: Subscription; 
+    resourceHiddenSub: Subscription;
+    resourceActualsShowHide: Subscription; 
+    appExitSub: Subscription; 
+
+
 
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
@@ -72,8 +83,6 @@ export class ResPlanListComponent implements OnInit {
     }
 
 
-
-
     constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator
         , private router: Router,
         private _resourcePlanSvc: ResourcePlanService
@@ -84,22 +93,29 @@ export class ResPlanListComponent implements OnInit {
         , private _route: ActivatedRoute, private dialog: MatDialog) { }
 
     ngOnInit(): void {
-       //debugger;
-        
+        //debugger;
+
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
         });
-        this.mainForm.valueChanges.subscribe(t=>{
+        this.formValueChangesSub = this.mainForm.valueChanges.subscribe(t => {
             //app state service emit this.mainForm.dirty
-          this._appSvc.setFormDirty(this.mainForm.dirty);
+            this._appSvc.setFormDirty(this.mainForm.dirty);
         })
-       this._appSvc.save$.subscribe(()=>this.savePlans(this.fromDate,this.toDate,this.timescale,this.workunits))
-       this._appSvc.addResources$.subscribe(()=>this.addResources())
-       this._appSvc.delete$.subscribe(()=>this.openDeleteResPlanDialog())
-       this._appSvc.hide$.subscribe(()=>this.deleteResPlans(this.fromDate,this.toDate,this.timescale,this.workunits,true))
-       this._appSvc.showActuals$.subscribe(()=>this.toggleTimesheetDisplay())
-       this._appSvc.exitToPerview$.subscribe(() => { console.log('')  ; this.exitToPerView(this.mainForm.dirty) } ) 
-       this._appSvc.printToPDF$.subscribe(  () => this.printFunction())
+
+        // formValueChangesSub: Subscription;
+        // valuesSavedSub:  Subscription;
+        // resourceAddedSub: Subscription;
+        // resourceDeletedSub: Subscription; 
+        // resourceHiddenSub: Subscription;
+        // resourceActualsShowHide: Subscription; 
+        // appExitSub: Subscription; 
+        this.valuesSavedSub =  this._appSvc.save$.subscribe(() => this.savePlans(this.fromDate, this.toDate, this.timescale, this.workunits))
+        this.resourceAddedSub = this._appSvc.addResources$.subscribe(() => this.addResources())
+        this.resourceDeletedSub =  this._appSvc.delete$.subscribe(() => this.openDeleteResPlanDialog())
+        this.resourceHiddenSub = this._appSvc.hide$.subscribe(() => this.deleteResPlans(this.fromDate, this.toDate, this.timescale, this.workunits, true))
+        this.resourceActualsShowHide = this._appSvc.showActuals$.subscribe(() => this.toggleTimesheetDisplay())
+        this.appExitSub  =  this._appSvc.exitToPerview$.subscribe(() => { console.log(''); this.exitToPerView(this.mainForm.dirty) })
 
 
         this.fromDate = this._appSvc.queryParams.fromDate
@@ -116,7 +132,7 @@ export class ResPlanListComponent implements OnInit {
             //console.log(JSON.stringify(values.resPlans))
         }, (error) => console.log(error))
         this._modalSvc.modalSubmitted$.subscribe(() => {
-            this.addSelectedProjects(this.fromDate, this.toDate, this.timescale, this.workunits,this.showTimesheetData);
+            this.addSelectedProjects(this.fromDate, this.toDate, this.timescale, this.workunits, this.showTimesheetData);
         }, (error) => console.log(error))
         console.log("=========multi subscribe")
         this._resModalSvc.modalSubmitted$.subscribe(() => {
@@ -133,6 +149,18 @@ export class ResPlanListComponent implements OnInit {
         //console.log('ng after view checke fired.')
     }
 
+    ngOnDestroy() {
+        this.formValueChangesSub.unsubscribe()
+        this.valuesSavedSub.unsubscribe()
+
+        this.resourceAddedSub.unsubscribe()
+        this.resourceAddedSub.unsubscribe()
+        this.resourceHiddenSub.unsubscribe()
+        this.resourceActualsShowHide.unsubscribe()
+    }
+
+
+
     exitToPerView(mainFormIsDirty) {
         if (mainFormIsDirty === true) {
             let dialogRef = this.openDialog({ title: "Are You Sure?", content: "You have un-submitted changes" })
@@ -140,7 +168,7 @@ export class ResPlanListComponent implements OnInit {
                 this.confirmDialogResult = result;
                 if (result == "yes")
                     window.location.href = "https://perviewqa.app.parallon.com/pwa"
-                    //window.location.href = "http://foo.wingtip.com/PWA"
+                //window.location.href = "http://foo.wingtip.com/PWA"
             });
         }
         else {
@@ -254,12 +282,12 @@ export class ResPlanListComponent implements OnInit {
             (project.get('intervals') as FormArray).push(interval);
         }
         //debugger;
-        if(_project.timesheetData){
-        for (var i = 0; i < _project.timesheetData.length; i++) {
-            var interval = this.buildtimesheetInterval(_project.timesheetData[i]); 
-            (project.get('timesheetData') as FormArray).push(interval);
+        if (_project.timesheetData) {
+            for (var i = 0; i < _project.timesheetData.length; i++) {
+                var interval = this.buildtimesheetInterval(_project.timesheetData[i]);
+                (project.get('timesheetData') as FormArray).push(interval);
+            }
         }
-    }
 
         //_project.readOnly && project.disable({emitEvent:false})
         return project;
@@ -270,40 +298,36 @@ export class ResPlanListComponent implements OnInit {
         return this.fb.group({
             intervalName: interval.intervalName,
             //intervalValue:  new PercentPipe(new IntervalPipe().transform(interval.intervalValue, this.workunits)  ).transform(interval.intervalValue)
-            intervalValue: [new CellWorkUnitsPipe().transform(new IntervalPipe().transform(interval.intervalValue, this.workunits),this.workunits),
-                Validators.pattern(this.getIntervalValidationPattern())],
+            intervalValue: [new CellWorkUnitsPipe().transform(new IntervalPipe().transform(interval.intervalValue, this.workunits), this.workunits),
+            Validators.pattern(this.getIntervalValidationPattern())],
             intervalStart: interval.start,
             intervalEnd: interval.end
 
         });
     }
 
-    getIntervalValidationPattern() :string
-    {
-        switch(+(this.workunits))
-        {
+    getIntervalValidationPattern(): string {
+        switch (+(this.workunits)) {
             case WorkUnits.FTE:
-            return "^[0-9]+(%)?";
+                return "^[0-9]+(%)?";
             case WorkUnits.hours:
-           
-            return "^[0-9]+(hrs)?";
+
+                return "^[0-9]+(hrs)?";
             case WorkUnits.days:
-            return "^[0-9]+([,.][0-9])?(d)?";
+                return "^[0-9]+([,.][0-9])?(d)?";
         }
         return "";
     }
 
-    getIntervalValidationMessage():string
-    {
-        switch(+(this.workunits))
-        {
+    getIntervalValidationMessage(): string {
+        switch (+(this.workunits)) {
             case WorkUnits.FTE:
             case WorkUnits.hours:
-            return "'Please enter a numeric value'";
+                return "'Please enter a numeric value'";
             case WorkUnits.days:
-            return "'Please enter a numeric value or a decimal value with one decimal place'";
+                return "'Please enter a numeric value or a decimal value with one decimal place'";
         }
-        
+
     }
 
 
@@ -397,7 +421,7 @@ export class ResPlanListComponent implements OnInit {
         this._appSvc.resourceOrProjectsSelected(this.AnyResPlanSelectedForDelete());
         this._appSvc.resourceSelected(this.AnyResPlanSelectedForHide());
     }
-    DeselectGroupOnUncheck(_resPlan: FormGroup,_proj:FormGroup, value: boolean) {
+    DeselectGroupOnUncheck(_resPlan: FormGroup, _proj: FormGroup, value: boolean) {
         _proj.controls['selected'].setValue(value, { emitEvent: false });
         if (value == false) {
             _resPlan.controls['selected'].setValue(false, { emitEvent: false });
@@ -436,7 +460,7 @@ export class ResPlanListComponent implements OnInit {
         this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr => {
 
             console.log('selected resources=' + JSON.stringify(this._resModalSvc.selectedResources))
-            this._resPlanUserStateSvc.getResPlansFromResources(resMgr, this._resModalSvc.selectedResources, this.fromDate, this.toDate, this.timescale, this.workunits,this.showTimesheetData)
+            this._resPlanUserStateSvc.getResPlansFromResources(resMgr, this._resModalSvc.selectedResources, this.fromDate, this.toDate, this.timescale, this.workunits, this.showTimesheetData)
                 .subscribe(plans => {
                     this._resPlanUserStateSvc.AddResourceToManager(resMgr, plans).subscribe(r => {
                         if (r.success == true) {
@@ -459,7 +483,7 @@ export class ResPlanListComponent implements OnInit {
         }, (error) => { console.log(error); this._appSvc.loading(false); })
     }
 
-    addSelectedProjects(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:boolean) {
+    addSelectedProjects(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, showTimesheetData: boolean) {
         this._appSvc.loading(true);
         this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr => {
             let resource = new Resource(this.currentFormGroup.value["resUid"],
@@ -478,13 +502,13 @@ export class ResPlanListComponent implements OnInit {
                     if (successfullProjects.length > 0) {
                         this._resPlanUserStateSvc.getResPlansFromProjects(resource.resUid, [resource],
                             Observable.of([new ResPlan(resource, successfullProjects)]), fromDate, toDate, timescale, workunits
-                        ,showTimesheetData).subscribe(resPlans => {
-                            this.buildSelectedProjects(resPlans[0].projects)//.filter(r=>r.projUid.toUpperCase))
-                            this.header.setIntervals(resPlans);
-                            this.initTotals(this.currentFormGroup.get('totals') as FormArray, resPlans[0].projects)
-                            this.calculateTotals(this.currentFormGroup);
-                            this._appSvc.loading(false);
-                        });
+                            , showTimesheetData).subscribe(resPlans => {
+                                this.buildSelectedProjects(resPlans[0].projects)//.filter(r=>r.projUid.toUpperCase))
+                                this.header.setIntervals(resPlans);
+                                this.initTotals(this.currentFormGroup.get('totals') as FormArray, resPlans[0].projects)
+                                this.calculateTotals(this.currentFormGroup);
+                                this._appSvc.loading(false);
+                            });
 
                     }
                     else {
@@ -571,23 +595,21 @@ export class ResPlanListComponent implements OnInit {
                     resPlan.resource = new Resource(t.value.resUid, t.value.resName);
 
                     resPlan.projects = projects
-                    
-                        resPlan.projects.forEach(p => {
-                            p.intervals.forEach(i => {
-                                if (this._appSvc.queryParams.workunits == WorkUnits.FTE) {
-                                i.intervalValue = (+(i.intervalValue.replace('%','')) / 100).toString()
-                                }
-                                else if (this._appSvc.queryParams.workunits == WorkUnits.hours)
-                                {
-                                    i.intervalValue = (+(i.intervalValue.replace('hrs',''))).toString()
-                                }
-                                else if (this._appSvc.queryParams.workunits == WorkUnits.days)
-                                {
-                                    i.intervalValue = (+(i.intervalValue.replace('d',''))).toString()
-                                }
-                            })
+
+                    resPlan.projects.forEach(p => {
+                        p.intervals.forEach(i => {
+                            if (this._appSvc.queryParams.workunits == WorkUnits.FTE) {
+                                i.intervalValue = (+(i.intervalValue.replace('%', '')) / 100).toString()
+                            }
+                            else if (this._appSvc.queryParams.workunits == WorkUnits.hours) {
+                                i.intervalValue = (+(i.intervalValue.replace('hrs', ''))).toString()
+                            }
+                            else if (this._appSvc.queryParams.workunits == WorkUnits.days) {
+                                i.intervalValue = (+(i.intervalValue.replace('d', ''))).toString()
+                            }
                         })
-                    
+                    })
+
                     return resPlan;
                 })
 
@@ -767,16 +789,22 @@ export class ResPlanListComponent implements OnInit {
             }
         });
     }
-    
-    
+
+
     //this function activates a print job by minimizing the
     //side bar and printing the window after enough time has
     //elapsed to reflect a full-screen.
+<<<<<<< HEAD
+    printFunction(event: Event): void {
+        $.when(this.menuService.printMode())
+            .done(setTimeout(this.menuService.printerFunction, 1000));
+=======
     printFunction(): void {
         $.when(this.menuService.printMode())          
         .done(setTimeout(this.menuService.printerFunction,1000));
+>>>>>>> cbb713285d9840506ab4eef66150af9f4555558d
     }
- 
+
     updateErrors(errors: Result[]) {
         let resultsWithError = errors.filter(e => e.success == false);
 
@@ -799,26 +827,24 @@ export class ResPlanListComponent implements OnInit {
 
 
     }
-    toggleTimesheetDisplay(){
-       //debugger;
-        
+    toggleTimesheetDisplay() {
+        //debugger;
+
         this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
         this.router.isActive = function () { return false; }
-        this.router.navigate(['/home/resPlans', this._appSvc.queryParams] );
+        this.router.navigate(['/home/resPlans', this._appSvc.queryParams]);
     }
 
-    intervalChanged(input:any,ctrl:AbstractControl)
-    {
-      if(!ctrl.errors){
-      if((event.currentTarget as HTMLInputElement).value && (event.currentTarget as HTMLInputElement).value.trim() != '')
-      (event.currentTarget as HTMLInputElement).value = new CellWorkUnitsPipe().transform((event.currentTarget as HTMLInputElement).value,this.workunits);
-      }
+    intervalChanged(input: any, ctrl: AbstractControl) {
+        if (!ctrl.errors) {
+            if ((event.currentTarget as HTMLInputElement).value && (event.currentTarget as HTMLInputElement).value.trim() != '')
+                (event.currentTarget as HTMLInputElement).value = new CellWorkUnitsPipe().transform((event.currentTarget as HTMLInputElement).value, this.workunits);
+        }
     }
 
-    getTimesheetButtonText()
-    {
-     
-        if(this.showTimesheetData == true) return 'Hide Timesheet Data'; else return 'Show timesheet Data';
+    getTimesheetButtonText() {
+
+        if (this.showTimesheetData == true) return 'Hide Timesheet Data'; else return 'Show timesheet Data';
     }
 }
 
