@@ -39,7 +39,7 @@ export class ResourceListComponent implements OnInit {
     },
     timesheetMgr:
     {
-     title:'Timsheet Mgr'
+     title:'Timesheet Manager'
     }
   }
   

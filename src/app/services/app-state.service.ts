@@ -13,7 +13,7 @@ export class AppStateService {
   private deleteState = new Subject<boolean>();
   private hideState = new Subject<boolean>();
   private saveSource = new Subject<void>();
-  private addResourcesSource = new Subject<void>();
+  public addResourcesSource = new Subject<void>();
   private deleteSource = new Subject<void>();
   private hideSource = new Subject<void>();
   private showActualsSource = new Subject<boolean>();
