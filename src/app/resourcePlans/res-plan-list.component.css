@@ -23,7 +23,7 @@ font-style: italic
 }
 .dirtyCell
 {
-    background-color:rgba(231, 227, 227, 0.89)
+    background-color:rgba(231, 227, 227, 0.89) !important
 }
 .outer-container
 {
@@ -80,5 +80,15 @@ input[type="number"] {
 
 input[type="number"]:focus {
     -moz-appearance: number-input;
+}
+
+.intervalCell
+{
+    text-align: center
+}
+
+.actualCell
+{
+  color:  blue
 }
 
