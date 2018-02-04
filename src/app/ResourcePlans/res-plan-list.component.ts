@@ -793,9 +793,15 @@ export class ResPlanListComponent implements OnInit {
     //this function activates a print job by minimizing the
     //side bar and printing the window after enough time has
     //elapsed to reflect a full-screen.
+<<<<<<< HEAD
     printFunction(event: Event): void {
         $.when(this.menuService.printMode())
             .done(setTimeout(this.menuService.printerFunction, 1000));
+=======
+    printFunction(): void {
+        $.when(this.menuService.printMode())          
+        .done(setTimeout(this.menuService.printerFunction,1000));
+>>>>>>> cbb713285d9840506ab4eef66150af9f4555558d
     }
 
     updateErrors(errors: Result[]) {
