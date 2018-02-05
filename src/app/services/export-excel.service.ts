@@ -1,4 +1,5 @@
 import { Injectable } from  '@angular/core';
+import { debug } from 'util';
 
 @Injectable()
 export class ExportExcelService {
@@ -46,7 +47,7 @@ excelObject = {
         }
         else {
            plan.projects.forEach( (project) =>{ //plan.projects is an Array
-            flatResPlan.push([project.projName +", "+ project.intervals.map(function(intervalObj){return [intervalObj.intervalValue, intervalObj.start, intervalObj.end]})]);
+            flatResPlan.push([project.projName +", "+ project.intervals.map(function(intervalObj){return [intervalObj.intervalValue]})]);
             // console.log("this is a test", project.intervals.map(function(intervalObj){ return intervalObj['intervalValue']}));
             // console.log("this is a test for project.intervals array:", project.intervals);
             flatResplanData.push(flatResPlan);
@@ -59,6 +60,7 @@ excelObject = {
 
       let flatterResPlanData = [];
       //flatResplanData is an "array of arrays of resPlanData."
+      console.log(flatResplanData, "this is flat resplan data Johnny");
       flatResplanData.forEach((rowArray: any) => {
         try {
           flatterResPlanData.push(rowArray.split(","));
@@ -67,7 +69,7 @@ excelObject = {
           flatterResPlanData.push(rowArray);
         }
       })
-      // console.log(flatterResPlanData, "flatterResPlanData here.......");
+      console.log(flatterResPlanData, "flatterResPlanData here.......");
       let standardizeFlatData = flatterResPlanData.join(",").split(",").join("\r\n");
       // let yeahBudd = flatResplanData[2].join();
       // console.log("this is yeahBuddy", yeahBudd.split(","));
@@ -110,6 +112,90 @@ excelObject = {
         this._downloadAnchor(URL.createObjectURL(blob), 'csv');      
       }
     },
+
+    transformToCSV: function(resPlanData, filename) {
+       //build the first row (dates) - only 1 please
+      debugger;
+      let excelData: string = ',,';
+
+      for (var i = 0; i < resPlanData.length; i++ ) {
+        if (resPlanData[i].projects.length > 0) {
+          resPlanData[i].projects[0].intervals.forEach(interval=> {
+            excelData +=  interval.start.toDateString() +'-' + interval.end.toDateString() + ',' 
+          })   
+          excelData += '\r\n' 
+          break
+        }
+        else {
+          debugger
+          continue
+        }  
+
+      }
+
+
+
+      // resPlanData.forEach(resPlan => { 
+      //   debugger
+      //   if (resPlan.projects.length > 0) {
+      //     resPlan.projects[0].intervals.forEach(interval=> {
+      //       excelData +=  interval.start.toDateString() +'-' + interval.end.toDateString() + ',' 
+      //     })   
+      //     excelData += '\r\n' 
+      //     return
+      //   }
+      //   else {
+      //     debugger
+      //     return
+      //   }  
+      // })
+      
+      resPlanData.forEach(resPlan => {
+         // console.log('hey')
+          let resourcename = resPlan.resource.resName;
+          let intervalNames : string[];
+          
+          if (resPlan.projects.length > 0) {
+              // resPlan.projects[0].intervals.forEach(interval=>{
+              //     excelData +=  interval.start.toDateString() +'-' + interval.end.toDateString() + ',' 
+              // })
+              // excelData += '\r\n'
+              resPlan.projects.forEach(project=>{
+                excelData += resourcename +',';
+                excelData += project.projName
+                project.intervals.forEach(interval=>{
+                  excelData += interval.intervalValue.toString() + ','
+               })
+               excelData += '\r\n'
+              });
+
+          }
+          else {
+            debugger
+              excelData += resourcename + ','  + '\r\n'
+          }
+          
+
+ 
+          
+      }); 
+      //its done here
+      let csv = excelData;
+      debugger;
+      var blob = new Blob([csv], { type: "text/csv" });
+  
+      // Determine which approach to take for the download
+      if (navigator.msSaveOrOpenBlob) {
+      // Works for Internet Explorer and Microsoft Edge
+        navigator.msSaveOrOpenBlob(blob, this._filename + ".csv");
+      } else {      
+        this._downloadAnchor(URL.createObjectURL(blob), 'csv');      
+      }
+
+  },
+
+
+
     _getMsieVersion: function() {
       var ua = window.navigator.userAgent;
   

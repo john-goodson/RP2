@@ -94,7 +94,6 @@ export class MenuItemComponent implements OnInit {
         //     this.item.params["toDate"] = this.activatedRoute.snapshot.queryParams["toDate"] || currentYear.endDate
         //   }
 
-          //debugger;
       this.router.navigate([this.item.route, this.item.params],{ preserveQueryParams:true} );
         
     }

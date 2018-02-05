@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../services/menu.service';
 import { ScreenService } from '../services/screen.service';
 
+declare const $: any;
+
 @Component({
   selector: 'fw-content',
   templateUrl: './content.component.html',
@@ -14,6 +16,10 @@ export class ContentComponent implements OnInit {
               public screenService: ScreenService) { }
 
   ngOnInit() {
+  // let contentBox = $('.body-style');
+  // contentBox.scroll(function() {
+  //         $('.table-header').css('top', $(this).scrollTop() + "px");
+  //     });
   }
 
 }
