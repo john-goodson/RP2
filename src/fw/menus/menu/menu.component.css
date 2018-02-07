@@ -3,6 +3,7 @@
     align-items: flex-end; 
     justify-content: flex-end;
     flex-grow: 1;
+    position: sticky;
 }
 
 :host(.vertical-menu) {
@@ -32,3 +33,10 @@ button.horizontal {
     margin-left: 20px;
     margin-bottom: 2px;
 }
+
+/* #navigation {
+    position: fixed
+} */
+/* #navigation:hover{
+    z-index: 1000;
+} */

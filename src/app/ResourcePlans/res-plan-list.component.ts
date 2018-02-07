@@ -68,8 +68,8 @@ export class ResPlanListComponent implements OnInit {
     resourceHiddenSub: Subscription;
     resourceActualsShowHide: Subscription; 
     appExitSub: Subscription; 
-
-
+    exportPrintSub: Subscription;
+    exportExcelSub: Subscription;
 
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
@@ -118,6 +118,8 @@ export class ResPlanListComponent implements OnInit {
         this.resourceHiddenSub = this._appSvc.hide$.subscribe(() => this.deleteResPlans(this.fromDate, this.toDate, this.timescale, this.workunits, true))
         this.resourceActualsShowHide = this._appSvc.showActuals$.subscribe(() => this.toggleTimesheetDisplay())
         this.appExitSub  =  this._appSvc.exitToPerview$.subscribe(() => { console.log(''); this.exitToPerView(this.mainForm.dirty) })
+        this.exportPrintSub = this._appSvc.printToPDF$.subscribe( () => { this.printFunction()});
+        this.exportExcelSub = this._appSvc.exportToExcel$.subscribe( () => { this.excelExportFunction()});
 
 
         this.fromDate = this._appSvc.queryParams.fromDate
@@ -156,7 +158,7 @@ export class ResPlanListComponent implements OnInit {
         this.valuesSavedSub.unsubscribe()
 
         this.resourceAddedSub.unsubscribe()
-        this.resourceAddedSub.unsubscribe()
+        this.resourceDeletedSub.unsubscribe();
         this.resourceHiddenSub.unsubscribe()
         this.resourceActualsShowHide.unsubscribe()
     }
@@ -798,7 +800,7 @@ export class ResPlanListComponent implements OnInit {
     //elapsed to reflect a full-screen.
 
 
-    printFunction(event: Event): void {
+    printFunction(): void {
         this.menuService.getCurrentView();
         $.when(this.menuService.printMode())          
         .done(setTimeout(this.menuService.printerFunction,1000))
@@ -808,11 +810,8 @@ export class ResPlanListComponent implements OnInit {
     excelExportFunction() {
         
         console.log(this.resPlanData, "is resplanData");
-        this._exportExcelService.excelObject.toCSV(this.resPlanData,'RM2');
+        this._exportExcelService.excelObject.transformToCSV(this.resPlanData,'RM2');
     }
-
-
- 
 
 
     updateErrors(errors: Result[]) {
@@ -834,8 +833,6 @@ export class ResPlanListComponent implements OnInit {
 
             });
         });
-
-
     }
 
     toggleTimesheetDisplay() {
@@ -855,8 +852,14 @@ export class ResPlanListComponent implements OnInit {
 
     getTimesheetButtonText() {
 
-        if (this.showTimesheetData == true) return 'Hide Timesheet Data'; else return 'Show timesheet Data';
+        if (this.showTimesheetData == true) {
+            return 'Hide Timesheet Data';
+
+        }
+         
+        else {
+            return 'Show timesheet Data';
+        }
     }
 
-    console.log(resPlanData, "resPlan Data...", resplan, "resplan");
 }

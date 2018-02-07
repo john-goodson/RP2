@@ -23,6 +23,11 @@ visible: boolean = true;
     this.setIntervals(this._resPlans)
     //console.log('header component data=' + JSON.stringify(values.resPlans))
   },(error)=>console.log(error));
+
+  
+
+
+
   }
 
   selectAllChange(value:boolean)

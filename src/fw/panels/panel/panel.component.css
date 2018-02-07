@@ -5,4 +5,10 @@
     margin-bottom: 20px;
     background-color: #eee;
     border: 1px solid #ccc;
+    margin-left: 18%;
+    position: fixed;
+}
+
+div.menu-area{
+    position: fixed;
 }

@@ -18,8 +18,9 @@ export class ContentComponent implements OnInit {
   ngOnInit() {
   // let contentBox = $('.body-style');
   // contentBox.scroll(function() {
-  //         $('.table-header').css('top', $(this).scrollTop() + "px");
+  //         $('.ownBox').css('top', $(this).scrollTop() + "px");
   //     });
+  // }
   }
 
 }

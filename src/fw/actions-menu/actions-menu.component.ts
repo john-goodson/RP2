@@ -56,7 +56,7 @@ export class ActionsMenuComponent implements OnInit {
   }
 
   toExcel() {
-    // this._appStateSvc.printToExcelClick();
+    this._appStateSvc.exportToExcelClick();
   }
 
 
