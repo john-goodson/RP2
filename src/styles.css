@@ -100,7 +100,7 @@ pm-app div.panel.panel-primary {
 
 
   .body-style{
-      margin-left: 20%;
+      margin-left: 2%;
   }
     .totalGreen {
         -webkit-print-color-adjust: exact !important;
@@ -163,8 +163,22 @@ pm-app div.panel.panel-primary {
     }
     .table-body{
         margin:0;
+        margin-top: 1.25in;
     }
-    /* .dateWindow{
+    .ownBox {
+        /* position: fixed;
+        top: .5in;
+        position: absolute;
+        top: 6%; */
+        /* margin-bottom: 3%; */
+    }
+    .table-header {
         position: fixed;
-    } */
+        top: .5in;
+    }
+     res-plan-header-row{
+        position: fixed; 
+        top: .5in;
+    } 
+
 }
