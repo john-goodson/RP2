@@ -130,7 +130,8 @@ pm-app div.panel.panel-primary {
     }
 
     @page {
-    size: 17in 11in;
+    /* size: 17in 11in landscape; */
+    size: auto landscape;
     page-break-after: always;
     margin: 0;     
     }
@@ -173,12 +174,12 @@ pm-app div.panel.panel-primary {
         /* margin-bottom: 3%; */
     }
     .table-header {
-        position: fixed;
+        position: absolute;
         top: .5in;
     }
-     res-plan-header-row{
-        position: fixed; 
+     /* res-plan-header-row{
+        position: absolute; 
         top: .5in;
-    } 
+    }  */
 
 }
