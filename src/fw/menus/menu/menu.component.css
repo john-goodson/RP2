@@ -4,6 +4,7 @@
     justify-content: flex-end;
     flex-grow: 1;
     position: sticky;
+    z-index:100;
 }
 
 :host(.vertical-menu) {
@@ -33,10 +34,17 @@ button.horizontal {
     margin-left: 20px;
     margin-bottom: 2px;
 }
+/* .ng-star-inserted{
+    z-index: 1000;
+} */
 
 /* #navigation {
-    position: fixed
+    position: absolute;
+}
+#navigation:hover{
+    z-index: 1000;
 } */
-/* #navigation:hover{
+
+/* fw-menu.ng-star-inserted{
     z-index: 1000;
 } */
