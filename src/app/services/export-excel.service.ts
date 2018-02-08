@@ -1,5 +1,6 @@
 import { Injectable } from  '@angular/core';
 import { debug } from 'util';
+import * as moment from 'moment';
 
 @Injectable()
 export class ExportExcelService {
@@ -121,16 +122,18 @@ excelObject = {
       for (var i = 0; i < resPlanData.length; i++ ) {
         if (resPlanData[i].projects.length > 0) {
           resPlanData[i].projects[0].intervals.forEach(interval=> {
-            excelData +=  interval.start.toDateString() +'-' + interval.end.toDateString() + ',' 
+            excelData +=  moment(interval.start).format('MM/DD/YY') +' - ' + moment(interval.end).format('MM/DD/YY') + ',' 
+            console.log(excelData, "fixed it already??");
           })   
           excelData += '\r\n' 
           break
+         
         }
         else {
           debugger
           continue
         }  
-
+        
       }
 
 
