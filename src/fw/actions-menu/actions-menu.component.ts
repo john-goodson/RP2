@@ -16,16 +16,16 @@ export class ActionsMenuComponent implements OnInit {
 
   ngOnInit() {
     this._appStateSvc.formDirtyState$.subscribe(value=>this.disableSave = !value)
-     this._appStateSvc.deleteState$.subscribe(value=>{debugger;this.disableDelete = !value})
-     this._appStateSvc.hideState$.subscribe(value=>{debugger;this.disableHide= !value})
+     this._appStateSvc.deleteState$.subscribe(value=>{this.disableDelete = !value})
+     this._appStateSvc.hideState$.subscribe(value=>{this.disableHide= !value})
     
-    //debugger;
+  
     //this.delHide.items;
   }
 
   submit()
   {
-    //debugger;
+  
     this._appStateSvc.saveClick();
   }
 
@@ -36,13 +36,13 @@ export class ActionsMenuComponent implements OnInit {
 
   delete()
   {
-    //debugger;
+ 
     this._appStateSvc.deleteClick();
   }
 
   hide()
   {
-    //debugger;
+    
     this._appStateSvc.hideClick();
   }
 
@@ -62,7 +62,7 @@ export class ActionsMenuComponent implements OnInit {
 
   toggleText(event:Event)
   {
-    debugger;
+   
   //  if(event.srcElement.textContent == 'Show Actuals')
   //  {
   //   event.srcElement.textContent= 'Hide Actuals';

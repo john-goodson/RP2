@@ -130,75 +130,56 @@ excelObject = {
 
     transformToCSV: function(resPlanData, filename) {
        //build the first row (dates) - only 1 please
-      debugger;
+   
       let excelData: string = ',,';
 
       for (var i = 0; i < resPlanData.length; i++ ) {
         if (resPlanData[i].projects.length > 0) {
           resPlanData[i].projects[0].intervals.forEach(interval=> {
             excelData +=  moment(interval.start).format('MM/DD/YY') +' - ' + moment(interval.end).format('MM/DD/YY') + ',' 
-            // console.log(excelData, "fixed it already??");
           })   
           excelData += '\r\n' 
           break
-         
         }
         else {
-          debugger
+          
           continue
         }  
         
       }
 
-
-
-      // resPlanData.forEach(resPlan => { 
-      //   debugger
-      //   if (resPlan.projects.length > 0) {
-      //     resPlan.projects[0].intervals.forEach(interval=> {
-      //       excelData +=  interval.start.toDateString() +'-' + interval.end.toDateString() + ',' 
-      //     })   
-      //     excelData += '\r\n' 
-      //     return
-      //   }
-      //   else {
-      //     debugger
-      //     return
-      //   }  
-      // })
-      
       resPlanData.forEach(resPlan => {
-         // console.log('hey')
+        
           let resourcename = resPlan.resource.resName;
           let intervalNames : string[];
           
           if (resPlan.projects.length > 0) {
-              // resPlan.projects[0].intervals.forEach(interval=>{
-              //     excelData +=  interval.start.toDateString() +'-' + interval.end.toDateString() + ',' 
-              // })
-              // excelData += '\r\n'
+    
               resPlan.projects.forEach(project=>{
                 excelData += resourcename +',';
                 excelData += project.projName
-                project.intervals.forEach(interval=>{
+                project.intervals.forEach(interval => {
                   excelData += interval.intervalValue.toString() + ','
                })
                excelData += '\r\n'
-              });
-
+          
+               if (project.timesheetData !== null) {
+                 excelData += 'Actuals,,'
+                 project.timesheetData.forEach((timesheetInterval) => {
+                   excelData += timesheetInterval.intervalValue.toString() + ','
+                 })
+                 excelData += '\r\n'
+                 
+               }//end if statement testing whether timesheet data is available
+              
+              });//end of single project instance
           }
           else {
-            debugger
               excelData += resourcename + ','  + '\r\n'
-          }
-          
-
- 
-          
-      }); 
-      //its done here
-      let csv = excelData;
-      debugger;
+          }   
+      }); //end of data collection
+      console.log('excelData works:', excelData);
+      let csv = excelData;  
       var blob = new Blob([csv], { type: "text/csv" });
   
       // Determine which approach to take for the download
