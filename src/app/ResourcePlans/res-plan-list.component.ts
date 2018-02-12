@@ -68,8 +68,16 @@ export class ResPlanListComponent implements OnInit {
     resourceHiddenSub: Subscription;
     resourceActualsShowHide: Subscription; 
     appExitSub: Subscription; 
+<<<<<<< HEAD
     exportPrintSub: Subscription;
     exportExcelSub: Subscription;
+=======
+    routeDataChangedSub: Subscription
+    projModalSubmission: Subscription 
+    resModalSubmission: Subscription
+
+
+>>>>>>> 92413487445854407201641930b64eacf3b2169e
 
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
@@ -118,8 +126,12 @@ export class ResPlanListComponent implements OnInit {
         this.resourceHiddenSub = this._appSvc.hide$.subscribe(() => this.deleteResPlans(this.fromDate, this.toDate, this.timescale, this.workunits, true))
         this.resourceActualsShowHide = this._appSvc.showActuals$.subscribe(() => this.toggleTimesheetDisplay())
         this.appExitSub  =  this._appSvc.exitToPerview$.subscribe(() => { console.log(''); this.exitToPerView(this.mainForm.dirty) })
+<<<<<<< HEAD
         this.exportPrintSub = this._appSvc.printToPDF$.subscribe( () => { this.printFunction()});
         this.exportExcelSub = this._appSvc.exportToExcel$.subscribe( () => { this.excelExportFunction()});
+=======
+       
+>>>>>>> 92413487445854407201641930b64eacf3b2169e
 
 
         this.fromDate = this._appSvc.queryParams.fromDate
@@ -127,7 +139,8 @@ export class ResPlanListComponent implements OnInit {
         this.timescale = this._appSvc.queryParams.timescale
         this.workunits = this._appSvc.queryParams.workunits
         this.showTimesheetData = this._appSvc.queryParams.showTimesheetData;
-        this._route.data.subscribe(values => {
+        
+        this.routeDataChangedSub = this._route.data.subscribe(values => {
             this.resPlanData = values.resPlans;
             //this.resPlans = values.resPlans;
             if (values.resPlans && values.resPlans.length > 0)
@@ -135,15 +148,17 @@ export class ResPlanListComponent implements OnInit {
             this.buildResPlans(values.resPlans);
             //console.log(JSON.stringify(values.resPlans))
         }, (error) => console.log(error))
-        this._modalSvc.modalSubmitted$.subscribe(() => {
+        this.projModalSubmission = this._modalSvc.modalSubmitted$.subscribe(() => {
             this.addSelectedProjects(this.fromDate, this.toDate, this.timescale, this.workunits, this.showTimesheetData);
         }, (error) => console.log(error))
         console.log("=========multi subscribe")
-        this._resModalSvc.modalSubmitted$.subscribe(() => {
+        this.resModalSubmission = this._resModalSvc.modalSubmitted$.subscribe(() => {
 
             this.addSelectedResources()
 
         }, (error) => console.log(error));
+
+        debugger
         this.modalResources.modalSubmitted$.subscribe(() => this._resModalSvc.modalSubmitClicked(), (error) => console.log(error));
         this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked(), (error) => console.log(error));
     }
@@ -158,14 +173,22 @@ export class ResPlanListComponent implements OnInit {
         this.valuesSavedSub.unsubscribe()
 
         this.resourceAddedSub.unsubscribe()
+<<<<<<< HEAD
         this.resourceDeletedSub.unsubscribe();
+=======
+        this.resourceDeletedSub.unsubscribe()
+>>>>>>> 92413487445854407201641930b64eacf3b2169e
         this.resourceHiddenSub.unsubscribe()
         this.resourceActualsShowHide.unsubscribe()
+        this.appExitSub.unsubscribe()
+        this.projModalSubmission.unsubscribe()
+        this.resModalSubmission.unsubscribe()
     }
 
 
 
     exitToPerView(mainFormIsDirty) {
+        debugger;
         if (mainFormIsDirty === true) {
             let dialogRef = this.openDialog({ title: "Are You Sure?", content: "You have un-submitted changes" })
             dialogRef.afterClosed().subscribe(result => {
@@ -798,11 +821,15 @@ export class ResPlanListComponent implements OnInit {
     //this function activates a print job by minimizing the
     //side bar and printing the window after enough time has
     //elapsed to reflect a full-screen.
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 92413487445854407201641930b64eacf3b2169e
     printFunction(): void {
         this.menuService.getCurrentView();
         $.when(this.menuService.printMode())          
+<<<<<<< HEAD
         .done(setTimeout(this.menuService.printerFunction,1000))
         // .done(setTimeout(this.menuService.normalizeView,500));
     }
@@ -811,6 +838,9 @@ export class ResPlanListComponent implements OnInit {
         
         console.log(this.resPlanData, "is resplanData");
         this._exportExcelService.excelObject.transformToCSV(this.resPlanData,'RM2');
+=======
+        .done(setTimeout(this.menuService.printerFunction,1000));
+>>>>>>> 92413487445854407201641930b64eacf3b2169e
     }
 
 

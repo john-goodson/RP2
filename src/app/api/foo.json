@@ -1,95 +1,330 @@
-{
-  "e7808e36-588a-e711-80cc-00155d005a03": {
-    "2017-12-30": {
-      "Actual": 8.000000,
-      "Capacity": 0.0
+[
+  {
+    "resource": {
+      "resUid": "10c931ee-1765-4ad1-b179-a92b3bd3624b",
+      "resName": "Gray Katrina",
+      "rbs": "",
+      "timesheetMgr": ""
     },
-    "2017-12-31": {
-      "Actual": 8.000000,
-      "Capacity": 0.0
-    },
-    "2018-01-01": {
-      "Actual": 8.000000,
-      "Capacity": 8.0
-    },
-    "2018-01-02": {
-      "Actual": 0.000000,
-      "Capacity": 8.0
-    },
-    "2018-01-03": {
-      "Actual": 0.000000,
-      "Capacity": 8.0
-    },
-    "2018-01-04": {
-      "Actual": 0.000000,
-      "Capacity": 8.0
-    },
-    "2018-01-05": {
-      "Actual": 0.000000,
-      "Capacity": 8.0
-    },
-    "2018-01-08": {
-      "Actual": 8.000000,
-      "Capacity": 8.0
-    },
-    "2018-01-09": {
-      "Actual": 8.000000,
-      "Capacity": 8.0
-    },
-    "2018-01-10": {
-      "Actual": 8.000000,
-      "Capacity": 8.0
-    },
-    "2018-01-11": {
-      "Actual": 8.000000,
-      "Capacity": 8.0
-    },
-    "2018-01-12": {
-      "Actual": 3.000000,
-      "Capacity": 5.0
-    },
-    "2018-01-06": {
-      "Actual": 0.000000,
-      "Capacity": 0.0
-    },
-    "2018-01-07": {
-      "Actual": 0.000000,
-      "Capacity": 0.0
-    },
-    "2018-01-15": {
-      "Actual": 8.000000,
-      "Capacity": 8.0
-    },
-    "2018-01-16": {
-      "Actual": 8.000000,
-      "Capacity": 8.0
-    },
-    "2018-01-17": {
-      "Actual": 8.000000,
-      "Capacity": 8.0
-    },
-    "2018-01-18": {
-      "Actual": 8.000000,
-      "Capacity": 8.0
-    },
-    "2018-01-19": {
-      "Actual": 8.000000,
-      "Capacity": 8.0
-    }
-  },
-  "8e76500f-84aa-e711-80ce-00155dcd8a01": {
-    "2018-01-09": {
-      "Actual": 8.000000,
-      "Capacity": 8.0
-    },
-    "2018-01-10": {
-      "Actual": 8.000000,
-      "Capacity": 8.0
-    },
-    "2018-01-11": {
-      "Actual": 8.000000,
-      "Capacity": 8.0
-    }
-  },
-  "afa7fbbe-e361-e711-80cc-00155d005a03": {}
-}
+    "projects": [
+      {
+        "projUid": "eb79c7a8-788c-4c1d-bbf0-6a6cfc36fb8e",
+        "projName": "PRGM Parallon PMO Management",
+        "selected": false,
+        "intervals": [
+          {
+            "intervalName": "Interval0",
+            "intervalValue": "0",
+            "start": "1/1/2017",
+            "end": "2/1/2017"
+          },
+          {
+            "intervalName": "Interval1",
+            "intervalValue": "0",
+            "start": "2/1/2017",
+            "end": "3/1/2017"
+          },
+          {
+            "intervalName": "Interval2",
+            "intervalValue": "0",
+            "start": "3/1/2017",
+            "end": "4/1/2017"
+          },
+          {
+            "intervalName": "Interval3",
+            "intervalValue": "0",
+            "start": "4/1/2017",
+            "end": "5/1/2017"
+          },
+          {
+            "intervalName": "Interval4",
+            "intervalValue": "0",
+            "start": "5/1/2017",
+            "end": "6/1/2017"
+          },
+          {
+            "intervalName": "Interval5",
+            "intervalValue": "0",
+            "start": "6/1/2017",
+            "end": "7/1/2017"
+          },
+          {
+            "intervalName": "Interval6",
+            "intervalValue": "0",
+            "start": "7/1/2017",
+            "end": "8/1/2017"
+          },
+          {
+            "intervalName": "Interval7",
+            "intervalValue": "0",
+            "start": "8/1/2017",
+            "end": "9/1/2017"
+          },
+          {
+            "intervalName": "Interval8",
+            "intervalValue": "0",
+            "start": "9/1/2017",
+            "end": "10/1/2017"
+          },
+          {
+            "intervalName": "Interval9",
+            "intervalValue": "0",
+            "start": "10/1/2017",
+            "end": "11/1/2017"
+          },
+          {
+            "intervalName": "Interval10",
+            "intervalValue": "0",
+            "start": "11/1/2017",
+            "end": "12/1/2017"
+          },
+          {
+            "intervalName": "Interval11",
+            "intervalValue": "0",
+            "start": "12/1/2017",
+            "end": "1/1/2018"
+          }
+        ],
+        "timesheetData": [
+          {
+            "intervalName": "Interval0",
+            "intervalValue": "22",
+            "start": "1/1/2017",
+            "end": "2/1/2017"
+          },
+          {
+            "intervalName": "Interval1",
+            "intervalValue": "28",
+            "start": "2/1/2017",
+            "end": "3/1/2017"
+          },
+          {
+            "intervalName": "Interval2",
+            "intervalValue": "14",
+            "start": "3/1/2017",
+            "end": "4/1/2017"
+          },
+          {
+            "intervalName": "Interval3",
+            "intervalValue": "14",
+            "start": "4/1/2017",
+            "end": "5/1/2017"
+          },
+          {
+            "intervalName": "Interval4",
+            "intervalValue": "26",
+            "start": "5/1/2017",
+            "end": "6/1/2017"
+          },
+          {
+            "intervalName": "Interval5",
+            "intervalValue": "32",
+            "start": "6/1/2017",
+            "end": "7/1/2017"
+          },
+          {
+            "intervalName": "Interval6",
+            "intervalValue": "29",
+            "start": "7/1/2017",
+            "end": "8/1/2017"
+          },
+          {
+            "intervalName": "Interval7",
+            "intervalValue": "8",
+            "start": "8/1/2017",
+            "end": "9/1/2017"
+          },
+          {
+            "intervalName": "Interval8",
+            "intervalValue": "10",
+            "start": "9/1/2017",
+            "end": "10/1/2017"
+          },
+          {
+            "intervalName": "Interval9",
+            "intervalValue": "18",
+            "start": "10/1/2017",
+            "end": "11/1/2017"
+          },
+          {
+            "intervalName": "Interval10",
+            "intervalValue": "23",
+            "start": "11/1/2017",
+            "end": "12/1/2017"
+          },
+          {
+            "intervalName": "Interval11",
+            "intervalValue": "16",
+            "start": "12/1/2017",
+            "end": "1/1/2018"
+          }
+        ],
+        "readOnly": false,
+        "stalePublish": false,
+        "readOnlyReason": null,
+        "startDate": "1/1/2015",
+        "finishDate": "12/29/2017",
+        "CustomFields": null
+      },
+      {
+        "projUid": "259296fd-9702-e711-80f3-0050568f78ef",
+        "projName": "PS - PMO - 2017 Learning Session Development and Delivery",
+        "selected": false,
+        "intervals": [
+          {
+            "intervalName": "Interval0",
+            "intervalValue": "0",
+            "start": "1/1/2017",
+            "end": "2/1/2017"
+          },
+          {
+            "intervalName": "Interval1",
+            "intervalValue": "0",
+            "start": "2/1/2017",
+            "end": "3/1/2017"
+          },
+          {
+            "intervalName": "Interval2",
+            "intervalValue": "0",
+            "start": "3/1/2017",
+            "end": "4/1/2017"
+          },
+          {
+            "intervalName": "Interval3",
+            "intervalValue": "0",
+            "start": "4/1/2017",
+            "end": "5/1/2017"
+          },
+          {
+            "intervalName": "Interval4",
+            "intervalValue": "0",
+            "start": "5/1/2017",
+            "end": "6/1/2017"
+          },
+          {
+            "intervalName": "Interval5",
+            "intervalValue": "0",
+            "start": "6/1/2017",
+            "end": "7/1/2017"
+          },
+          {
+            "intervalName": "Interval6",
+            "intervalValue": "0",
+            "start": "7/1/2017",
+            "end": "8/1/2017"
+          },
+          {
+            "intervalName": "Interval7",
+            "intervalValue": "0",
+            "start": "8/1/2017",
+            "end": "9/1/2017"
+          },
+          {
+            "intervalName": "Interval8",
+            "intervalValue": "0",
+            "start": "9/1/2017",
+            "end": "10/1/2017"
+          },
+          {
+            "intervalName": "Interval9",
+            "intervalValue": "0",
+            "start": "10/1/2017",
+            "end": "11/1/2017"
+          },
+          {
+            "intervalName": "Interval10",
+            "intervalValue": "0",
+            "start": "11/1/2017",
+            "end": "12/1/2017"
+          },
+          {
+            "intervalName": "Interval11",
+            "intervalValue": "0",
+            "start": "12/1/2017",
+            "end": "1/1/2018"
+          }
+        ],
+        "timesheetData": [
+          {
+            "intervalName": "Interval0",
+            "intervalValue": "0",
+            "start": "1/1/2017",
+            "end": "2/1/2017"
+          },
+          {
+            "intervalName": "Interval1",
+            "intervalValue": "0",
+            "start": "2/1/2017",
+            "end": "3/1/2017"
+          },
+          {
+            "intervalName": "Interval2",
+            "intervalValue": "15",
+            "start": "3/1/2017",
+            "end": "4/1/2017"
+          },
+          {
+            "intervalName": "Interval3",
+            "intervalValue": "12",
+            "start": "4/1/2017",
+            "end": "5/1/2017"
+          },
+          {
+            "intervalName": "Interval4",
+            "intervalValue": "11",
+            "start": "5/1/2017",
+            "end": "6/1/2017"
+          },
+          {
+            "intervalName": "Interval5",
+            "intervalValue": "7",
+            "start": "6/1/2017",
+            "end": "7/1/2017"
+          },
+          {
+            "intervalName": "Interval6",
+            "intervalValue": "17",
+            "start": "7/1/2017",
+            "end": "8/1/2017"
+          },
+          {
+            "intervalName": "Interval7",
+            "intervalValue": "8",
+            "start": "8/1/2017",
+            "end": "9/1/2017"
+          },
+          {
+            "intervalName": "Interval8",
+            "intervalValue": "3",
+            "start": "9/1/2017",
+            "end": "10/1/2017"
+          },
+          {
+            "intervalName": "Interval9",
+            "intervalValue": "8",
+            "start": "10/1/2017",
+            "end": "11/1/2017"
+          },
+          {
+            "intervalName": "Interval10",
+            "intervalValue": "22",
+            "start": "11/1/2017",
+            "end": "12/1/2017"
+          },
+          {
+            "intervalName": "Interval11",
+            "intervalValue": "20",
+            "start": "12/1/2017",
+            "end": "1/1/2018"
+          }
+        ],
+        "readOnly": false,
+        "stalePublish": false,
+        "readOnlyReason": null,
+        "startDate": "3/3/2017",
+        "finishDate": "1/10/2018",
+        "CustomFields": null
+      }
+    ]
+  }
+]
