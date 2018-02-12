@@ -113,6 +113,20 @@ excelObject = {
         this._downloadAnchor(URL.createObjectURL(blob), 'csv');      
       }
     },
+    transformToCSX: function(resplanData, filename) {
+      let excelString: string = ',,';
+      console.log(resplanData, "this is the resPlan....")
+      for (var i=0; i < resplanData.length; i++) {
+        if (resplanData[i].projects.length > 0) {
+          console.log(resplanData[i].resource.resName, "this person!");
+
+          break;
+        }
+        else {
+          continue
+        }
+      }//end for block
+    },
 
     transformToCSV: function(resPlanData, filename) {
        //build the first row (dates) - only 1 please
@@ -123,7 +137,7 @@ excelObject = {
         if (resPlanData[i].projects.length > 0) {
           resPlanData[i].projects[0].intervals.forEach(interval=> {
             excelData +=  moment(interval.start).format('MM/DD/YY') +' - ' + moment(interval.end).format('MM/DD/YY') + ',' 
-            console.log(excelData, "fixed it already??");
+            // console.log(excelData, "fixed it already??");
           })   
           excelData += '\r\n' 
           break
