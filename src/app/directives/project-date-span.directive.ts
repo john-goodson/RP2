@@ -17,10 +17,10 @@ export class ProjectDateSpanDirective {
 
   ngOnInit() {
     //this._elementRef.nativeElement.style.background = 'red'
-    console.log("project Start: " + this.projStart)
-    console.log("project Finish: " + this.projFinish)
-    console.log("interval Start: " + this.intervalStart)
-    console.log("interval end: " + this.intervalEnd) 
+    // console.log("project Start: " + this.projStart)
+    // console.log("project Finish: " + this.projFinish)
+    // console.log("interval Start: " + this.intervalStart)
+    // console.log("interval end: " + this.intervalEnd) 
     this.formatCell()
 
 

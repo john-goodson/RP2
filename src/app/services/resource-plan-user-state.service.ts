@@ -24,7 +24,7 @@ export class ResourcePlanUserStateService {
     getCurrentUserId(): Observable<string> {
 
 
-        console.log("configuration = " + JSON.stringify(this.config))
+        //console.log("configuration = " + JSON.stringify(this.config))
         let baseUrl = `${this.config.projectServerUrl}/_api/SP.UserProfiles.PeopleManager/GetMyProperties/AccountName`
         //1. get data from SP List UserState 
         let url = baseUrl;
@@ -326,7 +326,7 @@ export class ResourcePlanUserStateService {
 
             })
             .toArray()
-            .do(t => console.log("RES PLANS READ =====" + JSON.stringify(t)))
+            //.do(t => console.log("RES PLANS READ =====" + JSON.stringify(t)))
             .map(rps => {
                 rps.forEach(rp => {
                     var allReadOnlyProjects = rps.find(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000") && rps.find(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000").projects.filter(p => p.readOnly == true)
@@ -378,7 +378,7 @@ export class ResourcePlanUserStateService {
             else {
                 firstInterval.start = moment(_startDate).toDate()
                 firstInterval.end = new Date(moment(_startDate).add(1, 'day').isoWeekday(7).format('MM-DD-YYYY'))
-                console.log(firstInterval)
+               // console.log(firstInterval)
             }
 
 

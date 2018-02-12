@@ -58,7 +58,7 @@ export class SimpleModalComponent {
 
   showModal(data) {
     //; 
-    console.log("data passed to modal: " + data); 
+    //console.log("data passed to modal: " + data); 
     this.modalId = data;
     $(this.containerEl.nativeElement).modal('show');
     

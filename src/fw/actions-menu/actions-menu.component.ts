@@ -19,7 +19,7 @@ export class ActionsMenuComponent implements OnInit {
      this._appStateSvc.deleteState$.subscribe(value=>{debugger;this.disableDelete = !value})
      this._appStateSvc.hideState$.subscribe(value=>{debugger;this.disableHide= !value})
     
-    debugger;
+    //debugger;
     //this.delHide.items;
   }
 
@@ -36,13 +36,13 @@ export class ActionsMenuComponent implements OnInit {
 
   delete()
   {
-    debugger;
+    //debugger;
     this._appStateSvc.deleteClick();
   }
 
   hide()
   {
-    debugger;
+    //debugger;
     this._appStateSvc.hideClick();
   }
 

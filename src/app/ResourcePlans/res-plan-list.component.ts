@@ -67,6 +67,9 @@ export class ResPlanListComponent implements OnInit {
     resourceHiddenSub: Subscription;
     resourceActualsShowHide: Subscription; 
     appExitSub: Subscription; 
+    routeDataChangedSub: Subscription
+    projModalSubmission: Subscription 
+    resModalSubmission: Subscription
 
 
 
@@ -116,6 +119,7 @@ export class ResPlanListComponent implements OnInit {
         this.resourceHiddenSub = this._appSvc.hide$.subscribe(() => this.deleteResPlans(this.fromDate, this.toDate, this.timescale, this.workunits, true))
         this.resourceActualsShowHide = this._appSvc.showActuals$.subscribe(() => this.toggleTimesheetDisplay())
         this.appExitSub  =  this._appSvc.exitToPerview$.subscribe(() => { console.log(''); this.exitToPerView(this.mainForm.dirty) })
+       
 
 
         this.fromDate = this._appSvc.queryParams.fromDate
@@ -123,7 +127,8 @@ export class ResPlanListComponent implements OnInit {
         this.timescale = this._appSvc.queryParams.timescale
         this.workunits = this._appSvc.queryParams.workunits
         this.showTimesheetData = this._appSvc.queryParams.showTimesheetData;
-        this._route.data.subscribe(values => {
+        
+        this.routeDataChangedSub = this._route.data.subscribe(values => {
             this.resPlanData = values.resPlans;
             //this.resPlans = values.resPlans;
             if (values.resPlans && values.resPlans.length > 0)
@@ -131,15 +136,17 @@ export class ResPlanListComponent implements OnInit {
             this.buildResPlans(values.resPlans);
             //console.log(JSON.stringify(values.resPlans))
         }, (error) => console.log(error))
-        this._modalSvc.modalSubmitted$.subscribe(() => {
+        this.projModalSubmission = this._modalSvc.modalSubmitted$.subscribe(() => {
             this.addSelectedProjects(this.fromDate, this.toDate, this.timescale, this.workunits, this.showTimesheetData);
         }, (error) => console.log(error))
         console.log("=========multi subscribe")
-        this._resModalSvc.modalSubmitted$.subscribe(() => {
+        this.resModalSubmission = this._resModalSvc.modalSubmitted$.subscribe(() => {
 
             this.addSelectedResources()
 
         }, (error) => console.log(error));
+
+        debugger
         this.modalResources.modalSubmitted$.subscribe(() => this._resModalSvc.modalSubmitClicked(), (error) => console.log(error));
         this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked(), (error) => console.log(error));
     }
@@ -157,11 +164,15 @@ export class ResPlanListComponent implements OnInit {
         this.resourceDeletedSub.unsubscribe()
         this.resourceHiddenSub.unsubscribe()
         this.resourceActualsShowHide.unsubscribe()
+        this.appExitSub.unsubscribe()
+        this.projModalSubmission.unsubscribe()
+        this.resModalSubmission.unsubscribe()
     }
 
 
 
     exitToPerView(mainFormIsDirty) {
+        debugger;
         if (mainFormIsDirty === true) {
             let dialogRef = this.openDialog({ title: "Are You Sure?", content: "You have un-submitted changes" })
             dialogRef.afterClosed().subscribe(result => {
