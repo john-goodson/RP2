@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit,ViewChild , OnDestroy } from '@angular/core';
 import { AppStateService} from '../../app/services/app-state.service'
 import { MatMenu} from '@angular/material'
 
@@ -21,6 +21,11 @@ export class ActionsMenuComponent implements OnInit {
     
   
     //this.delHide.items;
+  }
+
+  ngOnDestroy() {
+
+    debugger
   }
 
   submit()
@@ -50,6 +55,12 @@ export class ActionsMenuComponent implements OnInit {
   {
     this._appStateSvc.exitToPerviewClick()
   }
+
+  exitToBI()
+  {
+    this._appStateSvc.exitToBIClick()
+  }
+
 
   printToPdf() {
     this._appStateSvc.printToPdfClick();

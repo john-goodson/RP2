@@ -70,9 +70,14 @@ export class ResPlanListComponent implements OnInit {
     appExitSub: Subscription; 
     exportPrintSub: Subscription;
     exportExcelSub: Subscription;
+    appExitToBISub: Subscription 
     routeDataChangedSub: Subscription
     projModalSubmission: Subscription 
-    resModalSubmission: Subscription
+    resModalSubmission: Subscription 
+    projModalEmit: Subscription 
+    resModalEmit: Subscription 
+
+
 
 
 
@@ -124,8 +129,12 @@ export class ResPlanListComponent implements OnInit {
         this.resourceHiddenSub = this._appSvc.hide$.subscribe(() => this.deleteResPlans(this.fromDate, this.toDate, this.timescale, this.workunits, true))
         this.resourceActualsShowHide = this._appSvc.showActuals$.subscribe(() => this.toggleTimesheetDisplay())
         this.appExitSub  =  this._appSvc.exitToPerview$.subscribe(() => { console.log(''); this.exitToPerView(this.mainForm.dirty) })
+
         this.exportPrintSub = this._appSvc.printToPDF$.subscribe( () => { this.printFunction()});
         this.exportExcelSub = this._appSvc.exportToExcel$.subscribe( () => { this.excelExportFunction()});
+
+        this.appExitToBISub = this._appSvc.exitToBI$.subscribe( () => this.exitToBI(this.mainForm.dirty) ) 
+        
 
 
         this.fromDate = this._appSvc.queryParams.fromDate
@@ -142,12 +151,12 @@ export class ResPlanListComponent implements OnInit {
             this.buildResPlans(values.resPlans);
             //console.log(JSON.stringify(values.resPlans))
         }, (error) => console.log(error))
-        this.projModalSubmission = this._modalSvc.modalSubmitted$.subscribe(() => {
+        this.projModalSubmission = this._modalSvc.modalSubmitted$.subscribe(() => { debugger;
             this.addSelectedProjects(this.fromDate, this.toDate, this.timescale, this.workunits, this.showTimesheetData);
         }, (error) => console.log(error))
         console.log("=========multi subscribe")
         this.resModalSubmission = this._resModalSvc.modalSubmitted$.subscribe(() => {
-
+            debugger; 
             this.addSelectedResources()
 
         }, (error) => console.log(error));
@@ -155,6 +164,10 @@ export class ResPlanListComponent implements OnInit {
       
         this.modalResources.modalSubmitted$.subscribe(() => this._resModalSvc.modalSubmitClicked(), (error) => console.log(error));
         this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked(), (error) => console.log(error));
+        debugger
+        //what is this below??
+        this.resModalEmit =  this.modalResources.modalSubmitted$.subscribe(() => { debugger;  this._resModalSvc.modalSubmitClicked() }, (error) => console.log(error));
+        this.projModalEmit =  this.modalProjects.modalSubmitted$.subscribe(() => { debugger;  this._modalSvc.modalSubmitClicked()  } , (error) => console.log(error));
     }
 
 
@@ -170,16 +183,22 @@ export class ResPlanListComponent implements OnInit {
         this.resourceHiddenSub.unsubscribe()
         this.resourceActualsShowHide.unsubscribe()
         this.appExitSub.unsubscribe()
+        this.appExitToBISub.unsubscribe()
+        this.routeDataChangedSub.unsubscribe()
         this.projModalSubmission.unsubscribe()
         this.resModalSubmission.unsubscribe()
         this.exportPrintSub.unsubscribe()
         this.exportExcelSub.unsubscribe()
+        this.resModalEmit.unsubscribe()
+        this.projModalEmit.unsubscribe() 
+
+        
     }
 
 
 
-    exitToPerView(mainFormIsDirty) {
-     
+    exitToPerView(mainFormIsDirty) { 
+
         if (mainFormIsDirty === true) {
             let dialogRef = this.openDialog({ title: "Are You Sure?", content: "You have un-submitted changes" })
             dialogRef.afterClosed().subscribe(result => {
@@ -197,6 +216,27 @@ export class ResPlanListComponent implements OnInit {
         }
 
     }
+
+    exitToBI(mainFormIsDirty) {
+ 
+        if (mainFormIsDirty === true) {
+            let dialogRef = this.openDialog({ title: "Are You Sure?", content: "You have un-submitted changes" })
+            dialogRef.afterClosed().subscribe(result => {
+                this.confirmDialogResult = result;
+                if (result == "yes")
+                    window.location.href = "https://perviewqa.app.parallon.com/PWA/ProjectBICenter/All%20Reports/Forms/Resource%20Mgmt%20Reports.aspx"
+                //window.location.href = "http://foo.wingtip.com/PWA"
+            });
+        }
+        else {
+            // var win = window.open('www.google.com', '_blank');
+            // win.focus();
+            window.location.href = "https://perviewqa.app.parallon.com/PWA/ProjectBICenter/All%20Reports/Forms/Resource%20Mgmt%20Reports.aspx"
+            //window.location.href = "http://foo.wingtip.com/PWA"
+        }
+
+    }
+
 
 
 
