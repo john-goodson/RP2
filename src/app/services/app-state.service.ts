@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from "rxjs/Subject"
 import { IQueryParams, Timescale, WorkUnits } from '../resourcePlans/res-plan.model'
 import { CurrentCalendarYear, CurrentFiscalYear, Next12Months } from '../common/utilities'
+import { Subscriber } from 'rxjs/Subscriber';
 
 
 
@@ -17,7 +18,8 @@ export class AppStateService {
   private deleteSource = new Subject<void>();
   private hideSource = new Subject<void>();
   private showActualsSource = new Subject<boolean>();
-  private exitToPerviewSource = new Subject<void>(); 
+  private exitToPerviewSource = new Subject<void>();  
+  private exitToBISource = new Subject<void>() 
   private printToPDFSource = new Subject<void>()
 
   loading$ = this.loadingSource.asObservable();
@@ -30,6 +32,8 @@ export class AppStateService {
   hide$ = this.hideSource.asObservable();
   showActuals$ = this.showActualsSource.asObservable();
   exitToPerview$ = this.exitToPerviewSource.asObservable(); 
+  exitToBI$ = this.exitToBISource.asObservable()
+
   printToPDF$ = this.printToPDFSource.asObservable()
 
   public next12Months = new Next12Months()  //default daterange
@@ -71,6 +75,10 @@ export class AppStateService {
 
   exitToPerviewClick() {
     this.exitToPerviewSource.next()
+  }
+
+  exitToBIClick() {
+    this.exitToBISource.next() 
   }
 
   printToPdfClick() {

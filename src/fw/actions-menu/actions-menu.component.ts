@@ -56,6 +56,12 @@ export class ActionsMenuComponent implements OnInit {
     this._appStateSvc.exitToPerviewClick()
   }
 
+  exitToBI()
+  {
+    this._appStateSvc.exitToBIClick()
+  }
+
+
   printToPdf() {
     
   }

@@ -67,6 +67,7 @@ export class ResPlanListComponent implements OnInit {
     resourceHiddenSub: Subscription;
     resourceActualsShowHide: Subscription; 
     appExitSub: Subscription; 
+    appExitToBISub: Subscription 
     routeDataChangedSub: Subscription
     projModalSubmission: Subscription 
     resModalSubmission: Subscription 
@@ -123,7 +124,8 @@ export class ResPlanListComponent implements OnInit {
         this.resourceHiddenSub = this._appSvc.hide$.subscribe(() => this.deleteResPlans(this.fromDate, this.toDate, this.timescale, this.workunits, true))
         this.resourceActualsShowHide = this._appSvc.showActuals$.subscribe(() => this.toggleTimesheetDisplay())
         this.appExitSub  =  this._appSvc.exitToPerview$.subscribe(() => { console.log(''); this.exitToPerView(this.mainForm.dirty) })
-       
+        this.appExitToBISub = this._appSvc.exitToBI$.subscribe( () => this.exitToBI(this.mainForm.dirty) ) 
+        
 
 
         this.fromDate = this._appSvc.queryParams.fromDate
@@ -169,11 +171,13 @@ export class ResPlanListComponent implements OnInit {
         this.resourceHiddenSub.unsubscribe()
         this.resourceActualsShowHide.unsubscribe()
         this.appExitSub.unsubscribe()
+        this.appExitToBISub.unsubscribe()
         this.routeDataChangedSub.unsubscribe()
         this.projModalSubmission.unsubscribe()
         this.resModalSubmission.unsubscribe()
         this.resModalEmit.unsubscribe()
         this.projModalEmit.unsubscribe() 
+
         
     }
 
@@ -198,6 +202,27 @@ export class ResPlanListComponent implements OnInit {
         }
 
     }
+
+    exitToBI(mainFormIsDirty) {
+ 
+        if (mainFormIsDirty === true) {
+            let dialogRef = this.openDialog({ title: "Are You Sure?", content: "You have un-submitted changes" })
+            dialogRef.afterClosed().subscribe(result => {
+                this.confirmDialogResult = result;
+                if (result == "yes")
+                    window.location.href = "https://perviewqa.app.parallon.com/PWA/ProjectBICenter/All%20Reports/Forms/Resource%20Mgmt%20Reports.aspx"
+                //window.location.href = "http://foo.wingtip.com/PWA"
+            });
+        }
+        else {
+            // var win = window.open('www.google.com', '_blank');
+            // win.focus();
+            window.location.href = "https://perviewqa.app.parallon.com/PWA/ProjectBICenter/All%20Reports/Forms/Resource%20Mgmt%20Reports.aspx"
+            //window.location.href = "http://foo.wingtip.com/PWA"
+        }
+
+    }
+
 
 
 
