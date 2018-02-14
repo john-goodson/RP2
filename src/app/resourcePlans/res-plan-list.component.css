@@ -92,7 +92,7 @@ input[type="number"]:focus {
 .ownBox{
     /* position: relative; */
     flex: 0 0 auto;
-    background-color:#e9eaf0;
+    background-color: inherit;
     /* background-color:   cadetblue; */
     order: 0;
     position: absolute;

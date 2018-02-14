@@ -1,6 +1,6 @@
 :host {
     display: flex;
-    background-color: #e9eaf0; 
+    background-color: inherit; 
     flex-grow: 1;
 }
 
@@ -11,3 +11,4 @@
     overflow: auto;
     margin-top: 4%;
 }
+
