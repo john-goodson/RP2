@@ -162,8 +162,8 @@ export class ResPlanListComponent implements OnInit {
         }, (error) => console.log(error));
 
       
-        this.modalResources.modalSubmitted$.subscribe(() => this._resModalSvc.modalSubmitClicked(), (error) => console.log(error));
-        this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked(), (error) => console.log(error));
+        //this.modalResources.modalSubmitted$.subscribe(() => this._resModalSvc.modalSubmitClicked(), (error) => console.log(error));
+        //this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked(), (error) => console.log(error));
         debugger
         //what is this below??
         this.resModalEmit =  this.modalResources.modalSubmitted$.subscribe(() => { debugger;  this._resModalSvc.modalSubmitClicked() }, (error) => console.log(error));
@@ -556,22 +556,24 @@ export class ResPlanListComponent implements OnInit {
                     let successfullProjects = results.filter(r => r.success == true).map(t => t.project);
                     //projects.filter(p => results.findIndex(r => r.success == true && r.project.projUid.toUpperCase() == p.projUid.toUpperCase()) > -1)
                     console.log("===added projects" + JSON.stringify(successfullProjects))
-
+                    
                     if (successfullProjects.length > 0) {
+                        debugger;
                         this._resPlanUserStateSvc.getResPlansFromProjects(resource.resUid, [resource],
                             Observable.of([new ResPlan(resource, successfullProjects)]), fromDate, toDate, timescale, workunits
                             , showTimesheetData).subscribe(resPlans => {
+                                debugger;
                                 this.buildSelectedProjects(resPlans[0].projects)//.filter(r=>r.projUid.toUpperCase))
-                                this.header.setIntervals(resPlans);
+                                this.header && this.header.setIntervals(resPlans);
                                 this.initTotals(this.currentFormGroup.get('totals') as FormArray, resPlans[0].projects)
                                 this.calculateTotals(this.currentFormGroup);
-                                this._appSvc.loading(false);
+                               
                             });
 
                     }
-                    else {
-                        this._appSvc.loading(false);
-                    }
+
+                    this._appSvc.loading(false);
+                   
 
                 })
         }, (error) => { console.log(error); this._appSvc.loading(false); })
