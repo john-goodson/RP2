@@ -1,12 +1,14 @@
 
 :host {
     display: block;
+    background-color: rgb(210, 221, 247)
 }
 
 .title-bar {
     flex-grow: 1;
     display: flex;
     min-height: 80px;
+   
 }
 
 .menu-area {
