@@ -2,6 +2,7 @@ import { Directive, Input, OnDestroy, TemplateRef, ViewContainerRef } from '@ang
 
 import { ScreenService } from '../services/screen.service';
 import { Subscription } from 'rxjs/Subscription';
+import { AppUtilService } from '../../../src/app/common/app-util.service'
 
 @Directive({selector: '[screenLarge]'})  //treat like an attribute
 export class ScreenLarge implements OnDestroy {
@@ -10,7 +11,8 @@ export class ScreenLarge implements OnDestroy {
 
   constructor(private viewContainer: ViewContainerRef, 
                 private template: TemplateRef<Object>,
-                private screenService: ScreenService) {
+                private screenService: ScreenService,
+                private _appUtilSvc:AppUtilService) {
 
     this.screenSubscription = screenService.resize$.subscribe(() => this.onResize());
 
@@ -31,7 +33,7 @@ export class ScreenLarge implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.screenSubscription.unsubscribe();
+    this._appUtilSvc.safeUnSubscribe(this.screenSubscription);
   }
   
   onResize() {

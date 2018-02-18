@@ -1,7 +1,9 @@
-import { Component, OnInit,Input,Output,EventEmitter, } from '@angular/core';
-import {IResPlan,Timescale,WorkUnits,IInterval} from '../../resourcePlans/res-plan.model';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { IResPlan, Timescale, WorkUnits, IInterval } from '../../resourcePlans/res-plan.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment'
+import { AppUtilService } from '../../common/app-util.service'
+import { Subscription } from 'Rxjs'
 
 @Component({
   selector: 'res-plan-header-row',
@@ -9,49 +11,45 @@ import * as moment from 'moment'
   styleUrls: ['./res-plan-header-row.component.css']
 })
 export class ResPlanHeaderRowComponent implements OnInit {
-visible: boolean = true;
- _resPlans: IResPlan[];
- _intervals: IInterval[];
-  
+  visible: boolean = true;
+  _resPlans: IResPlan[];
+  _intervals: IInterval[];
+  routeSub: Subscription;
 
-  constructor(private router: Router,private _route: ActivatedRoute) { }
+  constructor(private router: Router, private _route: ActivatedRoute, private _appUtilSvc: AppUtilService) { }
   @Output() onselectAllChanged = new EventEmitter<boolean>();
   ngOnInit() {
-  this._route.data.subscribe(values =>{
-    this._resPlans = values.resPlans; 
-    
-    this.setIntervals(this._resPlans)
-    //console.log('header component data=' + JSON.stringify(values.resPlans))
-  },(error)=>console.log(error));
+    this._route.data.subscribe(values => {
+      this._resPlans = values.resPlans;
 
-  
-
-
-
+      this.setIntervals(this._resPlans)
+      //console.log('header component data=' + JSON.stringify(values.resPlans))
+    }, (error) => console.log(error));
   }
 
-  selectAllChange(value:boolean)
-  {
-   this.onselectAllChanged.emit(value);
+  ngOnDestroy(){
+    this._appUtilSvc.safeUnSubscribe(this.routeSub);
   }
 
-  public setIntervals(resPlans:IResPlan[]) 
-  {
-    
-   resPlans.forEach(resPlan=>{
-     let projectWithIntervals = resPlan.projects.find(t=>t.intervals.length > 0);
-     if(projectWithIntervals)
-     {
-       this._intervals = projectWithIntervals.intervals;
-       this._intervals.forEach(interval=>{
-        interval.start = moment(interval.start).toDate()
-        interval.end = moment(interval.end).add(-1,'days').toDate();
-       })
-       
-       //TODO how to break out of for loop when intervals already found
-     }
+  selectAllChange(value: boolean) {
+    this.onselectAllChanged.emit(value);
+  }
 
-   })
+  public setIntervals(resPlans: IResPlan[]) {
+
+    resPlans.forEach(resPlan => {
+      let projectWithIntervals = resPlan.projects.find(t => t.intervals.length > 0);
+      if (projectWithIntervals) {
+        this._intervals = projectWithIntervals.intervals;
+        this._intervals.forEach(interval => {
+          interval.start = moment(interval.start).toDate()
+          interval.end = moment(interval.end).add(-1, 'days').toDate();
+        })
+
+        //TODO how to break out of for loop when intervals already found
+      }
+
+    })
   }
 
 }

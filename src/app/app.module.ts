@@ -27,6 +27,7 @@ import { HeaderRowComponent} from './common/header-row.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { ResPlanListComponent} from './resourcePlans/res-plan-list.component'
 import { SimpleModalComponent} from './common/simple-modal.component';
+
 import { ProjectListComponent } from './resourcePlans/project-list/project-list.component';
 
 import {MatDatepickerModule,MatInputModule,MatNativeDateModule,MatTableModule,MatButtonModule,MatDialogModule} from '@angular/material';
@@ -39,6 +40,7 @@ import {ResourceService} from './services/resource.service'
 import {ConfigService} from './services/config-service.service'
 import { HttpCache } from './services/httpCache'
 import { CachingInterceptorService } from './services/caching-interceptor.service'
+import { AppUtilService} from './common/app-util.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { ProjectListFilterPipe } from './common/project-list-filter.pipe'
@@ -117,6 +119,7 @@ export function initConfig(configSvc: ConfigService){
   entryComponents: [ConfirmDialogComponent],
   providers: [    ModalCommunicator, ResourcesModalCommunicatorService,ProjectService, ResourcePlanService
     , ResourcePlanUserStateService
+    ,AppUtilService
     , ResourcePlansResolverService
     ,ResourceService, SPListService
     ,AppStateService 

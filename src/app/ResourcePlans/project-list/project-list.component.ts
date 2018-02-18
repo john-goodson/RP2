@@ -10,8 +10,9 @@ import 'rxjs/add/operator/filter';
 
 import { ProjectService } from '../../services/project-service.service'
 import{ AppStateService} from '../../services/app-state.service'
+import { AppUtilService  } from '../../common/app-util.service'
 import { ProjectListFilterPipe } from '../../common/project-list-filter.pipe'
-import { Observable } from 'Rxjs'
+import { Observable,Subscription } from 'Rxjs'
 
 @Component({
   selector: 'project-list',
@@ -25,6 +26,10 @@ export class ProjectListComponent implements OnInit {
   @Input() projData: IProject[];
   selectedProjects: IProject[] = [];
   @Input() resPlan: FormGroup
+
+  getProjectsSub:Subscription
+  projectsAssngdToResSub:Subscription
+  mdlSubmitSub:Subscription
   projectList = [];
   settings = {
     selectMode: 'multi',
@@ -78,17 +83,17 @@ export class ProjectListComponent implements OnInit {
 data:IProject[];
 
   constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator, private _projSvc: ProjectService
-    ,private _appSvc:AppStateService
+    ,private _appSvc:AppStateService, private _appUtilSvc: AppUtilService
   ) { }
 
 
   ngOnInit(): void {
     
-    console.log('project list component created');
+    console.log('project list component created'); 
 
-    this._modalSvc.projectsAssignedToResource$.subscribe((projectsInRP: IProject[]) => {
+   this.projectsAssngdToResSub = this._modalSvc.projectsAssignedToResource$.subscribe((projectsInRP: IProject[]) => {
       this._appSvc.loading(true);
-      this._projSvc.getProjects().subscribe(projects => {
+    this.getProjectsSub = this._projSvc.getProjects().subscribe(projects => {
 
         this.projData = projects
         console.log('OBSERVABLE FIRED ON PROJECT LIST')
@@ -104,7 +109,7 @@ data:IProject[];
       })
 
     }, (error) => {console.log(error);this._appSvc.loading(false);})
-    this._modalSvc.modalSubmitted$.subscribe(success => this.clear(),
+    this.mdlSubmitSub = this._modalSvc.modalSubmitted$.subscribe(success => this.clear(),
       error => console.log('error'));
   }
 
@@ -134,7 +139,10 @@ data:IProject[];
 
   ngOnDestroy() {
    // console.log("hey its gone")
-
+   this._appUtilSvc.safeUnSubscribe(this.getProjectsSub)
+   this._appUtilSvc.safeUnSubscribe(this.projectsAssngdToResSub)
+   this._appUtilSvc.safeUnSubscribe(this.mdlSubmitSub)
+  
 
   }
 

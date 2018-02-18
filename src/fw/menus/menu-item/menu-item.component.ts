@@ -1,10 +1,12 @@
 import { Component, ElementRef, HostBinding, HostListener,
-         Input, OnInit, Renderer,
+         Input, OnInit,OnDestroy ,Renderer,
          trigger, state, style, transition, animate } from '@angular/core';
 import { NavigationEnd, Router,ActivatedRoute,Params } from '@angular/router';
 import {Timescale,WorkUnits} from '../../../app/resourcePlans/res-plan.model'
 import { MenuItem, MenuService } from '../../services/menu.service';
 import {CurrentCalendarYear} from '../../../app/common/utilities'
+import { AppUtilService } from '../../../app/common/app-util.service'
+import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'fw-menu-item',
   templateUrl: './menu-item.component.html',
@@ -25,6 +27,7 @@ export class MenuItemComponent implements OnInit {
   @Input() item = <MenuItem>null;  // see angular-cli issue #2034
   @HostBinding('class.parent-is-popup')
   @Input() parentIsPopup = true;
+  routerEventSub:Subscription
   isActiveRoute = false;
 
   mouseInItem = false;
@@ -36,7 +39,9 @@ export class MenuItemComponent implements OnInit {
               public activatedRoute:ActivatedRoute, 
               public menuService: MenuService,
               public el: ElementRef,
-              public renderer: Renderer) {
+              public renderer: Renderer,
+              private _appUtilSvc:AppUtilService
+            ) {
   }
 
   checkActiveRoute(route: string) {
@@ -46,13 +51,18 @@ export class MenuItemComponent implements OnInit {
   ngOnInit() : void {
     this.checkActiveRoute(this.router.url);
 
-    this.router.events
+   this.routerEventSub = this.router.events
         .subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 this.checkActiveRoute(event.url);
                 //console.log(event.url + ' ' + this.item.route + ' ' + this.isActiveRoute);
             }
         });
+  }
+
+  ngOnDestroy()
+  {
+      this._appUtilSvc.safeUnSubscribe(this.routerEventSub);
   }
 
   @HostListener('click', ['$event'])

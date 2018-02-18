@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnDestroy } from '@angular/core';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError, NavigationCancel } from '@angular/router';
 import { FrameworkConfigService, FrameworkConfigSettings  } from '../fw/services/framework-config.service'  
 import  { MenuService } from '../fw/services/menu.service'
@@ -57,7 +57,9 @@ export class AppComponent {
     console.log('toggleLoadingState fired')
     //this.loading = !this.loading
   }
-
+  ngOnDestroy(){
+    debugger;
+  }
 
 
 

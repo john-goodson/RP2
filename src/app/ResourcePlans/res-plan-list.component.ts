@@ -20,6 +20,7 @@ import { ProjectService } from '../services/project-service.service'
 import { ResourcePlanService } from '../services/resource-plan.service'
 import { ResourcePlanUserStateService } from '../services/resource-plan-user-state.service'
 import { ResourcesModalCommunicatorService } from '../resourcePlans/resources-modal-communicator.service'
+import {AppUtilService} from '../common/app-util.service'
 import { ResPlanHeaderRowComponent } from "../resourcePlans/res-plan-header-row/res-plan-header-row.component"
 import { AppStateService } from '../services/app-state.service'
 import { MenuService } from '../../fw/services/menu.service';
@@ -107,6 +108,7 @@ export class ResPlanListComponent implements OnInit {
         , private _exportExcelService: ExportExcelService
         , private _resModalSvc: ResourcesModalCommunicatorService
         , private _appSvc: AppStateService
+        ,private _appUtilSvc : AppUtilService
         , private _route: ActivatedRoute, private dialog: MatDialog) { }
 
     ngOnInit(): void {
@@ -181,30 +183,30 @@ export class ResPlanListComponent implements OnInit {
 
     ngOnDestroy() {
         debugger;
-        this.safeUnSubscrbe(this.formValueChangesSub)
-        this.safeUnSubscrbe(this.valuesSavedSub)
-        this.safeUnSubscrbe(this.resourceAddedSub)
-        this.safeUnSubscrbe(this.resourceDeletedSub)
-        this.safeUnSubscrbe(this.resourceHiddenSub)
-        this.safeUnSubscrbe(this.resourceActualsShowHide)
-        this.safeUnSubscrbe(this.appExitSub)
-        this.safeUnSubscrbe(this.appExitToBISub)
-        this.safeUnSubscrbe(this.routeDataChangedSub)
-        this.safeUnSubscrbe(this.projModalSubmission)
-        this.safeUnSubscrbe(this.resModalSubmission)
-        this.safeUnSubscrbe(this.exportPrintSub)
-        this.safeUnSubscrbe(this.exportExcelSub)
-        this.safeUnSubscrbe(this.resModalEmit)
-        this.safeUnSubscrbe(this.projModalEmit) 
-        this.safeUnSubscrbe(this.matDlgSub)
-        this.safeUnSubscrbe(this.resPlanGroupChangesSub)
-        this.safeUnSubscrbe(this.getCurrentUserSub)
-        this.safeUnSubscrbe(this.getResPlansFromResSub)
-        this.safeUnSubscrbe(this.addResToMgrSub)
-        this.safeUnSubscrbe(this.addProjectsSub)
-        this.safeUnSubscrbe(this.getResPlansFromProjectsSub)
-        this.safeUnSubscrbe(this.saveResPlansSub)
-        this.safeUnSubscrbe(this.delResPlansSub)
+        this._appUtilSvc.safeUnSubscribe(this.formValueChangesSub)
+        this._appUtilSvc.safeUnSubscribe(this.valuesSavedSub)
+        this._appUtilSvc.safeUnSubscribe(this.resourceAddedSub)
+        this._appUtilSvc.safeUnSubscribe(this.resourceDeletedSub)
+        this._appUtilSvc.safeUnSubscribe(this.resourceHiddenSub)
+        this._appUtilSvc.safeUnSubscribe(this.resourceActualsShowHide)
+        this._appUtilSvc.safeUnSubscribe(this.appExitSub)
+        this._appUtilSvc.safeUnSubscribe(this.appExitToBISub)
+        this._appUtilSvc.safeUnSubscribe(this.routeDataChangedSub)
+        this._appUtilSvc.safeUnSubscribe(this.projModalSubmission)
+        this._appUtilSvc.safeUnSubscribe(this.resModalSubmission)
+        this._appUtilSvc.safeUnSubscribe(this.exportPrintSub)
+        this._appUtilSvc.safeUnSubscribe(this.exportExcelSub)
+        this._appUtilSvc.safeUnSubscribe(this.resModalEmit)
+        this._appUtilSvc.safeUnSubscribe(this.projModalEmit) 
+        this._appUtilSvc.safeUnSubscribe(this.matDlgSub)
+        this._appUtilSvc.safeUnSubscribe(this.resPlanGroupChangesSub)
+        this._appUtilSvc.safeUnSubscribe(this.getCurrentUserSub)
+        this._appUtilSvc.safeUnSubscribe(this.getResPlansFromResSub)
+        this._appUtilSvc.safeUnSubscribe(this.addResToMgrSub)
+        this._appUtilSvc.safeUnSubscribe(this.addProjectsSub)
+        this._appUtilSvc.safeUnSubscribe(this.getResPlansFromProjectsSub)
+        this._appUtilSvc.safeUnSubscribe(this.saveResPlansSub)
+        this._appUtilSvc.safeUnSubscribe(this.delResPlansSub)
     }
     safeUnSubscrbe(sub: Subscription){
         if(sub)

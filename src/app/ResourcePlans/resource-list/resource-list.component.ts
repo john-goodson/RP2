@@ -10,7 +10,8 @@ import 'rxjs/add/operator/filter';
 
 import { ResourceService } from '../../services/resource.service'
 import {AppStateService} from '../../services/app-state.service'
-import { Observable } from 'Rxjs'
+import { AppUtilService  } from '../../common/app-util.service'
+import { Observable,Subscription } from 'Rxjs'
 
 @Component({
   selector: 'resource-list',
@@ -20,6 +21,9 @@ import { Observable } from 'Rxjs'
 export class ResourceListComponent implements OnInit {
   resData: IResource[];
   selectedResources: IResource[] = [];
+  getResourcesSub:Subscription
+  resourcesSelectedSub:Subscription
+  mdlSubmitSub:Subscription
   resourceList = [];
       settings = {
     selectMode: 'multi',
@@ -47,15 +51,15 @@ export class ResourceListComponent implements OnInit {
 data:IResource[];
 
   constructor(private fb: FormBuilder, private _resSvc: ResourceService, 
-    private _modalResSvc: ResourcesModalCommunicatorService,private _appSvc:AppStateService) { 
+    private _modalResSvc: ResourcesModalCommunicatorService,private _appSvc:AppStateService,private _apputilSvc:AppUtilService) { 
     
   }
 
   ngOnInit() {
     //
-    this._modalResSvc.ResourcesSelected$.subscribe((resourcesPicked: IResource[]) => {
+    this.resourcesSelectedSub  = this._modalResSvc.ResourcesSelected$.subscribe((resourcesPicked: IResource[]) => {
       this._appSvc.loading(true);
-      this._resSvc.getResources().subscribe(resources => {
+     this.getResourcesSub =this._resSvc.getResources().subscribe(resources => {
         this.resData = resources
         let filteredResources = this.resData.filter(val => {
        
@@ -69,7 +73,7 @@ data:IResource[];
       },(error)=>console.log(error))
     },(error)=>{ console.log(error);this._appSvc.loading(false);})
 
-    this._modalResSvc.modalSubmitted$.subscribe(success => this.clear(),
+   this.mdlSubmitSub = this._modalResSvc.modalSubmitted$.subscribe(success => this.clear(),
             error => console.log('error'));
   }
 
@@ -96,6 +100,13 @@ data:IResource[];
     }
     this._modalResSvc.selectedResources = this.selectedResources;
 
+  }
+
+  ngOnDestroy()
+  {
+    this._apputilSvc.safeUnSubscribe(this.getResourcesSub)
+    this._apputilSvc.safeUnSubscribe(this.resourcesSelectedSub)
+    this._apputilSvc.safeUnSubscribe(this.mdlSubmitSub)
   }
 
 }
