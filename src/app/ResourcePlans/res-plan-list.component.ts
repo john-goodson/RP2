@@ -76,11 +76,15 @@ export class ResPlanListComponent implements OnInit {
     resModalSubmission: Subscription 
     projModalEmit: Subscription 
     resModalEmit: Subscription 
-
-
-
-
-
+    matDlgSub : Subscription
+    resPlanGroupChangesSub :Subscription
+    getCurrentUserSub :Subscription
+    getResPlansFromResSub :Subscription
+    addResToMgrSub :Subscription
+    addProjectsSub:Subscription
+    getResPlansFromProjectsSub:Subscription
+    saveResPlansSub :Subscription
+    delResPlansSub : Subscription
 
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
@@ -176,32 +180,45 @@ export class ResPlanListComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        this.formValueChangesSub.unsubscribe()
-        this.valuesSavedSub.unsubscribe()
-        this.resourceAddedSub.unsubscribe()
-        this.resourceDeletedSub.unsubscribe()
-        this.resourceHiddenSub.unsubscribe()
-        this.resourceActualsShowHide.unsubscribe()
-        this.appExitSub.unsubscribe()
-        this.appExitToBISub.unsubscribe()
-        this.routeDataChangedSub.unsubscribe()
-        this.projModalSubmission.unsubscribe()
-        this.resModalSubmission.unsubscribe()
-        this.exportPrintSub.unsubscribe()
-        this.exportExcelSub.unsubscribe()
-        this.resModalEmit.unsubscribe()
-        this.projModalEmit.unsubscribe() 
-
-        
+        debugger;
+        this.safeUnSubscrbe(this.formValueChangesSub)
+        this.safeUnSubscrbe(this.valuesSavedSub)
+        this.safeUnSubscrbe(this.resourceAddedSub)
+        this.safeUnSubscrbe(this.resourceDeletedSub)
+        this.safeUnSubscrbe(this.resourceHiddenSub)
+        this.safeUnSubscrbe(this.resourceActualsShowHide)
+        this.safeUnSubscrbe(this.appExitSub)
+        this.safeUnSubscrbe(this.appExitToBISub)
+        this.safeUnSubscrbe(this.routeDataChangedSub)
+        this.safeUnSubscrbe(this.projModalSubmission)
+        this.safeUnSubscrbe(this.resModalSubmission)
+        this.safeUnSubscrbe(this.exportPrintSub)
+        this.safeUnSubscrbe(this.exportExcelSub)
+        this.safeUnSubscrbe(this.resModalEmit)
+        this.safeUnSubscrbe(this.projModalEmit) 
+        this.safeUnSubscrbe(this.matDlgSub)
+        this.safeUnSubscrbe(this.resPlanGroupChangesSub)
+        this.safeUnSubscrbe(this.getCurrentUserSub)
+        this.safeUnSubscrbe(this.getResPlansFromResSub)
+        this.safeUnSubscrbe(this.addResToMgrSub)
+        this.safeUnSubscrbe(this.addProjectsSub)
+        this.safeUnSubscrbe(this.getResPlansFromProjectsSub)
+        this.safeUnSubscrbe(this.saveResPlansSub)
+        this.safeUnSubscrbe(this.delResPlansSub)
     }
-
+    safeUnSubscrbe(sub: Subscription){
+        if(sub)
+        {
+            sub.unsubscribe();
+        }
+    }
 
 
     exitToPerView(mainFormIsDirty) { 
 
         if (mainFormIsDirty === true) {
             let dialogRef = this.openDialog({ title: "Are You Sure?", content: "You have un-submitted changes" })
-            dialogRef.afterClosed().subscribe(result => {
+            this.matDlgSub = dialogRef.afterClosed().subscribe(result => {
                 this.confirmDialogResult = result;
                 if (result == "yes")
                     window.location.href = "https://perviewqa.app.parallon.com/pwa"
@@ -221,7 +238,7 @@ export class ResPlanListComponent implements OnInit {
  
         if (mainFormIsDirty === true) {
             let dialogRef = this.openDialog({ title: "Are You Sure?", content: "You have un-submitted changes" })
-            dialogRef.afterClosed().subscribe(result => {
+            this.matDlgSub = dialogRef.afterClosed().subscribe(result => {
                 this.confirmDialogResult = result;
                 if (result == "yes")
                     window.location.href = "https://perviewqa.app.parallon.com/PWA/ProjectBICenter/All%20Reports/Forms/Resource%20Mgmt%20Reports.aspx"
@@ -315,7 +332,7 @@ export class ResPlanListComponent implements OnInit {
         }
 
         this.calculateTotals(resPlanGroup);
-        resPlanGroup.valueChanges.subscribe(value => {
+        this.resPlanGroupChangesSub = resPlanGroup.valueChanges.subscribe(value => {
             this.calculateTotals(resPlanGroup)
         }, (error) => console.log(error));
         return resPlanGroup;
@@ -429,7 +446,7 @@ export class ResPlanListComponent implements OnInit {
 
     openDeleteResPlanDialog() {
         let dialogRef = this.openDialog({ title: "Are You Sure?", content: "This action will permanently delete resource plan assignments from the selected project(s)." })
-        dialogRef.afterClosed().subscribe(result => {
+        this.matDlgSub = dialogRef.afterClosed().subscribe(result => {
             this.confirmDialogResult = result;
             if (result == "yes")
                 this.deleteResPlans(this.fromDate, this.toDate, this.timescale, this.workunits, false)
@@ -515,12 +532,12 @@ export class ResPlanListComponent implements OnInit {
         ///EMIT HERE
         let selectedResources = this._resModalSvc.selectedResources;
         this._appSvc.loading(true);
-        this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr => {
+        this.getCurrentUserSub = this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr => {
 
             console.log('selected resources=' + JSON.stringify(this._resModalSvc.selectedResources))
-            this._resPlanUserStateSvc.getResPlansFromResources(resMgr, this._resModalSvc.selectedResources, this.fromDate, this.toDate, this.timescale, this.workunits, this.showTimesheetData)
+        this.getResPlansFromResSub = this._resPlanUserStateSvc.getResPlansFromResources(resMgr, this._resModalSvc.selectedResources, this.fromDate, this.toDate, this.timescale, this.workunits, this.showTimesheetData)
                 .subscribe(plans => {
-                    this._resPlanUserStateSvc.AddResourceToManager(resMgr, plans).subscribe(r => {
+                   this.addResToMgrSub =  this._resPlanUserStateSvc.AddResourceToManager(resMgr, plans).subscribe(r => {
                         if (r.success == true) {
                             console.log('added resplans=' + JSON.stringify(plans))
                             this.setIntervalLength((<IResPlan[]>plans).map(t => t.projects).reduce((a, b) => a.concat(b)))
@@ -543,10 +560,10 @@ export class ResPlanListComponent implements OnInit {
 
     addSelectedProjects(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, showTimesheetData: boolean) {
         this._appSvc.loading(true);
-        this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr => {
+       this.getCurrentUserSub = this._resPlanUserStateSvc.getCurrentUserId().subscribe(resMgr => {
             let resource = new Resource(this.currentFormGroup.value["resUid"],
                 this.currentFormGroup.value["resName"]);
-            this._resPlanUserStateSvc.addProjects(resMgr, this._modalSvc.selectedProjects, resource,
+         this.addProjectsSub = this._resPlanUserStateSvc.addProjects(resMgr, this._modalSvc.selectedProjects, resource,
                 fromDate, toDate, timescale, workunits)
                 .subscribe(results => {
                     //let projects = this._modalSvc.selectedProjects;
@@ -559,7 +576,7 @@ export class ResPlanListComponent implements OnInit {
                     
                     if (successfullProjects.length > 0) {
                         debugger;
-                        this._resPlanUserStateSvc.getResPlansFromProjects(resource.resUid, [resource],
+                      this.getResPlansFromProjectsSub = this._resPlanUserStateSvc.getResPlansFromProjects(resource.resUid, [resource],
                             Observable.of([new ResPlan(resource, successfullProjects)]), fromDate, toDate, timescale, workunits
                             , showTimesheetData).subscribe(resPlans => {
                                 debugger;
@@ -677,7 +694,7 @@ export class ResPlanListComponent implements OnInit {
 
             console.log("dirty resPlans" + JSON.stringify(resourceplans))
             this._appSvc.loading(true);
-            this._resPlanUserStateSvc.saveResPlans(resourceplans, fromDate, toDate, timescale, workunits)
+           this.saveResPlansSub = this._resPlanUserStateSvc.saveResPlans(resourceplans, fromDate, toDate, timescale, workunits)
                 .subscribe(
                 (results: Result[]) => this.onSaveComplete(results),
                 (error: any) => {
@@ -719,7 +736,7 @@ export class ResPlanListComponent implements OnInit {
             this._appSvc.loading(true);
             if (hideOnly == true) {
                 this._appSvc.loading(true);
-                this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr => {
+               this.getCurrentUserSub = this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr => {
                     return this._resPlanUserStateSvc.HideResPlans(resMgr, resourceplans as IResPlan[]).map(r => {
                         if (r.success == true) {
 
@@ -746,7 +763,7 @@ export class ResPlanListComponent implements OnInit {
                 }, () => { this._appSvc.loading(false) })
             }
             else {
-                this._resPlanUserStateSvc.deleteResPlans(resourceplans, fromDate, toDate, timescale, workunits)
+              this.delResPlansSub =  this._resPlanUserStateSvc.deleteResPlans(resourceplans, fromDate, toDate, timescale, workunits)
                     .flatMap(
                     (results: Result[]) => {
                         ;
