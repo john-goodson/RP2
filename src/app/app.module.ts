@@ -102,7 +102,7 @@ export function initConfig(configSvc: ConfigService){
 
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes ,  { enableTracing: true } )  ,
+    RouterModule.forRoot(appRoutes ,  { enableTracing: false } )  ,
           ReactiveFormsModule ,
      
           HttpClientModule,
