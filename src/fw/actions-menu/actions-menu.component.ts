@@ -25,7 +25,7 @@ export class ActionsMenuComponent implements OnInit {
 
   ngOnDestroy() {
 
-    debugger
+    // debugger
   }
 
   submit()

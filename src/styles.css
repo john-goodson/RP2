@@ -141,6 +141,7 @@ pm-app div.panel.panel-primary {
         margin-right: 0;
         position: left;
         margin-bottom: 0;
+        break-inside: auto;
     }
 
     #title-bar{
@@ -172,14 +173,23 @@ pm-app div.panel.panel-primary {
         position: absolute;
         top: 6%; */
         /* margin-bottom: 3%; */
+        display: none;
     }
-    .table-header {
-        position: absolute;
-        top: .5in;
+    #table-header {
+        /* position: absolute;
+        top: 0vh; */
+        display: hidden;
     }
      /* res-plan-header-row{
         position: absolute; 
         top: .5in;
     }  */
+    .datesForPrints {
+        display: block;
+        break-after: always;
+    }
 
+    /* input[type="checkbox"] {
+        display: none;
+    } */
 }

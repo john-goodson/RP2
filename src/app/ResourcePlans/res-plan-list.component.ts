@@ -1,5 +1,5 @@
 import {
-    Component, OnInit, OnDestroy, Inject, DoCheck, AfterViewInit, ViewChild,
+    Component, OnInit,OnChanges, OnDestroy, Inject, DoCheck, AfterViewInit, ViewChild,
     AfterViewChecked, Output, EventEmitter
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray, FormGroupName, } from '@angular/forms';
@@ -20,7 +20,7 @@ import { ProjectService } from '../services/project-service.service'
 import { ResourcePlanService } from '../services/resource-plan.service'
 import { ResourcePlanUserStateService } from '../services/resource-plan-user-state.service'
 import { ResourcesModalCommunicatorService } from '../resourcePlans/resources-modal-communicator.service'
-import {AppUtilService} from '../common/app-util.service'
+import { AppUtilService } from '../common/app-util.service'
 import { ResPlanHeaderRowComponent } from "../resourcePlans/res-plan-header-row/res-plan-header-row.component"
 import { AppStateService } from '../services/app-state.service'
 import { MenuService } from '../../fw/services/menu.service';
@@ -40,8 +40,7 @@ declare const window: Window;
     styleUrls: ['./res-plan-list.component.css']
 })
 
-
-export class ResPlanListComponent implements OnInit {
+export class ResPlanListComponent {
 
     @ViewChild('modalProjects') private modalProjects: SimpleModalComponent;
     @ViewChild('modalResources') private modalResources: SimpleModalComponent;
@@ -71,21 +70,43 @@ export class ResPlanListComponent implements OnInit {
     appExitSub: Subscription; 
     exportPrintSub: Subscription;
     exportExcelSub: Subscription;
-    appExitToBISub: Subscription 
-    routeDataChangedSub: Subscription
-    projModalSubmission: Subscription 
-    resModalSubmission: Subscription 
-    projModalEmit: Subscription 
-    resModalEmit: Subscription 
-    matDlgSub : Subscription
-    resPlanGroupChangesSub :Subscription
-    getCurrentUserSub :Subscription
-    getResPlansFromResSub :Subscription
-    addResToMgrSub :Subscription
+    appExitToBISub: Subscription;
+    routeDataChangedSub: Subscription;
+    projModalSubmission: Subscription;
+    resModalSubmission: Subscription;
+    projModalEmit: Subscription;
+    resModalEmit: Subscription;
+    matDlgSub : Subscription;
+    resPlanGroupChangesSub :Subscription;
+    getCurrentUserSub :Subscription;
+    getResPlansFromResSub :Subscription;
+    addResToMgrSub :Subscription;
     addProjectsSub:Subscription
     getResPlansFromProjectsSub:Subscription
     saveResPlansSub :Subscription
     delResPlansSub : Subscription
+    visible: boolean = true;
+    htmlLocationCollection = document.getElementsByClassName("yuppy");
+    arrayOfCollapsibleWellComponents = Array.from(this.htmlLocationCollection);
+    wellComponentLocation: boolean = true;
+    
+    checkHeading(header):boolean {
+        console.log(header,":Bottom figure");
+        debugger;
+        // console.log("top levels of div well container--A:",divWellContainer.getBoundingClientRect().bottom);
+        //if bottom < 150 then it is true...otherwise false. use ngIf for the resPlan Header Row
+        if (header.getBoundingClientRect().bottom < 200) {
+          console.log("in here....");
+          this.wellComponentLocation = true;
+         
+        }
+        else {
+            this.wellComponentLocation = false;
+           
+        }
+        return this.wellComponentLocation;
+        //style within the element tag for resPlanHeaderRow on the collapsible well template with a margin bottom of 3%;
+    }
 
     get resPlans(): FormArray {  //this getter should return all instances.
         return <FormArray>this.mainForm.get('resPlans');
@@ -112,7 +133,7 @@ export class ResPlanListComponent implements OnInit {
         , private _route: ActivatedRoute, private dialog: MatDialog) { }
 
     ngOnInit(): void {
-      
+       
 
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
@@ -135,14 +156,10 @@ export class ResPlanListComponent implements OnInit {
         this.resourceHiddenSub = this._appSvc.hide$.subscribe(() => this.deleteResPlans(this.fromDate, this.toDate, this.timescale, this.workunits, true))
         this.resourceActualsShowHide = this._appSvc.showActuals$.subscribe(() => this.toggleTimesheetDisplay())
         this.appExitSub  =  this._appSvc.exitToPerview$.subscribe(() => { console.log(''); this.exitToPerView(this.mainForm.dirty) })
-
         this.exportPrintSub = this._appSvc.printToPDF$.subscribe( () => { this.printFunction()});
         this.exportExcelSub = this._appSvc.exportToExcel$.subscribe( () => { this.excelExportFunction()});
-
         this.appExitToBISub = this._appSvc.exitToBI$.subscribe( () => this.exitToBI(this.mainForm.dirty) ) 
         
-
-
         this.fromDate = this._appSvc.queryParams.fromDate
         this.toDate = this._appSvc.queryParams.toDate
         this.timescale = this._appSvc.queryParams.timescale
@@ -162,15 +179,14 @@ export class ResPlanListComponent implements OnInit {
         }, (error) => console.log(error))
         console.log("=========multi subscribe")
         this.resModalSubmission = this._resModalSvc.modalSubmitted$.subscribe(() => {
-            debugger; 
+            // debugger; 
             this.addSelectedResources()
 
         }, (error) => console.log(error));
 
-      
         //this.modalResources.modalSubmitted$.subscribe(() => this._resModalSvc.modalSubmitClicked(), (error) => console.log(error));
         //this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked(), (error) => console.log(error));
-        debugger
+
         //what is this below??
         this.resModalEmit =  this.modalResources.modalSubmitted$.subscribe(() => { debugger;  this._resModalSvc.modalSubmitClicked() }, (error) => console.log(error));
         this.projModalEmit =  this.modalProjects.modalSubmitted$.subscribe(() => { debugger;  this._modalSvc.modalSubmitClicked()  } , (error) => console.log(error));
@@ -179,6 +195,11 @@ export class ResPlanListComponent implements OnInit {
 
     ngAfterViewChecked(): void {
         //console.log('ng after view checke fired.')
+        console.log('within ngAfterViewChecked function');
+        this.checkHeading(this.header);
+    }
+    ngOnChanges():void {
+        
     }
 
     ngOnDestroy() {
@@ -881,7 +902,7 @@ export class ResPlanListComponent implements OnInit {
     }
 
     excelExportFunction() {
-        debugger
+        // debugger
         console.log(this.resPlanData, "is resplanData");
         this._exportExcelService.excelObject.transformToCSV(this.resPlanData,'RM2');
     }
