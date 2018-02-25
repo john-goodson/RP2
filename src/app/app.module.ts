@@ -3,7 +3,7 @@ import { NgModule,NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA,APP_INITIALIZER } from
 
 import { AppComponent } from './app.component';
 
-import { RouterModule } from '@angular/router'
+import { RouterModule , CanDeactivate  } from '@angular/router'
 import { appRoutes } from './routes'
 
 import {HttpClientModule} from '@angular/common/http';
@@ -11,36 +11,28 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { DateRangePicker } from './common/dateRangePicker/dateRangePicker.component'
 
-
 import {Config} from './resourcePlans/res-plan.model'
 import { ModalCommunicator } from  './resourcePlans/modal-communicator.service'
 import { ResourcesModalCommunicatorService } from  './resourcePlans/resources-modal-communicator.service'
 import { AppStateService } from  './services/app-state.service'
-
 import {ResPlanDetailsComponent} from './resourcePlans/res-plan-detail.component';
-
-
-
 import { CollapsibleWellComponent} from './common/collapsible-well.component'
 import { HeaderRowComponent} from './common/header-row.component'
-//import { JQ_TOKEN }    from './common/jquery.service'
 import { ReactiveFormsModule } from '@angular/forms'
 import { ResPlanListComponent} from './resourcePlans/res-plan-list.component'
 import { SimpleModalComponent} from './common/simple-modal.component';
-
 import { ProjectListComponent } from './resourcePlans/project-list/project-list.component';
 
-import {MatDatepickerModule,MatInputModule,MatNativeDateModule,MatTableModule,MatButtonModule,MatDialogModule} from '@angular/material';
-
-
-import {ProjectService} from './services/project-service.service'
+import { MatDatepickerModule,MatInputModule,MatNativeDateModule,MatTableModule,MatButtonModule,MatDialogModule} from '@angular/material';
+import { ProjectService} from './services/project-service.service'
 import { ResourcePlanService } from './services/resource-plan.service'
-import {ResourcePlanUserStateService} from './services/resource-plan-user-state.service';
-import {ResourceService} from './services/resource.service'
-import {ConfigService} from './services/config-service.service'
+import { ResourcePlanUserStateService } from './services/resource-plan-user-state.service';
+import { ResourceService } from './services/resource.service'
+import { ConfigService } from './services/config-service.service'
 import { HttpCache } from './services/httpCache'
 import { CachingInterceptorService } from './services/caching-interceptor.service'
-import { AppUtilService} from './common/app-util.service';
+import { AppUtilService } from './common/app-util.service';
+import { ResPlanEditGuard } from './services/resPlanEditGuard.service'
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { ProjectListFilterPipe } from './common/project-list-filter.pipe'
@@ -97,18 +89,15 @@ export function initConfig(configSvc: ConfigService){
     ProjectDateSpanDirective,
     ConfirmDialogComponent,
     CellWorkUnitsPipe,
-
   ],
 
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes ,  { enableTracing: false } )  ,
-          ReactiveFormsModule ,
-     
+    RouterModule.forRoot(appRoutes ,  { enableTracing: true } )  ,
+          ReactiveFormsModule,
           HttpClientModule,
           Ng2SmartTableModule,
           FwModule,
-         // InMemoryWebApiModule.forRoot(ResPlanData),
          MatDatepickerModule,
          MatInputModule,
          MatNativeDateModule,
@@ -117,23 +106,25 @@ export function initConfig(configSvc: ConfigService){
          MatDialogModule
   ],
   entryComponents: [ConfirmDialogComponent],
-  providers: [    ModalCommunicator, ResourcesModalCommunicatorService,ProjectService, ResourcePlanService
+  providers: [  ModalCommunicator, ResourcesModalCommunicatorService,ProjectService, 
+    ResourcePlanService
     , ResourcePlanUserStateService
     ,AppUtilService
     , ResourcePlansResolverService
     ,ResourceService, SPListService
     ,AppStateService 
+    , ResPlanEditGuard 
     ,ExportExcelService
     , {
       provide: HTTP_INTERCEPTORS,
       useClass: CachingInterceptorService,
       multi: true
     }
-  ,ConfigService , 
+  , ConfigService , 
   { provide: APP_INITIALIZER,
      useFactory: initConfig, // And use it here
      deps: [ConfigService], 
-     multi: true }   ],
+     multi: true } ],
   bootstrap: [AppComponent]
   
 })
