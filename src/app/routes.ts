@@ -15,9 +15,7 @@ export const appRoutes: Routes = [
         { path: 'resPlans', component: ResPlanListComponent ,  
           resolve: {resPlans: ResourcePlansResolverService } ,
           canDeactivate: [ResPlanEditGuard],
-          
-          
-      
+        
         },
           
         { path: 'customDates', component: DateRangePicker},
