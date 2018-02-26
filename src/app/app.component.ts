@@ -58,7 +58,7 @@ export class AppComponent {
     //this.loading = !this.loading
   }
   ngOnDestroy(){
-    debugger;
+    
   }
 
 
