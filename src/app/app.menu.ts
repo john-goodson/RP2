@@ -75,7 +75,7 @@ export let initialMenuItems: Array<MenuItem> = [
         route: null,
         submenu: [
             {
-                text: 'FTE',
+                text: 'Percentage',
                 icon: '',
                 route: '/home/resPlans',
                 params: {
