@@ -98,23 +98,6 @@ export class ResPlanListComponent {
         this.loading = true
     }
 
-    // checkHeading(header):boolean {
-    //     console.log(header,":Bottom figure");
-    //     debugger;
-    //     // console.log("top levels of div well container--A:",divWellContainer.getBoundingClientRect().bottom);
-    //     //if bottom < 150 then it is true...otherwise false. use ngIf for the resPlan Header Row
-    //     if (header.getBoundingClientRect().bottom < 200) {
-    //       console.log("in here....");
-    //       this.wellComponentLocation = true;
-         
-    //     }
-    //     else {
-    //         this.wellComponentLocation = false;
-           
-    //     }
-    //     return this.wellComponentLocation;
-    //     //style within the element tag for resPlanHeaderRow on the collapsible well template with a margin bottom of 3%;
-    // }
 
 
     constructor(private fb: FormBuilder, private _modalSvc: ModalCommunicator
@@ -194,11 +177,6 @@ export class ResPlanListComponent {
     }
 
 
-    ngAfterViewChecked(): void {
-        //console.log('ng after view checke fired.')
-        console.log('within ngAfterViewChecked function');
-        //this.checkHeading(this.header);
-    }
     ngOnChanges():void {
         
     }
