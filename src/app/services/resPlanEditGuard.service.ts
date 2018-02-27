@@ -6,7 +6,6 @@ import { ResPlanListComponent } from '../ResourcePlans/res-plan-list.component'
 export class ResPlanEditGuard implements CanDeactivate<ResPlanListComponent> {
 
     canDeactivate(component: ResPlanListComponent): boolean {
-        
         if (component.mainForm.dirty) {
             
             return confirm(`You have unsaved changes.  Continue without saving? `);

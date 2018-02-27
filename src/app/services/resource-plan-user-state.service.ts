@@ -117,7 +117,7 @@ export class ResourcePlanUserStateService {
 
     }
 
-    getResPlans(resMgrUid: string, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:boolean): Observable<IResPlan[]> {
+    getResPlans(resMgrUid: string, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, showTimesheetData: boolean): Observable<IResPlan[]> {
         //let uniqueProjectsForResMgr = this.getUniqueProjectsForResManager(resMgrUid);
         let resourceForResMgr = this.getUniqueResourcesForResManager(resMgrUid);
 
@@ -146,7 +146,7 @@ export class ResourcePlanUserStateService {
         return resourceForResMgr.flatMap(resources => {
 
 
-            return this.getResPlansFromProjects(resMgrUid, resources, uniqueProjectsResMgrHasAccessOn, fromDate, toDate, timescale, workunits,showTimesheetData)
+            return this.getResPlansFromProjects(resMgrUid, resources, uniqueProjectsResMgrHasAccessOn, fromDate, toDate, timescale, workunits, showTimesheetData)
             // .do(t => {
             //     //console.log('resource plans read from add resource =' + JSON.stringify(t))
             // })
@@ -159,62 +159,9 @@ export class ResourcePlanUserStateService {
     }
 
     ///Add Resource Plan use case
-    getResPlansFromResources(resMgrUid: string, resources: IResource[], fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits,showTimesheetData:boolean): Observable<IResPlan[]> {
-        //let projectsForAllResources = this.getUniqueProjectsAcrossResMgrs(resMgrUid, resources);
+    getResPlansFromResources(resMgrUid: string, resources: IResource[], fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, showTimesheetData: boolean): Observable<IResPlan[]> {
         let projectsThatUserHasAccessOn = this.getProjectIdsFromAssignmentsForResources(resources);
-        //let combinedProjects = projectsForAllResources.merge(projectsThatUserHasAccessOn);
-        // let allProjectsWithReadOnlyFlags = combinedProjects.flatMap(projectsForResource => {
-        //     return projectsThatUserHasAccessOn.flatMap(projectsWithrights => {
-        //         return projectsForResource.map(x => {
-        //             if (projectsWithrights.find(k => k.projUid.toUpperCase() == x.projUid.toUpperCase()) != null) {
-        //                 x.readOnly = false;
-        //             }
-        //             else {
-        //                 x.readOnly = true;
-        //             }
-        //             return x;
-        //         })
-        //     })
-        // }).toArray()
-
-
-        // var readOnlyProjects = allProjectsWithReadOnlyFlags.map(t => { ; return t.filter(project => project.readOnly == true) })
-        return this.getResPlansFromProjects(resMgrUid, resources, projectsThatUserHasAccessOn, fromDate, toDate, timescale, workunits,showTimesheetData)
-        // .filter((r: IResPlan[]) => {
-        //         ;
-        //         return r.find(x => {
-        //             return resources.map(p => p.resUid.toUpperCase()).indexOf(x.resource.resUid.toUpperCase()) > -1
-        //         }) != null
-        //     })
-
-
-        // .do(resPlans => {
-        //     this.AddResourceToManager(resMgrUid, resPlans).subscribe();
-        // });
-
-        // return readableResPlans.flatMap(x => {
-        //     return this.getReadOnlyResPlans(resMgrUid, resources, readOnlyProjects).flatMap(t => {
-        //         ;
-        //         return Observable.from(x.concat(t)).groupBy(t => {
-        //             return t.resource.resUid.toUpperCase()
-        //         }).flatMap(group => {
-        //             ;
-        //             return group && group.key && group.reduce(function (a, b) {
-        //                 for (var i = 0; i < b.projects.length; i++) {
-        //                     if (a.projects.findIndex(t => t.projUid.toUpperCase() == b.projects[i].projUid.toUpperCase()) < 0)
-        //                         a.projects = a.projects.concat(b.projects[i]);
-        //                 }
-        //                 return a; // returns object with property x
-        //             })
-        //         })
-        //     }).
-        //         toArray()
-        // })
-
-        // return allProjectsWithReadOnlyFlags.flatMap(t => {
-
-        //     return readOnlyResPlans;
-        // })
+        return this.getResPlansFromProjects(resMgrUid, resources, projectsThatUserHasAccessOn, fromDate, toDate, timescale, workunits, showTimesheetData)
     }
 
 
@@ -293,18 +240,21 @@ export class ResourcePlanUserStateService {
     }
 
     getResPlansFromProjects(resUid: string, resources: IResource[], resPlans: Observable<IResPlan[]>, fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, showTimesheetData: boolean): Observable<IResPlan[]> {
+
         let emptyResPlans = Observable.of(resources.map(r => new ResPlan(r, [])))
         var uniqueProjects = resPlans.flatMap(r => Observable.from(r).flatMap(r => r.projects)).distinct(x => x.projUid);
+        debugger;
         return uniqueProjects.flatMap((project: IProject) => {
             return this.getResPlan(resources, `${this.config.projectServerUrl}`, project, fromDate, toDate, timescale, workunits)
 
-        }).toArray()
+        }).toArray() .map(r=>{debugger;return r})
 
 
             .concat(emptyResPlans)
             .concat(resPlans)
             .flatMap(t => { ; return t; }).
             groupBy(t => { return t.resource.resUid.toUpperCase() }).flatMap(group => {
+                
                 return group.reduce(function (a, b) {
                     // if(group.key === "00000000-0000-0000-0000-000000000000")
                     // {
@@ -328,6 +278,7 @@ export class ResourcePlanUserStateService {
             .toArray()
             //.do(t => console.log("RES PLANS READ =====" + JSON.stringify(t)))
             .map(rps => {
+                
                 rps.forEach(rp => {
                     var allReadOnlyProjects = rps.find(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000") && rps.find(r => r.resource.resUid.toUpperCase() == "00000000-0000-0000-0000-000000000000").projects.filter(p => p.readOnly == true)
                     if (allReadOnlyProjects) {
@@ -349,6 +300,7 @@ export class ResourcePlanUserStateService {
                 return rps;
             })
             .flatMap(resPlans => {
+               
                 if (showTimesheetData == true) {
                     return Observable.forkJoin(resPlans.map(r => {
                         return this.getTimesheetDataFromResource(r, workunits)
@@ -378,7 +330,7 @@ export class ResourcePlanUserStateService {
             else {
                 firstInterval.start = moment(_startDate).toDate()
                 firstInterval.end = new Date(moment(_startDate).add(1, 'day').isoWeekday(7).format('MM-DD-YYYY'))
-               // console.log(firstInterval)
+                // console.log(firstInterval)
             }
 
 
@@ -492,46 +444,47 @@ export class ResourcePlanUserStateService {
         : Observable<IResPlan> {
         console.log('entering getResPlans method');
         let headers = new HttpHeaders();
-        headers = headers.set('accept', 'application/json;odata=verbose')
+        headers = headers.set('Accept', 'application/json;odata=verbose').set('Content-Type', 'application/x-www-form-urlencoded')
+
+
+        // let body = new URLSearchParams();
+
+        const body = `method=PwaGetResourcePlansCommand&puid=${project.projUid}&projname=${project.projName}&fromDate=${this.getDateFormatString(start)}&toDate=${this.getDateFormatString(end)}&timeScale=${this.getTimeScaleString(timescale)}&workScale=${WorkUnits[workunits]}`
         let options = {
-            headers
+            headers,
+            withCredentials: true
         };
+
         let adapterPath = `${this.config.adapterUrl}`
-        let body = {
-            method: 'PwaGetResourcePlansCommand',
-            'puid': project.projUid,
-            'projname': project.projName,
-            'fromDate': this.getDateFormatString(start),
-            'toDate': this.getDateFormatString(end),
-            'timeScale': this.getTimeScaleString(timescale),
-            'workScale': WorkUnits[workunits]
-        }
+        // let body = {
+        //     method: 'PwaGetResourcePlansCommand',
+        //     'puid': project.projUid,
+        //     'projname': project.projName,
+        //     'fromDate': this.getDateFormatString(start),
+        //     'toDate': this.getDateFormatString(end),
+        //     'timeScale': this.getTimeScaleString(timescale),
+        //     'workScale': WorkUnits[workunits]
+        // }
         console.log("====================================Hitting Adapter Get Res Plan for project = " + project.projName)
-        return Observable.fromPromise($.ajax({
-            url: adapterPath,
-            type: 'POST',
-            dataType: "json",
-            data: body,
-            xhrFields: {
-                withCredentials: true
-            }
-        }))
-            .flatMap((r: ResPlan[]) => {
-                // let resPlans : IResPlan
-                // ;
-                // console.log("++++++++++++++++++++++++++++++++++++++++")
-                // Object.assign({}, resPlans, r)
+        return this.http.post(
+            adapterPath, body, options
 
-                return Observable.from(r)
+        ).flatMap((r: ResPlan[]) => {
+            // let resPlans : IResPlan
+            // ;
+            // console.log("++++++++++++++++++++++++++++++++++++++++")
+            // Object.assign({}, resPlans, r)
 
-            })
+            return r;
+
+        })
             .merge(
             Observable.from(resources).flatMap((r: IResource) => {
                 return Observable.of(new ResPlan(new Resource(r.resUid, r.resName)))
             })
             )
             .filter((t: IResPlan) => {
-
+                
                 return resources.find(k => t.resource.resUid === "00000000-0000-0000-0000-000000000000" || k.resUid.toUpperCase() == t.resource.resUid.toUpperCase()) != null
             })
 
@@ -547,7 +500,6 @@ export class ResourcePlanUserStateService {
             // })
         }).toArray()
 
-        //ob.subscribe();
         return ob;
     }
 
@@ -607,30 +559,20 @@ export class ResourcePlanUserStateService {
     saveResPlans(resPlan: IResPlan[], fromDate: Date, toDate: Date, timeScale: Timescale, workScale: WorkUnits): Observable<Result[]> {
         var success;
         //TODO
-        let adapterPath = `${this.config.adapterUrl}`;
-        let body = {
-            method: 'PwaupdateResourcePlanCommand',
-            'resourceplan': JSON.stringify(resPlan),
-            'fromDate': this.getDateFormatString(fromDate),
-            'toDate': this.getDateFormatString(toDate),
-            'timeScale': this.getTimeScaleString(timeScale),
-            'workScale': WorkUnits[workScale]
-        }
         let headers = new HttpHeaders();
-        headers = headers.set('accept', 'application/json;odata=verbose')
-        headers = headers.set('content-type', 'application/x-www-form-urlencoded')
+        headers = headers.set('Accept', 'application/json;odata=verbose').set('Content-Type', 'application/x-www-form-urlencoded')
+
+        let adapterPath = `${this.config.adapterUrl}`
+        // let body = new URLSearchParams();
+
+        const body = `method=PwaupdateResourcePlanCommand&resourceplan=${JSON.stringify(resPlan)}&fromDate=${this.getDateFormatString(fromDate)}&toDate=${this.getDateFormatString(toDate)}&timeScale=${this.getTimeScaleString(timeScale)}&workScale=${WorkUnits[workScale]}`
         let options = {
             headers
-        }
-        return Observable.fromPromise($.ajax({
-            url: adapterPath,
-            type: 'POST',
-            dataType: "json",
-            data: body,
-            xhrFields: {
-                withCredentials: true
-            }
-        })).map(r => {
+        };
+
+        return this.http.post(
+            adapterPath, body, options
+        ).map(r => {
             return r as Result[];
         })
     }
@@ -778,7 +720,7 @@ export class ResourcePlanUserStateService {
         console.log('--------------------')
         console.log('-----   START  -------' + start)
         console.log('--------------------')
-        
+
         const body = `method=PwaGetTimsheetsCommand&resuid=${resPlan.resource.resUid}&start=${start.toDateString()}&end=${end.toDateString()}`;
         let adapterPath = `${this.config.adapterUrl}`
         let options = {
