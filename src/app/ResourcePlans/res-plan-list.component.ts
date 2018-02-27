@@ -112,10 +112,6 @@ export class ResPlanListComponent implements OnInit {
         , private _route: ActivatedRoute, private dialog: MatDialog) { }
 
     ngOnInit(): void {
-
-        debugger
-
-
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
         });
@@ -124,13 +120,7 @@ export class ResPlanListComponent implements OnInit {
             this._appSvc.setFormDirty(this.mainForm.dirty);
         })
 
-        // formValueChangesSub: Subscription;
-        // valuesSavedSub:  Subscription;
-        // resourceAddedSub: Subscription;
-        // resourceDeletedSub: Subscription; 
-        // resourceHiddenSub: Subscription;
-        // resourceActualsShowHide: Subscription; 
-        // appExitSub: Subscription; 
+        
         this.valuesSavedSub = this._appSvc.save$.subscribe(() => this.savePlans(this.fromDate, this.toDate, this.timescale, this.workunits))
         this.resourceAddedSub = this._appSvc.addResources$.subscribe(() => this.addResources())
         this.resourceDeletedSub = this._appSvc.delete$.subscribe(() => this.openDeleteResPlanDialog())
@@ -160,12 +150,10 @@ export class ResPlanListComponent implements OnInit {
             //console.log(JSON.stringify(values.resPlans))
         }, (error) => console.log(error))
         this.projModalSubmission = this._modalSvc.modalSubmitted$.subscribe(() => {
-            debugger;
             this.addSelectedProjects(this.fromDate, this.toDate, this.timescale, this.workunits, this.showTimesheetData);
         }, (error) => console.log(error))
         console.log("=========multi subscribe")
         this.resModalSubmission = this._resModalSvc.modalSubmitted$.subscribe(() => {
-            debugger;
             this.addSelectedResources()
 
         }, (error) => console.log(error));
@@ -173,10 +161,9 @@ export class ResPlanListComponent implements OnInit {
 
         //this.modalResources.modalSubmitted$.subscribe(() => this._resModalSvc.modalSubmitClicked(), (error) => console.log(error));
         //this.modalProjects.modalSubmitted$.subscribe(() => this._modalSvc.modalSubmitClicked(), (error) => console.log(error));
-        debugger
         //what is this below??
-        this.resModalEmit = this.modalResources.modalSubmitted$.subscribe(() => { debugger; this._resModalSvc.modalSubmitClicked() }, (error) => console.log(error));
-        this.projModalEmit = this.modalProjects.modalSubmitted$.subscribe(() => { debugger; this._modalSvc.modalSubmitClicked() }, (error) => console.log(error));
+        this.resModalEmit = this.modalResources.modalSubmitted$.subscribe(() => { this._resModalSvc.modalSubmitClicked() }, (error) => console.log(error));
+        this.projModalEmit = this.modalProjects.modalSubmitted$.subscribe(() => { this._modalSvc.modalSubmitClicked() }, (error) => console.log(error));
     }
 
 
@@ -185,7 +172,6 @@ export class ResPlanListComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        debugger;
         this._appUtilSvc.safeUnSubscribe(this.formValueChangesSub)
         this._appUtilSvc.safeUnSubscribe(this.valuesSavedSub)
         this._appUtilSvc.safeUnSubscribe(this.resourceAddedSub)
@@ -567,11 +553,9 @@ export class ResPlanListComponent implements OnInit {
                     console.log("===added projects" + JSON.stringify(successfullProjects))
 
                     if (successfullProjects.length > 0) {
-                        debugger;
                         this.getResPlansFromProjectsSub = this._resPlanUserStateSvc.getResPlansFromProjects(resource.resUid, [resource],
                             Observable.of([new ResPlan(resource, successfullProjects)]), fromDate, toDate, timescale, workunits
                             , showTimesheetData).subscribe(resPlans => {
-                                debugger;
                                 this.buildSelectedProjects(resPlans[0].projects)//.filter(r=>r.projUid.toUpperCase))
                                 this.header && this.header.setIntervals(resPlans);
                                 this.initTotals(this.currentFormGroup.get('totals') as FormArray, resPlans[0].projects)
@@ -862,7 +846,6 @@ export class ResPlanListComponent implements OnInit {
     }
 
     excelExportFunction() {
-        debugger
         console.log(this.resPlanData, "is resplanData");
         this._exportExcelService.excelObject.transformToCSV(this.resPlanData, 'RM2');
     }

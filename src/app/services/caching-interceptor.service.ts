@@ -3,17 +3,18 @@ import { HttpRequest, HttpHandler, HttpInterceptor, HttpEvent, HttpResponse } fr
 //import { HttpCache } from './httpCache' 
 import { Observable } from 'rxjs'
 
-
 @Injectable()
 export class CachingInterceptorService implements HttpInterceptor {
   constructor() { }
 
-  private cache = {}
+  private cache = [];
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     req = req.clone({
       withCredentials: true
     });
+    let requestsToCache = ["PwaGetProjectsForEditCommand","PwaGetResourcesCommand","PwaGetTimsheetsCommand","PwaGetResourcePlansCommand"];
+    let isRequestToCache : boolean = false;
     // Before doing anything, it's important to only cache GET requests.
     // Skip this interceptor if the request method isn't GET.
 
@@ -24,40 +25,76 @@ export class CachingInterceptorService implements HttpInterceptor {
     //   console.log('******************************* ' )
     //   return next.handle(req);
     // }
-    
-    //If Request body has parameter method = PwaGetProjectsForEditCommand or PwaGetResourcesCommand
-    if (req && req.body && (typeof req.body == typeof "") && (req.body.indexOf('method=PwaGetProjectsForEditCommand') > -1 || req.body.indexOf('method=PwaGetResourcesCommand')
-    > -1 || req.body.indexOf('method=PwaGetTimsheetsCommand') > -1
-  ) 
-  
-  ) {
-    // First, check the cache to see if this request exists.
+
+    //If Request body has parameter method = PwaupdateResourcePlanCommand
+    //Save called and hence intercept the call to invalidate the cache for all the projects that get saved
+    if (req && req.body && (typeof req.body == typeof "") && (req.body.indexOf('method=PwaupdateResourcePlanCommand') > -1)
+    ) {
+      var projectsToInvalidateCache = this.getCacheDataToRemove(req);
+      //this.cache = this.cache.map(c=>c.indexOf(`puid=${}`))
+      projectsToInvalidateCache.forEach(project => {
+        //weed out cache keys tht contain as part of its key as "puid = projectUid"
+        this.removeCachedData(project)
+      });
+    }
+
+
+    //If Request body has parameter method = PwaGetProjectsForEditCommand or PwaGetResourcesCommand or PwaGetTimsheetsCommand or PwaGetResourcePlansCommand 
+    if (req && req.body && (typeof req.body == typeof "") && 
+    requestsToCache.map(r=>req.body.indexOf('method=' + r) > -1).length > 0
+
+    ) {
+      isRequestToCache = true;
+      // First, check the cache to see if this request exists.
       const cachedResponse = this.cache[req.urlWithParams + req.body] || null;
       if (cachedResponse) {
         // A cached response exists. Serve it instead of forwarding
         // the request to the next handler.
-        
+
         console.log('******************************* ')
-      
+
         console.log('YO....i\'m returning cached data for' + req.body)
         console.log('******************************* ')
         return Observable.of(cachedResponse);
       }
     }
 
-      // No cached response exists. Go to the network, and cache
-      // the response when it arrives.
-      return next.handle(req).do(event => {
-        // Remember, there may be other events besides just the response.
-        
-        console.log('******************************* ')
-        console.log('YO....i\'m returning new data from server....  ')
-        console.log('******************************* ')
-        if (event instanceof HttpResponse) {
-          // Update the cache.
-          this.cache[req.urlWithParams + req.body] = event;
+    // No cached response exists. Go to the network, and cache
+    // the response when it arrives.
+    return next.handle(req).do(event => {
+      // Remember, there may be other events besides just the response.
+
+      console.log('******************************* ')
+      console.log('YO....i\'m returning new data from server....  ')
+      console.log('******************************* ')
+      if (event instanceof HttpResponse) {
+        // Update the cache.
+        if(isRequestToCache){
+        this.cache[req.urlWithParams + req.body] = event;
         }
-      });
+      }
+    });
+  }
+  getCacheDataToRemove(req) : Array<string>{
+ //invalidate resource plan command cache
+ var t = req.body.toString();
+ //strip off every thing from beginning of array
+ t = t.replace('method=PwaupdateResourcePlanCommand&resourceplan=', '')
+ //strip off every thing from end of array
+ t = t.replace(t.slice(t.indexOf('&fromDate')), '');
+
+ var allProjects = JSON.parse(t).map(i => i.projects.map(p => p.projUid))
+ var projectsToInvalidateCache = [].concat.apply([], allProjects);
+ return projectsToInvalidateCache;
+ 
+
+  }
+  removeCachedData(project) {
+    for (var key in this.cache) {
+      if (key.indexOf(`puid=${project}`) > -1) {
+        delete this.cache[key]
+      }
     }
-  
+  }
 }
+
