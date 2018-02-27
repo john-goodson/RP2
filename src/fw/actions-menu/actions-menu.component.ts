@@ -19,8 +19,7 @@ export class ActionsMenuComponent implements OnInit {
      this._appStateSvc.deleteState$.subscribe(value=>{this.disableDelete = !value})
      this._appStateSvc.hideState$.subscribe(value=>{this.disableHide= !value})
     
-  
-    //this.delHide.items;
+ 
   }
 
   ngOnDestroy() {
