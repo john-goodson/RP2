@@ -243,11 +243,11 @@ export class ResourcePlanUserStateService {
 
         let emptyResPlans = Observable.of(resources.map(r => new ResPlan(r, [])))
         var uniqueProjects = resPlans.flatMap(r => Observable.from(r).flatMap(r => r.projects)).distinct(x => x.projUid);
-        debugger;
+        
         return uniqueProjects.flatMap((project: IProject) => {
             return this.getResPlan(resources, `${this.config.projectServerUrl}`, project, fromDate, toDate, timescale, workunits)
 
-        }).toArray() .map(r=>{debugger;return r})
+        }).toArray() .map(r=>{return r})
 
 
             .concat(emptyResPlans)
@@ -456,15 +456,7 @@ export class ResourcePlanUserStateService {
         };
 
         let adapterPath = `${this.config.adapterUrl}`
-        // let body = {
-        //     method: 'PwaGetResourcePlansCommand',
-        //     'puid': project.projUid,
-        //     'projname': project.projName,
-        //     'fromDate': this.getDateFormatString(start),
-        //     'toDate': this.getDateFormatString(end),
-        //     'timeScale': this.getTimeScaleString(timescale),
-        //     'workScale': WorkUnits[workunits]
-        // }
+        
         console.log("====================================Hitting Adapter Get Res Plan for project = " + project.projName)
         return this.http.post(
             adapterPath, body, options
@@ -474,7 +466,7 @@ export class ResourcePlanUserStateService {
             // ;
             // console.log("++++++++++++++++++++++++++++++++++++++++")
             // Object.assign({}, resPlans, r)
-
+            
             return r;
 
         })
@@ -733,6 +725,19 @@ export class ResourcePlanUserStateService {
             return r;
         })
     }
+
+    getAllTimesheetData(workunits:WorkUnits) : Observable<IResPlan>
+    {
+        return this.getCurrentUserId().flatMap(resMgrUid=>{
+        let resourceForResMgr = this.getUniqueResourcesForResManager(resMgrUid);
+        return resourceForResMgr.flatMap(resources=>
+        {
+            return Observable.from(resources).flatMap(resource=>{
+              return this.getTimesheetDataFromResource(new ResPlan(resource,[]),workunits)
+            })
+        })
+    })
+}
 
 
 }

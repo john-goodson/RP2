@@ -13,7 +13,8 @@ export class CachingInterceptorService implements HttpInterceptor {
     req = req.clone({
       withCredentials: true
     });
-    let requestsToCache = ["PwaGetProjectsForEditCommand","PwaGetResourcesCommand","PwaGetTimsheetsCommand","PwaGetResourcePlansCommand"];
+///why are we caching timesheet??
+    let requestsToCache = ["PwaGetProjectsForEditCommand","PwaGetResourcesCommand","PwaGetResourcePlansCommand"];
     let isRequestToCache : boolean = false;
     // Before doing anything, it's important to only cache GET requests.
     // Skip this interceptor if the request method isn't GET.
@@ -30,12 +31,13 @@ export class CachingInterceptorService implements HttpInterceptor {
     //Save called and hence intercept the call to invalidate the cache for all the projects that get saved
     if (req && req.body && (typeof req.body == typeof "") && (req.body.indexOf('method=PwaupdateResourcePlanCommand') > -1)
     ) {
-      var projectsToInvalidateCache = this.getCacheDataToRemove(req);
-      //this.cache = this.cache.map(c=>c.indexOf(`puid=${}`))
-      projectsToInvalidateCache.forEach(project => {
-        //weed out cache keys tht contain as part of its key as "puid = projectUid"
-        this.removeCachedData(project)
-      });
+      // var projectsToInvalidateCache = this.getCacheDataToRemove(req);
+      // //this.cache = this.cache.map(c=>c.indexOf(`puid=${}`))
+      // projectsToInvalidateCache.forEach(project => {
+      //   //weed out cache keys tht contain as part of its key as "puid = projectUid"
+      //   this.removeCachedData(project)
+      // });
+      this.cache = [];
     }
 
 
@@ -44,6 +46,7 @@ export class CachingInterceptorService implements HttpInterceptor {
     requestsToCache.map(r=>req.body.indexOf('method=' + r) > -1).length > 0
 
     ) {
+      
       isRequestToCache = true;
       // First, check the cache to see if this request exists.
       const cachedResponse = this.cache[req.urlWithParams + req.body] || null;
@@ -52,8 +55,8 @@ export class CachingInterceptorService implements HttpInterceptor {
         // the request to the next handler.
 
         console.log('******************************* ')
-
-        console.log('YO....i\'m returning cached data for' + req.body)
+        
+        console.log('YO....i\'m returning cached data for key=' + req.body + '\nvalue=' + JSON.stringify(cachedResponse))
         console.log('******************************* ')
         return Observable.of(cachedResponse);
       }
@@ -69,7 +72,7 @@ export class CachingInterceptorService implements HttpInterceptor {
       console.log('******************************* ')
       if (event instanceof HttpResponse) {
         // Update the cache.
-        if(isRequestToCache){
+        if(isRequestToCache == true){
         this.cache[req.urlWithParams + req.body] = event;
         }
       }
@@ -97,4 +100,3 @@ export class CachingInterceptorService implements HttpInterceptor {
     }
   }
 }
-
