@@ -523,6 +523,7 @@ export class ResPlanListComponent implements OnInit {
                             this.buildResPlans(plans)
                             this._resModalSvc.selectedResources = [];
                             this._appSvc.loading(false);
+                            this.updateTimeSheetDataForResources();
                         }
                         else {
                             this._resModalSvc.selectedResources = [];
@@ -534,6 +535,12 @@ export class ResPlanListComponent implements OnInit {
                         , (error) => { console.log(error); this._appSvc.loading(false); }
                 })
         }, (error) => { console.log(error); this._appSvc.loading(false); })
+    }
+
+    updateTimeSheetDataForResources()
+    {
+        this._resPlanUserStateSvc.getAllTimesheetData(this._appSvc.queryParams.workunits)
+        .subscribe();
     }
 
     addSelectedProjects(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, showTimesheetData: boolean) {
