@@ -23,7 +23,6 @@ export class ResourcePlanUserStateService {
 
     getCurrentUserId(): Observable<string> {
 
-
         //console.log("configuration = " + JSON.stringify(this.config))
         let baseUrl = `${this.config.projectServerUrl}/_api/SP.UserProfiles.PeopleManager/GetMyProperties/AccountName`
         //1. get data from SP List UserState 
@@ -96,6 +95,8 @@ export class ResourcePlanUserStateService {
             let url = baseUrl + '?' + filter + '&' + select;
             // get unique project Uids from PS where the current resource has access to
             //and project has resource plan assignments
+
+            //Project Active Status != "Cancelled" OR "Complete"
 
             return this.http.get(url, options)
                 .switchMap((data: Response) => data["d"].results)
