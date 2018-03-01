@@ -228,7 +228,7 @@ export class ResPlanListComponent implements OnInit {
 
     exitToBI(mainFormIsDirty) {
 
-        this.checkForUnsavedChanges(mainFormIsDirty,"https://perviewqa.app.parallon.com/PWA/ProjectBICenter/")
+        this.checkForUnsavedChanges(mainFormIsDirty,"https://perviewqa.app.parallon.com/PWA/projectbicenter/All%20Reports/Forms/Resource%20Mgmt%20Reports.aspx")
 
     }
 
