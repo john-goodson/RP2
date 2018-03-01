@@ -14,7 +14,9 @@ export class CachingInterceptorService implements HttpInterceptor {
       withCredentials: true
     });
 ///why are we caching timesheet??
-    let requestsToCache = ["PwaGetProjectsForEditCommand","PwaGetResourcesCommand","PwaGetResourcePlansCommand"];
+    let requestsToCache = ["PwaGetProjectsForEditCommand","PwaGetResourcesCommand","PwaGetResourcePlansCommand","PwaGetTimsheetsCommand"];
+    // requests that won't be deleted from cache
+    let staticRequests = ["PwaGetProjectsForEditCommand","PwaGetResourcesCommand","PwaGetResourcePlansCommand"];
     let isRequestToCache : boolean = false;
     // Before doing anything, it's important to only cache GET requests.
     // Skip this interceptor if the request method isn't GET.
@@ -31,22 +33,22 @@ export class CachingInterceptorService implements HttpInterceptor {
     //Save called and hence intercept the call to invalidate the cache for all the projects that get saved
     if (req && req.body && (typeof req.body == typeof "") && (req.body.indexOf('method=PwaupdateResourcePlanCommand') > -1)
     ) {
-      // var projectsToInvalidateCache = this.getCacheDataToRemove(req);
-      // //this.cache = this.cache.map(c=>c.indexOf(`puid=${}`))
-      // projectsToInvalidateCache.forEach(project => {
-      //   //weed out cache keys tht contain as part of its key as "puid = projectUid"
-      //   this.removeCachedData(project)
-      // });
-      this.cache = [];
+      var projectsToInvalidateCache = this.getCacheDataToRemove(req);
+      //this.cache = this.cache.map(c=>c.indexOf(`puid=${}`))
+      projectsToInvalidateCache.forEach(project => {
+        //weed out cache keys tht contain as part of its key as "puid = projectUid"
+        this.removeCachedData(project)
+      });
+      //this.cache = [];
+
     }
 
 
     //If Request body has parameter method = PwaGetProjectsForEditCommand or PwaGetResourcesCommand or PwaGetTimsheetsCommand or PwaGetResourcePlansCommand 
     if (req && req.body && (typeof req.body == typeof "") && 
-    requestsToCache.map(r=>req.body.indexOf('method=' + r) > -1).length > 0
+    requestsToCache.find(r=>req.body.indexOf('method=' + r) > -1)
 
     ) {
-      
       isRequestToCache = true;
       // First, check the cache to see if this request exists.
       const cachedResponse = this.cache[req.urlWithParams + req.body] || null;
