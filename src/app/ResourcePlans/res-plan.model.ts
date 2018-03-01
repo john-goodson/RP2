@@ -44,7 +44,7 @@ export interface IQueryParams {
   toDate: Date;
   timescale: Timescale
   workunits: WorkUnits
-  showTimesheetData:boolean
+  showTimesheetData: boolean
 
 }
 
@@ -59,8 +59,15 @@ export class ResPlan implements IResPlan {
 
 export class Project implements IProject {
 
-  constructor(public projUid = '', public projName = 'boo', public readOnly = false, public intervals: IInterval[] = []
-    , public owner = '', public projectChargeBackCategory = '',public departments='',public startDate = null,public finishDate =null
+  constructor(public projUid = '', 
+    public projName = '',
+    public readOnly = false,
+    public intervals: IInterval[] = [],
+    public owner = '',
+    public projectChargeBackCategory = '',
+    public departments = '',
+    public startDate = null, public finishDate = null,
+    public projActiveStatus = ProjectActiveStatus.inProgress
 
   ) { }
 }
@@ -74,7 +81,7 @@ export class Interval implements IInterval {
 }
 
 export class Resource implements IResource {
-  constructor(public resUid = '0', public resName = '', public rbs = '' , public timesheetMgr = '' ) { }
+  constructor(public resUid = '0', public resName = '', public rbs = '', public timesheetMgr = '') { }
 }
 
 
@@ -106,9 +113,9 @@ export interface IDept {
 export class Config {
   projectServerUrl: string;
   ResPlanUserStateUrl: string;
-  adapterUrl:string;
-  projectPickerViewGuid:string;
-  resourcePickerViewGuid:string;
+  adapterUrl: string;
+  projectPickerViewGuid: string;
+  resourcePickerViewGuid: string;
 }
 
 export class Result {

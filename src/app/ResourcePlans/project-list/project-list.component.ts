@@ -40,7 +40,7 @@ export class ProjectListComponent implements OnInit {
     },
     pager:{
       display:true,
-      perPage:12
+      perPage:10
     },
   columns: {
     // id: {
@@ -54,9 +54,17 @@ export class ProjectListComponent implements OnInit {
     ,
     owner :
     {
-       title:'Owner',
+       title:'Project Manager',
+       width: '200px'
+    },
+
+    projActiveStatus :
+    {
+       title:'Project Status',
        width: '100px'
     },
+
+
     // ,startDate:
     // {
     //   title:'Start Date'  
@@ -69,7 +77,8 @@ export class ProjectListComponent implements OnInit {
     // ,
     projectChargeBackCategory :
     {
-      title:'Project Chargeback'
+      title:'Chargeback Category'
+      width: '200px'
     }
     // ,departments:
     // {
