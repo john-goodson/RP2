@@ -77,7 +77,7 @@ export class ProjectListComponent implements OnInit {
     // ,
     projectChargeBackCategory :
     {
-      title:'Chargeback Category'
+      title:'Chargeback Category',
       width: '200px'
     }
     // ,departments:
