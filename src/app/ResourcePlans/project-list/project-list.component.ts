@@ -64,17 +64,6 @@ export class ProjectListComponent implements OnInit {
        width: '100px'
     },
 
-
-    // ,startDate:
-    // {
-    //   title:'Start Date'  
-    //
-    // }
-    // ,finishDate:
-    // {
-    //   title:'Finish Date'
-    // }
-    // ,
     projectChargeBackCategory :
     {
       title:'Chargeback Category',
