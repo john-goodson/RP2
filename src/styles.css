@@ -137,8 +137,8 @@ pm-app div.panel.panel-primary {
     }
 
     table.table{
-        margin-left: 0;
-        margin-right: 0;
+        margin-left: 5%;
+        margin-right: auto;
         position: left;
         margin-bottom: 0;
     }
