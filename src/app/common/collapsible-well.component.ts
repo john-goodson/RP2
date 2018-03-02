@@ -20,6 +20,17 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 div {
   margin: 0;
 }
+.datesForPrint {
+  display: none;
+}
+
+@media print {
+  .datesForPrint {
+    display: block;
+    margin-bottom: 3%;
+    
+  }
+}
   `]
 })
 export class CollapsibleWellComponent {

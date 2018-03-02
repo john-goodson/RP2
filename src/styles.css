@@ -167,16 +167,17 @@ pm-app div.panel.panel-primary {
         margin-top: 1.25in;
     }
     .ownBox {
+        display: none;
         /* position: fixed;
         top: .5in;
         position: absolute;
         top: 6%; */
         /* margin-bottom: 3%; */
     }
-    .table-header {
+    /* .table-header {
         position: absolute;
         top: .5in;
-    }
+    } */
      /* res-plan-header-row{
         position: absolute; 
         top: .5in;
