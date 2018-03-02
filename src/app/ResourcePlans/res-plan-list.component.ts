@@ -120,7 +120,7 @@ export class ResPlanListComponent implements OnInit {
         //     this._appSvc.setFormDirty(this.mainForm.dirty);
         // })
 
-        
+        this._appSvc.mainFormDirty = false;
         this.valuesSavedSub = this._appSvc.save$.subscribe(() => this.savePlans(this.fromDate, this.toDate, this.timescale, this.workunits))
         this.resourceAddedSub = this._appSvc.addResources$.subscribe(() => this.addResources())
         this.resourceDeletedSub = this._appSvc.delete$.subscribe(() => this.openDeleteResPlanDialog())

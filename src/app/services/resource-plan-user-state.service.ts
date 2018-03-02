@@ -311,6 +311,14 @@ export class ResourcePlanUserStateService {
                     return Observable.of(resPlans);
                 }
             })
+            .map(resPlans=>{
+                return resPlans.sort((a,b)=>{
+                    if(a.resource.resName < b.resource.resName) return -1;
+                    if(a.resource.resName > b.resource.resName) return 1;
+                    return 0;
+                
+                })
+            })
 
     }
 
