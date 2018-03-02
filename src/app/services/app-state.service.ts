@@ -22,7 +22,7 @@ export class AppStateService {
   private printToPDFSource = new Subject<void>();
   private toExcelSource = new Subject<void>();
   private exitToBISource = new Subject<void>() 
-
+  public mainFormDirty : Boolean;
 
 
   loading$ = this.loadingSource.asObservable();
@@ -62,6 +62,7 @@ export class AppStateService {
   }
   setFormDirty(value: boolean) {
     this.formDirtyState.next(value);
+    this.mainFormDirty = value;
   }
 
   saveClick() {

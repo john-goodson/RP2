@@ -107,7 +107,7 @@ export class ResPlanListComponent implements OnInit {
         , private menuService: MenuService
         , private _exportExcelService: ExportExcelService
         , private _resModalSvc: ResourcesModalCommunicatorService
-        , private _appSvc: AppStateService
+        , public _appSvc: AppStateService
         , private _appUtilSvc: AppUtilService
         , private _route: ActivatedRoute, private dialog: MatDialog) { }
 
@@ -115,10 +115,10 @@ export class ResPlanListComponent implements OnInit {
         this.mainForm = this.fb.group({
             resPlans: this.fb.array([])
         });
-        this.formValueChangesSub = this.mainForm.valueChanges.subscribe(t => {
-            //app state service emit this.mainForm.dirty
-            this._appSvc.setFormDirty(this.mainForm.dirty);
-        })
+        // this.formValueChangesSub = this.mainForm.valueChanges.subscribe(t => {
+        //     //app state service emit this.mainForm.dirty
+        //     this._appSvc.setFormDirty(this.mainForm.dirty);
+        // })
 
         
         this.valuesSavedSub = this._appSvc.save$.subscribe(() => this.savePlans(this.fromDate, this.toDate, this.timescale, this.workunits))
@@ -228,9 +228,12 @@ export class ResPlanListComponent implements OnInit {
 
     exitToBI(mainFormIsDirty) {
 
-        this.checkForUnsavedChanges(mainFormIsDirty,"https://perviewqa.app.parallon.com/PWA/projectbicenter/All%20Reports/Forms/Resource%20Mgmt%20Reports.aspx")
+        this.checkForUnsavedChanges(mainFormIsDirty,"https://perviewqa.app.parallon.com/PWA/ProjectBICenter/")
 
     }
+
+
+
 
     calculateTotals(fg: FormGroup): void {
 
@@ -420,12 +423,31 @@ export class ResPlanListComponent implements OnInit {
     }
 
     openDeleteResPlanDialog() {
+        //if form is dirty
+        if(this._appSvc.mainFormDirty)
+        {
+            let dialogRef = this.openDialog({ title: "Errors on Page?", 
+            content: "You cannot  delete resource plans until you save your changes.Click continue or Cancel to revert all changes" });
+            this.matDlgSub = dialogRef.afterClosed().subscribe(result => {
+                this.confirmDialogResult = result;
+                debugger;
+                if (result == "yes"){
+                    this._appSvc.mainFormDirty = false;
+                    this.router.navigate(['/home/resPlans', this._appSvc.queryParams]);
+                }
+            });
+        }
+        //if form is not dirty
+        else{
         let dialogRef = this.openDialog({ title: "Are You Sure?", content: "This action will permanently delete resource plan assignments from the selected project(s)." })
         this.matDlgSub = dialogRef.afterClosed().subscribe(result => {
             this.confirmDialogResult = result;
             if (result == "yes")
                 this.deleteResPlans(this.fromDate, this.toDate, this.timescale, this.workunits, false)
         });
+    }
+        
+
 
     }
 
@@ -889,6 +911,8 @@ export class ResPlanListComponent implements OnInit {
             if ((event.currentTarget as HTMLInputElement).value && (event.currentTarget as HTMLInputElement).value.trim() != '')
                 (event.currentTarget as HTMLInputElement).value = new CellWorkUnitsPipe().transform((event.currentTarget as HTMLInputElement).value, this.workunits);
         }
+        debugger;
+        this._appSvc.setFormDirty(true);
     }
 
     getTimesheetButtonText() {
