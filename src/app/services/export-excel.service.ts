@@ -154,10 +154,9 @@ excelObject = {
           let intervalNames : string[];
           
           if (resPlan.projects.length > 0) {
-    
               resPlan.projects.forEach(project=>{
                 excelData += resourcename +',';
-                excelData += project.projName
+                excelData += project.projName + ','
                 project.intervals.forEach(interval => {
                   excelData += interval.intervalValue.toString() + ','
                })
