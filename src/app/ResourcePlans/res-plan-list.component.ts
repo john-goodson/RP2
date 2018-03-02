@@ -232,9 +232,6 @@ export class ResPlanListComponent implements OnInit {
 
     }
 
-
-
-
     calculateTotals(fg: FormGroup): void {
 
         var value = fg.value;
