@@ -1,5 +1,5 @@
 <button mat-button  (click)="addResources()">Add Resources</button>
-<button mat-button [disabled]="disableSave" (click)="submit()">Save</button>
+<button mat-button [disabled]="!this._appStateSvc.mainFormDirty" (click)="submit()">Save</button>
 <button mat-button [matMenuTriggerFor]="delHide">Actions</button>
 <button mat-button [matMenuTriggerFor]="export">Export</button>
 

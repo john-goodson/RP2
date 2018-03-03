@@ -790,9 +790,9 @@ export class ResPlanListComponent implements OnInit {
         // Reset the form to clear the flags
         //this.mainForm.reset();
         this.updateErrors(results);
-        let frmState = this.mainForm.value;
-        this.mainForm.reset();
-        this.mainForm.setValue(frmState);
+        //let frmState = this.mainForm.value;
+        // this.mainForm.reset();
+        // this.mainForm.setValue(frmState);
         this._appSvc.loading(false);
         this._appSvc.mainFormDirty = false
 
