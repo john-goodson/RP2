@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { IResPlan, Timescale, WorkUnits, IInterval } from '../../resourcePlans/res-plan.model';
+import { IResPlan, Timescale, WorkUnits, IInterval,Interval } from '../../resourcePlans/res-plan.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment'
 import { AppUtilService } from '../../common/app-util.service'
@@ -36,20 +36,29 @@ export class ResPlanHeaderRowComponent implements OnInit {
   }
 
   public setIntervals(resPlans: IResPlan[]) {
+    let projectWithIntervals = []
+      for(var i=0;i<resPlans.length;i++)
+      {
+           if(resPlans[i].projects && resPlans[i].projects.length > 0)
+           {
+            projectWithIntervals = resPlans[i].projects[i].intervals;
+            break;
+           }
+      }
 
-    resPlans.forEach(resPlan => {
-      let projectWithIntervals = resPlan.projects.find(t => t.intervals.length > 0);
+      debugger;
       if (projectWithIntervals) {
-        this._intervals = projectWithIntervals.intervals;
-        this._intervals.forEach(interval => {
-          interval.start = moment(interval.start).toDate()
-          interval.end = moment(interval.end).add(-1, 'days').toDate();
+        this._intervals = [];
+        projectWithIntervals.forEach(interval => {
+          var intervalStart = moment(interval.start).toDate()
+          var intervalEnd = moment(interval.end).add(-1, 'days').toDate();
+          this._intervals.push(new Interval('','',intervalStart,intervalEnd))
         })
 
         //TODO how to break out of for loop when intervals already found
       }
 
-    })
+    
   }
 
 }
