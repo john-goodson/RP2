@@ -9,7 +9,7 @@ import { MatMenu} from '@angular/material'
 })
 export class ActionsMenuComponent implements OnInit {
   
-  constructor(private _appStateSvc:AppStateService) { }
+  constructor(public _appStateSvc:AppStateService) { }
   disableSave: boolean;
   disableDelete:boolean = true;
   disableHide:boolean =true;
@@ -18,7 +18,7 @@ export class ActionsMenuComponent implements OnInit {
     this._appStateSvc.formDirtyState$.subscribe(value=>this.disableSave = !value)
      this._appStateSvc.deleteState$.subscribe(value=>{this.disableDelete = !value})
      this._appStateSvc.hideState$.subscribe(value=>{this.disableHide= !value})
-    
+     
   }
 
   ngOnDestroy() {
