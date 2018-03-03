@@ -434,6 +434,8 @@ export class ResPlanListComponent implements OnInit {
                 if (result == "yes"){
                     debugger
                     this._appSvc.mainFormDirty = false;
+                    this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
+                    this.router.isActive = function () { return false; }
                     this.router.navigate(['/home/resPlans', this._appSvc.queryParams]);
                 }
             });
