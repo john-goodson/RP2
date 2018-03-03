@@ -426,12 +426,13 @@ export class ResPlanListComponent implements OnInit {
         //if form is dirty
         if(this._appSvc.mainFormDirty)
         {
-            let dialogRef = this.openDialog({ title: "Errors on Page?", 
-            content: "You cannot  delete resource plans until you save your changes.Click continue or Cancel to revert all changes" });
+            let dialogRef = this.openDialog({ title: "Can't Delete - Unsaved Changes On Page", 
+            content: "Click Cancel and then save your changes.   Click OK to erase all changes" });
             this.matDlgSub = dialogRef.afterClosed().subscribe(result => {
                 this.confirmDialogResult = result;
                 debugger;
                 if (result == "yes"){
+                    debugger
                     this._appSvc.mainFormDirty = false;
                     this.router.navigate(['/home/resPlans', this._appSvc.queryParams]);
                 }
@@ -632,7 +633,6 @@ export class ResPlanListComponent implements OnInit {
         ;
         if (this.mainForm.dirty && this.mainForm.valid) {
 
-
             let resourceplans = this.resPlans.controls
                 .filter(item => item.dirty === true)
                 .map(t => {
@@ -792,6 +792,7 @@ export class ResPlanListComponent implements OnInit {
         this.mainForm.reset();
         this.mainForm.setValue(frmState);
         this._appSvc.loading(false);
+        this._appSvc.mainFormDirty = false
 
     }
     AnyResPlanSelectedForDelete(): boolean {
