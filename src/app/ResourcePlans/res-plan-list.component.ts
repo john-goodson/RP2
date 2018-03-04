@@ -206,11 +206,11 @@ export class ResPlanListComponent implements OnInit {
 
     exitToPerView(mainFormIsDirty) {
 
-        this.checkForUnsavedChanges(mainFormIsDirty,"https://perviewqa.app.parallon.com/PWA")
-  
+        this.checkForUnsavedChanges(mainFormIsDirty, "https://perviewqa.app.parallon.com/PWA")
+
     }
 
-    checkForUnsavedChanges(mainFormDirty, navigateUrl) { 
+    checkForUnsavedChanges(mainFormDirty, navigateUrl) {
         if (mainFormDirty === true) {
             let dialogRef = this.openDialog({ title: "Are You Sure?", content: "You have unsaved changes" })
             this.matDlgSub = dialogRef.afterClosed().subscribe(result => {
@@ -221,14 +221,14 @@ export class ResPlanListComponent implements OnInit {
             });
         }
         else {
-           
+
             window.location.href = navigateUrl
         }
     }
 
     exitToBI(mainFormIsDirty) {
 
-        this.checkForUnsavedChanges(mainFormIsDirty,"https://perviewqa.app.parallon.com/PWA/ProjectBICenter/")
+        this.checkForUnsavedChanges(mainFormIsDirty, "https://perviewqa.app.parallon.com/PWA/ProjectBICenter/")
 
     }
 
@@ -424,14 +424,15 @@ export class ResPlanListComponent implements OnInit {
 
     openDeleteResPlanDialog() {
         //if form is dirty
-        if(this._appSvc.mainFormDirty)
-        {
-            let dialogRef = this.openDialog({ title: "Can't Delete - Unsaved Changes On Page", 
-            content: "Click Cancel and then save your changes.   Click OK to erase all changes" });
+        if (this._appSvc.mainFormDirty) {
+            let dialogRef = this.openDialog({
+                title: "Can't Delete - Unsaved Changes On Page",
+                content: "Click Cancel and then save your changes.   Click OK to erase all changes"
+            });
             this.matDlgSub = dialogRef.afterClosed().subscribe(result => {
                 this.confirmDialogResult = result;
                 debugger;
-                if (result == "yes"){
+                if (result == "yes") {
                     debugger
                     this._appSvc.mainFormDirty = false;
                     this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
@@ -441,15 +442,15 @@ export class ResPlanListComponent implements OnInit {
             });
         }
         //if form is not dirty
-        else{
-        let dialogRef = this.openDialog({ title: "Are You Sure?", content: "This action will permanently delete resource plan assignments from the selected project(s)." })
-        this.matDlgSub = dialogRef.afterClosed().subscribe(result => {
-            this.confirmDialogResult = result;
-            if (result == "yes")
-                this.deleteResPlans(this.fromDate, this.toDate, this.timescale, this.workunits, false)
-        });
-    }
-        
+        else {
+            let dialogRef = this.openDialog({ title: "Are You Sure?", content: "This action will permanently delete resource plan assignments from the selected project(s)." })
+            this.matDlgSub = dialogRef.afterClosed().subscribe(result => {
+                this.confirmDialogResult = result;
+                if (result == "yes")
+                    this.deleteResPlans(this.fromDate, this.toDate, this.timescale, this.workunits, false)
+            });
+        }
+
 
 
     }
@@ -559,10 +560,9 @@ export class ResPlanListComponent implements OnInit {
         }, (error) => { console.log(error); this._appSvc.loading(false); })
     }
 
-    updateTimeSheetDataForResources()
-    {
+    updateTimeSheetDataForResources() {
         this._resPlanUserStateSvc.getAllTimesheetData(this._appSvc.queryParams.workunits)
-        .subscribe();
+            .subscribe();
     }
 
     addSelectedProjects(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, showTimesheetData: boolean) {
@@ -614,7 +614,7 @@ export class ResPlanListComponent implements OnInit {
     //     
 
     //     this.fromDate = new Date(value.start._d)
-   
+
 
     buildSelectedProjects(projects: IProject[]): void {
         ;
@@ -672,11 +672,11 @@ export class ResPlanListComponent implements OnInit {
             this._appSvc.loading(true);
             this.saveResPlansSub = this._resPlanUserStateSvc.saveResPlans(resourceplans, fromDate, toDate, timescale, workunits)
                 .subscribe(
-                    (results: Result[]) => this.onSaveComplete(results),
-                    (error: any) => {
-                        this.errorMessage = <any>error
-                        this._appSvc.loading(false);
-                    });
+                (results: Result[]) => this.onSaveComplete(results),
+                (error: any) => {
+                    this.errorMessage = <any>error
+                    this._appSvc.loading(false);
+                });
         }
         //()
         else if (!this.mainForm.dirty) {
@@ -741,43 +741,43 @@ export class ResPlanListComponent implements OnInit {
             else {
                 this.delResPlansSub = this._resPlanUserStateSvc.deleteResPlans(resourceplans, fromDate, toDate, timescale, workunits)
                     .flatMap(
-                        (results: Result[]) => {
-                            ;
-                            this.updateErrors(results);
-                            return this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr => {
-                                resourceplans.forEach(resPlan => {
-                                    //if resource marked for selection check if all projects were successful by comparing count of projects prior to upadte and after
-                                    let projectsMarkedForDeleteCount = resPlan.projects.length;
+                    (results: Result[]) => {
+                        ;
+                        this.updateErrors(results);
+                        return this._resPlanUserStateSvc.getCurrentUserId().flatMap(resMgr => {
+                            resourceplans.forEach(resPlan => {
+                                //if resource marked for selection check if all projects were successful by comparing count of projects prior to upadte and after
+                                let projectsMarkedForDeleteCount = resPlan.projects.length;
 
-                                    resPlan.projects = resPlan.projects.filter(function (p) { return results.findIndex(function (r) { return r.success == true && r.project.projUid.toUpperCase() == p.projUid.toUpperCase(); }) > -1; });
-                                    // if(resPlan["selected"] == true)
-                                    // {
-                                    //    resPlan["selected"] = (projectsMarkedForDeleteCount == resPlan.projects.length);
-                                    // }
-                                });
+                                resPlan.projects = resPlan.projects.filter(function (p) { return results.findIndex(function (r) { return r.success == true && r.project.projUid.toUpperCase() == p.projUid.toUpperCase(); }) > -1; });
+                                // if(resPlan["selected"] == true)
+                                // {
+                                //    resPlan["selected"] = (projectsMarkedForDeleteCount == resPlan.projects.length);
+                                // }
+                            });
 
 
-                                return this._resPlanUserStateSvc.HideResPlans(resMgr, resourceplans as IResPlan[]).map(r => {
-                                    if (r.success == true) {
-                                        this.deleteResourcePlans(resourceplans)
-                                        this._appSvc.loading(false);
-                                    }
-                                    else {
-                                        this._appSvc.loading(false);
-                                    }
-                                },
-                                    (error: any) => {
-                                        this.errorMessage = <any>error
-                                        this._appSvc.loading(false);
-                                    }
-                                )
+                            return this._resPlanUserStateSvc.HideResPlans(resMgr, resourceplans as IResPlan[]).map(r => {
+                                if (r.success == true) {
+                                    this.deleteResourcePlans(resourceplans)
+                                    this._appSvc.loading(false);
+                                }
+                                else {
+                                    this._appSvc.loading(false);
+                                }
                             },
                                 (error: any) => {
-                                    this.errorMessage = <any>error;
+                                    this.errorMessage = <any>error
                                     this._appSvc.loading(false);
                                 }
                             )
-                        }).subscribe(() => { this._appSvc.loading(false) }, () => { this._appSvc.loading(false) })
+                        },
+                            (error: any) => {
+                                this.errorMessage = <any>error;
+                                this._appSvc.loading(false);
+                            }
+                        )
+                    }).subscribe(() => { this._appSvc.loading(false) }, () => { this._appSvc.loading(false) })
             }
         }
         //()
@@ -790,8 +790,20 @@ export class ResPlanListComponent implements OnInit {
         // Reset the form to clear the flags
         //this.mainForm.reset();
         this.updateErrors(results);
-        //let frmState = this.mainForm.value;
-        // this.mainForm.reset();
+        results.forEach(result => {
+            if (result.success == true) {
+                var projectUid = result.project.projUid;
+                this.resPlans.controls.forEach(resPlan => {
+                    (resPlan.get('projects') as FormArray).controls.forEach(project => {
+                        if (project.get('projUid').value == projectUid) {
+                            project.reset(project.value);
+                        }
+                    });
+                });
+            }
+        });
+        // let frmState = this.mainForm.value;
+        //  this.mainForm.reset(frmState);
         // this.mainForm.setValue(frmState);
         this._appSvc.loading(false);
         this._appSvc.mainFormDirty = false
@@ -855,23 +867,23 @@ export class ResPlanListComponent implements OnInit {
             this.matDlgSub = dialogRef.afterClosed().subscribe(result => {
                 this.confirmDialogResult = result;
                 if (result === "yes") {
-                
+
                     this.menuService.getCurrentView();
                     $.when(this.menuService.printMode())
-                    .done(setTimeout(this.menuService.printerFunction, 1000))
-                // .done(setTimeout(this.menuService.normalizeView,500));
+                        .done(setTimeout(this.menuService.printerFunction, 1000))
+                    // .done(setTimeout(this.menuService.normalizeView,500));
                 }
             });
-              
+
         }
         else {
 
-                     this.menuService.getCurrentView();
-                    $.when(this.menuService.printMode())
-                    .done(setTimeout(this.menuService.printerFunction, 1000))
+            this.menuService.getCurrentView();
+            $.when(this.menuService.printMode())
+                .done(setTimeout(this.menuService.printerFunction, 1000))
             //window.location.href = "https://perviewQA.app.parallon.com/PWA/"
         }
-    
+
     }
 
     excelExportFunction() {
