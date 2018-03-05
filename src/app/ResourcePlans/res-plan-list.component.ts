@@ -126,12 +126,12 @@ export class ResPlanListComponent implements OnInit {
         this.resourceDeletedSub = this._appSvc.delete$.subscribe(() => this.openDeleteResPlanDialog())
         this.resourceHiddenSub = this._appSvc.hide$.subscribe(() => this.deleteResPlans(this.fromDate, this.toDate, this.timescale, this.workunits, true))
         this.resourceActualsShowHide = this._appSvc.showActuals$.subscribe(() => this.toggleTimesheetDisplay())
-        this.appExitSub = this._appSvc.exitToPerview$.subscribe(() => { console.log(''); this.exitToPerView(this.mainForm.dirty) })
+        this.appExitSub = this._appSvc.exitToPerview$.subscribe(() => { console.log(''); this.exitToPerView(this._appSvc.mainFormDirty) })
 
         this.exportPrintSub = this._appSvc.printToPDF$.subscribe(() => { this.printFunction() });
         this.exportExcelSub = this._appSvc.exportToExcel$.subscribe(() => { this.excelExportFunction() });
 
-        this.appExitToBISub = this._appSvc.exitToBI$.subscribe(() => this.exitToBI(this.mainForm.dirty))
+        this.appExitToBISub = this._appSvc.exitToBI$.subscribe(() => this.exitToBI(this._appSvc.mainFormDirty))
 
 
 
@@ -633,7 +633,7 @@ export class ResPlanListComponent implements OnInit {
 
     savePlans(fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits): void {
         ;
-        if (this.mainForm.dirty && this.mainForm.valid) {
+        if (this._appSvc.mainFormDirty && this.mainForm.valid) {
 
             let resourceplans = this.resPlans.controls
                 .filter(item => item.dirty === true)
@@ -679,7 +679,7 @@ export class ResPlanListComponent implements OnInit {
                 });
         }
         //()
-        else if (!this.mainForm.dirty) {
+        else if (!this._appSvc.mainFormDirty) {
             //this.onSaveComplete();
         }
     }
@@ -781,15 +781,17 @@ export class ResPlanListComponent implements OnInit {
             }
         }
         //()
-        else if (!this.mainForm.dirty) {
+        else if (!this._appSvc.mainFormDirty) {
             //this.onSaveComplete();
         }
 
     }
     onSaveComplete(results: Result[]): void {
         // Reset the form to clear the flags
-        //this.mainForm.reset();
+        //this.mainForm.reset();  
         this.updateErrors(results);
+
+        //here we are looking for projects that saved successfully and then clearing the state
         results.forEach(result => {
             if (result.success == true) {
                 var projectUid = result.project.projUid;
@@ -861,7 +863,7 @@ export class ResPlanListComponent implements OnInit {
     //elapsed to reflect a full-screen.
     printFunction(): void {
 
-        if (this.mainForm.dirty === true) {
+        if (this._appSvc.mainFormDirty === true) {
 
             let dialogRef = this.openDialog({ title: "Are You Sure?", content: "You have unsaved changes" })
             this.matDlgSub = dialogRef.afterClosed().subscribe(result => {
@@ -888,7 +890,16 @@ export class ResPlanListComponent implements OnInit {
 
     excelExportFunction() {
         console.log(this.resPlanData, "is resplanData");
-        this._exportExcelService.excelObject.transformToCSV(this.resPlanData, 'RM2');
+        //this._exportExcelService.excelObject.transformToCSV(this.resPlanData, 'RM2');
+
+        if (this._appSvc.mainFormDirty === true) {
+            let dialogRef = this.openDialog({ title: "Are You Sure?", content: "You have unsaved changes" })
+            this.matDlgSub = dialogRef.afterClosed().subscribe(result => {
+                this.confirmDialogResult = result;
+                if (result == "yes")
+                    this._exportExcelService.excelObject.transformToCSV(this.resPlanData, 'RM2');
+            });
+        }
     }
 
 
