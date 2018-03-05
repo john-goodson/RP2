@@ -7,7 +7,8 @@ import { IntervalPipe } from "../common/interval.pipe"
 import { CellWorkUnitsPipe } from "../common/cell-work-units.pipe"
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/mergeMap';
-import { PercentPipe } from '@angular/common'
+// import 'rxjs/add/operator/mergeMap';
+import { PercentPipe } from '@angular/common';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { IResPlan, IProject, IInterval, ProjectActiveStatus, IResource, Resource, Timescale, WorkUnits, Result } from './res-plan.model'
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component'
@@ -862,7 +863,11 @@ export class ResPlanListComponent implements OnInit {
     //side bar and printing the window after enough time has
     //elapsed to reflect a full-screen.
     printFunction(): void {
+        console.log('this is printFunction inside res-plan-list-component')
+        let deferredAction = $.Deferred();
 
+
+        let resetView = this.menuService.getCurrentView();
         if (this._appSvc.mainFormDirty === true) {
 
             let dialogRef = this.openDialog({ title: "Are You Sure?", content: "You have unsaved changes" })
@@ -870,22 +875,23 @@ export class ResPlanListComponent implements OnInit {
                 this.confirmDialogResult = result;
                 if (result === "yes") {
 
-                    this.menuService.getCurrentView();
+                    
                     $.when(this.menuService.printMode())
-                        .done(setTimeout(this.menuService.printerFunction, 1000))
+                        .done(setTimeout(this.menuService.printerFunction, 1500))
                     // .done(setTimeout(this.menuService.normalizeView,500));
                 }
             });
 
         }
         else {
-
-            this.menuService.getCurrentView();
+            debugger;
             $.when(this.menuService.printMode())
                 .done(setTimeout(this.menuService.printerFunction, 1000))
-            //window.location.href = "https://perviewQA.app.parallon.com/PWA/"
+            
         }
-
+        console.log(resetView, "this is the reset View setting")
+        this.menuService.normalizeView(resetView);
+       
     }
 
     excelExportFunction() {

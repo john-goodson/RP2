@@ -34,31 +34,33 @@ export class MenuService {
   //   if (this.isVertical = false)
   // }
 
-  normalizeView() {
-    let cv = this.currentView;
-    console.log('normalizing, what is currentView?', this.currentView)
-    console.log('normalizing, what is isVertical?', this.isVertical)
-    this.isVertical = cv;
-    console.log("normalizing now for true", this.isVertical)
-    return this.isVertical;
+  normalizeView(viewState: boolean) :void {
+     this.isVertical = viewState;
+    // console.log('normalizing, what is currentView?', this.currentView)
+    // console.log('normalizing, what is isVertical?', this.isVertical)
+    // this.isVertical = cv;
+    // console.log("normalizing now for true", this.isVertical)
+    // return this.isVertical;
   }
 
   printerFunction() {
+    console.log("printerFunction in menuService is running...");
        let windowWidth = window.innerWidth;
        let windowHeight = window.innerHeight;
        let windowClientWidth = document.body.clientWidth;//tried
        let windowClientHeight = document.body.clientHeight;//tried
-      //  let windowScrollHeight = window.innerHeight;
-      //  window.innerHeight = 9999999999999;
+      // commented out let windowScrollHeight = window.innerHeight;
+      // commented out window.innerHeight = 9999999999999;
        window.name = 'currentWindow';
     window.open('', window.name, 'top=0,left=0,height=9999999999,width=auto'
     )
     window.print();
     window.close();
-    //this.normalizeView();
+    console.log('currentView is: ',this.currentView)
+    this.normalizeView(this.currentView);
   }
 
-  getCurrentView(){
+  getCurrentView(): boolean {
     console.log(this.isVertical, "status of window f is ");
     this.currentView = this.isVertical;
     console.log('currentView capture', this.currentView)

@@ -46,7 +46,7 @@ export class ResPlanHeaderRowComponent implements OnInit {
            }
       }
 
-      debugger;
+ 
       if (projectWithIntervals) {
         this._intervals = [];
         projectWithIntervals.forEach(interval => {
