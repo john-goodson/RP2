@@ -98,10 +98,17 @@ pm-app div.panel.panel-primary {
     overflow: visible !important;
     }
 
-
   .body-style{
       margin-left: 1%;
-      margin-right: 1%;
+      margin-right: 0;
+      padding-left:0;
+      max-width: 96%;
+  }
+  table{
+      max-width: 96%;
+  }
+  .table {
+      max-width: 96%;
   }
     .totalGreen {
         -webkit-print-color-adjust: exact !important;
@@ -120,6 +127,7 @@ pm-app div.panel.panel-primary {
     div.well.pointable {
         margin:0;
         padding: 0; 
+        max-width: 96%;
     }
     div[class="well"] {
         margin:0;
@@ -128,6 +136,10 @@ pm-app div.panel.panel-primary {
     div[class="pointable"] {
         margin:0;
         padding: 0;
+    }
+    .datesForPrint {
+        max-width: 96%;
+        padding:0;
     }
 
     @page {
@@ -185,5 +197,9 @@ pm-app div.panel.panel-primary {
         position: absolute; 
         top: .5in;
     }  */
+    .dateWindow {
+        padding:19px; 
+        padding-right:0;
+    }
 
 }

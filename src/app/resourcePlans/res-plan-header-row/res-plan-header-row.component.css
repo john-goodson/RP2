@@ -21,3 +21,30 @@
     width:80px;
     min-width: 50px;
 }
+
+@media Print {
+    .col1
+{
+    width:1.1em;
+    min-width: 220px;
+    margin-left: 10%;
+}
+.col
+{
+    width:1.1em;
+    min-width: 50px;
+}
+.header-cell
+{
+    text-align: left;
+    height: 40px;
+   
+}
+.dateText{
+  margin-right: 19px;
+}
+.dateWindow{
+    padding: 19px;
+    margin-right: 3px;
+}
+}
