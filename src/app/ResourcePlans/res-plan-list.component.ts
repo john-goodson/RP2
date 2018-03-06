@@ -909,6 +909,9 @@ export class ResPlanListComponent implements OnInit {
                     this._exportExcelService.excelObject.transformToCSV(this.resPlanData, 'RM2');
             });
         }
+        else {
+            this._exportExcelService.excelObject.transformToCSV(this.resPlanData, 'RM2');
+        }
     }
 
 
