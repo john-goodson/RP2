@@ -20,13 +20,6 @@ export class CachingInterceptorService implements HttpInterceptor {
     // Before doing anything, it's important to only cache GET requests.
     // Skip this interceptor if the request method isn't GET.
 
-    // 
-    // if (req.method !== 'GET') {
-    //   console.log('******************************* ' )
-    //   console.log('hey....this wasn\'t a GET' )
-    //   console.log('******************************* ' )
-    //   return next.handle(req);
-    // }
 
     //If Request body has parameter method = PwaupdateResourcePlanCommand
     //Save called and hence intercept the call to invalidate the cache for all the projects that get saved
@@ -105,11 +98,6 @@ export class CachingInterceptorService implements HttpInterceptor {
  else{
 
  }
-//  t = t.replace('method=PwaupdateResourcePlanCommand&resourceplan=', '')
-//  .replace('method=PwaAddResourcePlanCommand&resourceplan=', '')
-//  //strip off every thing from end of array
-//  t = t.replace(t.slice(t.indexOf('&fromDate')), '');
-
  
  var projectsToInvalidateCache = [].concat.apply([], allProjects);
  return projectsToInvalidateCache;
