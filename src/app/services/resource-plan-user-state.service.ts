@@ -77,6 +77,7 @@ export class ResourcePlanUserStateService {
     }
 
     getProjectIdsFromAssignmentsForResources(resources: IResource[]): Observable<IResPlan[]> {
+         
         let baseUrl = `${this.config.projectServerUrl}/_api/ProjectData/Assignments`;
         let select = "$select=ProjectId,ProjectName";
         let headers = new HttpHeaders();
@@ -91,8 +92,10 @@ export class ResourcePlanUserStateService {
             ;
         //console.log('=======================hitting project server for assigments')
         return Observable.from(resources).flatMap(t => {
-            let filter = `$filter=ResourceName eq '${t.resName}' and AssignmentType eq 101`
+            debugger
+            let filter = `$filter=ResourceName eq '${t.resName.replace("'","''")}' and AssignmentType eq 101`
             let url = baseUrl + '?' + filter + '&' + select;
+          
             // get unique project Uids from PS where the current resource has access to
             //and project has resource plan assignments
 
@@ -127,21 +130,7 @@ export class ResourcePlanUserStateService {
         let uniqueProjectsResMgrHasAccessOn = resourceForResMgr.flatMap(resources => this.getProjectIdsFromAssignmentsForResources(resources));
         //let mergedProjects = uniqueProjectsForResMgr.merge(uniqueProjectsForAllResMgr)
 
-        // let projectsWithreadOnlyFlag = mergedProjects.flatMap(val => {
-
-        //     return uniqueProjectsResMgrHasAccessOn.flatMap(projectsWithRights => {
-        //         return val.map(x => {
-        //             ;
-        //             if (projectsWithRights.find(k => k.projUid.toUpperCase() == x.projUid.toUpperCase()) == null) {
-        //                 x.readOnly = true;
-        //             }
-        //             else {
-        //                 x.readOnly = false;
-        //             }
-        //             return x;
-        //         })
-        //     })
-        // }).distinct(t => t.projUid).toArray()
+    
 
 
         return resourceForResMgr.flatMap(resources => {
@@ -161,6 +150,7 @@ export class ResourcePlanUserStateService {
 
     ///Add Resource Plan use case
     getResPlansFromResources(resMgrUid: string, resources: IResource[], fromDate: Date, toDate: Date, timescale: Timescale, workunits: WorkUnits, showTimesheetData: boolean): Observable<IResPlan[]> {
+        debugger;
         let projectsThatUserHasAccessOn = this.getProjectIdsFromAssignmentsForResources(resources);
         return this.getResPlansFromProjects(resMgrUid, resources, projectsThatUserHasAccessOn, fromDate, toDate, timescale, workunits, showTimesheetData)
     }
@@ -227,7 +217,9 @@ export class ResourcePlanUserStateService {
                         url = data["d"].results[0].__metadata.uri;
                         resources = existingResources.concat(resources);
                     }
-                    let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName + '"}').join(",")}]'`
+                    
+                    // note that we escape any apostrophe's with a double escape
+                    let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName.replace("'","\\'") + '"}').join(",")}]'`
                     let body = `{"__metadata": { "type": "SP.Data.ResourcePlanUserStateListItem" },"ResourceManagerUID": "${resMgrUid}"
                 ,"ResourceUID":${resourcesJSON}}`;
                     return this.http.post(url, body, options)
@@ -512,7 +504,9 @@ export class ResourcePlanUserStateService {
 
         // let body = new URLSearchParams();
 
-        const body = `method=PwaAddResourcePlanCommand&puid=${project.projUid}&resuid=${resource.resUid}&resName=${resource.resName}&projname=${project.projName}&fromDate=${this.getDateFormatString(new Date(fromDate))}&toDate=${this.getDateFormatString(new Date(toDate))}&timeScale=${this.getTimeScaleString(timeScale)}&workScale=${WorkUnits[workScale]}`
+
+        //change here in resName to make the request happy when there are apostrophe's in the resName... here we simply delete the apostrophe.
+        const body = `method=PwaAddResourcePlanCommand&puid=${project.projUid}&resuid=${resource.resUid}&resName=${resource.resName.replace("'","")}&projname=${project.projName}&fromDate=${this.getDateFormatString(new Date(fromDate))}&toDate=${this.getDateFormatString(new Date(toDate))}&timeScale=${this.getTimeScaleString(timeScale)}&workScale=${WorkUnits[workScale]}`
         let options = {
             headers,
             withCredentials: true
@@ -628,8 +622,8 @@ export class ResourcePlanUserStateService {
                     headers = headers.set('X-RequestDigest', digest)
 
 
-
-                    let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName + '"}').join(",")}]'`
+                    debugger
+                    let resourcesJSON = `'[${resources.map(t => '{"resUid":"' + t.resUid + '","resName":"' + t.resName.replace("'","")  + '"}').join(",")}]'`
                     headers = headers.set('IF-MATCH', '*')
                     headers = headers.set('X-HTTP-Method', 'MERGE')
                     let options = {

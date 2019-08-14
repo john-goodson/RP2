@@ -432,9 +432,9 @@ export class ResPlanListComponent implements OnInit {
             });
             this.matDlgSub = dialogRef.afterClosed().subscribe(result => {
                 this.confirmDialogResult = result;
-                debugger;
+                
                 if (result == "yes") {
-                    debugger
+                  
                     this._appSvc.mainFormDirty = false;
                     this.router.routeReuseStrategy.shouldReuseRoute = function () { return false };
                     this.router.isActive = function () { return false; }
@@ -708,7 +708,6 @@ export class ResPlanListComponent implements OnInit {
                 });
 
 
-
             console.log("dirty resPlans" + JSON.stringify(resourceplans))
             this._appSvc.loading(true);
             if (hideOnly == true) {
@@ -949,7 +948,7 @@ export class ResPlanListComponent implements OnInit {
             if ((event.currentTarget as HTMLInputElement).value && (event.currentTarget as HTMLInputElement).value.trim() != '')
                 (event.currentTarget as HTMLInputElement).value = new CellWorkUnitsPipe().transform((event.currentTarget as HTMLInputElement).value, this.workunits);
         }
-        debugger;
+    
         this._appSvc.setFormDirty(true);
     }
 

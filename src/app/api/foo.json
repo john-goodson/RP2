@@ -1,24 +1,62 @@
 {
-  "d": {
-    "results": [
-      {
-        "__metadata": {
-          "id": "http://foo.wingtip.com/PWA/_api/ProjectData/Assignments(AssignmentId=guid'bb80ea61-df1f-e811-80d7-00155dcd8a01',ProjectId=guid'e7808e36-588a-e711-80cc-00155d005a03')",
-          "uri": "http://foo.wingtip.com/PWA/_api/ProjectData/Assignments(AssignmentId=guid'bb80ea61-df1f-e811-80d7-00155dcd8a01',ProjectId=guid'e7808e36-588a-e711-80cc-00155d005a03')",
-          "type": "ReportingData.Assignment"
-        },
-        "ProjectId": "e7808e36-588a-e711-80cc-00155d005a03",
-        "ProjectName": "Centennial Hospital Urology Credentialing"
-      },
-      {
-        "__metadata": {
-          "id": "http://foo.wingtip.com/PWA/_api/ProjectData/Assignments(AssignmentId=guid'175acdf3-0629-e811-80d8-00155dcd8a01',ProjectId=guid'426102da-588a-e711-80cc-00155d005a03')",
-          "uri": "http://foo.wingtip.com/PWA/_api/ProjectData/Assignments(AssignmentId=guid'175acdf3-0629-e811-80d8-00155dcd8a01',ProjectId=guid'426102da-588a-e711-80cc-00155d005a03')",
-          "type": "ReportingData.Assignment"
-        },
-        "ProjectId": "426102da-588a-e711-80cc-00155d005a03",
-        "ProjectName": "Patient Experience ER"
-      }
-    ]
-  }
+  "__metadata": {
+    "type": "SP.Data.MapperUserStateListItem"
+  },
+  "AccountID": "ejz7102",
+  "ProjectUIDs":'[
+    {
+      "projUID": "a7b731c1-35e9-4d1e-968f-e1f978881c8f",
+      "projName": "project 22"
+    },
+    {
+      "projUID": "13e3aaef-ed5c-e711-80fc-0050568f78ef",
+      "projName": "adfkajdsfk"
+    },
+    {
+      "projUID": "c756989b-ce81-e711-80ff-0050568f1156",
+      "projName": "project 3"
+    }
+  ]'
+}
+
+{
+  "__metadata": {
+    "type": "SP.Data.MapperUserStateListItem"
+  },
+  "AccountID": "ejz7102",
+  "ProjectUIDs":'[
+    {
+      "projUID": "6aaa4d3d-ffc2-e611-9229-a0b3cc2a2d73",
+      "projName": "1 Demo Project B"
+    },
+    {
+      "projUID": "27aefb32-4f00-4ff0-a923-6b18dd7b74a5",
+      "projName": "1 KLGM Test 1"
+    },
+    {
+      "projUID": "13e3aaef-ed5c-e711-80fc-0050568f78ef",
+      "projName": "1 KLGM Test 3"
+    }
+  ]'
+}
+//
+{
+  "__metadata": {
+    "type": "SP.Data.ResourcePlanUserStateListItem"
+  },
+  "AccountID": "ejz7102",
+  "ProjectUIDs":'[
+    {
+      "projUID": "a7b731c1-35e9-4d1e-968f-e1f978881c8f",
+      "projName": "Adams Shaniso project"
+    },
+    {
+      "projUID": "13e3aaef-ed5c-e711-80fc-0050568f78ef",
+      "projName": "Area 51 skunk 1"
+    },
+    {
+      "projUID": "c756989b-ce81-e711-80ff-0050568f1156",
+      "projName": "project 3334n"
+    }
+  ]'
 }

@@ -30,7 +30,7 @@ export class CachingInterceptorService implements HttpInterceptor {
   
   )
     ) {
-      debugger;
+    
       var projectsToInvalidateCache = this.getCacheDataToRemove(req);
       //this.cache = this.cache.map(c=>c.indexOf(`puid=${}`))
       projectsToInvalidateCache.forEach(project => {
@@ -47,7 +47,7 @@ export class CachingInterceptorService implements HttpInterceptor {
     requestsToCache.find(r=>req.body.indexOf('method=' + r) > -1)
 
     ) {
-      debugger;
+     
       isRequestToCache = true;
       // First, check the cache to see if this request exists.
       const cachedResponse = this.cache[req.urlWithParams + req.body] || null;
@@ -91,7 +91,7 @@ export class CachingInterceptorService implements HttpInterceptor {
  }
  else if(t.indexOf('method=PwaAddResourcePlanCommand') > -1)
  {
-   debugger;
+ 
   var puids = this.parseObjectFromUrlEncodedBody(req.body).puid
   allProjects = puids.split(',');
  }
@@ -102,7 +102,6 @@ export class CachingInterceptorService implements HttpInterceptor {
  var projectsToInvalidateCache = [].concat.apply([], allProjects);
  return projectsToInvalidateCache;
  
-
   }
   removeCachedData(project) {
     for (var key in this.cache) {
